@@ -43,6 +43,8 @@ export class AttributeChangeResolver  {
          */
         runtime['_appliedModifiers'] = runtime['_appliedModifiers'] || [];
 
+        const dirtyAttrIds = new Set<string>();
+
         /** 遍历每一条声明式属性变化 */
         for (const ch of changes) {
 
@@ -64,9 +66,14 @@ export class AttributeChangeResolver  {
 
             /** 记录用于后续 removeChanges */
             runtime['_appliedModifiers'].push({ prop, mod });
+            dirtyAttrIds.add(ch.attrId);
         }
 
-        owner?.refreshSpeedDirty?.();
+        if (owner?.refreshPropertyDirty) {
+            owner.refreshPropertyDirty(Array.from(dirtyAttrIds));
+        } else {
+            owner?.refreshSpeedDirty?.();
+        }
     }
 
     /**
@@ -81,11 +88,18 @@ export class AttributeChangeResolver  {
         if (!list || list.length === 0) return;
 
         /** 遍历列表，逐个移除 modifier */
+        const dirtyAttrIds = new Set<string>();
         for (const item of list) {
             item.prop.removeModifier(item.mod);
+            dirtyAttrIds.add(item.prop.propertyId);
         }
 
-        (runtime.owner as any)?.refreshSpeedDirty?.();
+        const owner = runtime.owner as any;
+        if (owner?.refreshPropertyDirty) {
+            owner.refreshPropertyDirty(Array.from(dirtyAttrIds));
+        } else {
+            owner?.refreshSpeedDirty?.();
+        }
     }
 
     private static createModifier(change: AttributeChange) {
