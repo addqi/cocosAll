@@ -1,6 +1,8 @@
 import { _decorator, Component, Node,Animation, Material, SpriteFrame, Sprite, RigidBody2D } from 'cc';
 import { RoleStateBase } from './RoleStateBase';
 import { RoleAnim, RoleState } from '../GlobalEnum/Enum';
+import { RolePropertyMgr } from './RolePropertyMgr';
+import { BuffMgr } from '../Buff/BuffMgr';
 const { ccclass, property } = _decorator;
 
 @ccclass('RoleMgr')
@@ -15,6 +17,10 @@ export class RoleMgr extends Component {
     public anim: Animation;
     @property(RigidBody2D)
     public rightBody:RigidBody2D;
+
+    private roleProMgr:RolePropertyMgr;
+    private rolebuffMgr:BuffMgr;
+
     private material: Material;
     /**当前状态 */
     private currentState: RoleStateBase;
@@ -26,10 +32,11 @@ export class RoleMgr extends Component {
 
     protected onLoad(): void {
         this.initState();
+        this.roleProMgr = this.node.getComponent(RolePropertyMgr);
+        this.rolebuffMgr = new BuffMgr(this.roleProMgr);
         this._instance = this;
-        this.material = this.anim.node.getComponent(Sprite).sharedMaterial!;
+        this.material = this.anim.node.getComponent(Sprite)!.sharedMaterial!;
     }
-
     start() {
         //初始化状态
         this.currentState = this.stateMap.get(RoleState.IDLE);
@@ -54,7 +61,7 @@ export class RoleMgr extends Component {
     }
 
     update(deltaTime: number) {
-
+        this.rolebuffMgr?.update(deltaTime);
     }
 
     //动画管理
@@ -63,6 +70,14 @@ export class RoleMgr extends Component {
             return;
         }
         this.anim.play(anim.toString());
+    }
+
+    public getBuffMgr(): BuffMgr {
+        return this.rolebuffMgr;
+    }
+
+    public getPropertyMgr(): RolePropertyMgr {
+        return this.roleProMgr;
     }
 }
 

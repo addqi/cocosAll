@@ -15,6 +15,7 @@ export class RolePropertyMgr extends Component {
     //速度
 
     public roleSpeed:ProPertyMgr = new ProPertyMgr();
+    public uid: string = 'RolePropertyMgr';
 
     protected onLoad(): void {
         this.roleSpeed.register(new BaseValueProperty(100,SpeedProId.speedBaseValue));
@@ -54,6 +55,10 @@ export class RolePropertyMgr extends Component {
     public refreshSpeedDirty() {
         this.roleSpeed.getProperty(SpeedProId.speedTotalValue)?.makeDirty();
         this.roleSpeed.getProperty(SpeedProId.MoveSpeed)?.makeDirty();
+    }
+
+    public getPropertyManager() {
+        return this.roleSpeed;
     }
 }
 
