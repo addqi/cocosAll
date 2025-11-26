@@ -27,7 +27,7 @@ export class RoleMgr extends Component {
     /**状态映射 */
     private stateMap: Map<RoleState, RoleStateBase> = new Map();
     //运动相关参数
-    public  readonly moveSpeed: number = 100;
+    public  moveSpeed: number = 100;
 
 
     protected onLoad(): void {

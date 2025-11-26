@@ -99,7 +99,7 @@ export class testProperty extends Component {
     // 选择数值 → 添加 Buff
     //===============================
     private onSelectBuffValue(value: number) {
-        const prop = this.roleMgr.roleSpeed.getProperty(this._selectedPropertyId);
+        const prop = this.roleMgr.getPropertyManager(this._selectedPropertyId);
         if (!prop) {
             console.error("未找到属性：" + this._selectedPropertyId);
             return;

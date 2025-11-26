@@ -1,0 +1,41 @@
+{
+  "attribute": "CritDamage",
+  "valueNodes": [
+    {
+      "id": "CritDamage-Value-Config",
+      "value": 0.5,
+      "tag": "base"
+    },
+    {
+      "id": "CritDamage-Value-Buff",
+      "value": 0,
+      "tag": "add-buff"
+    },
+    {
+      "id": "CritDamage-Value-Other",
+      "value": 0,
+      "tag": "add-other"
+    },
+    {
+      "id": "CritDamage-Mul-Buff",
+      "value": 0,
+      "tag": "mul-buff"
+    },
+    {
+      "id": "CritDamage-Mul-Other",
+      "value": 0,
+      "tag": "mul-other"
+    }
+  ],
+  "computeNodes": [
+    {
+      "id": "CritDamage-Value",
+      "expression": "{{CritDamage-Value-Config}} + {{CritDamage-Value-Buff}} + {{CritDamage-Value-Other}}"
+    },
+    {
+      "id": "CritDamage",
+      "expression": "{{CritDamage-Value}} * (1 + {{CritDamage-Mul-Buff}} + {{CritDamage-Mul-Other}})"
+    }
+  ]
+}
+

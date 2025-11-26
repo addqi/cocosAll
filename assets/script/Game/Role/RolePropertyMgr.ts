@@ -13,7 +13,6 @@ export class RolePropertyMgr extends Component {
     public speedLabel:Label = null;
     public propertyManager: GeneralPropertyMgr = new GeneralPropertyMgr();
     public uid: string = 'RolePropertyMgr';
-
     protected onLoad(): void {
         this.propertyManager.initializeFromConfigs();
     }
@@ -39,8 +38,8 @@ export class RolePropertyMgr extends Component {
         this.propertyManager.markDirty(attrIds);
     }
 
-    public getPropertyManager() {
-        return this.propertyManager;
+    public getPropertyManager(id: string) {
+        return this.propertyManager.getProperty(id);
     }
 }
 
