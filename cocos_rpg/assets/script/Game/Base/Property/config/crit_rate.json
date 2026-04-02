@@ -1,0 +1,41 @@
+{
+  "attribute": "CritRate",
+  "valueNodes": [
+    {
+      "id": "CritRate-Value-Config",
+      "value": 0.1,
+      "tag": "base"
+    },
+    {
+      "id": "CritRate-Value-Buff",
+      "value": 0,
+      "tag": "add-buff"
+    },
+    {
+      "id": "CritRate-Value-Other",
+      "value": 0,
+      "tag": "add-other"
+    },
+    {
+      "id": "CritRate-Mul-Buff",
+      "value": 0,
+      "tag": "mul-buff"
+    },
+    {
+      "id": "CritRate-Mul-Other",
+      "value": 0,
+      "tag": "mul-other"
+    }
+  ],
+  "computeNodes": [
+    {
+      "id": "CritRate-Value",
+      "expression": "{{CritRate-Value-Config}} + {{CritRate-Value-Buff}} + {{CritRate-Value-Other}}"
+    },
+    {
+      "id": "CritRate",
+      "expression": "{{CritRate-Value}} * (1 + {{CritRate-Mul-Buff}} + {{CritRate-Mul-Other}})"
+    }
+  ]
+}
+

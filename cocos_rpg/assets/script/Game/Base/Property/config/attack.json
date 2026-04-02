@@ -1,0 +1,41 @@
+{
+  "attribute": "Attack",
+  "valueNodes": [
+    {
+      "id": "Attack-Value-Config",
+      "value": 50,
+      "tag": "base"
+    },
+    {
+      "id": "Attack-Value-Buff",
+      "value": 0,
+      "tag": "add-buff"
+    },
+    {
+      "id": "Attack-Value-Other",
+      "value": 0,
+      "tag": "add-other"
+    },
+    {
+      "id": "Attack-Mul-Buff",
+      "value": 0,
+      "tag": "mul-buff"
+    },
+    {
+      "id": "Attack-Mul-Other",
+      "value": 0,
+      "tag": "mul-other"
+    }
+  ],
+  "computeNodes": [
+    {
+      "id": "Attack-Value",
+      "expression": "{{Attack-Value-Config}} + {{Attack-Value-Buff}} + {{Attack-Value-Other}}"
+    },
+    {
+      "id": "Attack",
+      "expression": "{{Attack-Value}} * (1 + {{Attack-Mul-Buff}} + {{Attack-Mul-Other}})"
+    }
+  ]
+}
+
