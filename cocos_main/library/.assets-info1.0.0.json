@@ -1,0 +1,3191 @@
+{
+  "version": "1.0.0",
+  "map": {
+    "E:\\cocos\\project\\CrazyGame\\assets\\scene.scene.meta": {
+      "time": 1743991009135.4556
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\scene.scene": {
+      "time": 1745395287462.402,
+      "uuid": "138a8b25-1002-4199-a8f9-741864e93df7"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script.meta": {
+      "time": 1743991796662.9692
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script": {
+      "time": 1745380308465.864,
+      "uuid": "f10cec0f-8a9b-4138-a1a8-4df716003c59"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Map.ts.meta": {
+      "time": 1743993588899.2234
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Map.ts": {
+      "time": 1745204145729.7292,
+      "uuid": "6709d1d4-40a7-43e4-92dd-9d4540e96da8"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources.meta": {
+      "time": 1744076030405.0251
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources": {
+      "time": 1745203381623.2307,
+      "uuid": "ba38d517-647d-4e7f-beed-8f3fa4d3c7e2"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab.meta": {
+      "time": 1743991785752.329
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\UI.meta": {
+      "time": 1743991821952.1008
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab": {
+      "time": 1745299817379.714,
+      "uuid": "17baa526-37a4-4b2c-96b1-d1b8e1cb9ca8"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\UI": {
+      "time": 1744966205868.127,
+      "uuid": "4ffb9b22-4992-4a9c-a3aa-6b2486ed1624"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\UI\\GameOverPanel.prefab.meta": {
+      "time": 1743993622917.161
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\UI\\GameOverPanel.prefab": {
+      "time": 1745199544026.8032,
+      "uuid": "d1976380-1cdd-44c9-bb34-7173751ef3e5"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\UI\\GamePanel.prefab.meta": {
+      "time": 1743993620461.135
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\UI\\GamePanel.prefab": {
+      "time": 1745299189986.2712,
+      "uuid": "bda03c41-db3f-4dba-ae6e-3743e6770bde"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\UI\\HomePanel.prefab.meta": {
+      "time": 1743993625261.2788
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\UI\\HomePanel.prefab": {
+      "time": 1745201643297.725,
+      "uuid": "3db6b783-1812-462f-a5c5-0f37957bb771"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager.meta": {
+      "time": 1744105001077.0647
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager": {
+      "time": 1745300881577.8672,
+      "uuid": "9388f8fc-fb32-4d65-b551-d5b40a99b850"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\Uimanager.ts.meta": {
+      "time": 1744105016271.1172
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\Uimanager.ts": {
+      "time": 1745286205983.0608,
+      "uuid": "23d46c41-a180-4c80-840f-cbef1edbdde7"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\player.meta": {
+      "time": 1744940873550.8828
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\player": {
+      "time": 1744940965832.627,
+      "uuid": "c0ec88c2-3f3d-4af6-8ae6-024fd55675de"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\player\\player.prefab.meta": {
+      "time": 1744940965837.6265
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\player\\player.prefab": {
+      "time": 1745199337721.2515,
+      "uuid": "a750e725-fbe7-4791-ab12-a07db35b46b2"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\GameManager.ts.meta": {
+      "time": 1744941297719.8442
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\GameManager.ts": {
+      "time": 1745388197880.1643,
+      "uuid": "3ba704d9-ee25-44ef-9b74-26647506bcab"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res.meta": {
+      "time": 1744966141141.6157
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res": {
+      "time": 1745200927943.7402,
+      "uuid": "cd4d0e93-84f8-424c-acb7-e4c6fae417d7"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res.meta": {
+      "time": 1744966283451.9763
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game.meta": {
+      "time": 1700459826000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map.meta": {
+      "time": 1701142534000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model.meta": {
+      "time": 1725976478079.6936
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome.meta": {
+      "time": 1702022446000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01.meta": {
+      "time": 1702281718000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe.meta": {
+      "time": 1701142534000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\role.meta": {
+      "time": 1725976478080.1995
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\Materials_axe01.meta": {
+      "time": 1701142534000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\role\\role01.meta": {
+      "time": 1725976478081.2024
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game": {
+      "time": 1744966283462.9778,
+      "uuid": "927d5655-1194-4b8d-81c7-3e819cebaa42"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map": {
+      "time": 1744966283423.976,
+      "uuid": "54b6adee-4cb4-4df6-b45c-f74d30360030"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model": {
+      "time": 1744966283400.9763,
+      "uuid": "2ac90a50-7155-44aa-8d83-fd8514723b74"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome": {
+      "time": 1744966283394.8132,
+      "uuid": "50f8f4e8-90fb-4c84-b580-43ab78acf927"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res": {
+      "time": 1744966283471.9763,
+      "uuid": "12e83e2b-6629-4c5e-ad57-7bbe4143d514"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01": {
+      "time": 1744966283340.2246,
+      "uuid": "9ee6734c-3b74-4d75-8a1e-5c5f6e273061"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe": {
+      "time": 1744966283414.977,
+      "uuid": "06977e58-f625-427a-81af-2fb22224c056"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\role": {
+      "time": 1744966283398.976,
+      "uuid": "71c24bdb-f0ca-46b6-9847-e3a3bc55e766"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\Materials_axe01": {
+      "time": 1744966283416.976,
+      "uuid": "e2e90dae-7189-47d9-b94a-3197b61b4568"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\role\\role01": {
+      "time": 1744966283399.9763,
+      "uuid": "866c9897-e8d8-443e-b4ed-1113e616be6a"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_df_x.png.meta": {
+      "time": 1725456366773.346
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_dk.png.meta": {
+      "time": 1725456366771.3447
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_jdt1.png.meta": {
+      "time": 1725456366807.254
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_jdt1_df.png.meta": {
+      "time": 1725456366838.744
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_jdt1_wf.png.meta": {
+      "time": 1725456366822.849
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_w.png.meta": {
+      "time": 1725456366834.056
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_w_jz1.png.meta": {
+      "time": 1725456366830.2068
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_w_jz2.png.meta": {
+      "time": 1725456366868.6787
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_xz.png.meta": {
+      "time": 1725456366866.6746
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq.png.meta": {
+      "time": 1725456366877.417
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq1.png.meta": {
+      "time": 1725456366886.255
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq2.png.meta": {
+      "time": 1725456366881.714
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq4.png.meta": {
+      "time": 1725456366911.745
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_wf_txk.png.meta": {
+      "time": 1725456366907.7444
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_wf_x.png.meta": {
+      "time": 1725456366924.1409
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_wzbg.png.meta": {
+      "time": 1725456366917.4468
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.FBX.meta": {
+      "time": 1743991421545.0833
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.jpg.meta": {
+      "time": 1725538349739.7039
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.mtl.meta": {
+      "time": 1701142544000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.prefab.meta": {
+      "time": 1725538349727.6284
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\auto-atlas.pac.meta": {
+      "time": 1701142544000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\commonIconGold.png.meta": {
+      "time": 1725455464720.7468
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox01.png.meta": {
+      "time": 1725455464714.204
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox02.png.meta": {
+      "time": 1725455464717.7427
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox03.png.meta": {
+      "time": 1725455464721.7466
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox04.png.meta": {
+      "time": 1725455464751.8743
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxBlue.png.meta": {
+      "time": 1725455464759.5513
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxIcon01.png.meta": {
+      "time": 1725455464760.931
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxOrange.png.meta": {
+      "time": 1725455464777.3855
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxTips.png.meta": {
+      "time": 1725455464779.388
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBtnBlue.png.meta": {
+      "time": 1725455464794.2402
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBtnPlay.png.meta": {
+      "time": 1725455464795.917
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBtnRed.png.meta": {
+      "time": 1725455464807.4072
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont01.png.meta": {
+      "time": 1725455464820.723
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont02.png.meta": {
+      "time": 1725455464829.8787
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont03.png.meta": {
+      "time": 1725455464838.364
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont04.png.meta": {
+      "time": 1725455464839.3647
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFontArmy.png.meta": {
+      "time": 1725455464849.8787
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFontGift.png.meta": {
+      "time": 1725455464859.3281
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFontLand.png.meta": {
+      "time": 1725455464868.5422
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIcon01.png.meta": {
+      "time": 1725455464883.008
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIcon02.png.meta": {
+      "time": 1725455464884.007
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIcon03.png.meta": {
+      "time": 1725455464894.3723
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIconArrow.png.meta": {
+      "time": 1725455464901.398
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIconChange.png.meta": {
+      "time": 1725455464908.4136
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIconUp.png.meta": {
+      "time": 1725455464920.6772
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImg01.png.meta": {
+      "time": 1725455464929.8838
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImg02.png.meta": {
+      "time": 1725455464937.242
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImg03.png.meta": {
+      "time": 1725455464942.5745
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImgStar01.png.meta": {
+      "time": 1725455464957.61
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImgStar02.png.meta": {
+      "time": 1725455464971.7607
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\QQ截图20240411192129.png.meta": {
+      "time": 1725455567423.6597
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\yb_bg.png.meta": {
+      "time": 1725455464979.6506
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\zljq.png.meta": {
+      "time": 1725455464989.101
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\zlts.png.meta": {
+      "time": 1725455464991.1057
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\DefaultMaterial.mtl.meta": {
+      "time": 1702281972000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01.jpg.meta": {
+      "time": 1725976476337.3357
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01.mtl.meta": {
+      "time": 1702281974000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01.prefab.meta": {
+      "time": 1725976476327.6633
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01All.FBX.meta": {
+      "time": 1744966284685.9768
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe.prefab.meta": {
+      "time": 1728655289565.0854
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe01.FBX.meta": {
+      "time": 1727501357349.9177
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe01.jpg.meta": {
+      "time": 1727501357160.405
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe02.jpg.meta": {
+      "time": 1727501357170.7637
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe03.jpg.meta": {
+      "time": 1727501357253.1357
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\blue.mtl.meta": {
+      "time": 1701142544000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\red.mtl.meta": {
+      "time": 1701142544000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\yellow.mtl.meta": {
+      "time": 1701142544000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\Materials_axe01\\Material #4.mtl.meta": {
+      "time": 1701142544000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\role\\role01\\DefaultMaterial.mtl.meta": {
+      "time": 1725976478091.7292
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_df_x.png": {
+      "time": 1678858458000,
+      "uuid": "f24a4cec-eb27-4a86-8387-42656fb2246f"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_dk.png": {
+      "time": 1678858458000,
+      "uuid": "25a27e25-28ba-468d-85bf-784ee806b20c"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_jdt1_df.png": {
+      "time": 1678858458000,
+      "uuid": "b6986b3a-c766-47fc-a096-9ff0e2063650"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_jdt1.png": {
+      "time": 1678858458000,
+      "uuid": "0b2bea29-2de9-482f-91b8-cc3b41fd8577"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_jdt1_wf.png": {
+      "time": 1678858458000,
+      "uuid": "9d360602-a419-423c-9127-d9d8b7fa1acd"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_w.png": {
+      "time": 1678858458000,
+      "uuid": "d4941e17-44f8-4360-9902-bef57c3a949d"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_w_jz1.png": {
+      "time": 1678858458000,
+      "uuid": "a74f5f3e-e01a-46bf-b332-ec3f2a28db11"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_w_jz2.png": {
+      "time": 1678858458000,
+      "uuid": "e6ec0b0f-9050-4bd5-aebc-628a20338db8"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_xz.png": {
+      "time": 1678858458000,
+      "uuid": "1b0b6ef2-31b2-4d2b-b413-210edb9ef3f6"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq.png": {
+      "time": 1678858458000,
+      "uuid": "4449f7be-d327-4351-acb1-4fcf46144c5f"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq1.png": {
+      "time": 1678858458000,
+      "uuid": "b7b3b219-4a82-4cff-bec4-ce4940d46209"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq2.png": {
+      "time": 1678858458000,
+      "uuid": "bbedc6fe-7e54-4ddd-9ba6-9b59485846ac"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq4.png": {
+      "time": 1678858458000,
+      "uuid": "a2bd22fc-6d3f-4cdd-a8e9-c8f7361c46f2"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_wf_txk.png": {
+      "time": 1678858458000,
+      "uuid": "9b5c110f-2b57-4d63-bd44-fdb78fcecde0"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_wf_x.png": {
+      "time": 1678858458000,
+      "uuid": "c32912a0-2783-481a-ac57-055eb1673771"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.mtl": {
+      "time": 1701142544000,
+      "uuid": "b7d6d595-6cd1-43c6-8bc7-3a92644870b9"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\auto-atlas.pac": {
+      "time": 1701077984000,
+      "uuid": "4d6ee63a-6639-46fc-afbd-7372264a094f"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.prefab": {
+      "time": 1725538349624.0283,
+      "uuid": "14d9011a-7bd9-4237-934f-282b076102dd"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.jpg": {
+      "time": 1701077984000,
+      "uuid": "27e1fcb7-5016-4252-8c43-ac9c1c97308e"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_wzbg.png": {
+      "time": 1678858458000,
+      "uuid": "f77b15cd-35cb-4284-a328-7380d2042a1b"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\commonIconGold.png": {
+      "time": 1701077984000,
+      "uuid": "606ad998-f401-43a1-9967-4019b040205f"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox01.png": {
+      "time": 1701077984000,
+      "uuid": "1bca1cf7-cfbc-4c21-8674-adcd2c6fa657"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox02.png": {
+      "time": 1701077984000,
+      "uuid": "adf744bd-cbc7-4aee-b755-a6ef0e7d2d96"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox03.png": {
+      "time": 1701077984000,
+      "uuid": "7cef2bc0-9406-4ba0-869e-2a433766b8f2"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.FBX": {
+      "time": 1701077984000,
+      "uuid": "c26a63b9-5039-47ae-b027-ef2bce881f6f"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox04.png": {
+      "time": 1701077984000,
+      "uuid": "e634ffea-cf56-4317-a0d2-cf2ac3464aa1"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxBlue.png": {
+      "time": 1701077984000,
+      "uuid": "ecfe2010-545c-42a7-a63a-23bdc560c462"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxIcon01.png": {
+      "time": 1701077984000,
+      "uuid": "05df99ff-3532-4226-9a2a-bed6b836b667"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxOrange.png": {
+      "time": 1701077984000,
+      "uuid": "8d467a72-ef74-4a03-9528-d8de40dd433a"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxTips.png": {
+      "time": 1701077984000,
+      "uuid": "c13da6ba-cb45-43cf-bbbe-8ca7c8a8c608"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBtnBlue.png": {
+      "time": 1701077984000,
+      "uuid": "0cc44495-e0d3-4ba0-a6f0-32c8befc4643"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBtnPlay.png": {
+      "time": 1701077984000,
+      "uuid": "255fbd0c-7070-4597-85cd-976bff2fa6bc"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBtnRed.png": {
+      "time": 1701077984000,
+      "uuid": "c2eab001-d2d1-47d6-87e4-fc70bcd1470d"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont01.png": {
+      "time": 1701077984000,
+      "uuid": "76840a0a-07a7-4dfe-a4bc-52fe764ec310"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont02.png": {
+      "time": 1701077984000,
+      "uuid": "fa7605fb-c67a-447b-a054-3472cc897082"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont03.png": {
+      "time": 1701077984000,
+      "uuid": "10d9cdc1-c4cd-4922-bbbb-595bb40f3393"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont04.png": {
+      "time": 1701077984000,
+      "uuid": "a7082503-d61e-489e-9838-364dbdcf4488"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFontArmy.png": {
+      "time": 1701077984000,
+      "uuid": "d1f428a9-5b2f-4831-8ed9-c7a3cde88ccb"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFontGift.png": {
+      "time": 1701077984000,
+      "uuid": "cea613fa-4dad-4451-b442-ce39c0126d91"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFontLand.png": {
+      "time": 1701077984000,
+      "uuid": "58ac0178-7b38-4c25-a4dd-c3d10a374d50"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIcon02.png": {
+      "time": 1701077984000,
+      "uuid": "43abc334-82eb-44d0-8d29-c016ccc9857f"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIcon01.png": {
+      "time": 1701077984000,
+      "uuid": "aee5210e-5ffa-4bb9-9168-4e02ed596035"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIcon03.png": {
+      "time": 1701077984000,
+      "uuid": "968851c1-9d76-4f87-9cff-55dda356dfdb"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIconArrow.png": {
+      "time": 1701077984000,
+      "uuid": "b8cd9104-b7f9-44da-aeb4-36a4b3626d1a"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIconChange.png": {
+      "time": 1701077984000,
+      "uuid": "f7af29dc-f6a9-4b15-899b-b6d4914f6a79"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIconUp.png": {
+      "time": 1701077984000,
+      "uuid": "ff1f2145-59d9-494d-a2d1-cffde5048b85"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImg01.png": {
+      "time": 1701077984000,
+      "uuid": "5a050741-9332-481f-9ee7-84f9f4101c61"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImg02.png": {
+      "time": 1701077984000,
+      "uuid": "392a6523-8ac5-401c-96b1-67c552a9c25e"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImg03.png": {
+      "time": 1701077984000,
+      "uuid": "4cf5f76b-70b6-4642-ad61-4c967437b3b2"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImgStar01.png": {
+      "time": 1701077984000,
+      "uuid": "87204ad5-5a92-4ace-8513-cd8142d6124c"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImgStar02.png": {
+      "time": 1701077984000,
+      "uuid": "b1a75ab1-09f0-4c5d-97bc-f20fcbec5285"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\DefaultMaterial.mtl": {
+      "time": 1702281972000,
+      "uuid": "99988e8e-d9b6-456c-bae0-daa95f0b5fc5"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\yb_bg.png": {
+      "time": 1678858458000,
+      "uuid": "adc8e40b-26cf-42c7-a3d3-e033cbc328ad"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01.mtl": {
+      "time": 1703040126000,
+      "uuid": "6826b480-6300-444d-95a3-9e27a0c476a3"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\zljq.png": {
+      "time": 1703313860000,
+      "uuid": "9798df0f-94ea-4143-a765-d9a625604e0f"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\QQ截图20240411192129.png": {
+      "time": 1712834498000,
+      "uuid": "86092fa3-dab3-468a-81ff-270dcf2e4ecd"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01.prefab": {
+      "time": 1725976476222.1482,
+      "uuid": "e5d34000-3a5d-480f-be9a-f472b070f764"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe.prefab": {
+      "time": 1745299948461.6504,
+      "uuid": "ca3eb095-c22b-47a0-b413-1040801b2aad"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\zlts.png": {
+      "time": 1702478706000,
+      "uuid": "5b9f72cb-e9a1-4a02-afd2-557977fc8ee6"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01.jpg": {
+      "time": 1702281718000,
+      "uuid": "36487bbd-7df4-45a8-951b-92dd9faa9300"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe01.jpg": {
+      "time": 1701077984000,
+      "uuid": "e5620139-8d9f-4f1b-9931-69dffa9dfdc7"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\blue.mtl": {
+      "time": 1701142544000,
+      "uuid": "923fe17b-a36b-4b88-9f79-0feb317fb9f0"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\model.meta": {
+      "time": 1744966284131.9763
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role.meta": {
+      "time": 1744966284132.9763
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role\\role01.meta": {
+      "time": 1744966284133.9763
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role\\role01\\DefaultMaterial.mtl.meta": {
+      "time": 1744966284142.9785
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe02.jpg": {
+      "time": 1701077984000,
+      "uuid": "632ab24b-8ec7-412a-8ffa-af09e50a24f5"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe03.jpg": {
+      "time": 1701077984000,
+      "uuid": "25598e11-a3ce-4000-b46f-d1198560e593"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\red.mtl": {
+      "time": 1701142544000,
+      "uuid": "86454e1c-2489-4b8f-815e-344b19c89015"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\yellow.mtl": {
+      "time": 1701142544000,
+      "uuid": "99c5004a-62ea-4949-86ee-6c5fbfc9cf1c"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\Materials_axe01\\Material #4.mtl": {
+      "time": 1701142544000,
+      "uuid": "57d8dff5-4543-4864-afa6-2c5c173adb74"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\role\\role01\\DefaultMaterial.mtl": {
+      "time": 1725976477500.0503,
+      "uuid": "959becee-74e1-4de5-af45-4e2beff1fe77"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\model": {
+      "time": 1744966284054.9763,
+      "uuid": "2b8d06ef-36af-46e2-bae4-ff1900388017"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role": {
+      "time": 1744966284054.9763,
+      "uuid": "d6a512be-6318-47c8-a3df-790f98d854ae"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role\\role01": {
+      "time": 1744966284054.9763,
+      "uuid": "b0b96235-bf62-4131-a229-6997f7d5dc22"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role\\role01\\DefaultMaterial.mtl": {
+      "time": 1744966284052.9763,
+      "uuid": "1ea5ddd7-78ae-4c41-af09-53972894acd1"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01All.FBX": {
+      "time": 1702281718000,
+      "uuid": "36dc4ba3-93f3-43b1-898b-46e9b392a617"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe01.FBX": {
+      "time": 1701077984000,
+      "uuid": "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance.meta": {
+      "time": 1701142534000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card.meta": {
+      "time": 1701142534000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\auto-atlas.pac.meta": {
+      "time": 1701142544000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceBoxGet.png.meta": {
+      "time": 1725460836369.224
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceFontLose.png.meta": {
+      "time": 1725460836360.6826
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceFontWin.png.meta": {
+      "time": 1725460836357.6167
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceIconGet.png.meta": {
+      "time": 1725460836362.683
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceIconPlay.png.meta": {
+      "time": 1725460836365.6829
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceIconShare.png.meta": {
+      "time": 1725460836414.7986
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceImgLose.png.meta": {
+      "time": 1725460836415.8
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceImgWin.png.meta": {
+      "time": 1725460836415.8
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceLightWin.png.meta": {
+      "time": 1725460836429.312
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\1.png.meta": {
+      "time": 1725456953214.217
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\2.png.meta": {
+      "time": 1725456953212.203
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\3.png.meta": {
+      "time": 1725456953213.71
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\4.png.meta": {
+      "time": 1725456953215.2202
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\1.jpg.meta": {
+      "time": 1725456967033.238
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\auto-atlas.pac.meta": {
+      "time": 1678858458000
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\gq.png.meta": {
+      "time": 1725456366770.3452
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_df_txk.png.meta": {
+      "time": 1725456366772.3455
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_df_hsszbg.png.meta": {
+      "time": 1725456366934.0967
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_df_hs_jdt1.png.meta": {
+      "time": 1725456366947.339
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_df_hs_jdt2.png.meta": {
+      "time": 1725456366952.3389
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_wf_lsszbg.png.meta": {
+      "time": 1725456366951.3396
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_wf_ls_jdt1.png.meta": {
+      "time": 1725456366954.8481
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_wf_ls_jdt2.png.meta": {
+      "time": 1725456366965.5713
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance": {
+      "time": 1744966283496.9773,
+      "uuid": "e00e2c13-cdd0-4232-ab4a-20ffe2afe53c"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card": {
+      "time": 1744966283469.9778,
+      "uuid": "55b5802b-15dd-4821-bd6a-308d5b697601"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\auto-atlas.pac": {
+      "time": 1701077984000,
+      "uuid": "6d9dc3e8-ac69-436d-b605-66d6ff4445b6"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceIconGet.png": {
+      "time": 1701077984000,
+      "uuid": "b0047db7-1809-43af-94e6-697a0b29808c"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceBoxGet.png": {
+      "time": 1701077984000,
+      "uuid": "dc434e02-b99f-424b-a725-3bedb1f259dd"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceFontLose.png": {
+      "time": 1701077984000,
+      "uuid": "22c44935-9fd7-49a2-a425-563170f4ec6e"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceFontWin.png": {
+      "time": 1701077984000,
+      "uuid": "0ee25003-051c-4945-b544-e524a6e35c43"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceIconPlay.png": {
+      "time": 1701077984000,
+      "uuid": "0ef6c17e-cad2-414f-adf1-3da73e5f64c5"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceIconShare.png": {
+      "time": 1701077984000,
+      "uuid": "f35f2cdc-3c2c-4f14-ae61-f049d7146618"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceImgLose.png": {
+      "time": 1701077984000,
+      "uuid": "f8302774-1404-4992-9302-8c368d8118f7"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceImgWin.png": {
+      "time": 1701077984000,
+      "uuid": "6a05c169-ade2-4379-9808-2398fa76a171"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\1.png": {
+      "time": 1701077984000,
+      "uuid": "42675dfa-1c18-4dd7-b431-bfcbc05ab187"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceLightWin.png": {
+      "time": 1701077984000,
+      "uuid": "065e7e5f-b004-426f-a950-b7c12b8f2e35"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\auto-atlas.pac": {
+      "time": 1678858458000,
+      "uuid": "18cf2df4-f9d1-4edf-9548-36746ff17bbf"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\3.png": {
+      "time": 1701077984000,
+      "uuid": "2b93fb67-7f48-4f6f-976e-7f818147d201"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\2.png": {
+      "time": 1701077984000,
+      "uuid": "404aa45b-ee0a-4ca0-bb45-01ef82272122"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\4.png": {
+      "time": 1701077984000,
+      "uuid": "5f51ad0b-62f3-4e9d-b643-ea735ca2a599"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\1.jpg": {
+      "time": 1701065922000,
+      "uuid": "c56d0552-c41e-4455-8219-62482acc590d"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\gq.png": {
+      "time": 1678858458000,
+      "uuid": "ac9fa0ae-6620-416b-b0fc-24fdf4d3f34f"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_df_txk.png": {
+      "time": 1678858458000,
+      "uuid": "57614a35-ee9d-4d08-9f96-13278fe4fbe2"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_df_hsszbg.png": {
+      "time": 1678858458000,
+      "uuid": "e0f07f35-5539-4772-8630-7d7325312104"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_df_hs_jdt1.png": {
+      "time": 1678858458000,
+      "uuid": "f06fcd47-e8f9-48e4-8bc1-fb92ac1c262c"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_df_hs_jdt2.png": {
+      "time": 1678858458000,
+      "uuid": "3a21ae1b-3698-49a6-84db-17813db64b46"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_wf_lsszbg.png": {
+      "time": 1678858458000,
+      "uuid": "10ab3b8f-602f-4575-bf71-3fad57f3c9b9"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_wf_ls_jdt2.png": {
+      "time": 1678858458000,
+      "uuid": "55e92d9d-2892-4533-a7f2-5b18fbabf415"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_wf_ls_jdt1.png": {
+      "time": 1678858458000,
+      "uuid": "5eca9fe2-b670-450d-a381-181e9fbfcd87"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scenes.meta": {
+      "time": 1725455421285.576
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scenes\\game.scene.meta": {
+      "time": 1725455421211.2415
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scenes": {
+      "time": 1744966284849.9763,
+      "uuid": "76551b8b-519f-492b-a5f2-3cf4def485f9"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scenes\\game.scene": {
+      "time": 1728659246692.552,
+      "uuid": "410a205d-6c91-4935-8e39-d50bfd1c7c6a"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts.meta": {
+      "time": 1725542772241.5442
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\battle.meta": {
+      "time": 1728653652915.655
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Main.ts.meta": {
+      "time": 1725542785225.3772
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager.meta": {
+      "time": 1725546706357.385
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel.meta": {
+      "time": 1725978432678.479
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\battle\\Fighter.ts.meta": {
+      "time": 1728652351340.2368
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\battle\\FightetModel.ts.meta": {
+      "time": 1728653684969.115
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\BattleManager.ts.meta": {
+      "time": 1726885285192.4092
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\CardManager.ts.meta": {
+      "time": 1726886128973.1604
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\ConfigManager.ts.meta": {
+      "time": 1726147400353.493
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\FigthManager.ts.meta": {
+      "time": 1727502536407.6057
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\GameManager.ts.meta": {
+      "time": 1725976874029.941
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\UiManager.ts.meta": {
+      "time": 1725546706358.385
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel\\Card.ts.meta": {
+      "time": 1726887752555.0066
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel\\GamePanel.ts.meta": {
+      "time": 1725978450340.6184
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel\\HomePanel.ts.meta": {
+      "time": 1725543431550.5278
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts": {
+      "time": 1744966517323.2722,
+      "uuid": "6c49443e-55b8-42ef-8b77-48789e2c6025"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\battle": {
+      "time": 1744966284873.0166,
+      "uuid": "39f0bb2d-e30a-4ff2-b475-65d2583e8af3"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager": {
+      "time": 1744966284869.9763,
+      "uuid": "c3b9e73b-d839-4ae0-bd3e-14ce5deef131"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel": {
+      "time": 1744966284877.9763,
+      "uuid": "d88002bb-7a6a-4942-aec3-d472fc9b4eb6"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Main.ts": {
+      "time": 1728656245397.3792,
+      "uuid": "386eb11a-0b5c-4454-bd9e-cef960253994"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\battle\\Fighter.ts": {
+      "time": 1728999212573.8936,
+      "uuid": "de9e6ae2-009b-4c75-96d1-79c850812d36"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\battle\\FightetModel.ts": {
+      "time": 1728998632988.98,
+      "uuid": "c544e9ee-7679-4685-a926-a742c0ed97c5"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\BattleManager.ts": {
+      "time": 1745198925297.65,
+      "uuid": "cc7ac203-efa5-4742-a1a5-17bfa09652cc"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\CardManager.ts": {
+      "time": 1745198922749.662,
+      "uuid": "fb37e9f4-789b-48bc-b9e3-39f9c5560e4d"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\ConfigManager.ts": {
+      "time": 1745198747958.124,
+      "uuid": "326ef957-0a61-40e5-b07a-fb2cd0e9fb0f"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\FigthManager.ts": {
+      "time": 1728654354515.677,
+      "uuid": "a57bf7f1-039d-40d6-b9a6-2df9f4d1b561"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\GameManager.ts": {
+      "time": 1745198849119.3618,
+      "uuid": "eb140a04-d75b-4cb4-ad9b-ce949b8d49de"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\UiManager.ts": {
+      "time": 1745201013510.1416,
+      "uuid": "8aae4394-5f73-44c1-a5de-313a0a8f90b1"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel\\Card.ts": {
+      "time": 1728650087869.4023,
+      "uuid": "0d500fb7-db45-4bf7-a13c-ede44ca3c4a6"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel\\GamePanel.ts": {
+      "time": 1745198963414.7024,
+      "uuid": "df34004d-3af6-4837-8e96-910546688f89"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel\\HomePanel.ts": {
+      "time": 1745198977994.8845,
+      "uuid": "40e85268-c4ef-471c-b564-ad22f5c0c555"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\utils.meta": {
+      "time": 1725978218705.7205
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\utils": {
+      "time": 1744966284863.976,
+      "uuid": "f3226f27-f081-45c5-8f7f-5464d5d5ac90"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\utils\\clientEvent.ts.meta": {
+      "time": 1744966284884.9763
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\utils\\clientEvent.ts": {
+      "time": 1745200916212.6626,
+      "uuid": "6ca8d966-89e0-4c99-bcba-64a7c0195e4a"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\utils\\csvManager.ts.meta": {
+      "time": 1726146598197.853
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\utils\\csvManager.ts": {
+      "time": 1727509815824.9084,
+      "uuid": "6105d19f-de85-4710-ab7a-752e8136433a"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\utils\\oneToMultiListener.ts.meta": {
+      "time": 1744966284884.9763
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\utils\\oneToMultiListener.ts": {
+      "time": 1745198893783.3784,
+      "uuid": "4db8f429-c30a-452d-8ff7-7db045e042c8"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\utils.meta": {
+      "time": 1744942245317.8467
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\utils": {
+      "time": 1745203429150.9382,
+      "uuid": "e8ddd625-24ed-40e0-8bed-b9d18e58b501"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\utils\\clientEvent.ts.meta": {
+      "time": 1745199461122.8828
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\utils\\clientEvent.ts": {
+      "time": 1728654157779.4756,
+      "uuid": "28d4c329-dcee-4326-9f65-a410a4f3a58b"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\utils\\oneToMultiListener.ts.meta": {
+      "time": 1745199461135.8389
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\utils\\oneToMultiListener.ts": {
+      "time": 1745199471180.8901,
+      "uuid": "96f91d70-dfa7-4d75-9052-c43195e57604"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour.meta": {
+      "time": 1745200931779.5735
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\datas.meta": {
+      "time": 1726146558374.9375
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab.meta": {
+      "time": 1725455730897.2996
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\fighter.meta": {
+      "time": 1727501370307.1714
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\player.meta": {
+      "time": 1725976713445.5735
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour": {
+      "time": 1744966284797.9766,
+      "uuid": "e33e6879-3f9d-4663-87ff-e93a9172036b"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\datas": {
+      "time": 1744966284798.9763,
+      "uuid": "b8125390-985e-4860-9aa7-03590c12a062"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab": {
+      "time": 1744966284794.9768,
+      "uuid": "e92f7876-5ea5-4256-b80a-516ecc0e2066"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\fighter": {
+      "time": 1744966284795.9763,
+      "uuid": "d5659fe4-f4ff-43bb-9dc6-56c126ced05d"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\player": {
+      "time": 1744966284793.9773,
+      "uuid": "4a656ea6-2a17-4035-98b4-f0edc768f070"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\solider.meta": {
+      "time": 1728653281283.1743
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\solider": {
+      "time": 1744966284789.9763,
+      "uuid": "62d875cf-2d32-4d87-8410-3436e34a479c"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\ui.meta": {
+      "time": 1725455751433.1855
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\ui": {
+      "time": 1744966284788.9763,
+      "uuid": "46ba6765-2e2f-4d31-83bf-e3d290e416ea"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\datas\\solider.csv.meta": {
+      "time": 1726146568087.5044
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\datas\\solider.csv": {
+      "time": 1703316326000,
+      "uuid": "ea434bf9-f5d7-4965-8316-4587be39ef8f"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\fighter\\Fighter.prefab.meta": {
+      "time": 1728653241922.8203
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\fighter\\Fighter.prefab": {
+      "time": 1728997822292.577,
+      "uuid": "8fe2a759-50bb-4f7f-aae7-a635b0a990f2"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\datas\\card.csv.meta": {
+      "time": 1726146568084.9727
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\datas\\card.csv": {
+      "time": 1727510306470.612,
+      "uuid": "3705c16c-fec8-4f10-a886-9eb4e0f1d835"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\solider\\buBing.prefab.meta": {
+      "time": 1728655269609.0725
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\solider\\buBing.prefab": {
+      "time": 1728658164687.7258,
+      "uuid": "5c4d00fc-19f7-4071-8a95-063a2b608da8"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\player\\player.prefab.meta": {
+      "time": 1725976732002.1152
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\player\\player.prefab": {
+      "time": 1725977302048.4673,
+      "uuid": "19d5f703-3abf-48d3-a5b7-cdb49e64b25a"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\ui\\GameOverPanel.prefab.meta": {
+      "time": 1725546729092.8545
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\ui\\GameOverPanel.prefab": {
+      "time": 1725546729089.6902,
+      "uuid": "1e52b0da-f6fe-4297-b31b-7c72540123e1"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\ui\\GamePanel.prefab.meta": {
+      "time": 1725546721031.3606
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\ui\\GamePanel.prefab": {
+      "time": 1728649015210.133,
+      "uuid": "a1ed0f8f-8cbe-4439-9f3c-4e4c9e18e121"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\ui\\HomePanel.prefab.meta": {
+      "time": 1725546716804.8088
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\res\\resour\\prefab\\ui\\HomePanel.prefab": {
+      "time": 1725546716799.3704,
+      "uuid": "77ec8154-df19-4754-ba1d-a03d82d22a5b"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Panel.meta": {
+      "time": 1745201891483.8975
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Panel": {
+      "time": 1745286565022.628,
+      "uuid": "2508b670-27a4-4bff-86c8-266dc7d2fe2e"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Panel\\GamePanel.ts.meta": {
+      "time": 1745200208857.4746
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Panel\\GamePanel.ts": {
+      "time": 1745392488468.776,
+      "uuid": "75b9e928-53c6-4e06-a650-603f0443aabc"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Panel\\HomePanel.ts.meta": {
+      "time": 1744094011820.103
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Panel\\HomePanel.ts": {
+      "time": 1745286235944.471,
+      "uuid": "a8b7282a-362f-433c-9b0d-7b34dd91dc07"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\datas.meta": {
+      "time": 1745203381628.2139
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\datas\\card.csv.meta": {
+      "time": 1745203381629.2104
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\datas\\solider.csv.meta": {
+      "time": 1745203381629.2104
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\datas": {
+      "time": 1745203381622.2346,
+      "uuid": "7247dc31-d618-43fc-ba03-ac57c59f5815"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\datas\\card.csv": {
+      "time": 1727510306470.612,
+      "uuid": "4ad1185a-ad33-47f6-8b04-d0ba0c30b8df"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\datas\\solider.csv": {
+      "time": 1703316326000,
+      "uuid": "0b699665-abc3-485b-85fd-f7543c295c12"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\utils\\csvManager.ts.meta": {
+      "time": 1745203429148.945
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\utils\\csvManager.ts": {
+      "time": 1727509815824.9084,
+      "uuid": "9d4f4bbf-04a1-453c-a993-3c2d874715bf"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\ConfigManager.ts.meta": {
+      "time": 1745203541058.6438
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\ConfigManager.ts": {
+      "time": 1745310728407.7212,
+      "uuid": "a22b8198-c606-484a-8cb4-28ee1494a172"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\BattleManager.ts.meta": {
+      "time": 1745205215632.825
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\BattleManager.ts": {
+      "time": 1745392426172.0505,
+      "uuid": "f772aa21-b817-44f2-bfbb-cb7fad9f4de5"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\CardManager.ts.meta": {
+      "time": 1745206817073.0613
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\CardManager.ts": {
+      "time": 1745314234212.58,
+      "uuid": "09689c81-19f9-40c6-8d28-a0dce8029d59"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Panel\\Card.ts.meta": {
+      "time": 1745286565023.625
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Panel\\Card.ts": {
+      "time": 1745379024730.0857,
+      "uuid": "380bb46e-9924-4be4-991c-b2e2a6381f28"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\solider.meta": {
+      "time": 1745299540758.411
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\solider": {
+      "time": 1745299987059.9712,
+      "uuid": "2be590bf-5b2d-4642-bb9d-c369391c3a4c"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\solider\\solider.prefab.meta": {
+      "time": 1745299987062.962
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\solider\\solider.prefab": {
+      "time": 1745392547989.0916,
+      "uuid": "480edf20-b7f3-4368-97e4-520c1c385567"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\FightManager.ts.meta": {
+      "time": 1745300881578.8635
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\manager\\FightManager.ts": {
+      "time": 1745388139700.2073,
+      "uuid": "eda9f59d-f055-44a5-a645-5d29e9f1112c"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\battle.meta": {
+      "time": 1745380117421.395
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\battle": {
+      "time": 1745380308465.864,
+      "uuid": "8fa9c0d7-e210-4aa7-80ef-33b37d94176f"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\battle\\SoliderModel.ts.meta": {
+      "time": 1745380146509.6675
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\battle\\SoliderModel.ts": {
+      "time": 1745392139637.7058,
+      "uuid": "1d346f44-ac8b-408f-a4b7-71bc60225f31"
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Solider.ts.meta": {
+      "time": 1745377383682.8413
+    },
+    "E:\\cocos\\project\\CrazyGame\\assets\\script\\Solider.ts": {
+      "time": 1745392598783.9631,
+      "uuid": "ad1fbcbd-d5f5-4b1d-a17b-0a4a88eeafea"
+    }
+  },
+  "missing": {
+    "d5de4aef-d678-478c-93ec-bc286759c05b": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\card",
+      "time": 1743990755389.1304,
+      "removeTime": 1743991705681
+    },
+    "2cd3a978-9069-4eb3-b589-937c51f5a7de": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\card\\1.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705681
+    },
+    "1664b42d-3071-4ede-a9d3-14cca80ff366": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\card\\2.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705681
+    },
+    "c0e1fbce-e461-4800-af6f-525c461cd5cb": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\card\\3.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705681
+    },
+    "71c4595c-76e2-446b-8c90-e2a936441a41": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\card\\4.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705681
+    },
+    "ff9c8c9c-32b3-4aff-8e6b-20a75fb18393": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game",
+      "time": 1743990755474.1516,
+      "removeTime": 1743991705682
+    },
+    "b01cc2ef-5a93-472f-b7cb-3f44b2fc1f22": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\gq.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705682
+    },
+    "b1501169-eb8c-4821-9b90-66c0232b681a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_df_txk.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705682
+    },
+    "bf04cd08-6230-404e-b4f0-497128a8fc1c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_df_x.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705682
+    },
+    "27777ff4-e6ef-4c75-b7c8-d45b48c38559": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_dk.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705682
+    },
+    "1c3c4389-f4c3-4cd8-8c45-2c752b21a455": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_jdt1.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705682
+    },
+    "710ae467-1d4a-428a-b659-a2312323c7b2": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_jdt1_df.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705682
+    },
+    "13d85314-964c-4e77-83ca-beaa6629d156": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_jdt1_wf.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705682
+    },
+    "45efe1e2-75bf-45b8-b5a0-8104785e9dab": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_kp_w.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705682
+    },
+    "40421ff6-e82e-43b7-99c6-e3f27c901cf0": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_kp_w_jz1.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705682
+    },
+    "9929c768-f65b-4ca6-8e67-0c44a1dd23fa": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_kp_w_jz2.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705682
+    },
+    "e87d0220-5a5d-4aa4-af1c-8bfc9c7fc295": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_kp_xz.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705682
+    },
+    "4d2ddb86-1505-4a27-bd61-d252c9b6c7e6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_tb_hq.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "7827554d-ee02-4c74-aa6c-c0dd861708b4": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_tb_hq1.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "0143a30b-6b4d-46d7-b562-d672c5f8fd1e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_tb_hq2.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "7e9ce98a-356b-4f8c-8280-fe6e552ce9db": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_tb_hq4.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "1443b50d-27bd-4f75-ab46-872d667741c2": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_wf_txk.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "8f57514e-150c-45d0-95ff-4420b26f25a7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_wf_x.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "a76ec734-e9bb-4d08-9306-5104e7e8abf0": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_wzbg.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "904c6abc-7bb1-46d6-a0a2-ae1e10638c7e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_df_hsszbg.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "7b65f753-e5b8-49e6-b1b7-01c7579c306c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_df_hs_jdt1.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "db2d1925-adf7-49e6-ac7b-822e1d600c0f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_df_hs_jdt2.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "3ffe842d-45ce-4560-87ed-14c86f92b9fd": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_wf_lsszbg.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "792c2cac-31b9-4bdb-b045-7672b42adce4": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_wf_ls_jdt1.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "6e3ef89b-3096-4df5-b869-79ce3598fcb9": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_wf_ls_jdt2.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705683
+    },
+    "3c7674ef-7beb-499a-9c99-9852ed4fcbf6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\1.jpg",
+      "time": 1701065922000,
+      "removeTime": 1743991705683
+    },
+    "b8125390-985e-4860-9aa7-03590c12a062": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\datas",
+      "time": 1744966284798.9763,
+      "removeTime": 1745200927945
+    },
+    "3705c16c-fec8-4f10-a886-9eb4e0f1d835": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\datas\\card.csv",
+      "time": 1727510306470.612,
+      "removeTime": 1745200927946
+    },
+    "ea434bf9-f5d7-4965-8316-4587be39ef8f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\datas\\solider.csv",
+      "time": 1703316326000,
+      "removeTime": 1745200927947
+    },
+    "3212ad55-96df-4cce-bfe2-419d8c1c9fd2": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model",
+      "time": 1743990755754.3777,
+      "removeTime": 1743991705968
+    },
+    "46a8c397-3f48-408a-b22f-cbbb89c08ac6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe",
+      "time": 1743990755757.368,
+      "removeTime": 1743991705968
+    },
+    "9178c73b-8008-4953-b585-ee516bd0a6bf": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role",
+      "time": 1743990755754.3777,
+      "removeTime": 1743991705968
+    },
+    "6e8ae5cb-dd27-495f-8685-bcb52fb6eaf3": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\Materials_axe01",
+      "time": 1743990755757.368,
+      "removeTime": 1743991705968
+    },
+    "afca5443-9889-4439-b6f6-b5cb1c9b9137": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role\\role01",
+      "time": 1743990755757.368,
+      "removeTime": 1743991705968
+    },
+    "1df21c83-d6a0-4b12-a22b-39bfd7c0a292": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\axe.prefab",
+      "time": 1728655301036.5637,
+      "removeTime": 1743991705968
+    },
+    "93586c5b-7fad-42d6-9571-54a9cd78e452": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\axe01.FBX",
+      "time": 1701077984000,
+      "removeTime": 1743991705968
+    },
+    "b66f51aa-b2ff-403a-a3d3-880b525ff6cb": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\axe01.jpg",
+      "time": 1701077984000,
+      "removeTime": 1743991705968
+    },
+    "c344e08f-7fae-40ce-a343-d412cfa0fbe7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\axe02.jpg",
+      "time": 1701077984000,
+      "removeTime": 1743991705968
+    },
+    "b056a3e6-9081-424d-950c-a105774bdd1b": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\axe03.jpg",
+      "time": 1701077984000,
+      "removeTime": 1743991705968
+    },
+    "e68a272e-41ac-4a8f-9c21-65497ccfb8ee": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\blue.mtl",
+      "time": 1701142544000,
+      "removeTime": 1743991705968
+    },
+    "158c4536-6a2c-4f2e-a38b-8a92c9a8bce6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\red.mtl",
+      "time": 1701142544000,
+      "removeTime": 1743991705968
+    },
+    "2acf2310-83cf-4df2-9c4c-c9f2dad83c3c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\yellow.mtl",
+      "time": 1701142544000,
+      "removeTime": 1743991705968
+    },
+    "9ba26615-2696-4c67-bb11-2b055f1dfb02": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\Materials_axe01\\Material #4.mtl",
+      "time": 1701142544000,
+      "removeTime": 1743991705968
+    },
+    "ae804969-c01a-4f30-8a5a-a3806e20ba5e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role\\role01\\DefaultMaterial.mtl",
+      "time": 1725976477500.0503,
+      "removeTime": 1743991705968
+    },
+    "076f776a-e405-44df-be85-6a9d3277fbbc": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01",
+      "time": 1743990756115.472,
+      "removeTime": 1743991705975
+    },
+    "98fa32d7-f65f-4731-8aab-1c4a0dcd1dc7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01\\DefaultMaterial.mtl",
+      "time": 1702281972000,
+      "removeTime": 1743991705975
+    },
+    "0137628b-08f9-42cc-bc44-20c9f9264bd0": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01\\role01.jpg",
+      "time": 1702281718000,
+      "removeTime": 1743991705975
+    },
+    "1635bfad-6b95-4a91-a1ca-29db2149723c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01\\role01.mtl",
+      "time": 1703040126000,
+      "removeTime": 1743991705975
+    },
+    "8b67eb14-192b-4fcb-91fe-c961aeeb67a3": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01\\role01.prefab",
+      "time": 1725976476222.1482,
+      "removeTime": 1743991705975
+    },
+    "76346ac4-978a-4490-bb4b-81cbf631d0d5": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01\\role01All.FBX",
+      "time": 1702281718000,
+      "removeTime": 1743991705975
+    },
+    "65119427-be64-41f4-a4c8-3cfe8d74f752": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome",
+      "time": 1743990755911.952,
+      "removeTime": 1743991705975
+    },
+    "77f9c9d1-0159-4004-83ea-716280ed52ae": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\commonIconGold.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "89dc37d7-f2e7-49d8-8011-dd2e059f1110": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBox01.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "01eff6b7-2b96-42cb-8ea2-c5a3e911330e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBox02.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "179d1958-3e24-4a67-88a9-e7f043875b41": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBox03.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "416fdcba-1db1-4b3f-b074-0c9eb7586d5e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBox04.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "1ea45e3a-c792-4b59-abd2-cbba6dc032b1": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBoxBlue.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "764886f8-d12a-4311-a24b-39d1f7a13d13": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBoxIcon01.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "ebb0d53f-ac46-4ecc-91c6-6a8018f47f25": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBoxOrange.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "d6c88e4e-1855-481c-a0ba-fcba6982f065": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBoxTips.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "63965bb6-31e2-471f-8d18-1fdab6b3200e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBtnBlue.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "2107c97c-f3c4-4de2-bc75-2ef5bed0217b": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBtnPlay.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "9b1cf2cb-ba05-475c-a63e-6d10c79a2b33": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBtnRed.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "b5c2d8c6-3b55-4ceb-bd83-9713eb4313e0": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFont01.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "f960d2e9-0bc4-4165-aea7-1339fbf0781d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFont02.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "e87309df-f079-4a67-acd4-5188e3997a74": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFont03.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "9c2e99ed-6eb8-45ae-aced-d026f6e5805d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFont04.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "b7a6400d-5d00-4ae6-9f97-18022855fb5d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFontArmy.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "30d2fdf0-43f8-4104-b010-49e18dd182ab": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFontGift.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "2a27654d-9f2f-4801-9059-cdeea36dfb36": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFontLand.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "07fd87c0-5578-4fcb-86e1-93839a752dc6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIcon01.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "c9b4045e-1db6-4045-9118-16812e29042a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIcon02.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "45b3386d-fe59-4952-9353-42e6beedc044": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIcon03.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "30682707-81aa-4d51-bc8f-95b0f8f8fd10": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIconArrow.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "c3d698a3-9d44-43ce-b643-5757edb1c1bc": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIconChange.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "ccdc562c-7a30-4d00-a9dd-7c3fdf751f55": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIconUp.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "a48956cb-c382-4288-9463-d7f96943ca51": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeImg01.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "b087b816-87fc-44a2-8a3c-4a851e7c0ee7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeImg02.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705976
+    },
+    "a39a507e-3a44-42f6-8027-711e5739c422": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeImg03.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705977
+    },
+    "9082a19b-fec7-4f8c-ad4d-1d9c84697583": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeImgStar01.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705977
+    },
+    "2dcdb762-4bb3-4da6-af35-018f169ee1fb": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeImgStar02.png",
+      "time": 1701077984000,
+      "removeTime": 1743991705977
+    },
+    "16cec62a-b3fa-4889-8ca7-ee096d074704": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\QQ截图20240411192129.png",
+      "time": 1712834498000,
+      "removeTime": 1743991705977
+    },
+    "ad17d355-a061-43ab-8cbc-ddd1d87ee718": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\yb_bg.png",
+      "time": 1678858458000,
+      "removeTime": 1743991705977
+    },
+    "ab13675c-1746-4172-83c2-46121ac23bc6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\zljq.png",
+      "time": 1703313860000,
+      "removeTime": 1743991705977
+    },
+    "ce385e79-fb7f-443e-9457-47b23151fce8": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\zlts.png",
+      "time": 1702478706000,
+      "removeTime": 1743991705977
+    },
+    "e92f7876-5ea5-4256-b80a-516ecc0e2066": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\prefab",
+      "time": 1744966284794.9768,
+      "removeTime": 1745200927945
+    },
+    "d5659fe4-f4ff-43bb-9dc6-56c126ced05d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\prefab\\fighter",
+      "time": 1744966284795.9763,
+      "removeTime": 1745200927946
+    },
+    "4a656ea6-2a17-4035-98b4-f0edc768f070": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\prefab\\player",
+      "time": 1744966284793.9773,
+      "removeTime": 1745200927946
+    },
+    "62d875cf-2d32-4d87-8410-3436e34a479c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\prefab\\solider",
+      "time": 1744966284789.9763,
+      "removeTime": 1745200927946
+    },
+    "46ba6765-2e2f-4d31-83bf-e3d290e416ea": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\prefab\\ui",
+      "time": 1744966284788.9763,
+      "removeTime": 1745200927946
+    },
+    "8fe2a759-50bb-4f7f-aae7-a635b0a990f2": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\prefab\\fighter\\Fighter.prefab",
+      "time": 1728997822292.577,
+      "removeTime": 1745200927947
+    },
+    "19d5f703-3abf-48d3-a5b7-cdb49e64b25a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\prefab\\player\\player.prefab",
+      "time": 1725977302048.4673,
+      "removeTime": 1745200927947
+    },
+    "5c4d00fc-19f7-4071-8a95-063a2b608da8": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\prefab\\solider\\buBing.prefab",
+      "time": 1728658164687.7258,
+      "removeTime": 1745200927947
+    },
+    "1e52b0da-f6fe-4297-b31b-7c72540123e1": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\prefab\\ui\\GameOverPanel.prefab",
+      "time": 1725546729089.6902,
+      "removeTime": 1745200927947
+    },
+    "a1ed0f8f-8cbe-4439-9f3c-4e4c9e18e121": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\prefab\\ui\\GamePanel.prefab",
+      "time": 1728649015210.133,
+      "removeTime": 1745200927947
+    },
+    "77ec8154-df19-4754-ba1d-a03d82d22a5b": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources\\prefab\\ui\\HomePanel.prefab",
+      "time": 1725546716799.3704,
+      "removeTime": 1745200927948
+    },
+    "8f56fd7c-d631-40f3-a50b-4c64cc11904e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance",
+      "time": 1743990755338.3005,
+      "removeTime": 1743991706090
+    },
+    "40a9c197-dfee-4482-8379-b8997519aae4": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceBoxGet.png",
+      "time": 1701077984000,
+      "removeTime": 1743991706090
+    },
+    "0271d795-b301-4287-b390-6d1f53f74e39": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceFontLose.png",
+      "time": 1701077984000,
+      "removeTime": 1743991706090
+    },
+    "0e9d5060-8424-483f-bc52-d6684a4f1c83": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceFontWin.png",
+      "time": 1701077984000,
+      "removeTime": 1743991706091
+    },
+    "ba449b83-ecc0-40b8-9429-5f230fbff1e6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceIconGet.png",
+      "time": 1701077984000,
+      "removeTime": 1743991706092
+    },
+    "4c7febeb-9a3f-4d7a-bf0f-53524a71dc15": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceIconPlay.png",
+      "time": 1701077984000,
+      "removeTime": 1743991706092
+    },
+    "9bcbb1d5-d198-47f2-ab16-1e8d6905642d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceIconShare.png",
+      "time": 1701077984000,
+      "removeTime": 1743991706092
+    },
+    "a6dbb2b6-76d7-4857-9550-63eabe12778a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceImgLose.png",
+      "time": 1701077984000,
+      "removeTime": 1743991706092
+    },
+    "b758eb78-80b2-4723-ac38-a542fc361c5f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceImgWin.png",
+      "time": 1701077984000,
+      "removeTime": 1743991706092
+    },
+    "9b7e19db-3bff-4e43-b471-7bcb71ccc1cb": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceLightWin.png",
+      "time": 1701077984000,
+      "removeTime": 1743991706092
+    },
+    "f884c99c-9084-4ba4-be49-6d1fb62a8907": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\map",
+      "time": 1743990755657.7012,
+      "removeTime": 1743991706093
+    },
+    "bb30eba5-f77f-4394-99c7-27a6629a3024": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\map\\newMap01.FBX",
+      "time": 1701077984000,
+      "removeTime": 1743991706093
+    },
+    "58c90b77-b027-4c38-91e7-238b38610cb9": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\map\\newMap01.jpg",
+      "time": 1701077984000,
+      "removeTime": 1743991706093
+    },
+    "7395cd06-c222-480b-a347-58b715a8a5f6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\map\\newMap01.mtl",
+      "time": 1701142544000,
+      "removeTime": 1743991706093
+    },
+    "8e51ceab-193b-4a3f-98a6-cc3ed60e33e3": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\map\\newMap01.prefab",
+      "time": 1725538349624.0283,
+      "removeTime": 1743991706093
+    },
+    "04a50937-cac3-4942-8d0e-951540472b85": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\script\\UI\\HomePanel.prefab",
+      "time": 1743991824715.269,
+      "removeTime": 1743991835821
+    },
+    "ad5fd34b-dd70-4f8f-8940-80ed53d4dd71": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\script\\UI\\HomePanel.prefab",
+      "time": 1743991843595.556,
+      "removeTime": 1743991894375
+    },
+    "4ffb9b22-4992-4a9c-a3aa-6b2486ed1624": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\prefab\\UI",
+      "time": 1743993625257.2922,
+      "removeTime": 1744076041687
+    },
+    "17baa526-37a4-4b2c-96b1-d1b8e1cb9ca8": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\prefab",
+      "time": 1743993575001.8455,
+      "removeTime": 1744076041687
+    },
+    "d1976380-1cdd-44c9-bb34-7173751ef3e5": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\prefab\\UI\\GameOverPanel.prefab",
+      "time": 1743993631777.572,
+      "removeTime": 1744076041688
+    },
+    "bda03c41-db3f-4dba-ae6e-3743e6770bde": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\prefab\\UI\\GamePanel.prefab",
+      "time": 1743993620459.1428,
+      "removeTime": 1744076041688
+    },
+    "3db6b783-1812-462f-a5c5-0f37957bb771": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\prefab\\UI\\HomePanel.prefab",
+      "time": 1743993625259.2852,
+      "removeTime": 1744076041688
+    },
+    "78202a5e-ea9a-4a59-aff8-f24c002427da": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\script\\NewComponent.ts",
+      "time": 1744101598516.7607,
+      "removeTime": 1744101607784
+    },
+    "e33e6879-3f9d-4663-87ff-e93a9172036b": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\resources",
+      "time": 1744966284797.9766,
+      "removeTime": 1745200927945
+    },
+    "a750e725-fbe7-4791-ab12-a07db35b46b2": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\player\\role01.prefab",
+      "time": 1744940956294.5178,
+      "removeTime": 1744940965833
+    },
+    "6ef35548-cbf2-4bc5-8955-db0712b57d48": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\script\\utils\\clientEvent.ts",
+      "time": 1728654157779.4756,
+      "removeTime": 1744966370435
+    },
+    "f893e2b5-d4c1-43e8-8989-6d9cebe58a38": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\script\\utils\\oneToMultiListener.ts",
+      "time": 1703064112000,
+      "removeTime": 1744966370433
+    },
+    "6c49443e-55b8-42ef-8b77-48789e2c6025": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts",
+      "time": 1744966086516.8306,
+      "removeTime": 1744966109223
+    },
+    "39f0bb2d-e30a-4ff2-b475-65d2583e8af3": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\battle",
+      "time": 1744966086510.8303,
+      "removeTime": 1744966109223
+    },
+    "c3b9e73b-d839-4ae0-bd3e-14ce5deef131": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager",
+      "time": 1744966086506.8308,
+      "removeTime": 1744966109223
+    },
+    "d88002bb-7a6a-4942-aec3-d472fc9b4eb6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel",
+      "time": 1744966086514.83,
+      "removeTime": 1744966109223
+    },
+    "f3226f27-f081-45c5-8f7f-5464d5d5ac90": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\uitls",
+      "time": 1744966284863.976,
+      "removeTime": 1744966517324
+    },
+    "386eb11a-0b5c-4454-bd9e-cef960253994": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Main.ts",
+      "time": 1728656245397.3792,
+      "removeTime": 1744966109223
+    },
+    "de9e6ae2-009b-4c75-96d1-79c850812d36": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\battle\\Fighter.ts",
+      "time": 1728999212573.8936,
+      "removeTime": 1744966109223
+    },
+    "c544e9ee-7679-4685-a926-a742c0ed97c5": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\battle\\FightetModel.ts",
+      "time": 1728998632988.98,
+      "removeTime": 1744966109223
+    },
+    "cc7ac203-efa5-4742-a1a5-17bfa09652cc": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\BattleManager.ts",
+      "time": 1728999179229.8909,
+      "removeTime": 1744966109223
+    },
+    "fb37e9f4-789b-48bc-b9e3-39f9c5560e4d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\CardManager.ts",
+      "time": 1728654154416.7502,
+      "removeTime": 1744966109223
+    },
+    "326ef957-0a61-40e5-b07a-fb2cd0e9fb0f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\ConfigManager.ts",
+      "time": 1728654173828.0398,
+      "removeTime": 1744966109223
+    },
+    "a57bf7f1-039d-40d6-b9a6-2df9f4d1b561": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\FigthManager.ts",
+      "time": 1728654354515.677,
+      "removeTime": 1744966109223
+    },
+    "eb140a04-d75b-4cb4-ad9b-ce949b8d49de": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\GameManager.ts",
+      "time": 1728993779922.3,
+      "removeTime": 1744966109224
+    },
+    "8aae4394-5f73-44c1-a5de-313a0a8f90b1": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\manager\\UiManager.ts",
+      "time": 1726887558664.4775,
+      "removeTime": 1744966109224
+    },
+    "0d500fb7-db45-4bf7-a13c-ede44ca3c4a6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel\\Card.ts",
+      "time": 1728650087869.4023,
+      "removeTime": 1744966109224
+    },
+    "df34004d-3af6-4837-8e96-910546688f89": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel\\GamePanel.ts",
+      "time": 1728999134498.035,
+      "removeTime": 1744966109224
+    },
+    "40e85268-c4ef-471c-b564-ad22f5c0c555": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\Panel\\HomePanel.ts",
+      "time": 1726887573542.2507,
+      "removeTime": 1744966109224
+    },
+    "6105d19f-de85-4710-ab7a-752e8136433a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\uitls\\csvManager.ts",
+      "time": 1727509815824.9084,
+      "removeTime": 1744966517324
+    },
+    "4e1f8a8c-366e-42c4-91d1-d4fe1965aada": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\uitls\\clientEvent.ts",
+      "time": 1728654157779.4756,
+      "removeTime": 1744966076520
+    },
+    "7abf6511-eec9-4ff5-9eb7-92232ef8433e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\uitls\\oneToMultiListener.ts",
+      "time": 1703064112000,
+      "removeTime": 1744966076521
+    },
+    "89391afd-e826-48cb-b563-9343a05a09fa": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts",
+      "time": 1743991729742.096,
+      "removeTime": 1744966076519
+    },
+    "b74d0766-9924-40eb-8134-476436c814ea": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\uitls\\clientEvent.ts",
+      "time": 1728654157779.4756,
+      "removeTime": 1744966109224
+    },
+    "6ad12e2d-563b-42b0-bf60-75d912b117b3": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\uitls\\oneToMultiListener.ts",
+      "time": 1703064112000,
+      "removeTime": 1744966109224
+    },
+    "2abeef07-6679-4f40-8d74-cdc2e71e10bf": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res",
+      "time": 1744966109219.7915,
+      "removeTime": 1744966117015
+    },
+    "c23e6f1c-9004-4e49-b8b0-7c1b1ebcb656": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model",
+      "time": 1743992667323.8813,
+      "removeTime": 1744966117015
+    },
+    "b6af6a35-c2fe-461c-a3fe-befa78d171ac": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res",
+      "time": 1743991728137.4077,
+      "removeTime": 1744966117015
+    },
+    "76551b8b-519f-492b-a5f2-3cf4def485f9": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scenes",
+      "time": 1743991729713.194,
+      "removeTime": 1744966117015
+    },
+    "9343f0df-05f6-400c-a2f8-090752afad21": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\map",
+      "time": 1743992667324.878,
+      "removeTime": 1744966117015
+    },
+    "e5ef56a3-25c9-4c54-89ba-e082bafc2456": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role",
+      "time": 1743991729478.9768,
+      "removeTime": 1744966117015
+    },
+    "e00e2c13-cdd0-4232-ab4a-20ffe2afe53c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance",
+      "time": 1743991728150.3635,
+      "removeTime": 1744966117015
+    },
+    "55b5802b-15dd-4821-bd6a-308d5b697601": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card",
+      "time": 1743991728136.4102,
+      "removeTime": 1744966117015
+    },
+    "927d5655-1194-4b8d-81c7-3e819cebaa42": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game",
+      "time": 1743991728130.4312,
+      "removeTime": 1744966117015
+    },
+    "54b6adee-4cb4-4df6-b45c-f74d30360030": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map",
+      "time": 1743991728099.534,
+      "removeTime": 1744966117016
+    },
+    "2ac90a50-7155-44aa-8d83-fd8514723b74": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model",
+      "time": 1743991728083.5874,
+      "removeTime": 1744966117016
+    },
+    "50f8f4e8-90fb-4c84-b580-43ab78acf927": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome",
+      "time": 1743991728077.6077,
+      "removeTime": 1744966117016
+    },
+    "9ee6734c-3b74-4d75-8a1e-5c5f6e273061": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01",
+      "time": 1743991728039.7341,
+      "removeTime": 1744966117016
+    },
+    "210a7f8b-52b7-4fa2-837c-e5f3495911b6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role\\role01",
+      "time": 1743991729479.9734,
+      "removeTime": 1744966117016
+    },
+    "06977e58-f625-427a-81af-2fb22224c056": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe",
+      "time": 1743991728092.5574,
+      "removeTime": 1744966117016
+    },
+    "71c24bdb-f0ca-46b6-9847-e3a3bc55e766": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\role",
+      "time": 1743991728080.5972,
+      "removeTime": 1744966117016
+    },
+    "e2e90dae-7189-47d9-b94a-3197b61b4568": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\Materials_axe01",
+      "time": 1743991728093.5537,
+      "removeTime": 1744966117017
+    },
+    "866c9897-e8d8-443e-b4ed-1113e616be6a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\role\\role01",
+      "time": 1743991728082.5908,
+      "removeTime": 1744966117017
+    },
+    "410a205d-6c91-4935-8e39-d50bfd1c7c6a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scenes\\game.scene",
+      "time": 1728659246692.552,
+      "removeTime": 1744966117017
+    },
+    "9ebd5b9f-29cd-4316-9b55-552fb203871d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\map\\newMap01.FBX",
+      "time": 1701077984000,
+      "removeTime": 1744966117017
+    },
+    "4947b0b5-1ab4-4fd4-a445-dadbc8e20d22": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\map\\newMap01.jpg",
+      "time": 1701077984000,
+      "removeTime": 1744966117017
+    },
+    "f0688e02-136b-470e-82d4-6cecdc550a12": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\map\\newMap01.mtl",
+      "time": 1701142544000,
+      "removeTime": 1744966117017
+    },
+    "d130520d-0319-463f-98e1-8da8dc670d4f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\map\\newMap01.prefab",
+      "time": 1725538349624.0283,
+      "removeTime": 1744966117017
+    },
+    "6d9dc3e8-ac69-436d-b605-66d6ff4445b6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\auto-atlas.pac",
+      "time": 1701077984000,
+      "removeTime": 1744966117017
+    },
+    "dc434e02-b99f-424b-a725-3bedb1f259dd": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceBoxGet.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117017
+    },
+    "22c44935-9fd7-49a2-a425-563170f4ec6e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceFontLose.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117017
+    },
+    "0ee25003-051c-4945-b544-e524a6e35c43": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceFontWin.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117017
+    },
+    "b0047db7-1809-43af-94e6-697a0b29808c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceIconGet.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117017
+    },
+    "0ef6c17e-cad2-414f-adf1-3da73e5f64c5": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceIconPlay.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117017
+    },
+    "f35f2cdc-3c2c-4f14-ae61-f049d7146618": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceIconShare.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117017
+    },
+    "f8302774-1404-4992-9302-8c368d8118f7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceImgLose.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117018
+    },
+    "6a05c169-ade2-4379-9808-2398fa76a171": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceImgWin.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117018
+    },
+    "065e7e5f-b004-426f-a950-b7c12b8f2e35": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\balance\\balanceLightWin.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117018
+    },
+    "42675dfa-1c18-4dd7-b431-bfcbc05ab187": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\1.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117018
+    },
+    "404aa45b-ee0a-4ca0-bb45-01ef82272122": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\2.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117018
+    },
+    "2b93fb67-7f48-4f6f-976e-7f818147d201": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\3.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117018
+    },
+    "5f51ad0b-62f3-4e9d-b643-ea735ca2a599": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\card\\4.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117018
+    },
+    "c56d0552-c41e-4455-8219-62482acc590d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\1.jpg",
+      "time": 1701065922000,
+      "removeTime": 1744966117018
+    },
+    "18cf2df4-f9d1-4edf-9548-36746ff17bbf": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\auto-atlas.pac",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "ac9fa0ae-6620-416b-b0fc-24fdf4d3f34f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\gq.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "57614a35-ee9d-4d08-9f96-13278fe4fbe2": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_df_txk.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "f24a4cec-eb27-4a86-8387-42656fb2246f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_df_x.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "25a27e25-28ba-468d-85bf-784ee806b20c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_dk.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "0b2bea29-2de9-482f-91b8-cc3b41fd8577": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_jdt1.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "b6986b3a-c766-47fc-a096-9ff0e2063650": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_jdt1_df.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "9d360602-a419-423c-9127-d9d8b7fa1acd": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_jdt1_wf.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "d4941e17-44f8-4360-9902-bef57c3a949d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_w.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "a74f5f3e-e01a-46bf-b332-ec3f2a28db11": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_w_jz1.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "e6ec0b0f-9050-4bd5-aebc-628a20338db8": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_w_jz2.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "1b0b6ef2-31b2-4d2b-b413-210edb9ef3f6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_kp_xz.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "4449f7be-d327-4351-acb1-4fcf46144c5f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117018
+    },
+    "b7b3b219-4a82-4cff-bec4-ce4940d46209": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq1.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "bbedc6fe-7e54-4ddd-9ba6-9b59485846ac": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq2.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "a2bd22fc-6d3f-4cdd-a8e9-c8f7361c46f2": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_tb_hq4.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "9b5c110f-2b57-4d63-bd44-fdb78fcecde0": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_wf_txk.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "c32912a0-2783-481a-ac57-055eb1673771": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_wf_x.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "f77b15cd-35cb-4284-a328-7380d2042a1b": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yxjm_wzbg.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "e0f07f35-5539-4772-8630-7d7325312104": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_df_hsszbg.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "f06fcd47-e8f9-48e4-8bc1-fb92ac1c262c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_df_hs_jdt1.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "3a21ae1b-3698-49a6-84db-17813db64b46": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_df_hs_jdt2.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "10ab3b8f-602f-4575-bf71-3fad57f3c9b9": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_wf_lsszbg.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "5eca9fe2-b670-450d-a381-181e9fbfcd87": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_wf_ls_jdt1.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "55e92d9d-2892-4533-a7f2-5b18fbabf415": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\game\\yx_wf_ls_jdt2.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117019
+    },
+    "c26a63b9-5039-47ae-b027-ef2bce881f6f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.FBX",
+      "time": 1701077984000,
+      "removeTime": 1744966117020
+    },
+    "27e1fcb7-5016-4252-8c43-ac9c1c97308e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.jpg",
+      "time": 1701077984000,
+      "removeTime": 1744966117020
+    },
+    "b7d6d595-6cd1-43c6-8bc7-3a92644870b9": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.mtl",
+      "time": 1701142544000,
+      "removeTime": 1744966117020
+    },
+    "14d9011a-7bd9-4237-934f-282b076102dd": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\map\\newMap01.prefab",
+      "time": 1725538349624.0283,
+      "removeTime": 1744966117020
+    },
+    "4d6ee63a-6639-46fc-afbd-7372264a094f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\auto-atlas.pac",
+      "time": 1701077984000,
+      "removeTime": 1744966117020
+    },
+    "606ad998-f401-43a1-9967-4019b040205f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\commonIconGold.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117020
+    },
+    "1bca1cf7-cfbc-4c21-8674-adcd2c6fa657": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117020
+    },
+    "adf744bd-cbc7-4aee-b755-a6ef0e7d2d96": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox02.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117020
+    },
+    "7cef2bc0-9406-4ba0-869e-2a433766b8f2": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox03.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117020
+    },
+    "e634ffea-cf56-4317-a0d2-cf2ac3464aa1": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBox04.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "ecfe2010-545c-42a7-a63a-23bdc560c462": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxBlue.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "05df99ff-3532-4226-9a2a-bed6b836b667": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxIcon01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "8d467a72-ef74-4a03-9528-d8de40dd433a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxOrange.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "c13da6ba-cb45-43cf-bbbe-8ca7c8a8c608": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBoxTips.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "0cc44495-e0d3-4ba0-a6f0-32c8befc4643": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBtnBlue.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "255fbd0c-7070-4597-85cd-976bff2fa6bc": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBtnPlay.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "c2eab001-d2d1-47d6-87e4-fc70bcd1470d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeBtnRed.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "76840a0a-07a7-4dfe-a4bc-52fe764ec310": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "fa7605fb-c67a-447b-a054-3472cc897082": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont02.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "10d9cdc1-c4cd-4922-bbbb-595bb40f3393": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont03.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "a7082503-d61e-489e-9838-364dbdcf4488": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFont04.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "d1f428a9-5b2f-4831-8ed9-c7a3cde88ccb": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFontArmy.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "cea613fa-4dad-4451-b442-ce39c0126d91": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFontGift.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "58ac0178-7b38-4c25-a4dd-c3d10a374d50": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeFontLand.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "aee5210e-5ffa-4bb9-9168-4e02ed596035": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIcon01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "43abc334-82eb-44d0-8d29-c016ccc9857f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIcon02.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "968851c1-9d76-4f87-9cff-55dda356dfdb": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIcon03.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "b8cd9104-b7f9-44da-aeb4-36a4b3626d1a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIconArrow.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "f7af29dc-f6a9-4b15-899b-b6d4914f6a79": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIconChange.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "ff1f2145-59d9-494d-a2d1-cffde5048b85": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeIconUp.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "5a050741-9332-481f-9ee7-84f9f4101c61": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImg01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "392a6523-8ac5-401c-96b1-67c552a9c25e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImg02.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117021
+    },
+    "4cf5f76b-70b6-4642-ad61-4c967437b3b2": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImg03.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117022
+    },
+    "87204ad5-5a92-4ace-8513-cd8142d6124c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImgStar01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117022
+    },
+    "b1a75ab1-09f0-4c5d-97bc-f20fcbec5285": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\homeImgStar02.png",
+      "time": 1701077984000,
+      "removeTime": 1744966117022
+    },
+    "86092fa3-dab3-468a-81ff-270dcf2e4ecd": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\QQ截图20240411192129.png",
+      "time": 1712834498000,
+      "removeTime": 1744966117022
+    },
+    "adc8e40b-26cf-42c7-a3d3-e033cbc328ad": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\yb_bg.png",
+      "time": 1678858458000,
+      "removeTime": 1744966117022
+    },
+    "9798df0f-94ea-4143-a765-d9a625604e0f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\zljq.png",
+      "time": 1703313860000,
+      "removeTime": 1744966117022
+    },
+    "5b9f72cb-e9a1-4a02-afd2-557977fc8ee6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\newHome\\zlts.png",
+      "time": 1702478706000,
+      "removeTime": 1744966117022
+    },
+    "99988e8e-d9b6-456c-bae0-daa95f0b5fc5": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\DefaultMaterial.mtl",
+      "time": 1702281972000,
+      "removeTime": 1744966117022
+    },
+    "36487bbd-7df4-45a8-951b-92dd9faa9300": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01.jpg",
+      "time": 1702281718000,
+      "removeTime": 1744966117022
+    },
+    "6826b480-6300-444d-95a3-9e27a0c476a3": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01.mtl",
+      "time": 1703040126000,
+      "removeTime": 1744966117022
+    },
+    "e5d34000-3a5d-480f-be9a-f472b070f764": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01.prefab",
+      "time": 1725976476222.1482,
+      "removeTime": 1744966117022
+    },
+    "36dc4ba3-93f3-43b1-898b-46e9b392a617": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\role01\\role01All.FBX",
+      "time": 1702281718000,
+      "removeTime": 1744966117022
+    },
+    "2562172c-4b6f-4b1f-ac5e-dc8161b158fe": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role\\role01\\DefaultMaterial.mtl",
+      "time": 1743991729477.981,
+      "removeTime": 1744966117022
+    },
+    "ca3eb095-c22b-47a0-b413-1040801b2aad": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe.prefab",
+      "time": 1728655301036.5637,
+      "removeTime": 1744966117022
+    },
+    "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe01.FBX",
+      "time": 1701077984000,
+      "removeTime": 1744966117022
+    },
+    "e5620139-8d9f-4f1b-9931-69dffa9dfdc7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe01.jpg",
+      "time": 1701077984000,
+      "removeTime": 1744966117022
+    },
+    "632ab24b-8ec7-412a-8ffa-af09e50a24f5": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe02.jpg",
+      "time": 1701077984000,
+      "removeTime": 1744966117022
+    },
+    "25598e11-a3ce-4000-b46f-d1198560e593": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\axe03.jpg",
+      "time": 1701077984000,
+      "removeTime": 1744966117022
+    },
+    "923fe17b-a36b-4b88-9f79-0feb317fb9f0": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\blue.mtl",
+      "time": 1701142544000,
+      "removeTime": 1744966117022
+    },
+    "86454e1c-2489-4b8f-815e-344b19c89015": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\red.mtl",
+      "time": 1701142544000,
+      "removeTime": 1744966117022
+    },
+    "99c5004a-62ea-4949-86ee-6c5fbfc9cf1c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\yellow.mtl",
+      "time": 1701142544000,
+      "removeTime": 1744966117022
+    },
+    "57d8dff5-4543-4864-afa6-2c5c173adb74": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\axe\\Materials_axe01\\Material #4.mtl",
+      "time": 1701142544000,
+      "removeTime": 1744966117023
+    },
+    "959becee-74e1-4de5-af45-4e2beff1fe77": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\res\\model\\role\\role01\\DefaultMaterial.mtl",
+      "time": 1725976477500.0503,
+      "removeTime": 1744966117023
+    },
+    "f53693fc-9390-4358-8e21-fc03aad9f248": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance",
+      "time": 1744966149228.3838,
+      "removeTime": 1744966258629
+    },
+    "98b19ee3-4e75-4bf6-9600-98dcf9da4d85": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceBoxGet.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258629
+    },
+    "9a0a166a-6f7a-4993-bb5a-31eaef5dac80": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceFontLose.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258629
+    },
+    "6b85e7a5-4301-406a-85d3-c60e8451d676": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceFontWin.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258629
+    },
+    "8196ada0-f6fc-4d0f-8917-567a2bd8091c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceIconGet.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258629
+    },
+    "6515a384-ab1e-4c38-9b89-d5826fb50f44": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceIconPlay.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258629
+    },
+    "4d7c87cb-bd46-4763-8dc8-a9e87feeca3c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceIconShare.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258629
+    },
+    "f2acfe16-1fd5-4240-b76a-0dc3128f9977": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceImgLose.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258629
+    },
+    "9f0b2e2f-35b0-400a-b37d-b4063ecfdd76": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceImgWin.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258630
+    },
+    "aecfd544-5d61-4ad1-8a4a-2f360154cb0a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\balance\\balanceLightWin.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258630
+    },
+    "b36eae2e-593c-4cde-88d3-00ae338213cc": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\card",
+      "time": 1744966149274.3838,
+      "removeTime": 1744966258630
+    },
+    "e6658b31-5b55-4e36-a609-3765bbdfc74a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\card\\1.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258630
+    },
+    "20f648f0-597b-460f-91d7-7aabf5d2ad0a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\card\\2.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258630
+    },
+    "95a19b3c-2c03-4b03-a1fd-3a8f0c6d6040": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\card\\3.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258630
+    },
+    "79da02ce-47c4-4a8a-a17c-e3d43a7f8b77": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\card\\4.png",
+      "time": 1701077984000,
+      "removeTime": 1744966258630
+    },
+    "309f6834-1b28-411c-9c08-3232d6a3d11d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game",
+      "time": 1744966149345.3882,
+      "removeTime": 1744966258883
+    },
+    "37627704-0533-4212-b949-666b72b88fd9": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\1.jpg",
+      "time": 1701065922000,
+      "removeTime": 1744966258883
+    },
+    "69204c85-b9f9-4cbb-a816-266a9a9eba05": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\gq.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "1f0bb4c6-1b14-447f-a2db-18fc46f3e4d4": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_df_txk.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "77da9717-235a-41d5-9a87-99031a11c885": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_df_x.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "975d890a-1b89-4483-a0ae-d60733702bf4": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_dk.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "9b07dc15-856f-483a-87b2-92a1e5351f52": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_jdt1.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "f918bb18-ef9c-45ea-97e2-25ddba98a5f4": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_jdt1_df.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "cc6d26d5-b035-4254-b8e8-7256ee7944ce": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_jdt1_wf.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "bd642628-50f7-43b7-b007-0ba8a3d90070": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_kp_w.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "49ef0394-ba86-4e2b-bba3-0891eda3e609": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_kp_w_jz1.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "e17d0880-69b8-4d1b-9715-c6f5b6e8dbfd": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_kp_w_jz2.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "b4b7c85f-95b1-4054-84b8-592c5a607ca5": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_kp_xz.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "df5e3557-f23a-48ef-899f-8162f03972e7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_tb_hq.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258883
+    },
+    "31fe2e1d-9db2-4c81-8c1f-7f40ddafdaea": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_tb_hq1.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "e82bb945-0094-4689-a14f-a31051b3de2f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_tb_hq2.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "60ae26a9-4864-40d8-b6f0-83a36dd55c3d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_tb_hq4.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "0cfd576a-a276-431e-a5a6-5f560bd86799": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_wf_txk.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "98b60fd3-da46-4ef7-8b54-d53db9863c03": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_wf_x.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "ae3ea78b-4bae-4858-a6a7-bd85208b8e4f": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yxjm_wzbg.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "ec3f8a72-e602-46f7-8dc2-427a2b7589d0": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_df_hsszbg.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "1e3f1845-67aa-4260-afc9-f080bb79b735": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_df_hs_jdt1.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "2803db26-b5fa-49c4-9f2d-2b4ddfd00b90": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_df_hs_jdt2.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "163e7cb0-09d1-4aab-84b1-36d58298e566": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_wf_lsszbg.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "66452492-5f6c-4710-b6bc-49af5f779233": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_wf_ls_jdt1.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "c4aa178d-1471-47de-8700-5bc1aa1e558c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\game\\yx_wf_ls_jdt2.png",
+      "time": 1678858458000,
+      "removeTime": 1744966258884
+    },
+    "273f4147-7a65-4ecc-9182-85ca3c63364d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\map",
+      "time": 1744966149438.3882,
+      "removeTime": 1744966258884
+    },
+    "346fc748-39f6-4a71-964a-168326a72e74": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\map\\newMap01.FBX",
+      "time": 1701077984000,
+      "removeTime": 1744966258884
+    },
+    "b2f5a440-9542-4009-a877-50437c86d862": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\map\\newMap01.jpg",
+      "time": 1701077984000,
+      "removeTime": 1744966258884
+    },
+    "6e662a74-0221-45c9-9130-dcf6cddb25ac": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\map\\newMap01.mtl",
+      "time": 1701142544000,
+      "removeTime": 1744966258884
+    },
+    "cfde342e-daae-4ace-aa9c-f95600d0d5c2": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\map\\newMap01.prefab",
+      "time": 1725538349624.0283,
+      "removeTime": 1744966258884
+    },
+    "ad538779-2f6a-4fac-a801-68e5524b1f04": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model",
+      "time": 1744966149609.3923,
+      "removeTime": 1744966258884
+    },
+    "bd871544-970d-46d1-abab-8372cb22374c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe",
+      "time": 1744966149612.392,
+      "removeTime": 1744966258885
+    },
+    "b97becd5-46e2-47a4-baf1-80d6ef0f0822": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role",
+      "time": 1744966149610.3926,
+      "removeTime": 1744966258885
+    },
+    "aabb9b44-8b82-4e3d-9c8b-5c2b43faf2a9": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\Materials_axe01",
+      "time": 1744966149612.392,
+      "removeTime": 1744966258885
+    },
+    "5dfdb46b-9931-4ec1-8177-b7624317e7fd": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role\\role01",
+      "time": 1744966149612.392,
+      "removeTime": 1744966258885
+    },
+    "5b61cae3-b0e7-411e-ae9a-91ab92f5a05a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\axe.prefab",
+      "time": 1728655301036.5637,
+      "removeTime": 1744966258885
+    },
+    "0adca318-4514-4f5f-a74e-222544a69e8e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\axe01.FBX",
+      "time": 1701077984000,
+      "removeTime": 1744966258885
+    },
+    "f4e8d4dc-766c-4a4d-90eb-79d0294b2271": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\axe01.jpg",
+      "time": 1701077984000,
+      "removeTime": 1744966258885
+    },
+    "ce64dbf4-2766-48f2-8273-f211bed99cb7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\axe02.jpg",
+      "time": 1701077984000,
+      "removeTime": 1744966258885
+    },
+    "0b6250db-814a-4631-9259-2f89ffe363e5": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\axe03.jpg",
+      "time": 1701077984000,
+      "removeTime": 1744966258886
+    },
+    "c7c8155a-93c1-4ae5-8510-078f23543f12": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\blue.mtl",
+      "time": 1701142544000,
+      "removeTime": 1744966258886
+    },
+    "e3731901-dd5a-4482-a33a-bd4f59721048": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\red.mtl",
+      "time": 1701142544000,
+      "removeTime": 1744966258886
+    },
+    "cdfc00ec-eda8-4028-b7c1-3b913b077fe6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\yellow.mtl",
+      "time": 1701142544000,
+      "removeTime": 1744966258886
+    },
+    "8ba8d0f5-07e9-4f67-b049-94aea86a75a0": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\axe\\Materials_axe01\\Material #4.mtl",
+      "time": 1701142544000,
+      "removeTime": 1744966258886
+    },
+    "4a438e1a-27c7-4d55-8ea5-964555695fbe": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\role\\role01\\DefaultMaterial.mtl",
+      "time": 1725976477500.0503,
+      "removeTime": 1744966258886
+    },
+    "86f82256-9648-40c3-91f2-6bdbbc4fade9": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01",
+      "time": 1744966149889.803,
+      "removeTime": 1744966258886
+    },
+    "6bc7cd2e-1754-43fc-b3fe-a7275f05afae": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01\\DefaultMaterial.mtl",
+      "time": 1702281972000,
+      "removeTime": 1744966258886
+    },
+    "22ef0f77-fd13-4f62-a32e-45b0cf716ef7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01\\role01.jpg",
+      "time": 1702281718000,
+      "removeTime": 1744966258886
+    },
+    "3fd5add0-141f-4d23-8965-0d241943934b": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01\\role01.mtl",
+      "time": 1703040126000,
+      "removeTime": 1744966258886
+    },
+    "51c1f9a8-3cb2-4a13-876e-a882a835b60a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01\\role01.prefab",
+      "time": 1725976476222.1482,
+      "removeTime": 1744966258887
+    },
+    "5b01b3e9-e758-440a-9e07-a92859bfa4be": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\role01\\role01All.FBX",
+      "time": 1702281718000,
+      "removeTime": 1744966258887
+    },
+    "67991769-0b26-408d-a65f-8e2006c93d0a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome",
+      "time": 1744966149775.2617,
+      "removeTime": 1744966259102
+    },
+    "0a4c806d-0454-40aa-8756-5134408a087d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\commonIconGold.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "79840a56-b38d-411f-a6fb-9e4ddcb50e80": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBox01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "ad199070-d91f-4f3f-a8ce-25d717921aef": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBox02.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "8dd17b8b-f25e-4b8b-bb6a-c7c37e79481a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBox03.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "5ec804ea-6d67-4bbe-978a-359644a806b5": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBox04.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "046564d2-5197-4012-b573-3a5ea5295c1b": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBoxBlue.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "1bd2b77f-adec-487c-8cf4-382d678b311b": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBoxIcon01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "70b50f3a-7afb-46aa-81ff-3bda73926470": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBoxOrange.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "bf3c1a73-c1c5-4989-8f87-c92797f05a87": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBoxTips.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "3fd1e090-3d39-4ba0-882e-2356c442882b": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBtnBlue.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "7865146e-af00-4875-beb4-529c57652865": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBtnPlay.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "a94e1756-8667-42db-8ea2-fc7bccb12e5e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeBtnRed.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "700eab55-089f-4e34-a9d3-f88dc7e04cf9": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFont01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "5a9cb96d-ab79-4551-9542-acf730b96ff0": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFont02.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "f9ec9e32-4b52-44bc-b0b7-0a84d23ef38a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFont03.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "1219263d-36a2-4147-9efe-67b7f82a4b60": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFont04.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "e272c5da-c74e-4eaa-9a45-a0a9a27e386d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFontArmy.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "d4b68d02-981f-4a77-b86e-6bf105748da7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFontGift.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "0c47db49-8a6c-4f43-8b18-96953cdcd0f7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeFontLand.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "69394e33-9c9a-4bc6-8cbb-b3a3e9f631fa": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIcon01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "12a947cd-3971-4ae8-b951-986e4da575a6": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIcon02.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259102
+    },
+    "5c0e9418-68f9-4e8f-a188-27e1b852afc8": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIcon03.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259103
+    },
+    "722aff95-c048-4b85-9d3d-e967dd764f34": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIconArrow.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259103
+    },
+    "20c261fa-3b7d-4315-85cf-c815ba410406": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIconChange.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259103
+    },
+    "c2e2fae8-c44a-4c92-a06e-36e379d4100e": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeIconUp.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259103
+    },
+    "3dc05eef-0893-4525-808c-85d126bfda69": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeImg01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259103
+    },
+    "80b34a45-ae71-4f25-bfa9-334947ebe65c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeImg02.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259103
+    },
+    "0a82524b-810e-4bcb-abc8-11d616bc58df": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeImg03.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259103
+    },
+    "851f311b-ad90-49d5-8aee-79e5e0d768c0": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeImgStar01.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259103
+    },
+    "29581843-2cde-4f71-8d00-a228c65ee4d7": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\homeImgStar02.png",
+      "time": 1701077984000,
+      "removeTime": 1744966259103
+    },
+    "4f06d385-a85f-431d-aac8-39787947eda0": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\QQ截图20240411192129.png",
+      "time": 1712834498000,
+      "removeTime": 1744966259103
+    },
+    "2362b8a4-3706-4e4c-b491-8aa3c005434a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\yb_bg.png",
+      "time": 1678858458000,
+      "removeTime": 1744966259103
+    },
+    "4592a265-ace2-48f9-a46f-ea226a2a567d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\zljq.png",
+      "time": 1703313860000,
+      "removeTime": 1744966259103
+    },
+    "bb13b506-1408-4d50-a45f-9f0a1aaf0ac4": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\newHome\\zlts.png",
+      "time": 1702478706000,
+      "removeTime": 1744966259103
+    },
+    "6ca8d966-89e0-4c99-bcba-64a7c0195e4a": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\uitls\\clientEvent.ts",
+      "time": 1728654157779.4756,
+      "removeTime": 1744966517324
+    },
+    "4db8f429-c30a-452d-8ff7-7db045e042c8": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\res\\scripts\\uitls\\oneToMultiListener.ts",
+      "time": 1703064112000,
+      "removeTime": 1744966517324
+    },
+    "e8ddd625-24ed-40e0-8bed-b9d18e58b501": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\script\\util",
+      "time": 1744966370427.9312,
+      "removeTime": 1745199447352
+    },
+    "75b9e928-53c6-4e06-a650-603f0443aabc": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\script\\GamePanel.ts",
+      "time": 1745200444958.0422,
+      "removeTime": 1745201895970
+    },
+    "a8b7282a-362f-433c-9b0d-7b34dd91dc07": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\script\\HomePanel.ts",
+      "time": 1745199611690.0176,
+      "removeTime": 1745201895973
+    },
+    "8f971029-69af-4712-8c25-475c8c572719": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\script\\Main.ts",
+      "time": 1745204053900.9155,
+      "removeTime": 1745204068002
+    },
+    "2be590bf-5b2d-4642-bb9d-c369391c3a4c": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\role",
+      "time": 1745299544559.7932,
+      "removeTime": 1745299817381
+    },
+    "70bbdd75-a780-4649-b5fd-0ae310445237": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\solider\\axe.prefab",
+      "time": 1728655301036.5637,
+      "removeTime": 1745299885201
+    },
+    "3f629bfc-9369-4834-8a19-06c1e581849d": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\resources\\prefab\\solider\\solider.prefab",
+      "time": 1745299951195.9583,
+      "removeTime": 1745299984537
+    },
+    "e8fd5aa2-7034-405d-939a-e2a929a1d2bb": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\script\\HomePanel.ts",
+      "time": 1745201906498.2827,
+      "removeTime": 1745377412161
+    },
+    "ad1fbcbd-d5f5-4b1d-a17b-0a4a88eeafea": {
+      "path": "E:\\cocos\\project\\CrazyGame\\assets\\script\\battle\\Solider.ts",
+      "time": 1745379949448.243,
+      "removeTime": 1745380308466
+    }
+  }
+}

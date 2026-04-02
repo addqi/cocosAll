@@ -1,0 +1,108 @@
+[
+    1,
+    [
+        "274fy3UBZCUoxDrJwclzCO@6c48a",
+        "1brw/JvvpFnIvdrxpFCgMZ"
+    ],
+    [
+        "mainTexture",
+        "_effectAsset"
+    ],
+    [
+        [
+            "cc.Material",
+            [
+                "_name",
+                "_states",
+                "_defines",
+                "_props"
+            ],
+            0,
+            12
+        ]
+    ],
+    [
+        [
+            0,
+            0,
+            1,
+            2,
+            3,
+            4
+        ]
+    ],
+    [
+        [
+            0,
+            "newMap01",
+            [
+                {
+                    "blendState": {
+                        "targets": [
+                            {}
+                        ]
+                    },
+                    "depthStencilState": {},
+                    "rasterizerState": {}
+                }
+            ],
+            [
+                {
+                    "USE_ALBEDO_MAP": true,
+                    "ROUGHNESS_CHANNEL": "g",
+                    "METALLIC_CHANNEL": "b",
+                    "OCCLUSION_CHANNEL": "r"
+                }
+            ],
+            [
+                [
+                    [
+                        {
+                            "alphaThreshold": 1,
+                            "normalStrenth": 1,
+                            "occlusion": 0,
+                            "roughness": 0.242535620927811,
+                            "metallic": 0.400000005960464,
+                            "normalStrength": 1
+                        },
+                        "albedoScale",
+                        8,
+                        [
+                            1,
+                            1,
+                            1,
+                            1
+                        ],
+                        "pbrScale",
+                        8,
+                        [
+                            2,
+                            1,
+                            0.242535620927811,
+                            0.400000005960464,
+                            1
+                        ],
+                        "mainTexture",
+                        6,
+                        0
+                    ]
+                ],
+                11
+            ]
+        ]
+    ],
+    0,
+    0,
+    [
+        0,
+        0
+    ],
+    [
+        0,
+        1
+    ],
+    [
+        0,
+        1
+    ]
+]

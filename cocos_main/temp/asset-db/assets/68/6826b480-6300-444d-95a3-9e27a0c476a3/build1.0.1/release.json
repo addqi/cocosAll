@@ -1,0 +1,224 @@
+[
+    1,
+    [
+        "36SHu9ffRFqJUbkt2fqpMA@6c48a",
+        "a7YStUNeNCOKGpSntUY1g5"
+    ],
+    [
+        "baseColorMap",
+        "mainTexture",
+        "shadeMap1",
+        "shadeMap2",
+        "specularMap",
+        "_effectAsset"
+    ],
+    [
+        [
+            "cc.Material",
+            [
+                "_name",
+                "_states",
+                "_defines",
+                "_props"
+            ],
+            0,
+            12
+        ]
+    ],
+    [
+        [
+            0,
+            0,
+            1,
+            2,
+            3,
+            4
+        ]
+    ],
+    [
+        [
+            0,
+            "role01",
+            [
+                {
+                    "rasterizerState": {},
+                    "depthStencilState": {},
+                    "blendState": {
+                        "targets": [
+                            {}
+                        ]
+                    }
+                },
+                {
+                    "rasterizerState": {},
+                    "depthStencilState": {},
+                    "blendState": {
+                        "targets": [
+                            {}
+                        ]
+                    }
+                },
+                {
+                    "rasterizerState": {},
+                    "depthStencilState": {},
+                    "blendState": {
+                        "targets": [
+                            {}
+                        ]
+                    }
+                },
+                {
+                    "rasterizerState": {},
+                    "depthStencilState": {},
+                    "blendState": {
+                        "targets": [
+                            {}
+                        ]
+                    }
+                },
+                {
+                    "rasterizerState": {},
+                    "depthStencilState": {},
+                    "blendState": {
+                        "targets": [
+                            {}
+                        ]
+                    }
+                },
+                {
+                    "rasterizerState": {},
+                    "depthStencilState": {},
+                    "blendState": {
+                        "targets": [
+                            {}
+                        ]
+                    }
+                },
+                {
+                    "rasterizerState": {},
+                    "depthStencilState": {},
+                    "blendState": {
+                        "targets": [
+                            {}
+                        ]
+                    }
+                }
+            ],
+            [
+                {
+                    "USE_OUTLINE_PASS": true,
+                    "USE_INSTANCING": true
+                },
+                {
+                    "USE_INSTANCING": true,
+                    "USE_BASE_COLOR_MAP": true,
+                    "USE_1ST_SHADE_MAP": true,
+                    "USE_2ND_SHADE_MAP": true,
+                    "USE_SPECULAR_MAP": true
+                },
+                {},
+                {},
+                {},
+                {},
+                {}
+            ],
+            [
+                [
+                    [
+                        {
+                            "lineWidth": 2
+                        },
+                        "baseColor",
+                        8,
+                        [
+                            4,
+                            4294901760
+                        ],
+                        "baseColorMap",
+                        6,
+                        0
+                    ],
+                    [
+                        {
+                            "baseStep": 1
+                        },
+                        "mainColor",
+                        8,
+                        [
+                            4,
+                            4288124823
+                        ],
+                        "shadeColor1",
+                        8,
+                        [
+                            4,
+                            4288124823
+                        ],
+                        "shadeColor2",
+                        8,
+                        [
+                            4,
+                            4187461527
+                        ],
+                        "specular",
+                        8,
+                        [
+                            4,
+                            9934743
+                        ],
+                        "mainTexture",
+                        6,
+                        1,
+                        "shadeMap1",
+                        6,
+                        2,
+                        "shadeMap2",
+                        6,
+                        3,
+                        "specularMap",
+                        6,
+                        4
+                    ],
+                    {},
+                    {},
+                    {},
+                    {},
+                    {}
+                ],
+                11,
+                11,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        ]
+    ],
+    0,
+    0,
+    [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+    ],
+    [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+    ]
+]

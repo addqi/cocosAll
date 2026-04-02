@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "QQ截图20240411192129",
+    "atlas": "",
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "width": 753,
+      "height": 1232
+    },
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "originalSize": {
+      "width": 753,
+      "height": 1232
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -376.5,
+        -616,
+        0,
+        376.5,
+        -616,
+        0,
+        -376.5,
+        616,
+        0,
+        376.5,
+        616,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        0,
+        1232,
+        753,
+        1232,
+        0,
+        0,
+        753,
+        0
+      ],
+      "nuv": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "minPos": {
+        "x": -376.5,
+        "y": -616,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 376.5,
+        "y": 616,
+        "z": 0
+      }
+    },
+    "texture": "86092fa3-dab3-468a-81ff-270dcf2e4ecd@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

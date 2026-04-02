@@ -1,0 +1,6363 @@
+{
+  "2abeef07-6679-4f40-8d74-cdc2e71e10bf": {
+    "url": "db://assets/res",
+    "value": {},
+    "versionCode": 1
+  },
+  "40a9c197-dfee-4482-8379-b8997519aae4": {
+    "url": "db://assets/res/balance/balanceBoxGet.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "0271d795-b301-4287-b390-6d1f53f74e39": {
+    "url": "db://assets/res/balance/balanceFontLose.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "0e9d5060-8424-483f-bc52-d6684a4f1c83": {
+    "url": "db://assets/res/balance/balanceFontWin.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "ba449b83-ecc0-40b8-9429-5f230fbff1e6": {
+    "url": "db://assets/res/balance/balanceIconGet.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "8f56fd7c-d631-40f3-a50b-4c64cc11904e": {
+    "url": "db://assets/res/balance",
+    "value": {},
+    "versionCode": 1
+  },
+  "4c7febeb-9a3f-4d7a-bf0f-53524a71dc15": {
+    "url": "db://assets/res/balance/balanceIconPlay.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "40a9c197-dfee-4482-8379-b8997519aae4@6c48a": {
+    "url": "db://assets/res/balance/balanceBoxGet.png@6c48a",
+    "value": {
+      "depends": [
+        "40a9c197-dfee-4482-8379-b8997519aae4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9bcbb1d5-d198-47f2-ab16-1e8d6905642d": {
+    "url": "db://assets/res/balance/balanceIconShare.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "0e9d5060-8424-483f-bc52-d6684a4f1c83@6c48a": {
+    "url": "db://assets/res/balance/balanceFontWin.png@6c48a",
+    "value": {
+      "depends": [
+        "0e9d5060-8424-483f-bc52-d6684a4f1c83"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ba449b83-ecc0-40b8-9429-5f230fbff1e6@6c48a": {
+    "url": "db://assets/res/balance/balanceIconGet.png@6c48a",
+    "value": {
+      "depends": [
+        "ba449b83-ecc0-40b8-9429-5f230fbff1e6"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a6dbb2b6-76d7-4857-9550-63eabe12778a": {
+    "url": "db://assets/res/balance/balanceImgLose.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "b758eb78-80b2-4723-ac38-a542fc361c5f": {
+    "url": "db://assets/res/balance/balanceImgWin.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "0271d795-b301-4287-b390-6d1f53f74e39@6c48a": {
+    "url": "db://assets/res/balance/balanceFontLose.png@6c48a",
+    "value": {
+      "depends": [
+        "0271d795-b301-4287-b390-6d1f53f74e39"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9b7e19db-3bff-4e43-b471-7bcb71ccc1cb": {
+    "url": "db://assets/res/balance/balanceLightWin.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "4c7febeb-9a3f-4d7a-bf0f-53524a71dc15@6c48a": {
+    "url": "db://assets/res/balance/balanceIconPlay.png@6c48a",
+    "value": {
+      "depends": [
+        "4c7febeb-9a3f-4d7a-bf0f-53524a71dc15"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9bcbb1d5-d198-47f2-ab16-1e8d6905642d@6c48a": {
+    "url": "db://assets/res/balance/balanceIconShare.png@6c48a",
+    "value": {
+      "depends": [
+        "9bcbb1d5-d198-47f2-ab16-1e8d6905642d"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b758eb78-80b2-4723-ac38-a542fc361c5f@6c48a": {
+    "url": "db://assets/res/balance/balanceImgWin.png@6c48a",
+    "value": {
+      "depends": [
+        "b758eb78-80b2-4723-ac38-a542fc361c5f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a6dbb2b6-76d7-4857-9550-63eabe12778a@6c48a": {
+    "url": "db://assets/res/balance/balanceImgLose.png@6c48a",
+    "value": {
+      "depends": [
+        "a6dbb2b6-76d7-4857-9550-63eabe12778a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9b7e19db-3bff-4e43-b471-7bcb71ccc1cb@6c48a": {
+    "url": "db://assets/res/balance/balanceLightWin.png@6c48a",
+    "value": {
+      "depends": [
+        "9b7e19db-3bff-4e43-b471-7bcb71ccc1cb"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2cd3a978-9069-4eb3-b589-937c51f5a7de": {
+    "url": "db://assets/res/card/1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "1664b42d-3071-4ede-a9d3-14cca80ff366": {
+    "url": "db://assets/res/card/2.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "c0e1fbce-e461-4800-af6f-525c461cd5cb": {
+    "url": "db://assets/res/card/3.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "71c4595c-76e2-446b-8c90-e2a936441a41": {
+    "url": "db://assets/res/card/4.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "d5de4aef-d678-478c-93ec-bc286759c05b": {
+    "url": "db://assets/res/card",
+    "value": {},
+    "versionCode": 1
+  },
+  "2cd3a978-9069-4eb3-b589-937c51f5a7de@6c48a": {
+    "url": "db://assets/res/card/1.png@6c48a",
+    "value": {
+      "depends": [
+        "2cd3a978-9069-4eb3-b589-937c51f5a7de"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c0e1fbce-e461-4800-af6f-525c461cd5cb@6c48a": {
+    "url": "db://assets/res/card/3.png@6c48a",
+    "value": {
+      "depends": [
+        "c0e1fbce-e461-4800-af6f-525c461cd5cb"
+      ]
+    },
+    "versionCode": 1
+  },
+  "71c4595c-76e2-446b-8c90-e2a936441a41@6c48a": {
+    "url": "db://assets/res/card/4.png@6c48a",
+    "value": {
+      "depends": [
+        "71c4595c-76e2-446b-8c90-e2a936441a41"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1664b42d-3071-4ede-a9d3-14cca80ff366@6c48a": {
+    "url": "db://assets/res/card/2.png@6c48a",
+    "value": {
+      "depends": [
+        "1664b42d-3071-4ede-a9d3-14cca80ff366"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ff9c8c9c-32b3-4aff-8e6b-20a75fb18393": {
+    "url": "db://assets/res/game",
+    "value": {},
+    "versionCode": 1
+  },
+  "b01cc2ef-5a93-472f-b7cb-3f44b2fc1f22": {
+    "url": "db://assets/res/game/gq.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "b1501169-eb8c-4821-9b90-66c0232b681a": {
+    "url": "db://assets/res/game/yxjm_df_txk.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "bf04cd08-6230-404e-b4f0-497128a8fc1c": {
+    "url": "db://assets/res/game/yxjm_df_x.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "27777ff4-e6ef-4c75-b7c8-d45b48c38559": {
+    "url": "db://assets/res/game/yxjm_dk.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "1c3c4389-f4c3-4cd8-8c45-2c752b21a455": {
+    "url": "db://assets/res/game/yxjm_jdt1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "bf04cd08-6230-404e-b4f0-497128a8fc1c@6c48a": {
+    "url": "db://assets/res/game/yxjm_df_x.png@6c48a",
+    "value": {
+      "depends": [
+        "bf04cd08-6230-404e-b4f0-497128a8fc1c"
+      ]
+    },
+    "versionCode": 1
+  },
+  "710ae467-1d4a-428a-b659-a2312323c7b2": {
+    "url": "db://assets/res/game/yxjm_jdt1_df.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "b1501169-eb8c-4821-9b90-66c0232b681a@6c48a": {
+    "url": "db://assets/res/game/yxjm_df_txk.png@6c48a",
+    "value": {
+      "depends": [
+        "b1501169-eb8c-4821-9b90-66c0232b681a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "13d85314-964c-4e77-83ca-beaa6629d156": {
+    "url": "db://assets/res/game/yxjm_jdt1_wf.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "b01cc2ef-5a93-472f-b7cb-3f44b2fc1f22@6c48a": {
+    "url": "db://assets/res/game/gq.png@6c48a",
+    "value": {
+      "depends": [
+        "b01cc2ef-5a93-472f-b7cb-3f44b2fc1f22"
+      ]
+    },
+    "versionCode": 1
+  },
+  "45efe1e2-75bf-45b8-b5a0-8104785e9dab": {
+    "url": "db://assets/res/game/yxjm_kp_w.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "1c3c4389-f4c3-4cd8-8c45-2c752b21a455@6c48a": {
+    "url": "db://assets/res/game/yxjm_jdt1.png@6c48a",
+    "value": {
+      "depends": [
+        "1c3c4389-f4c3-4cd8-8c45-2c752b21a455"
+      ]
+    },
+    "versionCode": 1
+  },
+  "40421ff6-e82e-43b7-99c6-e3f27c901cf0": {
+    "url": "db://assets/res/game/yxjm_kp_w_jz1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "27777ff4-e6ef-4c75-b7c8-d45b48c38559@6c48a": {
+    "url": "db://assets/res/game/yxjm_dk.png@6c48a",
+    "value": {
+      "depends": [
+        "27777ff4-e6ef-4c75-b7c8-d45b48c38559"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9929c768-f65b-4ca6-8e67-0c44a1dd23fa": {
+    "url": "db://assets/res/game/yxjm_kp_w_jz2.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "710ae467-1d4a-428a-b659-a2312323c7b2@6c48a": {
+    "url": "db://assets/res/game/yxjm_jdt1_df.png@6c48a",
+    "value": {
+      "depends": [
+        "710ae467-1d4a-428a-b659-a2312323c7b2"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e87d0220-5a5d-4aa4-af1c-8bfc9c7fc295": {
+    "url": "db://assets/res/game/yxjm_kp_xz.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "40421ff6-e82e-43b7-99c6-e3f27c901cf0@6c48a": {
+    "url": "db://assets/res/game/yxjm_kp_w_jz1.png@6c48a",
+    "value": {
+      "depends": [
+        "40421ff6-e82e-43b7-99c6-e3f27c901cf0"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4d2ddb86-1505-4a27-bd61-d252c9b6c7e6": {
+    "url": "db://assets/res/game/yxjm_tb_hq.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "45efe1e2-75bf-45b8-b5a0-8104785e9dab@6c48a": {
+    "url": "db://assets/res/game/yxjm_kp_w.png@6c48a",
+    "value": {
+      "depends": [
+        "45efe1e2-75bf-45b8-b5a0-8104785e9dab"
+      ]
+    },
+    "versionCode": 1
+  },
+  "13d85314-964c-4e77-83ca-beaa6629d156@6c48a": {
+    "url": "db://assets/res/game/yxjm_jdt1_wf.png@6c48a",
+    "value": {
+      "depends": [
+        "13d85314-964c-4e77-83ca-beaa6629d156"
+      ]
+    },
+    "versionCode": 1
+  },
+  "7827554d-ee02-4c74-aa6c-c0dd861708b4": {
+    "url": "db://assets/res/game/yxjm_tb_hq1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "0143a30b-6b4d-46d7-b562-d672c5f8fd1e": {
+    "url": "db://assets/res/game/yxjm_tb_hq2.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "9929c768-f65b-4ca6-8e67-0c44a1dd23fa@6c48a": {
+    "url": "db://assets/res/game/yxjm_kp_w_jz2.png@6c48a",
+    "value": {
+      "depends": [
+        "9929c768-f65b-4ca6-8e67-0c44a1dd23fa"
+      ]
+    },
+    "versionCode": 1
+  },
+  "7e9ce98a-356b-4f8c-8280-fe6e552ce9db": {
+    "url": "db://assets/res/game/yxjm_tb_hq4.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "e87d0220-5a5d-4aa4-af1c-8bfc9c7fc295@6c48a": {
+    "url": "db://assets/res/game/yxjm_kp_xz.png@6c48a",
+    "value": {
+      "depends": [
+        "e87d0220-5a5d-4aa4-af1c-8bfc9c7fc295"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1443b50d-27bd-4f75-ab46-872d667741c2": {
+    "url": "db://assets/res/game/yxjm_wf_txk.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "0143a30b-6b4d-46d7-b562-d672c5f8fd1e@6c48a": {
+    "url": "db://assets/res/game/yxjm_tb_hq2.png@6c48a",
+    "value": {
+      "depends": [
+        "0143a30b-6b4d-46d7-b562-d672c5f8fd1e"
+      ]
+    },
+    "versionCode": 1
+  },
+  "8f57514e-150c-45d0-95ff-4420b26f25a7": {
+    "url": "db://assets/res/game/yxjm_wf_x.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "4d2ddb86-1505-4a27-bd61-d252c9b6c7e6@6c48a": {
+    "url": "db://assets/res/game/yxjm_tb_hq.png@6c48a",
+    "value": {
+      "depends": [
+        "4d2ddb86-1505-4a27-bd61-d252c9b6c7e6"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a76ec734-e9bb-4d08-9306-5104e7e8abf0": {
+    "url": "db://assets/res/game/yxjm_wzbg.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "7827554d-ee02-4c74-aa6c-c0dd861708b4@6c48a": {
+    "url": "db://assets/res/game/yxjm_tb_hq1.png@6c48a",
+    "value": {
+      "depends": [
+        "7827554d-ee02-4c74-aa6c-c0dd861708b4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "904c6abc-7bb1-46d6-a0a2-ae1e10638c7e": {
+    "url": "db://assets/res/game/yx_df_hsszbg.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "7e9ce98a-356b-4f8c-8280-fe6e552ce9db@6c48a": {
+    "url": "db://assets/res/game/yxjm_tb_hq4.png@6c48a",
+    "value": {
+      "depends": [
+        "7e9ce98a-356b-4f8c-8280-fe6e552ce9db"
+      ]
+    },
+    "versionCode": 1
+  },
+  "7b65f753-e5b8-49e6-b1b7-01c7579c306c": {
+    "url": "db://assets/res/game/yx_df_hs_jdt1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "1443b50d-27bd-4f75-ab46-872d667741c2@6c48a": {
+    "url": "db://assets/res/game/yxjm_wf_txk.png@6c48a",
+    "value": {
+      "depends": [
+        "1443b50d-27bd-4f75-ab46-872d667741c2"
+      ]
+    },
+    "versionCode": 1
+  },
+  "db2d1925-adf7-49e6-ac7b-822e1d600c0f": {
+    "url": "db://assets/res/game/yx_df_hs_jdt2.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "8f57514e-150c-45d0-95ff-4420b26f25a7@6c48a": {
+    "url": "db://assets/res/game/yxjm_wf_x.png@6c48a",
+    "value": {
+      "depends": [
+        "8f57514e-150c-45d0-95ff-4420b26f25a7"
+      ]
+    },
+    "versionCode": 1
+  },
+  "3ffe842d-45ce-4560-87ed-14c86f92b9fd": {
+    "url": "db://assets/res/game/yx_wf_lsszbg.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "a76ec734-e9bb-4d08-9306-5104e7e8abf0@6c48a": {
+    "url": "db://assets/res/game/yxjm_wzbg.png@6c48a",
+    "value": {
+      "depends": [
+        "a76ec734-e9bb-4d08-9306-5104e7e8abf0"
+      ]
+    },
+    "versionCode": 1
+  },
+  "792c2cac-31b9-4bdb-b045-7672b42adce4": {
+    "url": "db://assets/res/game/yx_wf_ls_jdt1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "904c6abc-7bb1-46d6-a0a2-ae1e10638c7e@6c48a": {
+    "url": "db://assets/res/game/yx_df_hsszbg.png@6c48a",
+    "value": {
+      "depends": [
+        "904c6abc-7bb1-46d6-a0a2-ae1e10638c7e"
+      ]
+    },
+    "versionCode": 1
+  },
+  "6e3ef89b-3096-4df5-b869-79ce3598fcb9": {
+    "url": "db://assets/res/game/yx_wf_ls_jdt2.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "7b65f753-e5b8-49e6-b1b7-01c7579c306c@6c48a": {
+    "url": "db://assets/res/game/yx_df_hs_jdt1.png@6c48a",
+    "value": {
+      "depends": [
+        "7b65f753-e5b8-49e6-b1b7-01c7579c306c"
+      ]
+    },
+    "versionCode": 1
+  },
+  "db2d1925-adf7-49e6-ac7b-822e1d600c0f@6c48a": {
+    "url": "db://assets/res/game/yx_df_hs_jdt2.png@6c48a",
+    "value": {
+      "depends": [
+        "db2d1925-adf7-49e6-ac7b-822e1d600c0f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "3c7674ef-7beb-499a-9c99-9852ed4fcbf6": {
+    "url": "db://assets/res/game/1.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "3ffe842d-45ce-4560-87ed-14c86f92b9fd@6c48a": {
+    "url": "db://assets/res/game/yx_wf_lsszbg.png@6c48a",
+    "value": {
+      "depends": [
+        "3ffe842d-45ce-4560-87ed-14c86f92b9fd"
+      ]
+    },
+    "versionCode": 1
+  },
+  "792c2cac-31b9-4bdb-b045-7672b42adce4@6c48a": {
+    "url": "db://assets/res/game/yx_wf_ls_jdt1.png@6c48a",
+    "value": {
+      "depends": [
+        "792c2cac-31b9-4bdb-b045-7672b42adce4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "6e3ef89b-3096-4df5-b869-79ce3598fcb9@6c48a": {
+    "url": "db://assets/res/game/yx_wf_ls_jdt2.png@6c48a",
+    "value": {
+      "depends": [
+        "6e3ef89b-3096-4df5-b869-79ce3598fcb9"
+      ]
+    },
+    "versionCode": 1
+  },
+  "3c7674ef-7beb-499a-9c99-9852ed4fcbf6@6c48a": {
+    "url": "db://assets/res/game/1.jpg@6c48a",
+    "value": {
+      "depends": [
+        "3c7674ef-7beb-499a-9c99-9852ed4fcbf6"
+      ]
+    },
+    "versionCode": 1
+  },
+  "bb30eba5-f77f-4394-99c7-27a6629a3024": {
+    "url": "db://assets/res/map/newMap01.FBX",
+    "value": {},
+    "versionCode": 1
+  },
+  "7395cd06-c222-480b-a347-58b715a8a5f6": {
+    "url": "db://assets/res/map/newMap01.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "8e51ceab-193b-4a3f-98a6-cc3ed60e33e3": {
+    "url": "db://assets/res/map/newMap01.prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "58c90b77-b027-4c38-91e7-238b38610cb9": {
+    "url": "db://assets/res/map/newMap01.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "f884c99c-9084-4ba4-be49-6d1fb62a8907": {
+    "url": "db://assets/res/map",
+    "value": {},
+    "versionCode": 1
+  },
+  "58c90b77-b027-4c38-91e7-238b38610cb9@6c48a": {
+    "url": "db://assets/res/map/newMap01.jpg@6c48a",
+    "value": {
+      "depends": [
+        "58c90b77-b027-4c38-91e7-238b38610cb9"
+      ]
+    },
+    "versionCode": 1
+  },
+  "bb30eba5-f77f-4394-99c7-27a6629a3024@f6845": {
+    "url": "db://assets/res/map/newMap01.FBX@f6845",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "bb30eba5-f77f-4394-99c7-27a6629a3024@1cdc4": {
+    "url": "db://assets/res/map/newMap01.FBX@1cdc4",
+    "value": {
+      "imageExtName": ".jpg",
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "bb30eba5-f77f-4394-99c7-27a6629a3024@bfae8": {
+    "url": "db://assets/res/map/newMap01.FBX@bfae8",
+    "value": {
+      "depends": [
+        "bb30eba5-f77f-4394-99c7-27a6629a3024@1cdc4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "bb30eba5-f77f-4394-99c7-27a6629a3024@7ff75": {
+    "url": "db://assets/res/map/newMap01.FBX@7ff75",
+    "value": {
+      "depends": [
+        "f648964e-8d32-41fc-9ac9-7a1e714dd17b",
+        "bb30eba5-f77f-4394-99c7-27a6629a3024@bfae8"
+      ]
+    },
+    "versionCode": 1
+  },
+  "bb30eba5-f77f-4394-99c7-27a6629a3024@fc11b": {
+    "url": "db://assets/res/map/newMap01.FBX@fc11b",
+    "value": {
+      "depends": [
+        "bb30eba5-f77f-4394-99c7-27a6629a3024@7ff75",
+        "bb30eba5-f77f-4394-99c7-27a6629a3024@f6845"
+      ]
+    },
+    "versionCode": 1
+  },
+  "3212ad55-96df-4cce-bfe2-419d8c1c9fd2": {
+    "url": "db://assets/res/model",
+    "value": {},
+    "versionCode": 1
+  },
+  "46a8c397-3f48-408a-b22f-cbbb89c08ac6": {
+    "url": "db://assets/res/model/axe",
+    "value": {},
+    "versionCode": 1
+  },
+  "9178c73b-8008-4953-b585-ee516bd0a6bf": {
+    "url": "db://assets/res/model/role",
+    "value": {},
+    "versionCode": 1
+  },
+  "6e8ae5cb-dd27-495f-8685-bcb52fb6eaf3": {
+    "url": "db://assets/res/model/axe/Materials_axe01",
+    "value": {},
+    "versionCode": 1
+  },
+  "afca5443-9889-4439-b6f6-b5cb1c9b9137": {
+    "url": "db://assets/res/model/role/role01",
+    "value": {},
+    "versionCode": 1
+  },
+  "1df21c83-d6a0-4b12-a22b-39bfd7c0a292": {
+    "url": "db://assets/res/model/axe/axe.prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "93586c5b-7fad-42d6-9571-54a9cd78e452": {
+    "url": "db://assets/res/model/axe/axe01.FBX",
+    "value": {},
+    "versionCode": 1
+  },
+  "b66f51aa-b2ff-403a-a3d3-880b525ff6cb": {
+    "url": "db://assets/res/model/axe/axe01.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "c344e08f-7fae-40ce-a343-d412cfa0fbe7": {
+    "url": "db://assets/res/model/axe/axe02.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "b056a3e6-9081-424d-950c-a105774bdd1b": {
+    "url": "db://assets/res/model/axe/axe03.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "e68a272e-41ac-4a8f-9c21-65497ccfb8ee": {
+    "url": "db://assets/res/model/axe/blue.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "158c4536-6a2c-4f2e-a38b-8a92c9a8bce6": {
+    "url": "db://assets/res/model/axe/red.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "2acf2310-83cf-4df2-9c4c-c9f2dad83c3c": {
+    "url": "db://assets/res/model/axe/yellow.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "b056a3e6-9081-424d-950c-a105774bdd1b@6c48a": {
+    "url": "db://assets/res/model/axe/axe03.jpg@6c48a",
+    "value": {
+      "depends": [
+        "b056a3e6-9081-424d-950c-a105774bdd1b"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9ba26615-2696-4c67-bb11-2b055f1dfb02": {
+    "url": "db://assets/res/model/axe/Materials_axe01/Material #4.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "c344e08f-7fae-40ce-a343-d412cfa0fbe7@6c48a": {
+    "url": "db://assets/res/model/axe/axe02.jpg@6c48a",
+    "value": {
+      "depends": [
+        "c344e08f-7fae-40ce-a343-d412cfa0fbe7"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ae804969-c01a-4f30-8a5a-a3806e20ba5e": {
+    "url": "db://assets/res/model/role/role01/DefaultMaterial.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "b66f51aa-b2ff-403a-a3d3-880b525ff6cb@6c48a": {
+    "url": "db://assets/res/model/axe/axe01.jpg@6c48a",
+    "value": {
+      "depends": [
+        "b66f51aa-b2ff-403a-a3d3-880b525ff6cb"
+      ]
+    },
+    "versionCode": 1
+  },
+  "93586c5b-7fad-42d6-9571-54a9cd78e452@55758": {
+    "url": "db://assets/res/model/axe/axe01.FBX@55758",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "93586c5b-7fad-42d6-9571-54a9cd78e452@73b7f": {
+    "url": "db://assets/res/model/axe/axe01.FBX@73b7f",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "93586c5b-7fad-42d6-9571-54a9cd78e452@438fe": {
+    "url": "db://assets/res/model/axe/axe01.FBX@438fe",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "93586c5b-7fad-42d6-9571-54a9cd78e452@bfae8": {
+    "url": "db://assets/res/model/axe/axe01.FBX@bfae8",
+    "value": {
+      "depends": [
+        "b66f51aa-b2ff-403a-a3d3-880b525ff6cb"
+      ]
+    },
+    "versionCode": 1
+  },
+  "93586c5b-7fad-42d6-9571-54a9cd78e452@74c03": {
+    "url": "db://assets/res/model/axe/axe01.FBX@74c03",
+    "value": {
+      "depends": [
+        "f648964e-8d32-41fc-9ac9-7a1e714dd17b",
+        "93586c5b-7fad-42d6-9571-54a9cd78e452@bfae8"
+      ]
+    },
+    "versionCode": 1
+  },
+  "93586c5b-7fad-42d6-9571-54a9cd78e452@f0343": {
+    "url": "db://assets/res/model/axe/axe01.FBX@f0343",
+    "value": {
+      "depends": [
+        "93586c5b-7fad-42d6-9571-54a9cd78e452@74c03",
+        "93586c5b-7fad-42d6-9571-54a9cd78e452@55758",
+        "93586c5b-7fad-42d6-9571-54a9cd78e452@438fe",
+        "93586c5b-7fad-42d6-9571-54a9cd78e452@73b7f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "77f9c9d1-0159-4004-83ea-716280ed52ae": {
+    "url": "db://assets/res/newHome/commonIconGold.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "89dc37d7-f2e7-49d8-8011-dd2e059f1110": {
+    "url": "db://assets/res/newHome/homeBox01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "01eff6b7-2b96-42cb-8ea2-c5a3e911330e": {
+    "url": "db://assets/res/newHome/homeBox02.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "179d1958-3e24-4a67-88a9-e7f043875b41": {
+    "url": "db://assets/res/newHome/homeBox03.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "65119427-be64-41f4-a4c8-3cfe8d74f752": {
+    "url": "db://assets/res/newHome",
+    "value": {},
+    "versionCode": 1
+  },
+  "416fdcba-1db1-4b3f-b074-0c9eb7586d5e": {
+    "url": "db://assets/res/newHome/homeBox04.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "01eff6b7-2b96-42cb-8ea2-c5a3e911330e@6c48a": {
+    "url": "db://assets/res/newHome/homeBox02.png@6c48a",
+    "value": {
+      "depends": [
+        "01eff6b7-2b96-42cb-8ea2-c5a3e911330e"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1ea45e3a-c792-4b59-abd2-cbba6dc032b1": {
+    "url": "db://assets/res/newHome/homeBoxBlue.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "179d1958-3e24-4a67-88a9-e7f043875b41@6c48a": {
+    "url": "db://assets/res/newHome/homeBox03.png@6c48a",
+    "value": {
+      "depends": [
+        "179d1958-3e24-4a67-88a9-e7f043875b41"
+      ]
+    },
+    "versionCode": 1
+  },
+  "764886f8-d12a-4311-a24b-39d1f7a13d13": {
+    "url": "db://assets/res/newHome/homeBoxIcon01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "416fdcba-1db1-4b3f-b074-0c9eb7586d5e@6c48a": {
+    "url": "db://assets/res/newHome/homeBox04.png@6c48a",
+    "value": {
+      "depends": [
+        "416fdcba-1db1-4b3f-b074-0c9eb7586d5e"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ebb0d53f-ac46-4ecc-91c6-6a8018f47f25": {
+    "url": "db://assets/res/newHome/homeBoxOrange.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "89dc37d7-f2e7-49d8-8011-dd2e059f1110@6c48a": {
+    "url": "db://assets/res/newHome/homeBox01.png@6c48a",
+    "value": {
+      "depends": [
+        "89dc37d7-f2e7-49d8-8011-dd2e059f1110"
+      ]
+    },
+    "versionCode": 1
+  },
+  "d6c88e4e-1855-481c-a0ba-fcba6982f065": {
+    "url": "db://assets/res/newHome/homeBoxTips.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "77f9c9d1-0159-4004-83ea-716280ed52ae@6c48a": {
+    "url": "db://assets/res/newHome/commonIconGold.png@6c48a",
+    "value": {
+      "depends": [
+        "77f9c9d1-0159-4004-83ea-716280ed52ae"
+      ]
+    },
+    "versionCode": 1
+  },
+  "63965bb6-31e2-471f-8d18-1fdab6b3200e": {
+    "url": "db://assets/res/newHome/homeBtnBlue.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "1ea45e3a-c792-4b59-abd2-cbba6dc032b1@6c48a": {
+    "url": "db://assets/res/newHome/homeBoxBlue.png@6c48a",
+    "value": {
+      "depends": [
+        "1ea45e3a-c792-4b59-abd2-cbba6dc032b1"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2107c97c-f3c4-4de2-bc75-2ef5bed0217b": {
+    "url": "db://assets/res/newHome/homeBtnPlay.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "ebb0d53f-ac46-4ecc-91c6-6a8018f47f25@6c48a": {
+    "url": "db://assets/res/newHome/homeBoxOrange.png@6c48a",
+    "value": {
+      "depends": [
+        "ebb0d53f-ac46-4ecc-91c6-6a8018f47f25"
+      ]
+    },
+    "versionCode": 1
+  },
+  "764886f8-d12a-4311-a24b-39d1f7a13d13@6c48a": {
+    "url": "db://assets/res/newHome/homeBoxIcon01.png@6c48a",
+    "value": {
+      "depends": [
+        "764886f8-d12a-4311-a24b-39d1f7a13d13"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9b1cf2cb-ba05-475c-a63e-6d10c79a2b33": {
+    "url": "db://assets/res/newHome/homeBtnRed.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "b5c2d8c6-3b55-4ceb-bd83-9713eb4313e0": {
+    "url": "db://assets/res/newHome/homeFont01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "d6c88e4e-1855-481c-a0ba-fcba6982f065@6c48a": {
+    "url": "db://assets/res/newHome/homeBoxTips.png@6c48a",
+    "value": {
+      "depends": [
+        "d6c88e4e-1855-481c-a0ba-fcba6982f065"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f960d2e9-0bc4-4165-aea7-1339fbf0781d": {
+    "url": "db://assets/res/newHome/homeFont02.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "63965bb6-31e2-471f-8d18-1fdab6b3200e@6c48a": {
+    "url": "db://assets/res/newHome/homeBtnBlue.png@6c48a",
+    "value": {
+      "depends": [
+        "63965bb6-31e2-471f-8d18-1fdab6b3200e"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e87309df-f079-4a67-acd4-5188e3997a74": {
+    "url": "db://assets/res/newHome/homeFont03.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "9b1cf2cb-ba05-475c-a63e-6d10c79a2b33@6c48a": {
+    "url": "db://assets/res/newHome/homeBtnRed.png@6c48a",
+    "value": {
+      "depends": [
+        "9b1cf2cb-ba05-475c-a63e-6d10c79a2b33"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9c2e99ed-6eb8-45ae-aced-d026f6e5805d": {
+    "url": "db://assets/res/newHome/homeFont04.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "b5c2d8c6-3b55-4ceb-bd83-9713eb4313e0@6c48a": {
+    "url": "db://assets/res/newHome/homeFont01.png@6c48a",
+    "value": {
+      "depends": [
+        "b5c2d8c6-3b55-4ceb-bd83-9713eb4313e0"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b7a6400d-5d00-4ae6-9f97-18022855fb5d": {
+    "url": "db://assets/res/newHome/homeFontArmy.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "2107c97c-f3c4-4de2-bc75-2ef5bed0217b@6c48a": {
+    "url": "db://assets/res/newHome/homeBtnPlay.png@6c48a",
+    "value": {
+      "depends": [
+        "2107c97c-f3c4-4de2-bc75-2ef5bed0217b"
+      ]
+    },
+    "versionCode": 1
+  },
+  "30d2fdf0-43f8-4104-b010-49e18dd182ab": {
+    "url": "db://assets/res/newHome/homeFontGift.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "f960d2e9-0bc4-4165-aea7-1339fbf0781d@6c48a": {
+    "url": "db://assets/res/newHome/homeFont02.png@6c48a",
+    "value": {
+      "depends": [
+        "f960d2e9-0bc4-4165-aea7-1339fbf0781d"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2a27654d-9f2f-4801-9059-cdeea36dfb36": {
+    "url": "db://assets/res/newHome/homeFontLand.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "e87309df-f079-4a67-acd4-5188e3997a74@6c48a": {
+    "url": "db://assets/res/newHome/homeFont03.png@6c48a",
+    "value": {
+      "depends": [
+        "e87309df-f079-4a67-acd4-5188e3997a74"
+      ]
+    },
+    "versionCode": 1
+  },
+  "07fd87c0-5578-4fcb-86e1-93839a752dc6": {
+    "url": "db://assets/res/newHome/homeIcon01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "b7a6400d-5d00-4ae6-9f97-18022855fb5d@6c48a": {
+    "url": "db://assets/res/newHome/homeFontArmy.png@6c48a",
+    "value": {
+      "depends": [
+        "b7a6400d-5d00-4ae6-9f97-18022855fb5d"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c9b4045e-1db6-4045-9118-16812e29042a": {
+    "url": "db://assets/res/newHome/homeIcon02.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "9c2e99ed-6eb8-45ae-aced-d026f6e5805d@6c48a": {
+    "url": "db://assets/res/newHome/homeFont04.png@6c48a",
+    "value": {
+      "depends": [
+        "9c2e99ed-6eb8-45ae-aced-d026f6e5805d"
+      ]
+    },
+    "versionCode": 1
+  },
+  "45b3386d-fe59-4952-9353-42e6beedc044": {
+    "url": "db://assets/res/newHome/homeIcon03.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "30d2fdf0-43f8-4104-b010-49e18dd182ab@6c48a": {
+    "url": "db://assets/res/newHome/homeFontGift.png@6c48a",
+    "value": {
+      "depends": [
+        "30d2fdf0-43f8-4104-b010-49e18dd182ab"
+      ]
+    },
+    "versionCode": 1
+  },
+  "30682707-81aa-4d51-bc8f-95b0f8f8fd10": {
+    "url": "db://assets/res/newHome/homeIconArrow.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "2a27654d-9f2f-4801-9059-cdeea36dfb36@6c48a": {
+    "url": "db://assets/res/newHome/homeFontLand.png@6c48a",
+    "value": {
+      "depends": [
+        "2a27654d-9f2f-4801-9059-cdeea36dfb36"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c3d698a3-9d44-43ce-b643-5757edb1c1bc": {
+    "url": "db://assets/res/newHome/homeIconChange.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "07fd87c0-5578-4fcb-86e1-93839a752dc6@6c48a": {
+    "url": "db://assets/res/newHome/homeIcon01.png@6c48a",
+    "value": {
+      "depends": [
+        "07fd87c0-5578-4fcb-86e1-93839a752dc6"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ccdc562c-7a30-4d00-a9dd-7c3fdf751f55": {
+    "url": "db://assets/res/newHome/homeIconUp.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "45b3386d-fe59-4952-9353-42e6beedc044@6c48a": {
+    "url": "db://assets/res/newHome/homeIcon03.png@6c48a",
+    "value": {
+      "depends": [
+        "45b3386d-fe59-4952-9353-42e6beedc044"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a48956cb-c382-4288-9463-d7f96943ca51": {
+    "url": "db://assets/res/newHome/homeImg01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "c9b4045e-1db6-4045-9118-16812e29042a@6c48a": {
+    "url": "db://assets/res/newHome/homeIcon02.png@6c48a",
+    "value": {
+      "depends": [
+        "c9b4045e-1db6-4045-9118-16812e29042a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b087b816-87fc-44a2-8a3c-4a851e7c0ee7": {
+    "url": "db://assets/res/newHome/homeImg02.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "30682707-81aa-4d51-bc8f-95b0f8f8fd10@6c48a": {
+    "url": "db://assets/res/newHome/homeIconArrow.png@6c48a",
+    "value": {
+      "depends": [
+        "30682707-81aa-4d51-bc8f-95b0f8f8fd10"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c3d698a3-9d44-43ce-b643-5757edb1c1bc@6c48a": {
+    "url": "db://assets/res/newHome/homeIconChange.png@6c48a",
+    "value": {
+      "depends": [
+        "c3d698a3-9d44-43ce-b643-5757edb1c1bc"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a39a507e-3a44-42f6-8027-711e5739c422": {
+    "url": "db://assets/res/newHome/homeImg03.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "9082a19b-fec7-4f8c-ad4d-1d9c84697583": {
+    "url": "db://assets/res/newHome/homeImgStar01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "ccdc562c-7a30-4d00-a9dd-7c3fdf751f55@6c48a": {
+    "url": "db://assets/res/newHome/homeIconUp.png@6c48a",
+    "value": {
+      "depends": [
+        "ccdc562c-7a30-4d00-a9dd-7c3fdf751f55"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2dcdb762-4bb3-4da6-af35-018f169ee1fb": {
+    "url": "db://assets/res/newHome/homeImgStar02.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "b087b816-87fc-44a2-8a3c-4a851e7c0ee7@6c48a": {
+    "url": "db://assets/res/newHome/homeImg02.png@6c48a",
+    "value": {
+      "depends": [
+        "b087b816-87fc-44a2-8a3c-4a851e7c0ee7"
+      ]
+    },
+    "versionCode": 1
+  },
+  "16cec62a-b3fa-4889-8ca7-ee096d074704": {
+    "url": "db://assets/res/newHome/QQ截图20240411192129.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "9082a19b-fec7-4f8c-ad4d-1d9c84697583@6c48a": {
+    "url": "db://assets/res/newHome/homeImgStar01.png@6c48a",
+    "value": {
+      "depends": [
+        "9082a19b-fec7-4f8c-ad4d-1d9c84697583"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a39a507e-3a44-42f6-8027-711e5739c422@6c48a": {
+    "url": "db://assets/res/newHome/homeImg03.png@6c48a",
+    "value": {
+      "depends": [
+        "a39a507e-3a44-42f6-8027-711e5739c422"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ad17d355-a061-43ab-8cbc-ddd1d87ee718": {
+    "url": "db://assets/res/newHome/yb_bg.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "ab13675c-1746-4172-83c2-46121ac23bc6": {
+    "url": "db://assets/res/newHome/zljq.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "a48956cb-c382-4288-9463-d7f96943ca51@6c48a": {
+    "url": "db://assets/res/newHome/homeImg01.png@6c48a",
+    "value": {
+      "depends": [
+        "a48956cb-c382-4288-9463-d7f96943ca51"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ce385e79-fb7f-443e-9457-47b23151fce8": {
+    "url": "db://assets/res/newHome/zlts.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "2dcdb762-4bb3-4da6-af35-018f169ee1fb@6c48a": {
+    "url": "db://assets/res/newHome/homeImgStar02.png@6c48a",
+    "value": {
+      "depends": [
+        "2dcdb762-4bb3-4da6-af35-018f169ee1fb"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ad17d355-a061-43ab-8cbc-ddd1d87ee718@6c48a": {
+    "url": "db://assets/res/newHome/yb_bg.png@6c48a",
+    "value": {
+      "depends": [
+        "ad17d355-a061-43ab-8cbc-ddd1d87ee718"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ab13675c-1746-4172-83c2-46121ac23bc6@6c48a": {
+    "url": "db://assets/res/newHome/zljq.png@6c48a",
+    "value": {
+      "depends": [
+        "ab13675c-1746-4172-83c2-46121ac23bc6"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ce385e79-fb7f-443e-9457-47b23151fce8@6c48a": {
+    "url": "db://assets/res/newHome/zlts.png@6c48a",
+    "value": {
+      "depends": [
+        "ce385e79-fb7f-443e-9457-47b23151fce8"
+      ]
+    },
+    "versionCode": 1
+  },
+  "16cec62a-b3fa-4889-8ca7-ee096d074704@6c48a": {
+    "url": "db://assets/res/newHome/QQ截图20240411192129.png@6c48a",
+    "value": {
+      "depends": [
+        "16cec62a-b3fa-4889-8ca7-ee096d074704"
+      ]
+    },
+    "versionCode": 1
+  },
+  "076f776a-e405-44df-be85-6a9d3277fbbc": {
+    "url": "db://assets/res/role01",
+    "value": {},
+    "versionCode": 1
+  },
+  "98fa32d7-f65f-4731-8aab-1c4a0dcd1dc7": {
+    "url": "db://assets/res/role01/DefaultMaterial.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "0137628b-08f9-42cc-bc44-20c9f9264bd0": {
+    "url": "db://assets/res/role01/role01.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "1635bfad-6b95-4a91-a1ca-29db2149723c": {
+    "url": "db://assets/res/role01/role01.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "8b67eb14-192b-4fcb-91fe-c961aeeb67a3": {
+    "url": "db://assets/res/role01/role01.prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "76346ac4-978a-4490-bb4b-81cbf631d0d5": {
+    "url": "db://assets/res/role01/role01All.FBX",
+    "value": {},
+    "versionCode": 1
+  },
+  "0137628b-08f9-42cc-bc44-20c9f9264bd0@6c48a": {
+    "url": "db://assets/res/role01/role01.jpg@6c48a",
+    "value": {
+      "depends": [
+        "0137628b-08f9-42cc-bc44-20c9f9264bd0"
+      ]
+    },
+    "versionCode": 1
+  },
+  "76346ac4-978a-4490-bb4b-81cbf631d0d5@fd7d6": {
+    "url": "db://assets/res/role01/role01All.FBX@fd7d6",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "76346ac4-978a-4490-bb4b-81cbf631d0d5@73b7f": {
+    "url": "db://assets/res/role01/role01All.FBX@73b7f",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "76346ac4-978a-4490-bb4b-81cbf631d0d5@438fe": {
+    "url": "db://assets/res/role01/role01All.FBX@438fe",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "76346ac4-978a-4490-bb4b-81cbf631d0d5@3f561": {
+    "url": "db://assets/res/role01/role01All.FBX@3f561",
+    "value": {
+      "depends": [
+        "76346ac4-978a-4490-bb4b-81cbf631d0d5@fd7d6",
+        "76346ac4-978a-4490-bb4b-81cbf631d0d5@438fe",
+        "76346ac4-978a-4490-bb4b-81cbf631d0d5@73b7f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b8125390-985e-4860-9aa7-03590c12a062": {
+    "url": "db://assets/res/resour/datas",
+    "value": {},
+    "versionCode": 1
+  },
+  "3705c16c-fec8-4f10-a886-9eb4e0f1d835": {
+    "url": "db://assets/res/resour/datas/card.csv",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "ea434bf9-f5d7-4965-8316-4587be39ef8f": {
+    "url": "db://assets/res/resour/datas/solider.csv",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "e92f7876-5ea5-4256-b80a-516ecc0e2066": {
+    "url": "db://assets/res/resour/prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "d5659fe4-f4ff-43bb-9dc6-56c126ced05d": {
+    "url": "db://assets/res/resour/prefab/fighter",
+    "value": {},
+    "versionCode": 1
+  },
+  "4a656ea6-2a17-4035-98b4-f0edc768f070": {
+    "url": "db://assets/res/resour/prefab/player",
+    "value": {},
+    "versionCode": 1
+  },
+  "62d875cf-2d32-4d87-8410-3436e34a479c": {
+    "url": "db://assets/res/resour/prefab/solider",
+    "value": {},
+    "versionCode": 1
+  },
+  "46ba6765-2e2f-4d31-83bf-e3d290e416ea": {
+    "url": "db://assets/res/resour/prefab/ui",
+    "value": {},
+    "versionCode": 1
+  },
+  "8fe2a759-50bb-4f7f-aae7-a635b0a990f2": {
+    "url": "db://assets/res/resour/prefab/fighter/Fighter.prefab",
+    "value": {
+      "depends": [],
+      "dependScripts": [
+        "de9e6ae2-009b-4c75-96d1-79c850812d36"
+      ]
+    },
+    "versionCode": 1
+  },
+  "19d5f703-3abf-48d3-a5b7-cdb49e64b25a": {
+    "url": "db://assets/res/resour/prefab/player/player.prefab",
+    "value": {
+      "depends": [
+        "6826b480-6300-444d-95a3-9e27a0c476a3",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@fd7d6",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@438fe",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@1f586",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@989ed",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@b4251",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@6c359",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@cf5ee"
+      ],
+      "dependScripts": []
+    },
+    "versionCode": 1
+  },
+  "5c4d00fc-19f7-4071-8a95-063a2b608da8": {
+    "url": "db://assets/res/resour/prefab/solider/buBing.prefab",
+    "value": {
+      "depends": [
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@f0343",
+        "923fe17b-a36b-4b88-9f79-0feb317fb9f0",
+        "86454e1c-2489-4b8f-815e-344b19c89015",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@74c03",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@55758",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@438fe"
+      ],
+      "dependScripts": [
+        "CC3eba29-7abb-723a-f7ab-ae275e2277e8",
+        "c544e9ee-7679-4685-a926-a742c0ed97c5"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1e52b0da-f6fe-4297-b31b-7c72540123e1": {
+    "url": "db://assets/res/resour/prefab/ui/GameOverPanel.prefab",
+    "value": {
+      "depends": [
+        "7d8f9b89-4fd1-4c9f-a3ab-38ec7cded7ca@f9941",
+        "6a05c169-ade2-4379-9808-2398fa76a171@f9941",
+        "0ef6c17e-cad2-414f-adf1-3da73e5f64c5@f9941",
+        "20835ba4-6145-4fbc-a58a-051ce700aa3e@f9941",
+        "544e49d6-3f05-4fa8-9a9e-091f98fc2ce8@f9941",
+        "951249e0-9f16-456d-8b85-a6ca954da16b@f9941",
+        "606ad998-f401-43a1-9967-4019b040205f@f9941"
+      ],
+      "dependScripts": []
+    },
+    "versionCode": 1
+  },
+  "a1ed0f8f-8cbe-4439-9f3c-4e4c9e18e121": {
+    "url": "db://assets/res/resour/prefab/ui/GamePanel.prefab",
+    "value": {
+      "depends": [
+        "c56d0552-c41e-4455-8219-62482acc590d@f9941",
+        "57614a35-ee9d-4d08-9f96-13278fe4fbe2@f9941",
+        "f24a4cec-eb27-4a86-8387-42656fb2246f@f9941",
+        "b6986b3a-c766-47fc-a096-9ff0e2063650@f9941",
+        "0b2bea29-2de9-482f-91b8-cc3b41fd8577@f9941",
+        "c32912a0-2783-481a-ac57-055eb1673771@f9941",
+        "9d360602-a419-423c-9127-d9d8b7fa1acd@f9941",
+        "42675dfa-1c18-4dd7-b431-bfcbc05ab187@f9941",
+        "e6ec0b0f-9050-4bd5-aebc-628a20338db8@f9941",
+        "a74f5f3e-e01a-46bf-b332-ec3f2a28db11@f9941",
+        "1b0b6ef2-31b2-4d2b-b413-210edb9ef3f6@f9941",
+        "d4941e17-44f8-4360-9902-bef57c3a949d@f9941",
+        "25a27e25-28ba-468d-85bf-784ee806b20c@f9941"
+      ],
+      "dependScripts": [
+        "0d500fb7-db45-4bf7-a13c-ede44ca3c4a6",
+        "df34004d-3af6-4837-8e96-910546688f89"
+      ]
+    },
+    "versionCode": 1
+  },
+  "77ec8154-df19-4754-ba1d-a03d82d22a5b": {
+    "url": "db://assets/res/resour/prefab/ui/HomePanel.prefab",
+    "value": {
+      "depends": [
+        "adc8e40b-26cf-42c7-a3d3-e033cbc328ad@f9941",
+        "606ad998-f401-43a1-9967-4019b040205f@f9941",
+        "05df99ff-3532-4226-9a2a-bed6b836b667@f9941",
+        "9798df0f-94ea-4143-a765-d9a625604e0f@f9941",
+        "e634ffea-cf56-4317-a0d2-cf2ac3464aa1@f9941",
+        "5b9f72cb-e9a1-4a02-afd2-557977fc8ee6@f9941",
+        "aee5210e-5ffa-4bb9-9168-4e02ed596035@f9941",
+        "255fbd0c-7070-4597-85cd-976bff2fa6bc@f9941",
+        "20835ba4-6145-4fbc-a58a-051ce700aa3e@f9941",
+        "544e49d6-3f05-4fa8-9a9e-091f98fc2ce8@f9941",
+        "951249e0-9f16-456d-8b85-a6ca954da16b@f9941"
+      ],
+      "dependScripts": [
+        "40e85268-c4ef-471c-b564-ad22f5c0c555"
+      ]
+    },
+    "versionCode": 1
+  },
+  "138a8b25-1002-4199-a8f9-741864e93df7": {
+    "url": "db://assets/scene.scene",
+    "value": {
+      "depends": [
+        "138a8b25-1002-4199-a8f9-741864e93df7",
+        "b7d6d595-6cd1-43c6-8bc7-3a92644870b9",
+        "c26a63b9-5039-47ae-b027-ef2bce881f6f@f6845",
+        "480edf20-b7f3-4368-97e4-520c1c385567",
+        "d032ac98-05e1-4090-88bb-eb640dcb5fc1@b47c0",
+        "6f01cf7f-81bf-4a7e-bd5d-0afc19696480@b47c0"
+      ],
+      "dependScripts": [
+        "6709d1d4-40a7-43e4-92dd-9d4540e96da8",
+        "CC3eba29-7abb-723a-f7ab-ae275e2277e8",
+        "3ba704d9-ee25-44ef-9b74-26647506bcab"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ba449b83-ecc0-40b8-9429-5f230fbff1e6@f9941": {
+    "url": "db://assets/res/balance/balanceIconGet.png@f9941",
+    "value": {
+      "depends": [
+        "ba449b83-ecc0-40b8-9429-5f230fbff1e6@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0e9d5060-8424-483f-bc52-d6684a4f1c83@f9941": {
+    "url": "db://assets/res/balance/balanceFontWin.png@f9941",
+    "value": {
+      "depends": [
+        "0e9d5060-8424-483f-bc52-d6684a4f1c83@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "40a9c197-dfee-4482-8379-b8997519aae4@f9941": {
+    "url": "db://assets/res/balance/balanceBoxGet.png@f9941",
+    "value": {
+      "depends": [
+        "40a9c197-dfee-4482-8379-b8997519aae4@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0271d795-b301-4287-b390-6d1f53f74e39@f9941": {
+    "url": "db://assets/res/balance/balanceFontLose.png@f9941",
+    "value": {
+      "depends": [
+        "0271d795-b301-4287-b390-6d1f53f74e39@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4c7febeb-9a3f-4d7a-bf0f-53524a71dc15@f9941": {
+    "url": "db://assets/res/balance/balanceIconPlay.png@f9941",
+    "value": {
+      "depends": [
+        "4c7febeb-9a3f-4d7a-bf0f-53524a71dc15@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9bcbb1d5-d198-47f2-ab16-1e8d6905642d@f9941": {
+    "url": "db://assets/res/balance/balanceIconShare.png@f9941",
+    "value": {
+      "depends": [
+        "9bcbb1d5-d198-47f2-ab16-1e8d6905642d@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b758eb78-80b2-4723-ac38-a542fc361c5f@f9941": {
+    "url": "db://assets/res/balance/balanceImgWin.png@f9941",
+    "value": {
+      "depends": [
+        "b758eb78-80b2-4723-ac38-a542fc361c5f@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a6dbb2b6-76d7-4857-9550-63eabe12778a@f9941": {
+    "url": "db://assets/res/balance/balanceImgLose.png@f9941",
+    "value": {
+      "depends": [
+        "a6dbb2b6-76d7-4857-9550-63eabe12778a@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9b7e19db-3bff-4e43-b471-7bcb71ccc1cb@f9941": {
+    "url": "db://assets/res/balance/balanceLightWin.png@f9941",
+    "value": {
+      "depends": [
+        "9b7e19db-3bff-4e43-b471-7bcb71ccc1cb@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "71c4595c-76e2-446b-8c90-e2a936441a41@f9941": {
+    "url": "db://assets/res/card/4.png@f9941",
+    "value": {
+      "depends": [
+        "71c4595c-76e2-446b-8c90-e2a936441a41@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1664b42d-3071-4ede-a9d3-14cca80ff366@f9941": {
+    "url": "db://assets/res/card/2.png@f9941",
+    "value": {
+      "depends": [
+        "1664b42d-3071-4ede-a9d3-14cca80ff366@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c0e1fbce-e461-4800-af6f-525c461cd5cb@f9941": {
+    "url": "db://assets/res/card/3.png@f9941",
+    "value": {
+      "depends": [
+        "c0e1fbce-e461-4800-af6f-525c461cd5cb@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2cd3a978-9069-4eb3-b589-937c51f5a7de@f9941": {
+    "url": "db://assets/res/card/1.png@f9941",
+    "value": {
+      "depends": [
+        "2cd3a978-9069-4eb3-b589-937c51f5a7de@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "89dc37d7-f2e7-49d8-8011-dd2e059f1110@f9941": {
+    "url": "db://assets/res/newHome/homeBox01.png@f9941",
+    "value": {
+      "depends": [
+        "89dc37d7-f2e7-49d8-8011-dd2e059f1110@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "01eff6b7-2b96-42cb-8ea2-c5a3e911330e@f9941": {
+    "url": "db://assets/res/newHome/homeBox02.png@f9941",
+    "value": {
+      "depends": [
+        "01eff6b7-2b96-42cb-8ea2-c5a3e911330e@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "416fdcba-1db1-4b3f-b074-0c9eb7586d5e@f9941": {
+    "url": "db://assets/res/newHome/homeBox04.png@f9941",
+    "value": {
+      "depends": [
+        "416fdcba-1db1-4b3f-b074-0c9eb7586d5e@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "179d1958-3e24-4a67-88a9-e7f043875b41@f9941": {
+    "url": "db://assets/res/newHome/homeBox03.png@f9941",
+    "value": {
+      "depends": [
+        "179d1958-3e24-4a67-88a9-e7f043875b41@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "77f9c9d1-0159-4004-83ea-716280ed52ae@f9941": {
+    "url": "db://assets/res/newHome/commonIconGold.png@f9941",
+    "value": {
+      "depends": [
+        "77f9c9d1-0159-4004-83ea-716280ed52ae@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1ea45e3a-c792-4b59-abd2-cbba6dc032b1@f9941": {
+    "url": "db://assets/res/newHome/homeBoxBlue.png@f9941",
+    "value": {
+      "depends": [
+        "1ea45e3a-c792-4b59-abd2-cbba6dc032b1@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "d6c88e4e-1855-481c-a0ba-fcba6982f065@f9941": {
+    "url": "db://assets/res/newHome/homeBoxTips.png@f9941",
+    "value": {
+      "depends": [
+        "d6c88e4e-1855-481c-a0ba-fcba6982f065@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "764886f8-d12a-4311-a24b-39d1f7a13d13@f9941": {
+    "url": "db://assets/res/newHome/homeBoxIcon01.png@f9941",
+    "value": {
+      "depends": [
+        "764886f8-d12a-4311-a24b-39d1f7a13d13@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ebb0d53f-ac46-4ecc-91c6-6a8018f47f25@f9941": {
+    "url": "db://assets/res/newHome/homeBoxOrange.png@f9941",
+    "value": {
+      "depends": [
+        "ebb0d53f-ac46-4ecc-91c6-6a8018f47f25@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "63965bb6-31e2-471f-8d18-1fdab6b3200e@f9941": {
+    "url": "db://assets/res/newHome/homeBtnBlue.png@f9941",
+    "value": {
+      "depends": [
+        "63965bb6-31e2-471f-8d18-1fdab6b3200e@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2107c97c-f3c4-4de2-bc75-2ef5bed0217b@f9941": {
+    "url": "db://assets/res/newHome/homeBtnPlay.png@f9941",
+    "value": {
+      "depends": [
+        "2107c97c-f3c4-4de2-bc75-2ef5bed0217b@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9b1cf2cb-ba05-475c-a63e-6d10c79a2b33@f9941": {
+    "url": "db://assets/res/newHome/homeBtnRed.png@f9941",
+    "value": {
+      "depends": [
+        "9b1cf2cb-ba05-475c-a63e-6d10c79a2b33@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f960d2e9-0bc4-4165-aea7-1339fbf0781d@f9941": {
+    "url": "db://assets/res/newHome/homeFont02.png@f9941",
+    "value": {
+      "depends": [
+        "f960d2e9-0bc4-4165-aea7-1339fbf0781d@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b5c2d8c6-3b55-4ceb-bd83-9713eb4313e0@f9941": {
+    "url": "db://assets/res/newHome/homeFont01.png@f9941",
+    "value": {
+      "depends": [
+        "b5c2d8c6-3b55-4ceb-bd83-9713eb4313e0@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e87309df-f079-4a67-acd4-5188e3997a74@f9941": {
+    "url": "db://assets/res/newHome/homeFont03.png@f9941",
+    "value": {
+      "depends": [
+        "e87309df-f079-4a67-acd4-5188e3997a74@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9c2e99ed-6eb8-45ae-aced-d026f6e5805d@f9941": {
+    "url": "db://assets/res/newHome/homeFont04.png@f9941",
+    "value": {
+      "depends": [
+        "9c2e99ed-6eb8-45ae-aced-d026f6e5805d@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b7a6400d-5d00-4ae6-9f97-18022855fb5d@f9941": {
+    "url": "db://assets/res/newHome/homeFontArmy.png@f9941",
+    "value": {
+      "depends": [
+        "b7a6400d-5d00-4ae6-9f97-18022855fb5d@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "30d2fdf0-43f8-4104-b010-49e18dd182ab@f9941": {
+    "url": "db://assets/res/newHome/homeFontGift.png@f9941",
+    "value": {
+      "depends": [
+        "30d2fdf0-43f8-4104-b010-49e18dd182ab@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2a27654d-9f2f-4801-9059-cdeea36dfb36@f9941": {
+    "url": "db://assets/res/newHome/homeFontLand.png@f9941",
+    "value": {
+      "depends": [
+        "2a27654d-9f2f-4801-9059-cdeea36dfb36@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "07fd87c0-5578-4fcb-86e1-93839a752dc6@f9941": {
+    "url": "db://assets/res/newHome/homeIcon01.png@f9941",
+    "value": {
+      "depends": [
+        "07fd87c0-5578-4fcb-86e1-93839a752dc6@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "30682707-81aa-4d51-bc8f-95b0f8f8fd10@f9941": {
+    "url": "db://assets/res/newHome/homeIconArrow.png@f9941",
+    "value": {
+      "depends": [
+        "30682707-81aa-4d51-bc8f-95b0f8f8fd10@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "45b3386d-fe59-4952-9353-42e6beedc044@f9941": {
+    "url": "db://assets/res/newHome/homeIcon03.png@f9941",
+    "value": {
+      "depends": [
+        "45b3386d-fe59-4952-9353-42e6beedc044@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c9b4045e-1db6-4045-9118-16812e29042a@f9941": {
+    "url": "db://assets/res/newHome/homeIcon02.png@f9941",
+    "value": {
+      "depends": [
+        "c9b4045e-1db6-4045-9118-16812e29042a@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c3d698a3-9d44-43ce-b643-5757edb1c1bc@f9941": {
+    "url": "db://assets/res/newHome/homeIconChange.png@f9941",
+    "value": {
+      "depends": [
+        "c3d698a3-9d44-43ce-b643-5757edb1c1bc@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ccdc562c-7a30-4d00-a9dd-7c3fdf751f55@f9941": {
+    "url": "db://assets/res/newHome/homeIconUp.png@f9941",
+    "value": {
+      "depends": [
+        "ccdc562c-7a30-4d00-a9dd-7c3fdf751f55@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b087b816-87fc-44a2-8a3c-4a851e7c0ee7@f9941": {
+    "url": "db://assets/res/newHome/homeImg02.png@f9941",
+    "value": {
+      "depends": [
+        "b087b816-87fc-44a2-8a3c-4a851e7c0ee7@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a48956cb-c382-4288-9463-d7f96943ca51@f9941": {
+    "url": "db://assets/res/newHome/homeImg01.png@f9941",
+    "value": {
+      "depends": [
+        "a48956cb-c382-4288-9463-d7f96943ca51@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9082a19b-fec7-4f8c-ad4d-1d9c84697583@f9941": {
+    "url": "db://assets/res/newHome/homeImgStar01.png@f9941",
+    "value": {
+      "depends": [
+        "9082a19b-fec7-4f8c-ad4d-1d9c84697583@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a39a507e-3a44-42f6-8027-711e5739c422@f9941": {
+    "url": "db://assets/res/newHome/homeImg03.png@f9941",
+    "value": {
+      "depends": [
+        "a39a507e-3a44-42f6-8027-711e5739c422@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2dcdb762-4bb3-4da6-af35-018f169ee1fb@f9941": {
+    "url": "db://assets/res/newHome/homeImgStar02.png@f9941",
+    "value": {
+      "depends": [
+        "2dcdb762-4bb3-4da6-af35-018f169ee1fb@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ad17d355-a061-43ab-8cbc-ddd1d87ee718@f9941": {
+    "url": "db://assets/res/newHome/yb_bg.png@f9941",
+    "value": {
+      "depends": [
+        "ad17d355-a061-43ab-8cbc-ddd1d87ee718@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ab13675c-1746-4172-83c2-46121ac23bc6@f9941": {
+    "url": "db://assets/res/newHome/zljq.png@f9941",
+    "value": {
+      "depends": [
+        "ab13675c-1746-4172-83c2-46121ac23bc6@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ce385e79-fb7f-443e-9457-47b23151fce8@f9941": {
+    "url": "db://assets/res/newHome/zlts.png@f9941",
+    "value": {
+      "depends": [
+        "ce385e79-fb7f-443e-9457-47b23151fce8@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "16cec62a-b3fa-4889-8ca7-ee096d074704@f9941": {
+    "url": "db://assets/res/newHome/QQ截图20240411192129.png@f9941",
+    "value": {
+      "depends": [
+        "16cec62a-b3fa-4889-8ca7-ee096d074704@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "db2d1925-adf7-49e6-ac7b-822e1d600c0f@f9941": {
+    "url": "db://assets/res/game/yx_df_hs_jdt2.png@f9941",
+    "value": {
+      "depends": [
+        "db2d1925-adf7-49e6-ac7b-822e1d600c0f@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "904c6abc-7bb1-46d6-a0a2-ae1e10638c7e@f9941": {
+    "url": "db://assets/res/game/yx_df_hsszbg.png@f9941",
+    "value": {
+      "depends": [
+        "904c6abc-7bb1-46d6-a0a2-ae1e10638c7e@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b01cc2ef-5a93-472f-b7cb-3f44b2fc1f22@f9941": {
+    "url": "db://assets/res/game/gq.png@f9941",
+    "value": {
+      "depends": [
+        "b01cc2ef-5a93-472f-b7cb-3f44b2fc1f22@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "7b65f753-e5b8-49e6-b1b7-01c7579c306c@f9941": {
+    "url": "db://assets/res/game/yx_df_hs_jdt1.png@f9941",
+    "value": {
+      "depends": [
+        "7b65f753-e5b8-49e6-b1b7-01c7579c306c@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "3c7674ef-7beb-499a-9c99-9852ed4fcbf6@f9941": {
+    "url": "db://assets/res/game/1.jpg@f9941",
+    "value": {
+      "depends": [
+        "3c7674ef-7beb-499a-9c99-9852ed4fcbf6@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b1501169-eb8c-4821-9b90-66c0232b681a@f9941": {
+    "url": "db://assets/res/game/yxjm_df_txk.png@f9941",
+    "value": {
+      "depends": [
+        "b1501169-eb8c-4821-9b90-66c0232b681a@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "bf04cd08-6230-404e-b4f0-497128a8fc1c@f9941": {
+    "url": "db://assets/res/game/yxjm_df_x.png@f9941",
+    "value": {
+      "depends": [
+        "bf04cd08-6230-404e-b4f0-497128a8fc1c@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "27777ff4-e6ef-4c75-b7c8-d45b48c38559@f9941": {
+    "url": "db://assets/res/game/yxjm_dk.png@f9941",
+    "value": {
+      "depends": [
+        "27777ff4-e6ef-4c75-b7c8-d45b48c38559@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "710ae467-1d4a-428a-b659-a2312323c7b2@f9941": {
+    "url": "db://assets/res/game/yxjm_jdt1_df.png@f9941",
+    "value": {
+      "depends": [
+        "710ae467-1d4a-428a-b659-a2312323c7b2@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1c3c4389-f4c3-4cd8-8c45-2c752b21a455@f9941": {
+    "url": "db://assets/res/game/yxjm_jdt1.png@f9941",
+    "value": {
+      "depends": [
+        "1c3c4389-f4c3-4cd8-8c45-2c752b21a455@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "13d85314-964c-4e77-83ca-beaa6629d156@f9941": {
+    "url": "db://assets/res/game/yxjm_jdt1_wf.png@f9941",
+    "value": {
+      "depends": [
+        "13d85314-964c-4e77-83ca-beaa6629d156@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "45efe1e2-75bf-45b8-b5a0-8104785e9dab@f9941": {
+    "url": "db://assets/res/game/yxjm_kp_w.png@f9941",
+    "value": {
+      "depends": [
+        "45efe1e2-75bf-45b8-b5a0-8104785e9dab@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "40421ff6-e82e-43b7-99c6-e3f27c901cf0@f9941": {
+    "url": "db://assets/res/game/yxjm_kp_w_jz1.png@f9941",
+    "value": {
+      "depends": [
+        "40421ff6-e82e-43b7-99c6-e3f27c901cf0@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e87d0220-5a5d-4aa4-af1c-8bfc9c7fc295@f9941": {
+    "url": "db://assets/res/game/yxjm_kp_xz.png@f9941",
+    "value": {
+      "depends": [
+        "e87d0220-5a5d-4aa4-af1c-8bfc9c7fc295@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9929c768-f65b-4ca6-8e67-0c44a1dd23fa@f9941": {
+    "url": "db://assets/res/game/yxjm_kp_w_jz2.png@f9941",
+    "value": {
+      "depends": [
+        "9929c768-f65b-4ca6-8e67-0c44a1dd23fa@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4d2ddb86-1505-4a27-bd61-d252c9b6c7e6@f9941": {
+    "url": "db://assets/res/game/yxjm_tb_hq.png@f9941",
+    "value": {
+      "depends": [
+        "4d2ddb86-1505-4a27-bd61-d252c9b6c7e6@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "7827554d-ee02-4c74-aa6c-c0dd861708b4@f9941": {
+    "url": "db://assets/res/game/yxjm_tb_hq1.png@f9941",
+    "value": {
+      "depends": [
+        "7827554d-ee02-4c74-aa6c-c0dd861708b4@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0143a30b-6b4d-46d7-b562-d672c5f8fd1e@f9941": {
+    "url": "db://assets/res/game/yxjm_tb_hq2.png@f9941",
+    "value": {
+      "depends": [
+        "0143a30b-6b4d-46d7-b562-d672c5f8fd1e@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "7e9ce98a-356b-4f8c-8280-fe6e552ce9db@f9941": {
+    "url": "db://assets/res/game/yxjm_tb_hq4.png@f9941",
+    "value": {
+      "depends": [
+        "7e9ce98a-356b-4f8c-8280-fe6e552ce9db@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1443b50d-27bd-4f75-ab46-872d667741c2@f9941": {
+    "url": "db://assets/res/game/yxjm_wf_txk.png@f9941",
+    "value": {
+      "depends": [
+        "1443b50d-27bd-4f75-ab46-872d667741c2@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "8f57514e-150c-45d0-95ff-4420b26f25a7@f9941": {
+    "url": "db://assets/res/game/yxjm_wf_x.png@f9941",
+    "value": {
+      "depends": [
+        "8f57514e-150c-45d0-95ff-4420b26f25a7@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a76ec734-e9bb-4d08-9306-5104e7e8abf0@f9941": {
+    "url": "db://assets/res/game/yxjm_wzbg.png@f9941",
+    "value": {
+      "depends": [
+        "a76ec734-e9bb-4d08-9306-5104e7e8abf0@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "792c2cac-31b9-4bdb-b045-7672b42adce4@f9941": {
+    "url": "db://assets/res/game/yx_wf_ls_jdt1.png@f9941",
+    "value": {
+      "depends": [
+        "792c2cac-31b9-4bdb-b045-7672b42adce4@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "3ffe842d-45ce-4560-87ed-14c86f92b9fd@f9941": {
+    "url": "db://assets/res/game/yx_wf_lsszbg.png@f9941",
+    "value": {
+      "depends": [
+        "3ffe842d-45ce-4560-87ed-14c86f92b9fd@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "6e3ef89b-3096-4df5-b869-79ce3598fcb9@f9941": {
+    "url": "db://assets/res/game/yx_wf_ls_jdt2.png@f9941",
+    "value": {
+      "depends": [
+        "6e3ef89b-3096-4df5-b869-79ce3598fcb9@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e00e2c13-cdd0-4232-ab4a-20ffe2afe53c": {
+    "url": "db://assets/res/res/balance",
+    "value": {},
+    "versionCode": 1
+  },
+  "55b5802b-15dd-4821-bd6a-308d5b697601": {
+    "url": "db://assets/res/res/card",
+    "value": {},
+    "versionCode": 1
+  },
+  "927d5655-1194-4b8d-81c7-3e819cebaa42": {
+    "url": "db://assets/res/res/game",
+    "value": {},
+    "versionCode": 1
+  },
+  "54b6adee-4cb4-4df6-b45c-f74d30360030": {
+    "url": "db://assets/res/res/map",
+    "value": {},
+    "versionCode": 1
+  },
+  "b6af6a35-c2fe-461c-a3fe-befa78d171ac": {
+    "url": "db://assets/res/res",
+    "value": {},
+    "versionCode": 1
+  },
+  "2ac90a50-7155-44aa-8d83-fd8514723b74": {
+    "url": "db://assets/res/res/model",
+    "value": {},
+    "versionCode": 1
+  },
+  "50f8f4e8-90fb-4c84-b580-43ab78acf927": {
+    "url": "db://assets/res/res/newHome",
+    "value": {},
+    "versionCode": 1
+  },
+  "9ee6734c-3b74-4d75-8a1e-5c5f6e273061": {
+    "url": "db://assets/res/res/role01",
+    "value": {},
+    "versionCode": 1
+  },
+  "06977e58-f625-427a-81af-2fb22224c056": {
+    "url": "db://assets/res/res/model/axe",
+    "value": {},
+    "versionCode": 1
+  },
+  "71c24bdb-f0ca-46b6-9847-e3a3bc55e766": {
+    "url": "db://assets/res/res/model/role",
+    "value": {},
+    "versionCode": 1
+  },
+  "e2e90dae-7189-47d9-b94a-3197b61b4568": {
+    "url": "db://assets/res/res/model/axe/Materials_axe01",
+    "value": {},
+    "versionCode": 1
+  },
+  "866c9897-e8d8-443e-b4ed-1113e616be6a": {
+    "url": "db://assets/res/res/model/role/role01",
+    "value": {},
+    "versionCode": 1
+  },
+  "22c44935-9fd7-49a2-a425-563170f4ec6e": {
+    "url": "db://assets/res/res/balance/balanceFontLose.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "0ee25003-051c-4945-b544-e524a6e35c43": {
+    "url": "db://assets/res/res/balance/balanceFontWin.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "b0047db7-1809-43af-94e6-697a0b29808c": {
+    "url": "db://assets/res/res/balance/balanceIconGet.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "0ef6c17e-cad2-414f-adf1-3da73e5f64c5": {
+    "url": "db://assets/res/res/balance/balanceIconPlay.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f35f2cdc-3c2c-4f14-ae61-f049d7146618": {
+    "url": "db://assets/res/res/balance/balanceIconShare.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "b0047db7-1809-43af-94e6-697a0b29808c@6c48a": {
+    "url": "db://assets/res/res/balance/balanceIconGet.png@6c48a",
+    "value": {
+      "depends": [
+        "b0047db7-1809-43af-94e6-697a0b29808c"
+      ]
+    },
+    "versionCode": 1
+  },
+  "22c44935-9fd7-49a2-a425-563170f4ec6e@6c48a": {
+    "url": "db://assets/res/res/balance/balanceFontLose.png@6c48a",
+    "value": {
+      "depends": [
+        "22c44935-9fd7-49a2-a425-563170f4ec6e"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f35f2cdc-3c2c-4f14-ae61-f049d7146618@6c48a": {
+    "url": "db://assets/res/res/balance/balanceIconShare.png@6c48a",
+    "value": {
+      "depends": [
+        "f35f2cdc-3c2c-4f14-ae61-f049d7146618"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0ee25003-051c-4945-b544-e524a6e35c43@6c48a": {
+    "url": "db://assets/res/res/balance/balanceFontWin.png@6c48a",
+    "value": {
+      "depends": [
+        "0ee25003-051c-4945-b544-e524a6e35c43"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0ef6c17e-cad2-414f-adf1-3da73e5f64c5@6c48a": {
+    "url": "db://assets/res/res/balance/balanceIconPlay.png@6c48a",
+    "value": {
+      "depends": [
+        "0ef6c17e-cad2-414f-adf1-3da73e5f64c5"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b0047db7-1809-43af-94e6-697a0b29808c@f9941": {
+    "url": "db://assets/res/res/balance/balanceIconGet.png@f9941",
+    "value": {
+      "depends": [
+        "b0047db7-1809-43af-94e6-697a0b29808c@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f8302774-1404-4992-9302-8c368d8118f7": {
+    "url": "db://assets/res/res/balance/balanceImgLose.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "22c44935-9fd7-49a2-a425-563170f4ec6e@f9941": {
+    "url": "db://assets/res/res/balance/balanceFontLose.png@f9941",
+    "value": {
+      "depends": [
+        "22c44935-9fd7-49a2-a425-563170f4ec6e@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "6a05c169-ade2-4379-9808-2398fa76a171": {
+    "url": "db://assets/res/res/balance/balanceImgWin.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "0ee25003-051c-4945-b544-e524a6e35c43@f9941": {
+    "url": "db://assets/res/res/balance/balanceFontWin.png@f9941",
+    "value": {
+      "depends": [
+        "0ee25003-051c-4945-b544-e524a6e35c43@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f35f2cdc-3c2c-4f14-ae61-f049d7146618@f9941": {
+    "url": "db://assets/res/res/balance/balanceIconShare.png@f9941",
+    "value": {
+      "depends": [
+        "f35f2cdc-3c2c-4f14-ae61-f049d7146618@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "065e7e5f-b004-426f-a950-b7c12b8f2e35": {
+    "url": "db://assets/res/res/balance/balanceLightWin.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "42675dfa-1c18-4dd7-b431-bfcbc05ab187": {
+    "url": "db://assets/res/res/card/1.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "0ef6c17e-cad2-414f-adf1-3da73e5f64c5@f9941": {
+    "url": "db://assets/res/res/balance/balanceIconPlay.png@f9941",
+    "value": {
+      "depends": [
+        "0ef6c17e-cad2-414f-adf1-3da73e5f64c5@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "404aa45b-ee0a-4ca0-bb45-01ef82272122": {
+    "url": "db://assets/res/res/card/2.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f8302774-1404-4992-9302-8c368d8118f7@6c48a": {
+    "url": "db://assets/res/res/balance/balanceImgLose.png@6c48a",
+    "value": {
+      "depends": [
+        "f8302774-1404-4992-9302-8c368d8118f7"
+      ]
+    },
+    "versionCode": 1
+  },
+  "6a05c169-ade2-4379-9808-2398fa76a171@6c48a": {
+    "url": "db://assets/res/res/balance/balanceImgWin.png@6c48a",
+    "value": {
+      "depends": [
+        "6a05c169-ade2-4379-9808-2398fa76a171"
+      ]
+    },
+    "versionCode": 1
+  },
+  "065e7e5f-b004-426f-a950-b7c12b8f2e35@6c48a": {
+    "url": "db://assets/res/res/balance/balanceLightWin.png@6c48a",
+    "value": {
+      "depends": [
+        "065e7e5f-b004-426f-a950-b7c12b8f2e35"
+      ]
+    },
+    "versionCode": 1
+  },
+  "42675dfa-1c18-4dd7-b431-bfcbc05ab187@6c48a": {
+    "url": "db://assets/res/res/card/1.png@6c48a",
+    "value": {
+      "depends": [
+        "42675dfa-1c18-4dd7-b431-bfcbc05ab187"
+      ]
+    },
+    "versionCode": 1
+  },
+  "404aa45b-ee0a-4ca0-bb45-01ef82272122@6c48a": {
+    "url": "db://assets/res/res/card/2.png@6c48a",
+    "value": {
+      "depends": [
+        "404aa45b-ee0a-4ca0-bb45-01ef82272122"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f8302774-1404-4992-9302-8c368d8118f7@f9941": {
+    "url": "db://assets/res/res/balance/balanceImgLose.png@f9941",
+    "value": {
+      "depends": [
+        "f8302774-1404-4992-9302-8c368d8118f7@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2b93fb67-7f48-4f6f-976e-7f818147d201": {
+    "url": "db://assets/res/res/card/3.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "6a05c169-ade2-4379-9808-2398fa76a171@f9941": {
+    "url": "db://assets/res/res/balance/balanceImgWin.png@f9941",
+    "value": {
+      "depends": [
+        "6a05c169-ade2-4379-9808-2398fa76a171@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "065e7e5f-b004-426f-a950-b7c12b8f2e35@f9941": {
+    "url": "db://assets/res/res/balance/balanceLightWin.png@f9941",
+    "value": {
+      "depends": [
+        "065e7e5f-b004-426f-a950-b7c12b8f2e35@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5f51ad0b-62f3-4e9d-b643-ea735ca2a599": {
+    "url": "db://assets/res/res/card/4.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "c56d0552-c41e-4455-8219-62482acc590d": {
+    "url": "db://assets/res/res/game/1.jpg",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "42675dfa-1c18-4dd7-b431-bfcbc05ab187@f9941": {
+    "url": "db://assets/res/res/card/1.png@f9941",
+    "value": {
+      "depends": [
+        "42675dfa-1c18-4dd7-b431-bfcbc05ab187@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "18cf2df4-f9d1-4edf-9548-36746ff17bbf": {
+    "url": "db://assets/res/res/game/auto-atlas.pac",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "404aa45b-ee0a-4ca0-bb45-01ef82272122@f9941": {
+    "url": "db://assets/res/res/card/2.png@f9941",
+    "value": {
+      "depends": [
+        "404aa45b-ee0a-4ca0-bb45-01ef82272122@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ac9fa0ae-6620-416b-b0fc-24fdf4d3f34f": {
+    "url": "db://assets/res/res/game/gq.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "57614a35-ee9d-4d08-9f96-13278fe4fbe2": {
+    "url": "db://assets/res/res/game/yxjm_df_txk.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "2b93fb67-7f48-4f6f-976e-7f818147d201@6c48a": {
+    "url": "db://assets/res/res/card/3.png@6c48a",
+    "value": {
+      "depends": [
+        "2b93fb67-7f48-4f6f-976e-7f818147d201"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5f51ad0b-62f3-4e9d-b643-ea735ca2a599@6c48a": {
+    "url": "db://assets/res/res/card/4.png@6c48a",
+    "value": {
+      "depends": [
+        "5f51ad0b-62f3-4e9d-b643-ea735ca2a599"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ac9fa0ae-6620-416b-b0fc-24fdf4d3f34f@6c48a": {
+    "url": "db://assets/res/res/game/gq.png@6c48a",
+    "value": {
+      "depends": [
+        "ac9fa0ae-6620-416b-b0fc-24fdf4d3f34f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c56d0552-c41e-4455-8219-62482acc590d@6c48a": {
+    "url": "db://assets/res/res/game/1.jpg@6c48a",
+    "value": {
+      "depends": [
+        "c56d0552-c41e-4455-8219-62482acc590d"
+      ]
+    },
+    "versionCode": 1
+  },
+  "57614a35-ee9d-4d08-9f96-13278fe4fbe2@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_df_txk.png@6c48a",
+    "value": {
+      "depends": [
+        "57614a35-ee9d-4d08-9f96-13278fe4fbe2"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2b93fb67-7f48-4f6f-976e-7f818147d201@f9941": {
+    "url": "db://assets/res/res/card/3.png@f9941",
+    "value": {
+      "depends": [
+        "2b93fb67-7f48-4f6f-976e-7f818147d201@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f24a4cec-eb27-4a86-8387-42656fb2246f": {
+    "url": "db://assets/res/res/game/yxjm_df_x.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "ac9fa0ae-6620-416b-b0fc-24fdf4d3f34f@f9941": {
+    "url": "db://assets/res/res/game/gq.png@f9941",
+    "value": {
+      "depends": [
+        "ac9fa0ae-6620-416b-b0fc-24fdf4d3f34f@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5f51ad0b-62f3-4e9d-b643-ea735ca2a599@f9941": {
+    "url": "db://assets/res/res/card/4.png@f9941",
+    "value": {
+      "depends": [
+        "5f51ad0b-62f3-4e9d-b643-ea735ca2a599@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "25a27e25-28ba-468d-85bf-784ee806b20c": {
+    "url": "db://assets/res/res/game/yxjm_dk.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "0b2bea29-2de9-482f-91b8-cc3b41fd8577": {
+    "url": "db://assets/res/res/game/yxjm_jdt1.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "c56d0552-c41e-4455-8219-62482acc590d@f9941": {
+    "url": "db://assets/res/res/game/1.jpg@f9941",
+    "value": {
+      "depends": [
+        "c56d0552-c41e-4455-8219-62482acc590d@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "57614a35-ee9d-4d08-9f96-13278fe4fbe2@f9941": {
+    "url": "db://assets/res/res/game/yxjm_df_txk.png@f9941",
+    "value": {
+      "depends": [
+        "57614a35-ee9d-4d08-9f96-13278fe4fbe2@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b6986b3a-c766-47fc-a096-9ff0e2063650": {
+    "url": "db://assets/res/res/game/yxjm_jdt1_df.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "9d360602-a419-423c-9127-d9d8b7fa1acd": {
+    "url": "db://assets/res/res/game/yxjm_jdt1_wf.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f24a4cec-eb27-4a86-8387-42656fb2246f@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_df_x.png@6c48a",
+    "value": {
+      "depends": [
+        "f24a4cec-eb27-4a86-8387-42656fb2246f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "25a27e25-28ba-468d-85bf-784ee806b20c@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_dk.png@6c48a",
+    "value": {
+      "depends": [
+        "25a27e25-28ba-468d-85bf-784ee806b20c"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0b2bea29-2de9-482f-91b8-cc3b41fd8577@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_jdt1.png@6c48a",
+    "value": {
+      "depends": [
+        "0b2bea29-2de9-482f-91b8-cc3b41fd8577"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b6986b3a-c766-47fc-a096-9ff0e2063650@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_jdt1_df.png@6c48a",
+    "value": {
+      "depends": [
+        "b6986b3a-c766-47fc-a096-9ff0e2063650"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9d360602-a419-423c-9127-d9d8b7fa1acd@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_jdt1_wf.png@6c48a",
+    "value": {
+      "depends": [
+        "9d360602-a419-423c-9127-d9d8b7fa1acd"
+      ]
+    },
+    "versionCode": 1
+  },
+  "25a27e25-28ba-468d-85bf-784ee806b20c@f9941": {
+    "url": "db://assets/res/res/game/yxjm_dk.png@f9941",
+    "value": {
+      "depends": [
+        "25a27e25-28ba-468d-85bf-784ee806b20c@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "d4941e17-44f8-4360-9902-bef57c3a949d": {
+    "url": "db://assets/res/res/game/yxjm_kp_w.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f24a4cec-eb27-4a86-8387-42656fb2246f@f9941": {
+    "url": "db://assets/res/res/game/yxjm_df_x.png@f9941",
+    "value": {
+      "depends": [
+        "f24a4cec-eb27-4a86-8387-42656fb2246f@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a74f5f3e-e01a-46bf-b332-ec3f2a28db11": {
+    "url": "db://assets/res/res/game/yxjm_kp_w_jz1.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "0b2bea29-2de9-482f-91b8-cc3b41fd8577@f9941": {
+    "url": "db://assets/res/res/game/yxjm_jdt1.png@f9941",
+    "value": {
+      "depends": [
+        "0b2bea29-2de9-482f-91b8-cc3b41fd8577@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e6ec0b0f-9050-4bd5-aebc-628a20338db8": {
+    "url": "db://assets/res/res/game/yxjm_kp_w_jz2.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "b6986b3a-c766-47fc-a096-9ff0e2063650@f9941": {
+    "url": "db://assets/res/res/game/yxjm_jdt1_df.png@f9941",
+    "value": {
+      "depends": [
+        "b6986b3a-c766-47fc-a096-9ff0e2063650@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9d360602-a419-423c-9127-d9d8b7fa1acd@f9941": {
+    "url": "db://assets/res/res/game/yxjm_jdt1_wf.png@f9941",
+    "value": {
+      "depends": [
+        "9d360602-a419-423c-9127-d9d8b7fa1acd@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1b0b6ef2-31b2-4d2b-b413-210edb9ef3f6": {
+    "url": "db://assets/res/res/game/yxjm_kp_xz.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "4449f7be-d327-4351-acb1-4fcf46144c5f": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "a74f5f3e-e01a-46bf-b332-ec3f2a28db11@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_kp_w_jz1.png@6c48a",
+    "value": {
+      "depends": [
+        "a74f5f3e-e01a-46bf-b332-ec3f2a28db11"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e6ec0b0f-9050-4bd5-aebc-628a20338db8@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_kp_w_jz2.png@6c48a",
+    "value": {
+      "depends": [
+        "e6ec0b0f-9050-4bd5-aebc-628a20338db8"
+      ]
+    },
+    "versionCode": 1
+  },
+  "d4941e17-44f8-4360-9902-bef57c3a949d@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_kp_w.png@6c48a",
+    "value": {
+      "depends": [
+        "d4941e17-44f8-4360-9902-bef57c3a949d"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1b0b6ef2-31b2-4d2b-b413-210edb9ef3f6@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_kp_xz.png@6c48a",
+    "value": {
+      "depends": [
+        "1b0b6ef2-31b2-4d2b-b413-210edb9ef3f6"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4449f7be-d327-4351-acb1-4fcf46144c5f@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq.png@6c48a",
+    "value": {
+      "depends": [
+        "4449f7be-d327-4351-acb1-4fcf46144c5f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a74f5f3e-e01a-46bf-b332-ec3f2a28db11@f9941": {
+    "url": "db://assets/res/res/game/yxjm_kp_w_jz1.png@f9941",
+    "value": {
+      "depends": [
+        "a74f5f3e-e01a-46bf-b332-ec3f2a28db11@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b7b3b219-4a82-4cff-bec4-ce4940d46209": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq1.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "e6ec0b0f-9050-4bd5-aebc-628a20338db8@f9941": {
+    "url": "db://assets/res/res/game/yxjm_kp_w_jz2.png@f9941",
+    "value": {
+      "depends": [
+        "e6ec0b0f-9050-4bd5-aebc-628a20338db8@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "bbedc6fe-7e54-4ddd-9ba6-9b59485846ac": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq2.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "d4941e17-44f8-4360-9902-bef57c3a949d@f9941": {
+    "url": "db://assets/res/res/game/yxjm_kp_w.png@f9941",
+    "value": {
+      "depends": [
+        "d4941e17-44f8-4360-9902-bef57c3a949d@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a2bd22fc-6d3f-4cdd-a8e9-c8f7361c46f2": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq4.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "1b0b6ef2-31b2-4d2b-b413-210edb9ef3f6@f9941": {
+    "url": "db://assets/res/res/game/yxjm_kp_xz.png@f9941",
+    "value": {
+      "depends": [
+        "1b0b6ef2-31b2-4d2b-b413-210edb9ef3f6@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9b5c110f-2b57-4d63-bd44-fdb78fcecde0": {
+    "url": "db://assets/res/res/game/yxjm_wf_txk.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "4449f7be-d327-4351-acb1-4fcf46144c5f@f9941": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq.png@f9941",
+    "value": {
+      "depends": [
+        "4449f7be-d327-4351-acb1-4fcf46144c5f@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c32912a0-2783-481a-ac57-055eb1673771": {
+    "url": "db://assets/res/res/game/yxjm_wf_x.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "bbedc6fe-7e54-4ddd-9ba6-9b59485846ac@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq2.png@6c48a",
+    "value": {
+      "depends": [
+        "bbedc6fe-7e54-4ddd-9ba6-9b59485846ac"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a2bd22fc-6d3f-4cdd-a8e9-c8f7361c46f2@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq4.png@6c48a",
+    "value": {
+      "depends": [
+        "a2bd22fc-6d3f-4cdd-a8e9-c8f7361c46f2"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b7b3b219-4a82-4cff-bec4-ce4940d46209@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq1.png@6c48a",
+    "value": {
+      "depends": [
+        "b7b3b219-4a82-4cff-bec4-ce4940d46209"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9b5c110f-2b57-4d63-bd44-fdb78fcecde0@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_wf_txk.png@6c48a",
+    "value": {
+      "depends": [
+        "9b5c110f-2b57-4d63-bd44-fdb78fcecde0"
+      ]
+    },
+    "versionCode": 1
+  },
+  "bbedc6fe-7e54-4ddd-9ba6-9b59485846ac@f9941": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq2.png@f9941",
+    "value": {
+      "depends": [
+        "bbedc6fe-7e54-4ddd-9ba6-9b59485846ac@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a2bd22fc-6d3f-4cdd-a8e9-c8f7361c46f2@f9941": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq4.png@f9941",
+    "value": {
+      "depends": [
+        "a2bd22fc-6d3f-4cdd-a8e9-c8f7361c46f2@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c32912a0-2783-481a-ac57-055eb1673771@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_wf_x.png@6c48a",
+    "value": {
+      "depends": [
+        "c32912a0-2783-481a-ac57-055eb1673771"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f77b15cd-35cb-4284-a328-7380d2042a1b": {
+    "url": "db://assets/res/res/game/yxjm_wzbg.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "e0f07f35-5539-4772-8630-7d7325312104": {
+    "url": "db://assets/res/res/game/yx_df_hsszbg.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "b7b3b219-4a82-4cff-bec4-ce4940d46209@f9941": {
+    "url": "db://assets/res/res/game/yxjm_tb_hq1.png@f9941",
+    "value": {
+      "depends": [
+        "b7b3b219-4a82-4cff-bec4-ce4940d46209@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f06fcd47-e8f9-48e4-8bc1-fb92ac1c262c": {
+    "url": "db://assets/res/res/game/yx_df_hs_jdt1.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "9b5c110f-2b57-4d63-bd44-fdb78fcecde0@f9941": {
+    "url": "db://assets/res/res/game/yxjm_wf_txk.png@f9941",
+    "value": {
+      "depends": [
+        "9b5c110f-2b57-4d63-bd44-fdb78fcecde0@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c32912a0-2783-481a-ac57-055eb1673771@f9941": {
+    "url": "db://assets/res/res/game/yxjm_wf_x.png@f9941",
+    "value": {
+      "depends": [
+        "c32912a0-2783-481a-ac57-055eb1673771@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "3a21ae1b-3698-49a6-84db-17813db64b46": {
+    "url": "db://assets/res/res/game/yx_df_hs_jdt2.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "10ab3b8f-602f-4575-bf71-3fad57f3c9b9": {
+    "url": "db://assets/res/res/game/yx_wf_lsszbg.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f77b15cd-35cb-4284-a328-7380d2042a1b@6c48a": {
+    "url": "db://assets/res/res/game/yxjm_wzbg.png@6c48a",
+    "value": {
+      "depends": [
+        "f77b15cd-35cb-4284-a328-7380d2042a1b"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f77b15cd-35cb-4284-a328-7380d2042a1b@f9941": {
+    "url": "db://assets/res/res/game/yxjm_wzbg.png@f9941",
+    "value": {
+      "depends": [
+        "f77b15cd-35cb-4284-a328-7380d2042a1b@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5eca9fe2-b670-450d-a381-181e9fbfcd87": {
+    "url": "db://assets/res/res/game/yx_wf_ls_jdt1.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "3a21ae1b-3698-49a6-84db-17813db64b46@6c48a": {
+    "url": "db://assets/res/res/game/yx_df_hs_jdt2.png@6c48a",
+    "value": {
+      "depends": [
+        "3a21ae1b-3698-49a6-84db-17813db64b46"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f06fcd47-e8f9-48e4-8bc1-fb92ac1c262c@6c48a": {
+    "url": "db://assets/res/res/game/yx_df_hs_jdt1.png@6c48a",
+    "value": {
+      "depends": [
+        "f06fcd47-e8f9-48e4-8bc1-fb92ac1c262c"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e0f07f35-5539-4772-8630-7d7325312104@6c48a": {
+    "url": "db://assets/res/res/game/yx_df_hsszbg.png@6c48a",
+    "value": {
+      "depends": [
+        "e0f07f35-5539-4772-8630-7d7325312104"
+      ]
+    },
+    "versionCode": 1
+  },
+  "10ab3b8f-602f-4575-bf71-3fad57f3c9b9@6c48a": {
+    "url": "db://assets/res/res/game/yx_wf_lsszbg.png@6c48a",
+    "value": {
+      "depends": [
+        "10ab3b8f-602f-4575-bf71-3fad57f3c9b9"
+      ]
+    },
+    "versionCode": 1
+  },
+  "3a21ae1b-3698-49a6-84db-17813db64b46@f9941": {
+    "url": "db://assets/res/res/game/yx_df_hs_jdt2.png@f9941",
+    "value": {
+      "depends": [
+        "3a21ae1b-3698-49a6-84db-17813db64b46@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f06fcd47-e8f9-48e4-8bc1-fb92ac1c262c@f9941": {
+    "url": "db://assets/res/res/game/yx_df_hs_jdt1.png@f9941",
+    "value": {
+      "depends": [
+        "f06fcd47-e8f9-48e4-8bc1-fb92ac1c262c@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "55e92d9d-2892-4533-a7f2-5b18fbabf415": {
+    "url": "db://assets/res/res/game/yx_wf_ls_jdt2.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "c26a63b9-5039-47ae-b027-ef2bce881f6f": {
+    "url": "db://assets/res/res/map/newMap01.FBX",
+    "value": {},
+    "versionCode": 1
+  },
+  "e0f07f35-5539-4772-8630-7d7325312104@f9941": {
+    "url": "db://assets/res/res/game/yx_df_hsszbg.png@f9941",
+    "value": {
+      "depends": [
+        "e0f07f35-5539-4772-8630-7d7325312104@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "27e1fcb7-5016-4252-8c43-ac9c1c97308e": {
+    "url": "db://assets/res/res/map/newMap01.jpg",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "10ab3b8f-602f-4575-bf71-3fad57f3c9b9@f9941": {
+    "url": "db://assets/res/res/game/yx_wf_lsszbg.png@f9941",
+    "value": {
+      "depends": [
+        "10ab3b8f-602f-4575-bf71-3fad57f3c9b9@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b7d6d595-6cd1-43c6-8bc7-3a92644870b9": {
+    "url": "db://assets/res/res/map/newMap01.mtl",
+    "value": {
+      "depends": [
+        "1baf0fc9-befa-459c-8bdd-af1a450a0319",
+        "27e1fcb7-5016-4252-8c43-ac9c1c97308e@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5eca9fe2-b670-450d-a381-181e9fbfcd87@6c48a": {
+    "url": "db://assets/res/res/game/yx_wf_ls_jdt1.png@6c48a",
+    "value": {
+      "depends": [
+        "5eca9fe2-b670-450d-a381-181e9fbfcd87"
+      ]
+    },
+    "versionCode": 1
+  },
+  "14d9011a-7bd9-4237-934f-282b076102dd": {
+    "url": "db://assets/res/res/map/newMap01.prefab",
+    "value": {
+      "depends": [
+        "b7d6d595-6cd1-43c6-8bc7-3a92644870b9",
+        "c26a63b9-5039-47ae-b027-ef2bce881f6f@f6845"
+      ],
+      "dependScripts": []
+    },
+    "versionCode": 1
+  },
+  "5eca9fe2-b670-450d-a381-181e9fbfcd87@f9941": {
+    "url": "db://assets/res/res/game/yx_wf_ls_jdt1.png@f9941",
+    "value": {
+      "depends": [
+        "5eca9fe2-b670-450d-a381-181e9fbfcd87@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4d6ee63a-6639-46fc-afbd-7372264a094f": {
+    "url": "db://assets/res/res/newHome/auto-atlas.pac",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "55e92d9d-2892-4533-a7f2-5b18fbabf415@6c48a": {
+    "url": "db://assets/res/res/game/yx_wf_ls_jdt2.png@6c48a",
+    "value": {
+      "depends": [
+        "55e92d9d-2892-4533-a7f2-5b18fbabf415"
+      ]
+    },
+    "versionCode": 1
+  },
+  "606ad998-f401-43a1-9967-4019b040205f": {
+    "url": "db://assets/res/res/newHome/commonIconGold.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "1bca1cf7-cfbc-4c21-8674-adcd2c6fa657": {
+    "url": "db://assets/res/res/newHome/homeBox01.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "27e1fcb7-5016-4252-8c43-ac9c1c97308e@6c48a": {
+    "url": "db://assets/res/res/map/newMap01.jpg@6c48a",
+    "value": {
+      "depends": [
+        "27e1fcb7-5016-4252-8c43-ac9c1c97308e"
+      ]
+    },
+    "versionCode": 1
+  },
+  "adf744bd-cbc7-4aee-b755-a6ef0e7d2d96": {
+    "url": "db://assets/res/res/newHome/homeBox02.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "55e92d9d-2892-4533-a7f2-5b18fbabf415@f9941": {
+    "url": "db://assets/res/res/game/yx_wf_ls_jdt2.png@f9941",
+    "value": {
+      "depends": [
+        "55e92d9d-2892-4533-a7f2-5b18fbabf415@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "7cef2bc0-9406-4ba0-869e-2a433766b8f2": {
+    "url": "db://assets/res/res/newHome/homeBox03.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "606ad998-f401-43a1-9967-4019b040205f@6c48a": {
+    "url": "db://assets/res/res/newHome/commonIconGold.png@6c48a",
+    "value": {
+      "depends": [
+        "606ad998-f401-43a1-9967-4019b040205f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "adf744bd-cbc7-4aee-b755-a6ef0e7d2d96@6c48a": {
+    "url": "db://assets/res/res/newHome/homeBox02.png@6c48a",
+    "value": {
+      "depends": [
+        "adf744bd-cbc7-4aee-b755-a6ef0e7d2d96"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1bca1cf7-cfbc-4c21-8674-adcd2c6fa657@6c48a": {
+    "url": "db://assets/res/res/newHome/homeBox01.png@6c48a",
+    "value": {
+      "depends": [
+        "1bca1cf7-cfbc-4c21-8674-adcd2c6fa657"
+      ]
+    },
+    "versionCode": 1
+  },
+  "606ad998-f401-43a1-9967-4019b040205f@f9941": {
+    "url": "db://assets/res/res/newHome/commonIconGold.png@f9941",
+    "value": {
+      "depends": [
+        "606ad998-f401-43a1-9967-4019b040205f@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e634ffea-cf56-4317-a0d2-cf2ac3464aa1": {
+    "url": "db://assets/res/res/newHome/homeBox04.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "7cef2bc0-9406-4ba0-869e-2a433766b8f2@6c48a": {
+    "url": "db://assets/res/res/newHome/homeBox03.png@6c48a",
+    "value": {
+      "depends": [
+        "7cef2bc0-9406-4ba0-869e-2a433766b8f2"
+      ]
+    },
+    "versionCode": 1
+  },
+  "adf744bd-cbc7-4aee-b755-a6ef0e7d2d96@f9941": {
+    "url": "db://assets/res/res/newHome/homeBox02.png@f9941",
+    "value": {
+      "depends": [
+        "adf744bd-cbc7-4aee-b755-a6ef0e7d2d96@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ecfe2010-545c-42a7-a63a-23bdc560c462": {
+    "url": "db://assets/res/res/newHome/homeBoxBlue.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "1bca1cf7-cfbc-4c21-8674-adcd2c6fa657@f9941": {
+    "url": "db://assets/res/res/newHome/homeBox01.png@f9941",
+    "value": {
+      "depends": [
+        "1bca1cf7-cfbc-4c21-8674-adcd2c6fa657@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "05df99ff-3532-4226-9a2a-bed6b836b667": {
+    "url": "db://assets/res/res/newHome/homeBoxIcon01.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "7cef2bc0-9406-4ba0-869e-2a433766b8f2@f9941": {
+    "url": "db://assets/res/res/newHome/homeBox03.png@f9941",
+    "value": {
+      "depends": [
+        "7cef2bc0-9406-4ba0-869e-2a433766b8f2@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "8d467a72-ef74-4a03-9528-d8de40dd433a": {
+    "url": "db://assets/res/res/newHome/homeBoxOrange.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "e634ffea-cf56-4317-a0d2-cf2ac3464aa1@6c48a": {
+    "url": "db://assets/res/res/newHome/homeBox04.png@6c48a",
+    "value": {
+      "depends": [
+        "e634ffea-cf56-4317-a0d2-cf2ac3464aa1"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ecfe2010-545c-42a7-a63a-23bdc560c462@6c48a": {
+    "url": "db://assets/res/res/newHome/homeBoxBlue.png@6c48a",
+    "value": {
+      "depends": [
+        "ecfe2010-545c-42a7-a63a-23bdc560c462"
+      ]
+    },
+    "versionCode": 1
+  },
+  "05df99ff-3532-4226-9a2a-bed6b836b667@6c48a": {
+    "url": "db://assets/res/res/newHome/homeBoxIcon01.png@6c48a",
+    "value": {
+      "depends": [
+        "05df99ff-3532-4226-9a2a-bed6b836b667"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e634ffea-cf56-4317-a0d2-cf2ac3464aa1@f9941": {
+    "url": "db://assets/res/res/newHome/homeBox04.png@f9941",
+    "value": {
+      "depends": [
+        "e634ffea-cf56-4317-a0d2-cf2ac3464aa1@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c13da6ba-cb45-43cf-bbbe-8ca7c8a8c608": {
+    "url": "db://assets/res/res/newHome/homeBoxTips.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "8d467a72-ef74-4a03-9528-d8de40dd433a@6c48a": {
+    "url": "db://assets/res/res/newHome/homeBoxOrange.png@6c48a",
+    "value": {
+      "depends": [
+        "8d467a72-ef74-4a03-9528-d8de40dd433a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ecfe2010-545c-42a7-a63a-23bdc560c462@f9941": {
+    "url": "db://assets/res/res/newHome/homeBoxBlue.png@f9941",
+    "value": {
+      "depends": [
+        "ecfe2010-545c-42a7-a63a-23bdc560c462@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0cc44495-e0d3-4ba0-a6f0-32c8befc4643": {
+    "url": "db://assets/res/res/newHome/homeBtnBlue.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "05df99ff-3532-4226-9a2a-bed6b836b667@f9941": {
+    "url": "db://assets/res/res/newHome/homeBoxIcon01.png@f9941",
+    "value": {
+      "depends": [
+        "05df99ff-3532-4226-9a2a-bed6b836b667@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "255fbd0c-7070-4597-85cd-976bff2fa6bc": {
+    "url": "db://assets/res/res/newHome/homeBtnPlay.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "8d467a72-ef74-4a03-9528-d8de40dd433a@f9941": {
+    "url": "db://assets/res/res/newHome/homeBoxOrange.png@f9941",
+    "value": {
+      "depends": [
+        "8d467a72-ef74-4a03-9528-d8de40dd433a@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c2eab001-d2d1-47d6-87e4-fc70bcd1470d": {
+    "url": "db://assets/res/res/newHome/homeBtnRed.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "c13da6ba-cb45-43cf-bbbe-8ca7c8a8c608@6c48a": {
+    "url": "db://assets/res/res/newHome/homeBoxTips.png@6c48a",
+    "value": {
+      "depends": [
+        "c13da6ba-cb45-43cf-bbbe-8ca7c8a8c608"
+      ]
+    },
+    "versionCode": 1
+  },
+  "255fbd0c-7070-4597-85cd-976bff2fa6bc@6c48a": {
+    "url": "db://assets/res/res/newHome/homeBtnPlay.png@6c48a",
+    "value": {
+      "depends": [
+        "255fbd0c-7070-4597-85cd-976bff2fa6bc"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0cc44495-e0d3-4ba0-a6f0-32c8befc4643@6c48a": {
+    "url": "db://assets/res/res/newHome/homeBtnBlue.png@6c48a",
+    "value": {
+      "depends": [
+        "0cc44495-e0d3-4ba0-a6f0-32c8befc4643"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c13da6ba-cb45-43cf-bbbe-8ca7c8a8c608@f9941": {
+    "url": "db://assets/res/res/newHome/homeBoxTips.png@f9941",
+    "value": {
+      "depends": [
+        "c13da6ba-cb45-43cf-bbbe-8ca7c8a8c608@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "76840a0a-07a7-4dfe-a4bc-52fe764ec310": {
+    "url": "db://assets/res/res/newHome/homeFont01.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "c2eab001-d2d1-47d6-87e4-fc70bcd1470d@6c48a": {
+    "url": "db://assets/res/res/newHome/homeBtnRed.png@6c48a",
+    "value": {
+      "depends": [
+        "c2eab001-d2d1-47d6-87e4-fc70bcd1470d"
+      ]
+    },
+    "versionCode": 1
+  },
+  "255fbd0c-7070-4597-85cd-976bff2fa6bc@f9941": {
+    "url": "db://assets/res/res/newHome/homeBtnPlay.png@f9941",
+    "value": {
+      "depends": [
+        "255fbd0c-7070-4597-85cd-976bff2fa6bc@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0cc44495-e0d3-4ba0-a6f0-32c8befc4643@f9941": {
+    "url": "db://assets/res/res/newHome/homeBtnBlue.png@f9941",
+    "value": {
+      "depends": [
+        "0cc44495-e0d3-4ba0-a6f0-32c8befc4643@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "fa7605fb-c67a-447b-a054-3472cc897082": {
+    "url": "db://assets/res/res/newHome/homeFont02.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "10d9cdc1-c4cd-4922-bbbb-595bb40f3393": {
+    "url": "db://assets/res/res/newHome/homeFont03.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "c2eab001-d2d1-47d6-87e4-fc70bcd1470d@f9941": {
+    "url": "db://assets/res/res/newHome/homeBtnRed.png@f9941",
+    "value": {
+      "depends": [
+        "c2eab001-d2d1-47d6-87e4-fc70bcd1470d@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a7082503-d61e-489e-9838-364dbdcf4488": {
+    "url": "db://assets/res/res/newHome/homeFont04.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "76840a0a-07a7-4dfe-a4bc-52fe764ec310@6c48a": {
+    "url": "db://assets/res/res/newHome/homeFont01.png@6c48a",
+    "value": {
+      "depends": [
+        "76840a0a-07a7-4dfe-a4bc-52fe764ec310"
+      ]
+    },
+    "versionCode": 1
+  },
+  "10d9cdc1-c4cd-4922-bbbb-595bb40f3393@6c48a": {
+    "url": "db://assets/res/res/newHome/homeFont03.png@6c48a",
+    "value": {
+      "depends": [
+        "10d9cdc1-c4cd-4922-bbbb-595bb40f3393"
+      ]
+    },
+    "versionCode": 1
+  },
+  "fa7605fb-c67a-447b-a054-3472cc897082@6c48a": {
+    "url": "db://assets/res/res/newHome/homeFont02.png@6c48a",
+    "value": {
+      "depends": [
+        "fa7605fb-c67a-447b-a054-3472cc897082"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a7082503-d61e-489e-9838-364dbdcf4488@6c48a": {
+    "url": "db://assets/res/res/newHome/homeFont04.png@6c48a",
+    "value": {
+      "depends": [
+        "a7082503-d61e-489e-9838-364dbdcf4488"
+      ]
+    },
+    "versionCode": 1
+  },
+  "76840a0a-07a7-4dfe-a4bc-52fe764ec310@f9941": {
+    "url": "db://assets/res/res/newHome/homeFont01.png@f9941",
+    "value": {
+      "depends": [
+        "76840a0a-07a7-4dfe-a4bc-52fe764ec310@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "d1f428a9-5b2f-4831-8ed9-c7a3cde88ccb": {
+    "url": "db://assets/res/res/newHome/homeFontArmy.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "10d9cdc1-c4cd-4922-bbbb-595bb40f3393@f9941": {
+    "url": "db://assets/res/res/newHome/homeFont03.png@f9941",
+    "value": {
+      "depends": [
+        "10d9cdc1-c4cd-4922-bbbb-595bb40f3393@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "cea613fa-4dad-4451-b442-ce39c0126d91": {
+    "url": "db://assets/res/res/newHome/homeFontGift.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "fa7605fb-c67a-447b-a054-3472cc897082@f9941": {
+    "url": "db://assets/res/res/newHome/homeFont02.png@f9941",
+    "value": {
+      "depends": [
+        "fa7605fb-c67a-447b-a054-3472cc897082@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "58ac0178-7b38-4c25-a4dd-c3d10a374d50": {
+    "url": "db://assets/res/res/newHome/homeFontLand.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "a7082503-d61e-489e-9838-364dbdcf4488@f9941": {
+    "url": "db://assets/res/res/newHome/homeFont04.png@f9941",
+    "value": {
+      "depends": [
+        "a7082503-d61e-489e-9838-364dbdcf4488@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "aee5210e-5ffa-4bb9-9168-4e02ed596035": {
+    "url": "db://assets/res/res/newHome/homeIcon01.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "d1f428a9-5b2f-4831-8ed9-c7a3cde88ccb@6c48a": {
+    "url": "db://assets/res/res/newHome/homeFontArmy.png@6c48a",
+    "value": {
+      "depends": [
+        "d1f428a9-5b2f-4831-8ed9-c7a3cde88ccb"
+      ]
+    },
+    "versionCode": 1
+  },
+  "58ac0178-7b38-4c25-a4dd-c3d10a374d50@6c48a": {
+    "url": "db://assets/res/res/newHome/homeFontLand.png@6c48a",
+    "value": {
+      "depends": [
+        "58ac0178-7b38-4c25-a4dd-c3d10a374d50"
+      ]
+    },
+    "versionCode": 1
+  },
+  "cea613fa-4dad-4451-b442-ce39c0126d91@6c48a": {
+    "url": "db://assets/res/res/newHome/homeFontGift.png@6c48a",
+    "value": {
+      "depends": [
+        "cea613fa-4dad-4451-b442-ce39c0126d91"
+      ]
+    },
+    "versionCode": 1
+  },
+  "aee5210e-5ffa-4bb9-9168-4e02ed596035@6c48a": {
+    "url": "db://assets/res/res/newHome/homeIcon01.png@6c48a",
+    "value": {
+      "depends": [
+        "aee5210e-5ffa-4bb9-9168-4e02ed596035"
+      ]
+    },
+    "versionCode": 1
+  },
+  "d1f428a9-5b2f-4831-8ed9-c7a3cde88ccb@f9941": {
+    "url": "db://assets/res/res/newHome/homeFontArmy.png@f9941",
+    "value": {
+      "depends": [
+        "d1f428a9-5b2f-4831-8ed9-c7a3cde88ccb@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "43abc334-82eb-44d0-8d29-c016ccc9857f": {
+    "url": "db://assets/res/res/newHome/homeIcon02.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "58ac0178-7b38-4c25-a4dd-c3d10a374d50@f9941": {
+    "url": "db://assets/res/res/newHome/homeFontLand.png@f9941",
+    "value": {
+      "depends": [
+        "58ac0178-7b38-4c25-a4dd-c3d10a374d50@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "968851c1-9d76-4f87-9cff-55dda356dfdb": {
+    "url": "db://assets/res/res/newHome/homeIcon03.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "aee5210e-5ffa-4bb9-9168-4e02ed596035@f9941": {
+    "url": "db://assets/res/res/newHome/homeIcon01.png@f9941",
+    "value": {
+      "depends": [
+        "aee5210e-5ffa-4bb9-9168-4e02ed596035@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "cea613fa-4dad-4451-b442-ce39c0126d91@f9941": {
+    "url": "db://assets/res/res/newHome/homeFontGift.png@f9941",
+    "value": {
+      "depends": [
+        "cea613fa-4dad-4451-b442-ce39c0126d91@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b8cd9104-b7f9-44da-aeb4-36a4b3626d1a": {
+    "url": "db://assets/res/res/newHome/homeIconArrow.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f7af29dc-f6a9-4b15-899b-b6d4914f6a79": {
+    "url": "db://assets/res/res/newHome/homeIconChange.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "43abc334-82eb-44d0-8d29-c016ccc9857f@6c48a": {
+    "url": "db://assets/res/res/newHome/homeIcon02.png@6c48a",
+    "value": {
+      "depends": [
+        "43abc334-82eb-44d0-8d29-c016ccc9857f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "968851c1-9d76-4f87-9cff-55dda356dfdb@6c48a": {
+    "url": "db://assets/res/res/newHome/homeIcon03.png@6c48a",
+    "value": {
+      "depends": [
+        "968851c1-9d76-4f87-9cff-55dda356dfdb"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f7af29dc-f6a9-4b15-899b-b6d4914f6a79@6c48a": {
+    "url": "db://assets/res/res/newHome/homeIconChange.png@6c48a",
+    "value": {
+      "depends": [
+        "f7af29dc-f6a9-4b15-899b-b6d4914f6a79"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b8cd9104-b7f9-44da-aeb4-36a4b3626d1a@6c48a": {
+    "url": "db://assets/res/res/newHome/homeIconArrow.png@6c48a",
+    "value": {
+      "depends": [
+        "b8cd9104-b7f9-44da-aeb4-36a4b3626d1a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "43abc334-82eb-44d0-8d29-c016ccc9857f@f9941": {
+    "url": "db://assets/res/res/newHome/homeIcon02.png@f9941",
+    "value": {
+      "depends": [
+        "43abc334-82eb-44d0-8d29-c016ccc9857f@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ff1f2145-59d9-494d-a2d1-cffde5048b85": {
+    "url": "db://assets/res/res/newHome/homeIconUp.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "968851c1-9d76-4f87-9cff-55dda356dfdb@f9941": {
+    "url": "db://assets/res/res/newHome/homeIcon03.png@f9941",
+    "value": {
+      "depends": [
+        "968851c1-9d76-4f87-9cff-55dda356dfdb@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5a050741-9332-481f-9ee7-84f9f4101c61": {
+    "url": "db://assets/res/res/newHome/homeImg01.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f7af29dc-f6a9-4b15-899b-b6d4914f6a79@f9941": {
+    "url": "db://assets/res/res/newHome/homeIconChange.png@f9941",
+    "value": {
+      "depends": [
+        "f7af29dc-f6a9-4b15-899b-b6d4914f6a79@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "392a6523-8ac5-401c-96b1-67c552a9c25e": {
+    "url": "db://assets/res/res/newHome/homeImg02.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "b8cd9104-b7f9-44da-aeb4-36a4b3626d1a@f9941": {
+    "url": "db://assets/res/res/newHome/homeIconArrow.png@f9941",
+    "value": {
+      "depends": [
+        "b8cd9104-b7f9-44da-aeb4-36a4b3626d1a@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4cf5f76b-70b6-4642-ad61-4c967437b3b2": {
+    "url": "db://assets/res/res/newHome/homeImg03.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "ff1f2145-59d9-494d-a2d1-cffde5048b85@6c48a": {
+    "url": "db://assets/res/res/newHome/homeIconUp.png@6c48a",
+    "value": {
+      "depends": [
+        "ff1f2145-59d9-494d-a2d1-cffde5048b85"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5a050741-9332-481f-9ee7-84f9f4101c61@6c48a": {
+    "url": "db://assets/res/res/newHome/homeImg01.png@6c48a",
+    "value": {
+      "depends": [
+        "5a050741-9332-481f-9ee7-84f9f4101c61"
+      ]
+    },
+    "versionCode": 1
+  },
+  "392a6523-8ac5-401c-96b1-67c552a9c25e@6c48a": {
+    "url": "db://assets/res/res/newHome/homeImg02.png@6c48a",
+    "value": {
+      "depends": [
+        "392a6523-8ac5-401c-96b1-67c552a9c25e"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4cf5f76b-70b6-4642-ad61-4c967437b3b2@6c48a": {
+    "url": "db://assets/res/res/newHome/homeImg03.png@6c48a",
+    "value": {
+      "depends": [
+        "4cf5f76b-70b6-4642-ad61-4c967437b3b2"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ff1f2145-59d9-494d-a2d1-cffde5048b85@f9941": {
+    "url": "db://assets/res/res/newHome/homeIconUp.png@f9941",
+    "value": {
+      "depends": [
+        "ff1f2145-59d9-494d-a2d1-cffde5048b85@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "87204ad5-5a92-4ace-8513-cd8142d6124c": {
+    "url": "db://assets/res/res/newHome/homeImgStar01.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "392a6523-8ac5-401c-96b1-67c552a9c25e@f9941": {
+    "url": "db://assets/res/res/newHome/homeImg02.png@f9941",
+    "value": {
+      "depends": [
+        "392a6523-8ac5-401c-96b1-67c552a9c25e@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b1a75ab1-09f0-4c5d-97bc-f20fcbec5285": {
+    "url": "db://assets/res/res/newHome/homeImgStar02.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "5a050741-9332-481f-9ee7-84f9f4101c61@f9941": {
+    "url": "db://assets/res/res/newHome/homeImg01.png@f9941",
+    "value": {
+      "depends": [
+        "5a050741-9332-481f-9ee7-84f9f4101c61@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "86092fa3-dab3-468a-81ff-270dcf2e4ecd": {
+    "url": "db://assets/res/res/newHome/QQ截图20240411192129.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "4cf5f76b-70b6-4642-ad61-4c967437b3b2@f9941": {
+    "url": "db://assets/res/res/newHome/homeImg03.png@f9941",
+    "value": {
+      "depends": [
+        "4cf5f76b-70b6-4642-ad61-4c967437b3b2@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "adc8e40b-26cf-42c7-a3d3-e033cbc328ad": {
+    "url": "db://assets/res/res/newHome/yb_bg.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "87204ad5-5a92-4ace-8513-cd8142d6124c@6c48a": {
+    "url": "db://assets/res/res/newHome/homeImgStar01.png@6c48a",
+    "value": {
+      "depends": [
+        "87204ad5-5a92-4ace-8513-cd8142d6124c"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b1a75ab1-09f0-4c5d-97bc-f20fcbec5285@6c48a": {
+    "url": "db://assets/res/res/newHome/homeImgStar02.png@6c48a",
+    "value": {
+      "depends": [
+        "b1a75ab1-09f0-4c5d-97bc-f20fcbec5285"
+      ]
+    },
+    "versionCode": 1
+  },
+  "86092fa3-dab3-468a-81ff-270dcf2e4ecd@6c48a": {
+    "url": "db://assets/res/res/newHome/QQ截图20240411192129.png@6c48a",
+    "value": {
+      "depends": [
+        "86092fa3-dab3-468a-81ff-270dcf2e4ecd"
+      ]
+    },
+    "versionCode": 1
+  },
+  "adc8e40b-26cf-42c7-a3d3-e033cbc328ad@6c48a": {
+    "url": "db://assets/res/res/newHome/yb_bg.png@6c48a",
+    "value": {
+      "depends": [
+        "adc8e40b-26cf-42c7-a3d3-e033cbc328ad"
+      ]
+    },
+    "versionCode": 1
+  },
+  "87204ad5-5a92-4ace-8513-cd8142d6124c@f9941": {
+    "url": "db://assets/res/res/newHome/homeImgStar01.png@f9941",
+    "value": {
+      "depends": [
+        "87204ad5-5a92-4ace-8513-cd8142d6124c@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9798df0f-94ea-4143-a765-d9a625604e0f": {
+    "url": "db://assets/res/res/newHome/zljq.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "b1a75ab1-09f0-4c5d-97bc-f20fcbec5285@f9941": {
+    "url": "db://assets/res/res/newHome/homeImgStar02.png@f9941",
+    "value": {
+      "depends": [
+        "b1a75ab1-09f0-4c5d-97bc-f20fcbec5285@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5b9f72cb-e9a1-4a02-afd2-557977fc8ee6": {
+    "url": "db://assets/res/res/newHome/zlts.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "adc8e40b-26cf-42c7-a3d3-e033cbc328ad@f9941": {
+    "url": "db://assets/res/res/newHome/yb_bg.png@f9941",
+    "value": {
+      "depends": [
+        "adc8e40b-26cf-42c7-a3d3-e033cbc328ad@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "99988e8e-d9b6-456c-bae0-daa95f0b5fc5": {
+    "url": "db://assets/res/res/role01/DefaultMaterial.mtl",
+    "value": {
+      "depends": [
+        "1baf0fc9-befa-459c-8bdd-af1a450a0319"
+      ]
+    },
+    "versionCode": 1
+  },
+  "86092fa3-dab3-468a-81ff-270dcf2e4ecd@f9941": {
+    "url": "db://assets/res/res/newHome/QQ截图20240411192129.png@f9941",
+    "value": {
+      "depends": [
+        "86092fa3-dab3-468a-81ff-270dcf2e4ecd@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "36487bbd-7df4-45a8-951b-92dd9faa9300": {
+    "url": "db://assets/res/res/role01/role01.jpg",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "6826b480-6300-444d-95a3-9e27a0c476a3": {
+    "url": "db://assets/res/res/role01/role01.mtl",
+    "value": {
+      "depends": [
+        "a7612b54-35e3-4238-a1a9-4a7b54635839",
+        "36487bbd-7df4-45a8-951b-92dd9faa9300@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c26a63b9-5039-47ae-b027-ef2bce881f6f@f6845": {
+    "url": "db://assets/res/res/map/newMap01.FBX@f6845",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "e5d34000-3a5d-480f-be9a-f472b070f764": {
+    "url": "db://assets/res/res/role01/role01.prefab",
+    "value": {
+      "depends": [
+        "6826b480-6300-444d-95a3-9e27a0c476a3",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@fd7d6",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@438fe",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@1f586",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@989ed",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@b4251",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@6c359",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@cf5ee"
+      ],
+      "dependScripts": []
+    },
+    "versionCode": 1
+  },
+  "9798df0f-94ea-4143-a765-d9a625604e0f@6c48a": {
+    "url": "db://assets/res/res/newHome/zljq.png@6c48a",
+    "value": {
+      "depends": [
+        "9798df0f-94ea-4143-a765-d9a625604e0f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5b9f72cb-e9a1-4a02-afd2-557977fc8ee6@6c48a": {
+    "url": "db://assets/res/res/newHome/zlts.png@6c48a",
+    "value": {
+      "depends": [
+        "5b9f72cb-e9a1-4a02-afd2-557977fc8ee6"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c26a63b9-5039-47ae-b027-ef2bce881f6f@3500c": {
+    "url": "db://assets/res/res/map/newMap01.FBX@3500c",
+    "value": {
+      "imageExtName": ".jpg",
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "36dc4ba3-93f3-43b1-898b-46e9b392a617": {
+    "url": "db://assets/res/res/role01/role01All.FBX",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "5b9f72cb-e9a1-4a02-afd2-557977fc8ee6@f9941": {
+    "url": "db://assets/res/res/newHome/zlts.png@f9941",
+    "value": {
+      "depends": [
+        "5b9f72cb-e9a1-4a02-afd2-557977fc8ee6@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ca3eb095-c22b-47a0-b413-1040801b2aad": {
+    "url": "db://assets/res/res/model/axe/axe.prefab",
+    "value": {
+      "depends": [
+        "99c5004a-62ea-4949-86ee-6c5fbfc9cf1c",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@55758",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@438fe",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@1f586",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@cf5ee",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@989ed",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@ee525",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@5b2e9"
+      ],
+      "dependScripts": []
+    },
+    "versionCode": 1
+  },
+  "9798df0f-94ea-4143-a765-d9a625604e0f@f9941": {
+    "url": "db://assets/res/res/newHome/zljq.png@f9941",
+    "value": {
+      "depends": [
+        "9798df0f-94ea-4143-a765-d9a625604e0f@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "36487bbd-7df4-45a8-951b-92dd9faa9300@6c48a": {
+    "url": "db://assets/res/res/role01/role01.jpg@6c48a",
+    "value": {
+      "depends": [
+        "36487bbd-7df4-45a8-951b-92dd9faa9300"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "e5620139-8d9f-4f1b-9931-69dffa9dfdc7": {
+    "url": "db://assets/res/res/model/axe/axe01.jpg",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "c26a63b9-5039-47ae-b027-ef2bce881f6f@bfae8": {
+    "url": "db://assets/res/res/map/newMap01.FBX@bfae8",
+    "value": {
+      "depends": [
+        "c26a63b9-5039-47ae-b027-ef2bce881f6f@3500c"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c26a63b9-5039-47ae-b027-ef2bce881f6f@7ff75": {
+    "url": "db://assets/res/res/map/newMap01.FBX@7ff75",
+    "value": {
+      "depends": [
+        "c8f66d17-351a-48da-a12c-0212d28575c4",
+        "c26a63b9-5039-47ae-b027-ef2bce881f6f@bfae8"
+      ]
+    },
+    "versionCode": 1
+  },
+  "632ab24b-8ec7-412a-8ffa-af09e50a24f5": {
+    "url": "db://assets/res/res/model/axe/axe02.jpg",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "c26a63b9-5039-47ae-b027-ef2bce881f6f@fc11b": {
+    "url": "db://assets/res/res/map/newMap01.FBX@fc11b",
+    "value": {
+      "depends": [
+        "c26a63b9-5039-47ae-b027-ef2bce881f6f@7ff75",
+        "c26a63b9-5039-47ae-b027-ef2bce881f6f@f6845"
+      ]
+    },
+    "versionCode": 1
+  },
+  "25598e11-a3ce-4000-b46f-d1198560e593": {
+    "url": "db://assets/res/res/model/axe/axe03.jpg",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "e5620139-8d9f-4f1b-9931-69dffa9dfdc7@6c48a": {
+    "url": "db://assets/res/res/model/axe/axe01.jpg@6c48a",
+    "value": {
+      "depends": [
+        "e5620139-8d9f-4f1b-9931-69dffa9dfdc7"
+      ]
+    },
+    "versionCode": 1
+  },
+  "923fe17b-a36b-4b88-9f79-0feb317fb9f0": {
+    "url": "db://assets/res/res/model/axe/blue.mtl",
+    "value": {
+      "depends": [
+        "1baf0fc9-befa-459c-8bdd-af1a450a0319",
+        "e5620139-8d9f-4f1b-9931-69dffa9dfdc7@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "86454e1c-2489-4b8f-815e-344b19c89015": {
+    "url": "db://assets/res/res/model/axe/red.mtl",
+    "value": {
+      "depends": [
+        "1baf0fc9-befa-459c-8bdd-af1a450a0319",
+        "632ab24b-8ec7-412a-8ffa-af09e50a24f5@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "632ab24b-8ec7-412a-8ffa-af09e50a24f5@6c48a": {
+    "url": "db://assets/res/res/model/axe/axe02.jpg@6c48a",
+    "value": {
+      "depends": [
+        "632ab24b-8ec7-412a-8ffa-af09e50a24f5"
+      ]
+    },
+    "versionCode": 1
+  },
+  "99c5004a-62ea-4949-86ee-6c5fbfc9cf1c": {
+    "url": "db://assets/res/res/model/axe/yellow.mtl",
+    "value": {
+      "depends": [
+        "1baf0fc9-befa-459c-8bdd-af1a450a0319",
+        "25598e11-a3ce-4000-b46f-d1198560e593@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "25598e11-a3ce-4000-b46f-d1198560e593@6c48a": {
+    "url": "db://assets/res/res/model/axe/axe03.jpg@6c48a",
+    "value": {
+      "depends": [
+        "25598e11-a3ce-4000-b46f-d1198560e593"
+      ]
+    },
+    "versionCode": 1
+  },
+  "57d8dff5-4543-4864-afa6-2c5c173adb74": {
+    "url": "db://assets/res/res/model/axe/Materials_axe01/Material #4.mtl",
+    "value": {
+      "depends": [
+        "1baf0fc9-befa-459c-8bdd-af1a450a0319",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@bfae8"
+      ]
+    },
+    "versionCode": 1
+  },
+  "959becee-74e1-4de5-af45-4e2beff1fe77": {
+    "url": "db://assets/res/res/model/role/role01/DefaultMaterial.mtl",
+    "value": {
+      "depends": [
+        "c8f66d17-351a-48da-a12c-0212d28575c4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@55758": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX@55758",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@1f586": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX@1f586",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@cf5ee": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX@cf5ee",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@989ed": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX@989ed",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@ee525": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX@ee525",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@5b2e9": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX@5b2e9",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@438fe": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX@438fe",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@cad83": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX@cad83",
+    "value": {
+      "imageExtName": ".jpg",
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@bfae8": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX@bfae8",
+    "value": {
+      "depends": [
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@cad83"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@74c03": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX@74c03",
+    "value": {
+      "depends": [
+        "c8f66d17-351a-48da-a12c-0212d28575c4",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@bfae8"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@f0343": {
+    "url": "db://assets/res/res/model/axe/axe01.FBX@f0343",
+    "value": {
+      "depends": [
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@74c03",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@55758",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@438fe",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@1f586",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@cf5ee",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@989ed",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@ee525",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@5b2e9"
+      ]
+    },
+    "versionCode": 1
+  },
+  "36dc4ba3-93f3-43b1-898b-46e9b392a617@fd7d6": {
+    "url": "db://assets/res/res/role01/role01All.FBX@fd7d6",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "36dc4ba3-93f3-43b1-898b-46e9b392a617@1f586": {
+    "url": "db://assets/res/res/role01/role01All.FBX@1f586",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "36dc4ba3-93f3-43b1-898b-46e9b392a617@989ed": {
+    "url": "db://assets/res/res/role01/role01All.FBX@989ed",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "36dc4ba3-93f3-43b1-898b-46e9b392a617@b4251": {
+    "url": "db://assets/res/res/role01/role01All.FBX@b4251",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "36dc4ba3-93f3-43b1-898b-46e9b392a617@6c359": {
+    "url": "db://assets/res/res/role01/role01All.FBX@6c359",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "36dc4ba3-93f3-43b1-898b-46e9b392a617@cf5ee": {
+    "url": "db://assets/res/res/role01/role01All.FBX@cf5ee",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "36dc4ba3-93f3-43b1-898b-46e9b392a617@438fe": {
+    "url": "db://assets/res/res/role01/role01All.FBX@438fe",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "36dc4ba3-93f3-43b1-898b-46e9b392a617@3f561": {
+    "url": "db://assets/res/res/role01/role01All.FBX@3f561",
+    "value": {
+      "depends": [
+        "1ea5ddd7-78ae-4c41-af09-53972894acd1",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@fd7d6",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@438fe",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@1f586",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@989ed",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@b4251",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@6c359",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@cf5ee"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c23e6f1c-9004-4e49-b8b0-7c1b1ebcb656": {
+    "url": "db://assets/res/model",
+    "value": {},
+    "versionCode": 1
+  },
+  "e5ef56a3-25c9-4c54-89ba-e082bafc2456": {
+    "url": "db://assets/res/model/role",
+    "value": {},
+    "versionCode": 1
+  },
+  "210a7f8b-52b7-4fa2-837c-e5f3495911b6": {
+    "url": "db://assets/res/model/role/role01",
+    "value": {},
+    "versionCode": 1
+  },
+  "2562172c-4b6f-4b1f-ac5e-dc8161b158fe": {
+    "url": "db://assets/res/model/role/role01/DefaultMaterial.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "6d9dc3e8-ac69-436d-b605-66d6ff4445b6": {
+    "url": "db://assets/res/res/balance/auto-atlas.pac",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "dc434e02-b99f-424b-a725-3bedb1f259dd": {
+    "url": "db://assets/res/res/balance/balanceBoxGet.png",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "dc434e02-b99f-424b-a725-3bedb1f259dd@6c48a": {
+    "url": "db://assets/res/res/balance/balanceBoxGet.png@6c48a",
+    "value": {
+      "depends": [
+        "dc434e02-b99f-424b-a725-3bedb1f259dd"
+      ]
+    },
+    "versionCode": 1
+  },
+  "dc434e02-b99f-424b-a725-3bedb1f259dd@f9941": {
+    "url": "db://assets/res/res/balance/balanceBoxGet.png@f9941",
+    "value": {
+      "depends": [
+        "dc434e02-b99f-424b-a725-3bedb1f259dd@6c48a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e33e6879-3f9d-4663-87ff-e93a9172036b": {
+    "url": "db://assets/res/resour",
+    "value": {},
+    "versionCode": 1
+  },
+  "76551b8b-519f-492b-a5f2-3cf4def485f9": {
+    "url": "db://assets/res/scenes",
+    "value": {},
+    "versionCode": 1
+  },
+  "410a205d-6c91-4935-8e39-d50bfd1c7c6a": {
+    "url": "db://assets/res/scenes/game.scene",
+    "value": {
+      "depends": [
+        "410a205d-6c91-4935-8e39-d50bfd1c7c6a",
+        "14d9011a-7bd9-4237-934f-282b076102dd",
+        "d032ac98-05e1-4090-88bb-eb640dcb5fc1@b47c0",
+        "6f01cf7f-81bf-4a7e-bd5d-0afc19696480@b47c0"
+      ],
+      "dependScripts": [
+        "CC3eba29-7abb-723a-f7ab-ae275e2277e8",
+        "eb140a04-d75b-4cb4-ad9b-ce949b8d49de",
+        "386eb11a-0b5c-4454-bd9e-cef960253994"
+      ]
+    },
+    "versionCode": 1
+  },
+  "6c49443e-55b8-42ef-8b77-48789e2c6025": {
+    "url": "db://assets/res/scripts",
+    "value": {},
+    "versionCode": 1
+  },
+  "39f0bb2d-e30a-4ff2-b475-65d2583e8af3": {
+    "url": "db://assets/res/scripts/battle",
+    "value": {},
+    "versionCode": 1
+  },
+  "386eb11a-0b5c-4454-bd9e-cef960253994": {
+    "url": "db://assets/res/scripts/Main.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "c3b9e73b-d839-4ae0-bd3e-14ce5deef131": {
+    "url": "db://assets/res/scripts/manager",
+    "value": {},
+    "versionCode": 1
+  },
+  "d88002bb-7a6a-4942-aec3-d472fc9b4eb6": {
+    "url": "db://assets/res/scripts/Panel",
+    "value": {},
+    "versionCode": 1
+  },
+  "f3226f27-f081-45c5-8f7f-5464d5d5ac90": {
+    "url": "db://assets/res/scripts/utils",
+    "value": {},
+    "versionCode": 1
+  },
+  "de9e6ae2-009b-4c75-96d1-79c850812d36": {
+    "url": "db://assets/res/scripts/battle/Fighter.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "c544e9ee-7679-4685-a926-a742c0ed97c5": {
+    "url": "db://assets/res/scripts/battle/FightetModel.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "cc7ac203-efa5-4742-a1a5-17bfa09652cc": {
+    "url": "db://assets/res/scripts/manager/BattleManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "fb37e9f4-789b-48bc-b9e3-39f9c5560e4d": {
+    "url": "db://assets/res/scripts/manager/CardManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "326ef957-0a61-40e5-b07a-fb2cd0e9fb0f": {
+    "url": "db://assets/res/scripts/manager/ConfigManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "a57bf7f1-039d-40d6-b9a6-2df9f4d1b561": {
+    "url": "db://assets/res/scripts/manager/FigthManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "eb140a04-d75b-4cb4-ad9b-ce949b8d49de": {
+    "url": "db://assets/res/scripts/manager/GameManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "8aae4394-5f73-44c1-a5de-313a0a8f90b1": {
+    "url": "db://assets/res/scripts/manager/UiManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "0d500fb7-db45-4bf7-a13c-ede44ca3c4a6": {
+    "url": "db://assets/res/scripts/Panel/Card.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "df34004d-3af6-4837-8e96-910546688f89": {
+    "url": "db://assets/res/scripts/Panel/GamePanel.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "40e85268-c4ef-471c-b564-ad22f5c0c555": {
+    "url": "db://assets/res/scripts/Panel/HomePanel.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "6ef35548-cbf2-4bc5-8955-db0712b57d48": {
+    "url": "db://assets/script/utils/clientEvent.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "6105d19f-de85-4710-ab7a-752e8136433a": {
+    "url": "db://assets/res/scripts/utils/csvManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "f893e2b5-d4c1-43e8-8989-6d9cebe58a38": {
+    "url": "db://assets/script/utils/oneToMultiListener.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "17baa526-37a4-4b2c-96b1-d1b8e1cb9ca8": {
+    "url": "db://assets/resources/prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "f10cec0f-8a9b-4138-a1a8-4df716003c59": {
+    "url": "db://assets/script",
+    "value": {},
+    "versionCode": 1
+  },
+  "4ffb9b22-4992-4a9c-a3aa-6b2486ed1624": {
+    "url": "db://assets/resources/prefab/UI",
+    "value": {},
+    "versionCode": 1
+  },
+  "04a50937-cac3-4942-8d0e-951540472b85": {
+    "url": "db://assets/script/UI/HomePanel.prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "ad5fd34b-dd70-4f8f-8940-80ed53d4dd71": {
+    "url": "db://assets/script/UI/HomePanel.prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "9ebd5b9f-29cd-4316-9b55-552fb203871d": {
+    "url": "db://assets/res/model/map/newMap01.FBX",
+    "value": {},
+    "versionCode": 1
+  },
+  "f0688e02-136b-470e-82d4-6cecdc550a12": {
+    "url": "db://assets/res/model/map/newMap01.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "d130520d-0319-463f-98e1-8da8dc670d4f": {
+    "url": "db://assets/res/model/map/newMap01.prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "4947b0b5-1ab4-4fd4-a445-dadbc8e20d22": {
+    "url": "db://assets/res/model/map/newMap01.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "9343f0df-05f6-400c-a2f8-090752afad21": {
+    "url": "db://assets/res/model/map",
+    "value": {},
+    "versionCode": 1
+  },
+  "4947b0b5-1ab4-4fd4-a445-dadbc8e20d22@6c48a": {
+    "url": "db://assets/res/model/map/newMap01.jpg@6c48a",
+    "value": {
+      "depends": [
+        "4947b0b5-1ab4-4fd4-a445-dadbc8e20d22"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9ebd5b9f-29cd-4316-9b55-552fb203871d@f6845": {
+    "url": "db://assets/res/model/map/newMap01.FBX@f6845",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "9ebd5b9f-29cd-4316-9b55-552fb203871d@1cdc4": {
+    "url": "db://assets/res/model/map/newMap01.FBX@1cdc4",
+    "value": {
+      "imageExtName": ".jpg",
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "9ebd5b9f-29cd-4316-9b55-552fb203871d@bfae8": {
+    "url": "db://assets/res/model/map/newMap01.FBX@bfae8",
+    "value": {
+      "depends": [
+        "9ebd5b9f-29cd-4316-9b55-552fb203871d@1cdc4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9ebd5b9f-29cd-4316-9b55-552fb203871d@7ff75": {
+    "url": "db://assets/res/model/map/newMap01.FBX@7ff75",
+    "value": {
+      "depends": [
+        "f648964e-8d32-41fc-9ac9-7a1e714dd17b",
+        "9ebd5b9f-29cd-4316-9b55-552fb203871d@bfae8"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9ebd5b9f-29cd-4316-9b55-552fb203871d@fc11b": {
+    "url": "db://assets/res/model/map/newMap01.FBX@fc11b",
+    "value": {
+      "depends": [
+        "9ebd5b9f-29cd-4316-9b55-552fb203871d@7ff75",
+        "9ebd5b9f-29cd-4316-9b55-552fb203871d@f6845"
+      ]
+    },
+    "versionCode": 1
+  },
+  "6709d1d4-40a7-43e4-92dd-9d4540e96da8": {
+    "url": "db://assets/script/Map.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "bda03c41-db3f-4dba-ae6e-3743e6770bde": {
+    "url": "db://assets/resources/prefab/UI/GamePanel.prefab",
+    "value": {
+      "depends": [
+        "c56d0552-c41e-4455-8219-62482acc590d@f9941",
+        "57614a35-ee9d-4d08-9f96-13278fe4fbe2@f9941",
+        "f24a4cec-eb27-4a86-8387-42656fb2246f@f9941",
+        "b6986b3a-c766-47fc-a096-9ff0e2063650@f9941",
+        "0b2bea29-2de9-482f-91b8-cc3b41fd8577@f9941",
+        "c32912a0-2783-481a-ac57-055eb1673771@f9941",
+        "9d360602-a419-423c-9127-d9d8b7fa1acd@f9941",
+        "42675dfa-1c18-4dd7-b431-bfcbc05ab187@f9941",
+        "e6ec0b0f-9050-4bd5-aebc-628a20338db8@f9941",
+        "a74f5f3e-e01a-46bf-b332-ec3f2a28db11@f9941",
+        "1b0b6ef2-31b2-4d2b-b413-210edb9ef3f6@f9941",
+        "d4941e17-44f8-4360-9902-bef57c3a949d@f9941",
+        "25a27e25-28ba-468d-85bf-784ee806b20c@f9941"
+      ],
+      "dependScripts": [
+        "380bb46e-9924-4be4-991c-b2e2a6381f28",
+        "75b9e928-53c6-4e06-a650-603f0443aabc"
+      ]
+    },
+    "versionCode": 1
+  },
+  "d1976380-1cdd-44c9-bb34-7173751ef3e5": {
+    "url": "db://assets/resources/prefab/UI/GameOverPanel.prefab",
+    "value": {
+      "depends": [
+        "7d8f9b89-4fd1-4c9f-a3ab-38ec7cded7ca@f9941",
+        "6a05c169-ade2-4379-9808-2398fa76a171@f9941",
+        "0ef6c17e-cad2-414f-adf1-3da73e5f64c5@f9941",
+        "20835ba4-6145-4fbc-a58a-051ce700aa3e@f9941",
+        "544e49d6-3f05-4fa8-9a9e-091f98fc2ce8@f9941",
+        "951249e0-9f16-456d-8b85-a6ca954da16b@f9941",
+        "606ad998-f401-43a1-9967-4019b040205f@f9941"
+      ],
+      "dependScripts": []
+    },
+    "versionCode": 1
+  },
+  "3db6b783-1812-462f-a5c5-0f37957bb771": {
+    "url": "db://assets/resources/prefab/UI/HomePanel.prefab",
+    "value": {
+      "depends": [
+        "adc8e40b-26cf-42c7-a3d3-e033cbc328ad@f9941",
+        "606ad998-f401-43a1-9967-4019b040205f@f9941",
+        "05df99ff-3532-4226-9a2a-bed6b836b667@f9941",
+        "9798df0f-94ea-4143-a765-d9a625604e0f@f9941",
+        "e634ffea-cf56-4317-a0d2-cf2ac3464aa1@f9941",
+        "5b9f72cb-e9a1-4a02-afd2-557977fc8ee6@f9941",
+        "aee5210e-5ffa-4bb9-9168-4e02ed596035@f9941",
+        "255fbd0c-7070-4597-85cd-976bff2fa6bc@f9941"
+      ],
+      "dependScripts": [
+        "a8b7282a-362f-433c-9b0d-7b34dd91dc07"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ba38d517-647d-4e7f-beed-8f3fa4d3c7e2": {
+    "url": "db://assets/resources",
+    "value": {},
+    "versionCode": 1
+  },
+  "a8b7282a-362f-433c-9b0d-7b34dd91dc07": {
+    "url": "db://assets/script/Panel/HomePanel.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "78202a5e-ea9a-4a59-aff8-f24c002427da": {
+    "url": "db://assets/script/NewComponent.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "9388f8fc-fb32-4d65-b551-d5b40a99b850": {
+    "url": "db://assets/script/manager",
+    "value": {},
+    "versionCode": 1
+  },
+  "23d46c41-a180-4c80-840f-cbef1edbdde7": {
+    "url": "db://assets/script/manager/Uimanager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "c0ec88c2-3f3d-4af6-8ae6-024fd55675de": {
+    "url": "db://assets/resources/prefab/player",
+    "value": {},
+    "versionCode": 1
+  },
+  "a750e725-fbe7-4791-ab12-a07db35b46b2": {
+    "url": "db://assets/resources/prefab/player/player.prefab",
+    "value": {
+      "depends": [
+        "6826b480-6300-444d-95a3-9e27a0c476a3",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@fd7d6",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@438fe",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@1f586",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@989ed",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@b4251",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@6c359",
+        "36dc4ba3-93f3-43b1-898b-46e9b392a617@cf5ee"
+      ],
+      "dependScripts": []
+    },
+    "versionCode": 1
+  },
+  "3ba704d9-ee25-44ef-9b74-26647506bcab": {
+    "url": "db://assets/script/manager/GameManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "e8ddd625-24ed-40e0-8bed-b9d18e58b501": {
+    "url": "db://assets/script/utils",
+    "value": {},
+    "versionCode": 1
+  },
+  "4e1f8a8c-366e-42c4-91d1-d4fe1965aada": {
+    "url": "db://assets/res/scripts/uitls/clientEvent.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "7abf6511-eec9-4ff5-9eb7-92232ef8433e": {
+    "url": "db://assets/res/scripts/uitls/oneToMultiListener.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "89391afd-e826-48cb-b563-9343a05a09fa": {
+    "url": "db://assets/res/scripts",
+    "value": {},
+    "versionCode": 1
+  },
+  "b74d0766-9924-40eb-8134-476436c814ea": {
+    "url": "db://assets/res/scripts/uitls/clientEvent.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "6ad12e2d-563b-42b0-bf60-75d912b117b3": {
+    "url": "db://assets/res/scripts/uitls/oneToMultiListener.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "cd4d0e93-84f8-424c-acb7-e4c6fae417d7": {
+    "url": "db://assets/res",
+    "value": {},
+    "versionCode": 1
+  },
+  "98b19ee3-4e75-4bf6-9600-98dcf9da4d85": {
+    "url": "db://assets/res/balance/balanceBoxGet.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "9a0a166a-6f7a-4993-bb5a-31eaef5dac80": {
+    "url": "db://assets/res/balance/balanceFontLose.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "6b85e7a5-4301-406a-85d3-c60e8451d676": {
+    "url": "db://assets/res/balance/balanceFontWin.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "8196ada0-f6fc-4d0f-8917-567a2bd8091c": {
+    "url": "db://assets/res/balance/balanceIconGet.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "f53693fc-9390-4358-8e21-fc03aad9f248": {
+    "url": "db://assets/res/balance",
+    "value": {},
+    "versionCode": 1
+  },
+  "6515a384-ab1e-4c38-9b89-d5826fb50f44": {
+    "url": "db://assets/res/balance/balanceIconPlay.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "98b19ee3-4e75-4bf6-9600-98dcf9da4d85@6c48a": {
+    "url": "db://assets/res/balance/balanceBoxGet.png@6c48a",
+    "value": {
+      "depends": [
+        "98b19ee3-4e75-4bf6-9600-98dcf9da4d85"
+      ]
+    },
+    "versionCode": 1
+  },
+  "8196ada0-f6fc-4d0f-8917-567a2bd8091c@6c48a": {
+    "url": "db://assets/res/balance/balanceIconGet.png@6c48a",
+    "value": {
+      "depends": [
+        "8196ada0-f6fc-4d0f-8917-567a2bd8091c"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4d7c87cb-bd46-4763-8dc8-a9e87feeca3c": {
+    "url": "db://assets/res/balance/balanceIconShare.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "f2acfe16-1fd5-4240-b76a-0dc3128f9977": {
+    "url": "db://assets/res/balance/balanceImgLose.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "9a0a166a-6f7a-4993-bb5a-31eaef5dac80@6c48a": {
+    "url": "db://assets/res/balance/balanceFontLose.png@6c48a",
+    "value": {
+      "depends": [
+        "9a0a166a-6f7a-4993-bb5a-31eaef5dac80"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9f0b2e2f-35b0-400a-b37d-b4063ecfdd76": {
+    "url": "db://assets/res/balance/balanceImgWin.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "6515a384-ab1e-4c38-9b89-d5826fb50f44@6c48a": {
+    "url": "db://assets/res/balance/balanceIconPlay.png@6c48a",
+    "value": {
+      "depends": [
+        "6515a384-ab1e-4c38-9b89-d5826fb50f44"
+      ]
+    },
+    "versionCode": 1
+  },
+  "aecfd544-5d61-4ad1-8a4a-2f360154cb0a": {
+    "url": "db://assets/res/balance/balanceLightWin.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "6b85e7a5-4301-406a-85d3-c60e8451d676@6c48a": {
+    "url": "db://assets/res/balance/balanceFontWin.png@6c48a",
+    "value": {
+      "depends": [
+        "6b85e7a5-4301-406a-85d3-c60e8451d676"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4d7c87cb-bd46-4763-8dc8-a9e87feeca3c@6c48a": {
+    "url": "db://assets/res/balance/balanceIconShare.png@6c48a",
+    "value": {
+      "depends": [
+        "4d7c87cb-bd46-4763-8dc8-a9e87feeca3c"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9f0b2e2f-35b0-400a-b37d-b4063ecfdd76@6c48a": {
+    "url": "db://assets/res/balance/balanceImgWin.png@6c48a",
+    "value": {
+      "depends": [
+        "9f0b2e2f-35b0-400a-b37d-b4063ecfdd76"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f2acfe16-1fd5-4240-b76a-0dc3128f9977@6c48a": {
+    "url": "db://assets/res/balance/balanceImgLose.png@6c48a",
+    "value": {
+      "depends": [
+        "f2acfe16-1fd5-4240-b76a-0dc3128f9977"
+      ]
+    },
+    "versionCode": 1
+  },
+  "aecfd544-5d61-4ad1-8a4a-2f360154cb0a@6c48a": {
+    "url": "db://assets/res/balance/balanceLightWin.png@6c48a",
+    "value": {
+      "depends": [
+        "aecfd544-5d61-4ad1-8a4a-2f360154cb0a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e6658b31-5b55-4e36-a609-3765bbdfc74a": {
+    "url": "db://assets/res/card/1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "20f648f0-597b-460f-91d7-7aabf5d2ad0a": {
+    "url": "db://assets/res/card/2.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "95a19b3c-2c03-4b03-a1fd-3a8f0c6d6040": {
+    "url": "db://assets/res/card/3.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "79da02ce-47c4-4a8a-a17c-e3d43a7f8b77": {
+    "url": "db://assets/res/card/4.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "b36eae2e-593c-4cde-88d3-00ae338213cc": {
+    "url": "db://assets/res/card",
+    "value": {},
+    "versionCode": 1
+  },
+  "20f648f0-597b-460f-91d7-7aabf5d2ad0a@6c48a": {
+    "url": "db://assets/res/card/2.png@6c48a",
+    "value": {
+      "depends": [
+        "20f648f0-597b-460f-91d7-7aabf5d2ad0a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "95a19b3c-2c03-4b03-a1fd-3a8f0c6d6040@6c48a": {
+    "url": "db://assets/res/card/3.png@6c48a",
+    "value": {
+      "depends": [
+        "95a19b3c-2c03-4b03-a1fd-3a8f0c6d6040"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e6658b31-5b55-4e36-a609-3765bbdfc74a@6c48a": {
+    "url": "db://assets/res/card/1.png@6c48a",
+    "value": {
+      "depends": [
+        "e6658b31-5b55-4e36-a609-3765bbdfc74a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "79da02ce-47c4-4a8a-a17c-e3d43a7f8b77@6c48a": {
+    "url": "db://assets/res/card/4.png@6c48a",
+    "value": {
+      "depends": [
+        "79da02ce-47c4-4a8a-a17c-e3d43a7f8b77"
+      ]
+    },
+    "versionCode": 1
+  },
+  "309f6834-1b28-411c-9c08-3232d6a3d11d": {
+    "url": "db://assets/res/game",
+    "value": {},
+    "versionCode": 1
+  },
+  "37627704-0533-4212-b949-666b72b88fd9": {
+    "url": "db://assets/res/game/1.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "69204c85-b9f9-4cbb-a816-266a9a9eba05": {
+    "url": "db://assets/res/game/gq.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "1f0bb4c6-1b14-447f-a2db-18fc46f3e4d4": {
+    "url": "db://assets/res/game/yxjm_df_txk.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "77da9717-235a-41d5-9a87-99031a11c885": {
+    "url": "db://assets/res/game/yxjm_df_x.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "975d890a-1b89-4483-a0ae-d60733702bf4": {
+    "url": "db://assets/res/game/yxjm_dk.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "37627704-0533-4212-b949-666b72b88fd9@6c48a": {
+    "url": "db://assets/res/game/1.jpg@6c48a",
+    "value": {
+      "depends": [
+        "37627704-0533-4212-b949-666b72b88fd9"
+      ]
+    },
+    "versionCode": 1
+  },
+  "9b07dc15-856f-483a-87b2-92a1e5351f52": {
+    "url": "db://assets/res/game/yxjm_jdt1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "77da9717-235a-41d5-9a87-99031a11c885@6c48a": {
+    "url": "db://assets/res/game/yxjm_df_x.png@6c48a",
+    "value": {
+      "depends": [
+        "77da9717-235a-41d5-9a87-99031a11c885"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f918bb18-ef9c-45ea-97e2-25ddba98a5f4": {
+    "url": "db://assets/res/game/yxjm_jdt1_df.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "1f0bb4c6-1b14-447f-a2db-18fc46f3e4d4@6c48a": {
+    "url": "db://assets/res/game/yxjm_df_txk.png@6c48a",
+    "value": {
+      "depends": [
+        "1f0bb4c6-1b14-447f-a2db-18fc46f3e4d4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "cc6d26d5-b035-4254-b8e8-7256ee7944ce": {
+    "url": "db://assets/res/game/yxjm_jdt1_wf.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "69204c85-b9f9-4cbb-a816-266a9a9eba05@6c48a": {
+    "url": "db://assets/res/game/gq.png@6c48a",
+    "value": {
+      "depends": [
+        "69204c85-b9f9-4cbb-a816-266a9a9eba05"
+      ]
+    },
+    "versionCode": 1
+  },
+  "bd642628-50f7-43b7-b007-0ba8a3d90070": {
+    "url": "db://assets/res/game/yxjm_kp_w.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "975d890a-1b89-4483-a0ae-d60733702bf4@6c48a": {
+    "url": "db://assets/res/game/yxjm_dk.png@6c48a",
+    "value": {
+      "depends": [
+        "975d890a-1b89-4483-a0ae-d60733702bf4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "49ef0394-ba86-4e2b-bba3-0891eda3e609": {
+    "url": "db://assets/res/game/yxjm_kp_w_jz1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "9b07dc15-856f-483a-87b2-92a1e5351f52@6c48a": {
+    "url": "db://assets/res/game/yxjm_jdt1.png@6c48a",
+    "value": {
+      "depends": [
+        "9b07dc15-856f-483a-87b2-92a1e5351f52"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e17d0880-69b8-4d1b-9715-c6f5b6e8dbfd": {
+    "url": "db://assets/res/game/yxjm_kp_w_jz2.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "f918bb18-ef9c-45ea-97e2-25ddba98a5f4@6c48a": {
+    "url": "db://assets/res/game/yxjm_jdt1_df.png@6c48a",
+    "value": {
+      "depends": [
+        "f918bb18-ef9c-45ea-97e2-25ddba98a5f4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "b4b7c85f-95b1-4054-84b8-592c5a607ca5": {
+    "url": "db://assets/res/game/yxjm_kp_xz.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "cc6d26d5-b035-4254-b8e8-7256ee7944ce@6c48a": {
+    "url": "db://assets/res/game/yxjm_jdt1_wf.png@6c48a",
+    "value": {
+      "depends": [
+        "cc6d26d5-b035-4254-b8e8-7256ee7944ce"
+      ]
+    },
+    "versionCode": 1
+  },
+  "df5e3557-f23a-48ef-899f-8162f03972e7": {
+    "url": "db://assets/res/game/yxjm_tb_hq.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "bd642628-50f7-43b7-b007-0ba8a3d90070@6c48a": {
+    "url": "db://assets/res/game/yxjm_kp_w.png@6c48a",
+    "value": {
+      "depends": [
+        "bd642628-50f7-43b7-b007-0ba8a3d90070"
+      ]
+    },
+    "versionCode": 1
+  },
+  "31fe2e1d-9db2-4c81-8c1f-7f40ddafdaea": {
+    "url": "db://assets/res/game/yxjm_tb_hq1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "49ef0394-ba86-4e2b-bba3-0891eda3e609@6c48a": {
+    "url": "db://assets/res/game/yxjm_kp_w_jz1.png@6c48a",
+    "value": {
+      "depends": [
+        "49ef0394-ba86-4e2b-bba3-0891eda3e609"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e82bb945-0094-4689-a14f-a31051b3de2f": {
+    "url": "db://assets/res/game/yxjm_tb_hq2.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "e17d0880-69b8-4d1b-9715-c6f5b6e8dbfd@6c48a": {
+    "url": "db://assets/res/game/yxjm_kp_w_jz2.png@6c48a",
+    "value": {
+      "depends": [
+        "e17d0880-69b8-4d1b-9715-c6f5b6e8dbfd"
+      ]
+    },
+    "versionCode": 1
+  },
+  "60ae26a9-4864-40d8-b6f0-83a36dd55c3d": {
+    "url": "db://assets/res/game/yxjm_tb_hq4.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "b4b7c85f-95b1-4054-84b8-592c5a607ca5@6c48a": {
+    "url": "db://assets/res/game/yxjm_kp_xz.png@6c48a",
+    "value": {
+      "depends": [
+        "b4b7c85f-95b1-4054-84b8-592c5a607ca5"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0cfd576a-a276-431e-a5a6-5f560bd86799": {
+    "url": "db://assets/res/game/yxjm_wf_txk.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "df5e3557-f23a-48ef-899f-8162f03972e7@6c48a": {
+    "url": "db://assets/res/game/yxjm_tb_hq.png@6c48a",
+    "value": {
+      "depends": [
+        "df5e3557-f23a-48ef-899f-8162f03972e7"
+      ]
+    },
+    "versionCode": 1
+  },
+  "98b60fd3-da46-4ef7-8b54-d53db9863c03": {
+    "url": "db://assets/res/game/yxjm_wf_x.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "e82bb945-0094-4689-a14f-a31051b3de2f@6c48a": {
+    "url": "db://assets/res/game/yxjm_tb_hq2.png@6c48a",
+    "value": {
+      "depends": [
+        "e82bb945-0094-4689-a14f-a31051b3de2f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ae3ea78b-4bae-4858-a6a7-bd85208b8e4f": {
+    "url": "db://assets/res/game/yxjm_wzbg.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "31fe2e1d-9db2-4c81-8c1f-7f40ddafdaea@6c48a": {
+    "url": "db://assets/res/game/yxjm_tb_hq1.png@6c48a",
+    "value": {
+      "depends": [
+        "31fe2e1d-9db2-4c81-8c1f-7f40ddafdaea"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ec3f8a72-e602-46f7-8dc2-427a2b7589d0": {
+    "url": "db://assets/res/game/yx_df_hsszbg.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "0cfd576a-a276-431e-a5a6-5f560bd86799@6c48a": {
+    "url": "db://assets/res/game/yxjm_wf_txk.png@6c48a",
+    "value": {
+      "depends": [
+        "0cfd576a-a276-431e-a5a6-5f560bd86799"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1e3f1845-67aa-4260-afc9-f080bb79b735": {
+    "url": "db://assets/res/game/yx_df_hs_jdt1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "60ae26a9-4864-40d8-b6f0-83a36dd55c3d@6c48a": {
+    "url": "db://assets/res/game/yxjm_tb_hq4.png@6c48a",
+    "value": {
+      "depends": [
+        "60ae26a9-4864-40d8-b6f0-83a36dd55c3d"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2803db26-b5fa-49c4-9f2d-2b4ddfd00b90": {
+    "url": "db://assets/res/game/yx_df_hs_jdt2.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "98b60fd3-da46-4ef7-8b54-d53db9863c03@6c48a": {
+    "url": "db://assets/res/game/yxjm_wf_x.png@6c48a",
+    "value": {
+      "depends": [
+        "98b60fd3-da46-4ef7-8b54-d53db9863c03"
+      ]
+    },
+    "versionCode": 1
+  },
+  "163e7cb0-09d1-4aab-84b1-36d58298e566": {
+    "url": "db://assets/res/game/yx_wf_lsszbg.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "ae3ea78b-4bae-4858-a6a7-bd85208b8e4f@6c48a": {
+    "url": "db://assets/res/game/yxjm_wzbg.png@6c48a",
+    "value": {
+      "depends": [
+        "ae3ea78b-4bae-4858-a6a7-bd85208b8e4f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "66452492-5f6c-4710-b6bc-49af5f779233": {
+    "url": "db://assets/res/game/yx_wf_ls_jdt1.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "ec3f8a72-e602-46f7-8dc2-427a2b7589d0@6c48a": {
+    "url": "db://assets/res/game/yx_df_hsszbg.png@6c48a",
+    "value": {
+      "depends": [
+        "ec3f8a72-e602-46f7-8dc2-427a2b7589d0"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c4aa178d-1471-47de-8700-5bc1aa1e558c": {
+    "url": "db://assets/res/game/yx_wf_ls_jdt2.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "2803db26-b5fa-49c4-9f2d-2b4ddfd00b90@6c48a": {
+    "url": "db://assets/res/game/yx_df_hs_jdt2.png@6c48a",
+    "value": {
+      "depends": [
+        "2803db26-b5fa-49c4-9f2d-2b4ddfd00b90"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1e3f1845-67aa-4260-afc9-f080bb79b735@6c48a": {
+    "url": "db://assets/res/game/yx_df_hs_jdt1.png@6c48a",
+    "value": {
+      "depends": [
+        "1e3f1845-67aa-4260-afc9-f080bb79b735"
+      ]
+    },
+    "versionCode": 1
+  },
+  "163e7cb0-09d1-4aab-84b1-36d58298e566@6c48a": {
+    "url": "db://assets/res/game/yx_wf_lsszbg.png@6c48a",
+    "value": {
+      "depends": [
+        "163e7cb0-09d1-4aab-84b1-36d58298e566"
+      ]
+    },
+    "versionCode": 1
+  },
+  "66452492-5f6c-4710-b6bc-49af5f779233@6c48a": {
+    "url": "db://assets/res/game/yx_wf_ls_jdt1.png@6c48a",
+    "value": {
+      "depends": [
+        "66452492-5f6c-4710-b6bc-49af5f779233"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c4aa178d-1471-47de-8700-5bc1aa1e558c@6c48a": {
+    "url": "db://assets/res/game/yx_wf_ls_jdt2.png@6c48a",
+    "value": {
+      "depends": [
+        "c4aa178d-1471-47de-8700-5bc1aa1e558c"
+      ]
+    },
+    "versionCode": 1
+  },
+  "346fc748-39f6-4a71-964a-168326a72e74": {
+    "url": "db://assets/res/map/newMap01.FBX",
+    "value": {},
+    "versionCode": 1
+  },
+  "6e662a74-0221-45c9-9130-dcf6cddb25ac": {
+    "url": "db://assets/res/map/newMap01.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "cfde342e-daae-4ace-aa9c-f95600d0d5c2": {
+    "url": "db://assets/res/map/newMap01.prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "b2f5a440-9542-4009-a877-50437c86d862": {
+    "url": "db://assets/res/map/newMap01.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "273f4147-7a65-4ecc-9182-85ca3c63364d": {
+    "url": "db://assets/res/map",
+    "value": {},
+    "versionCode": 1
+  },
+  "b2f5a440-9542-4009-a877-50437c86d862@6c48a": {
+    "url": "db://assets/res/map/newMap01.jpg@6c48a",
+    "value": {
+      "depends": [
+        "b2f5a440-9542-4009-a877-50437c86d862"
+      ]
+    },
+    "versionCode": 1
+  },
+  "346fc748-39f6-4a71-964a-168326a72e74@f6845": {
+    "url": "db://assets/res/map/newMap01.FBX@f6845",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "346fc748-39f6-4a71-964a-168326a72e74@1cdc4": {
+    "url": "db://assets/res/map/newMap01.FBX@1cdc4",
+    "value": {
+      "imageExtName": ".jpg",
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "346fc748-39f6-4a71-964a-168326a72e74@bfae8": {
+    "url": "db://assets/res/map/newMap01.FBX@bfae8",
+    "value": {
+      "depends": [
+        "346fc748-39f6-4a71-964a-168326a72e74@1cdc4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "346fc748-39f6-4a71-964a-168326a72e74@7ff75": {
+    "url": "db://assets/res/map/newMap01.FBX@7ff75",
+    "value": {
+      "depends": [
+        "f648964e-8d32-41fc-9ac9-7a1e714dd17b",
+        "346fc748-39f6-4a71-964a-168326a72e74@bfae8"
+      ]
+    },
+    "versionCode": 1
+  },
+  "346fc748-39f6-4a71-964a-168326a72e74@fc11b": {
+    "url": "db://assets/res/map/newMap01.FBX@fc11b",
+    "value": {
+      "depends": [
+        "346fc748-39f6-4a71-964a-168326a72e74@7ff75",
+        "346fc748-39f6-4a71-964a-168326a72e74@f6845"
+      ]
+    },
+    "versionCode": 1
+  },
+  "ad538779-2f6a-4fac-a801-68e5524b1f04": {
+    "url": "db://assets/res/model",
+    "value": {},
+    "versionCode": 1
+  },
+  "bd871544-970d-46d1-abab-8372cb22374c": {
+    "url": "db://assets/res/model/axe",
+    "value": {},
+    "versionCode": 1
+  },
+  "b97becd5-46e2-47a4-baf1-80d6ef0f0822": {
+    "url": "db://assets/res/model/role",
+    "value": {},
+    "versionCode": 1
+  },
+  "aabb9b44-8b82-4e3d-9c8b-5c2b43faf2a9": {
+    "url": "db://assets/res/model/axe/Materials_axe01",
+    "value": {},
+    "versionCode": 1
+  },
+  "5dfdb46b-9931-4ec1-8177-b7624317e7fd": {
+    "url": "db://assets/res/model/role/role01",
+    "value": {},
+    "versionCode": 1
+  },
+  "5b61cae3-b0e7-411e-ae9a-91ab92f5a05a": {
+    "url": "db://assets/res/model/axe/axe.prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "0adca318-4514-4f5f-a74e-222544a69e8e": {
+    "url": "db://assets/res/model/axe/axe01.FBX",
+    "value": {},
+    "versionCode": 1
+  },
+  "f4e8d4dc-766c-4a4d-90eb-79d0294b2271": {
+    "url": "db://assets/res/model/axe/axe01.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "ce64dbf4-2766-48f2-8273-f211bed99cb7": {
+    "url": "db://assets/res/model/axe/axe02.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "0b6250db-814a-4631-9259-2f89ffe363e5": {
+    "url": "db://assets/res/model/axe/axe03.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "c7c8155a-93c1-4ae5-8510-078f23543f12": {
+    "url": "db://assets/res/model/axe/blue.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "e3731901-dd5a-4482-a33a-bd4f59721048": {
+    "url": "db://assets/res/model/axe/red.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "cdfc00ec-eda8-4028-b7c1-3b913b077fe6": {
+    "url": "db://assets/res/model/axe/yellow.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "ce64dbf4-2766-48f2-8273-f211bed99cb7@6c48a": {
+    "url": "db://assets/res/model/axe/axe02.jpg@6c48a",
+    "value": {
+      "depends": [
+        "ce64dbf4-2766-48f2-8273-f211bed99cb7"
+      ]
+    },
+    "versionCode": 1
+  },
+  "8ba8d0f5-07e9-4f67-b049-94aea86a75a0": {
+    "url": "db://assets/res/model/axe/Materials_axe01/Material #4.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "0b6250db-814a-4631-9259-2f89ffe363e5@6c48a": {
+    "url": "db://assets/res/model/axe/axe03.jpg@6c48a",
+    "value": {
+      "depends": [
+        "0b6250db-814a-4631-9259-2f89ffe363e5"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4a438e1a-27c7-4d55-8ea5-964555695fbe": {
+    "url": "db://assets/res/model/role/role01/DefaultMaterial.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "f4e8d4dc-766c-4a4d-90eb-79d0294b2271@6c48a": {
+    "url": "db://assets/res/model/axe/axe01.jpg@6c48a",
+    "value": {
+      "depends": [
+        "f4e8d4dc-766c-4a4d-90eb-79d0294b2271"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0adca318-4514-4f5f-a74e-222544a69e8e@55758": {
+    "url": "db://assets/res/model/axe/axe01.FBX@55758",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "0adca318-4514-4f5f-a74e-222544a69e8e@73b7f": {
+    "url": "db://assets/res/model/axe/axe01.FBX@73b7f",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "0adca318-4514-4f5f-a74e-222544a69e8e@438fe": {
+    "url": "db://assets/res/model/axe/axe01.FBX@438fe",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "0adca318-4514-4f5f-a74e-222544a69e8e@bfae8": {
+    "url": "db://assets/res/model/axe/axe01.FBX@bfae8",
+    "value": {
+      "depends": [
+        "f4e8d4dc-766c-4a4d-90eb-79d0294b2271"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0adca318-4514-4f5f-a74e-222544a69e8e@74c03": {
+    "url": "db://assets/res/model/axe/axe01.FBX@74c03",
+    "value": {
+      "depends": [
+        "f648964e-8d32-41fc-9ac9-7a1e714dd17b",
+        "0adca318-4514-4f5f-a74e-222544a69e8e@bfae8"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0adca318-4514-4f5f-a74e-222544a69e8e@f0343": {
+    "url": "db://assets/res/model/axe/axe01.FBX@f0343",
+    "value": {
+      "depends": [
+        "0adca318-4514-4f5f-a74e-222544a69e8e@74c03",
+        "0adca318-4514-4f5f-a74e-222544a69e8e@55758",
+        "0adca318-4514-4f5f-a74e-222544a69e8e@438fe",
+        "0adca318-4514-4f5f-a74e-222544a69e8e@73b7f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0a4c806d-0454-40aa-8756-5134408a087d": {
+    "url": "db://assets/res/newHome/commonIconGold.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "79840a56-b38d-411f-a6fb-9e4ddcb50e80": {
+    "url": "db://assets/res/newHome/homeBox01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "ad199070-d91f-4f3f-a8ce-25d717921aef": {
+    "url": "db://assets/res/newHome/homeBox02.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "8dd17b8b-f25e-4b8b-bb6a-c7c37e79481a": {
+    "url": "db://assets/res/newHome/homeBox03.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "67991769-0b26-408d-a65f-8e2006c93d0a": {
+    "url": "db://assets/res/newHome",
+    "value": {},
+    "versionCode": 1
+  },
+  "5ec804ea-6d67-4bbe-978a-359644a806b5": {
+    "url": "db://assets/res/newHome/homeBox04.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "ad199070-d91f-4f3f-a8ce-25d717921aef@6c48a": {
+    "url": "db://assets/res/newHome/homeBox02.png@6c48a",
+    "value": {
+      "depends": [
+        "ad199070-d91f-4f3f-a8ce-25d717921aef"
+      ]
+    },
+    "versionCode": 1
+  },
+  "046564d2-5197-4012-b573-3a5ea5295c1b": {
+    "url": "db://assets/res/newHome/homeBoxBlue.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "0a4c806d-0454-40aa-8756-5134408a087d@6c48a": {
+    "url": "db://assets/res/newHome/commonIconGold.png@6c48a",
+    "value": {
+      "depends": [
+        "0a4c806d-0454-40aa-8756-5134408a087d"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1bd2b77f-adec-487c-8cf4-382d678b311b": {
+    "url": "db://assets/res/newHome/homeBoxIcon01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "79840a56-b38d-411f-a6fb-9e4ddcb50e80@6c48a": {
+    "url": "db://assets/res/newHome/homeBox01.png@6c48a",
+    "value": {
+      "depends": [
+        "79840a56-b38d-411f-a6fb-9e4ddcb50e80"
+      ]
+    },
+    "versionCode": 1
+  },
+  "8dd17b8b-f25e-4b8b-bb6a-c7c37e79481a@6c48a": {
+    "url": "db://assets/res/newHome/homeBox03.png@6c48a",
+    "value": {
+      "depends": [
+        "8dd17b8b-f25e-4b8b-bb6a-c7c37e79481a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "70b50f3a-7afb-46aa-81ff-3bda73926470": {
+    "url": "db://assets/res/newHome/homeBoxOrange.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "bf3c1a73-c1c5-4989-8f87-c92797f05a87": {
+    "url": "db://assets/res/newHome/homeBoxTips.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "5ec804ea-6d67-4bbe-978a-359644a806b5@6c48a": {
+    "url": "db://assets/res/newHome/homeBox04.png@6c48a",
+    "value": {
+      "depends": [
+        "5ec804ea-6d67-4bbe-978a-359644a806b5"
+      ]
+    },
+    "versionCode": 1
+  },
+  "3fd1e090-3d39-4ba0-882e-2356c442882b": {
+    "url": "db://assets/res/newHome/homeBtnBlue.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "046564d2-5197-4012-b573-3a5ea5295c1b@6c48a": {
+    "url": "db://assets/res/newHome/homeBoxBlue.png@6c48a",
+    "value": {
+      "depends": [
+        "046564d2-5197-4012-b573-3a5ea5295c1b"
+      ]
+    },
+    "versionCode": 1
+  },
+  "7865146e-af00-4875-beb4-529c57652865": {
+    "url": "db://assets/res/newHome/homeBtnPlay.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "70b50f3a-7afb-46aa-81ff-3bda73926470@6c48a": {
+    "url": "db://assets/res/newHome/homeBoxOrange.png@6c48a",
+    "value": {
+      "depends": [
+        "70b50f3a-7afb-46aa-81ff-3bda73926470"
+      ]
+    },
+    "versionCode": 1
+  },
+  "a94e1756-8667-42db-8ea2-fc7bccb12e5e": {
+    "url": "db://assets/res/newHome/homeBtnRed.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "bf3c1a73-c1c5-4989-8f87-c92797f05a87@6c48a": {
+    "url": "db://assets/res/newHome/homeBoxTips.png@6c48a",
+    "value": {
+      "depends": [
+        "bf3c1a73-c1c5-4989-8f87-c92797f05a87"
+      ]
+    },
+    "versionCode": 1
+  },
+  "700eab55-089f-4e34-a9d3-f88dc7e04cf9": {
+    "url": "db://assets/res/newHome/homeFont01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "1bd2b77f-adec-487c-8cf4-382d678b311b@6c48a": {
+    "url": "db://assets/res/newHome/homeBoxIcon01.png@6c48a",
+    "value": {
+      "depends": [
+        "1bd2b77f-adec-487c-8cf4-382d678b311b"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5a9cb96d-ab79-4551-9542-acf730b96ff0": {
+    "url": "db://assets/res/newHome/homeFont02.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "3fd1e090-3d39-4ba0-882e-2356c442882b@6c48a": {
+    "url": "db://assets/res/newHome/homeBtnBlue.png@6c48a",
+    "value": {
+      "depends": [
+        "3fd1e090-3d39-4ba0-882e-2356c442882b"
+      ]
+    },
+    "versionCode": 1
+  },
+  "f9ec9e32-4b52-44bc-b0b7-0a84d23ef38a": {
+    "url": "db://assets/res/newHome/homeFont03.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "7865146e-af00-4875-beb4-529c57652865@6c48a": {
+    "url": "db://assets/res/newHome/homeBtnPlay.png@6c48a",
+    "value": {
+      "depends": [
+        "7865146e-af00-4875-beb4-529c57652865"
+      ]
+    },
+    "versionCode": 1
+  },
+  "1219263d-36a2-4147-9efe-67b7f82a4b60": {
+    "url": "db://assets/res/newHome/homeFont04.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "a94e1756-8667-42db-8ea2-fc7bccb12e5e@6c48a": {
+    "url": "db://assets/res/newHome/homeBtnRed.png@6c48a",
+    "value": {
+      "depends": [
+        "a94e1756-8667-42db-8ea2-fc7bccb12e5e"
+      ]
+    },
+    "versionCode": 1
+  },
+  "e272c5da-c74e-4eaa-9a45-a0a9a27e386d": {
+    "url": "db://assets/res/newHome/homeFontArmy.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "700eab55-089f-4e34-a9d3-f88dc7e04cf9@6c48a": {
+    "url": "db://assets/res/newHome/homeFont01.png@6c48a",
+    "value": {
+      "depends": [
+        "700eab55-089f-4e34-a9d3-f88dc7e04cf9"
+      ]
+    },
+    "versionCode": 1
+  },
+  "d4b68d02-981f-4a77-b86e-6bf105748da7": {
+    "url": "db://assets/res/newHome/homeFontGift.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "5a9cb96d-ab79-4551-9542-acf730b96ff0@6c48a": {
+    "url": "db://assets/res/newHome/homeFont02.png@6c48a",
+    "value": {
+      "depends": [
+        "5a9cb96d-ab79-4551-9542-acf730b96ff0"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0c47db49-8a6c-4f43-8b18-96953cdcd0f7": {
+    "url": "db://assets/res/newHome/homeFontLand.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "f9ec9e32-4b52-44bc-b0b7-0a84d23ef38a@6c48a": {
+    "url": "db://assets/res/newHome/homeFont03.png@6c48a",
+    "value": {
+      "depends": [
+        "f9ec9e32-4b52-44bc-b0b7-0a84d23ef38a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "69394e33-9c9a-4bc6-8cbb-b3a3e9f631fa": {
+    "url": "db://assets/res/newHome/homeIcon01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "1219263d-36a2-4147-9efe-67b7f82a4b60@6c48a": {
+    "url": "db://assets/res/newHome/homeFont04.png@6c48a",
+    "value": {
+      "depends": [
+        "1219263d-36a2-4147-9efe-67b7f82a4b60"
+      ]
+    },
+    "versionCode": 1
+  },
+  "12a947cd-3971-4ae8-b951-986e4da575a6": {
+    "url": "db://assets/res/newHome/homeIcon02.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "e272c5da-c74e-4eaa-9a45-a0a9a27e386d@6c48a": {
+    "url": "db://assets/res/newHome/homeFontArmy.png@6c48a",
+    "value": {
+      "depends": [
+        "e272c5da-c74e-4eaa-9a45-a0a9a27e386d"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5c0e9418-68f9-4e8f-a188-27e1b852afc8": {
+    "url": "db://assets/res/newHome/homeIcon03.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "d4b68d02-981f-4a77-b86e-6bf105748da7@6c48a": {
+    "url": "db://assets/res/newHome/homeFontGift.png@6c48a",
+    "value": {
+      "depends": [
+        "d4b68d02-981f-4a77-b86e-6bf105748da7"
+      ]
+    },
+    "versionCode": 1
+  },
+  "722aff95-c048-4b85-9d3d-e967dd764f34": {
+    "url": "db://assets/res/newHome/homeIconArrow.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "0c47db49-8a6c-4f43-8b18-96953cdcd0f7@6c48a": {
+    "url": "db://assets/res/newHome/homeFontLand.png@6c48a",
+    "value": {
+      "depends": [
+        "0c47db49-8a6c-4f43-8b18-96953cdcd0f7"
+      ]
+    },
+    "versionCode": 1
+  },
+  "20c261fa-3b7d-4315-85cf-c815ba410406": {
+    "url": "db://assets/res/newHome/homeIconChange.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "69394e33-9c9a-4bc6-8cbb-b3a3e9f631fa@6c48a": {
+    "url": "db://assets/res/newHome/homeIcon01.png@6c48a",
+    "value": {
+      "depends": [
+        "69394e33-9c9a-4bc6-8cbb-b3a3e9f631fa"
+      ]
+    },
+    "versionCode": 1
+  },
+  "c2e2fae8-c44a-4c92-a06e-36e379d4100e": {
+    "url": "db://assets/res/newHome/homeIconUp.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "5c0e9418-68f9-4e8f-a188-27e1b852afc8@6c48a": {
+    "url": "db://assets/res/newHome/homeIcon03.png@6c48a",
+    "value": {
+      "depends": [
+        "5c0e9418-68f9-4e8f-a188-27e1b852afc8"
+      ]
+    },
+    "versionCode": 1
+  },
+  "12a947cd-3971-4ae8-b951-986e4da575a6@6c48a": {
+    "url": "db://assets/res/newHome/homeIcon02.png@6c48a",
+    "value": {
+      "depends": [
+        "12a947cd-3971-4ae8-b951-986e4da575a6"
+      ]
+    },
+    "versionCode": 1
+  },
+  "3dc05eef-0893-4525-808c-85d126bfda69": {
+    "url": "db://assets/res/newHome/homeImg01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "80b34a45-ae71-4f25-bfa9-334947ebe65c": {
+    "url": "db://assets/res/newHome/homeImg02.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "722aff95-c048-4b85-9d3d-e967dd764f34@6c48a": {
+    "url": "db://assets/res/newHome/homeIconArrow.png@6c48a",
+    "value": {
+      "depends": [
+        "722aff95-c048-4b85-9d3d-e967dd764f34"
+      ]
+    },
+    "versionCode": 1
+  },
+  "0a82524b-810e-4bcb-abc8-11d616bc58df": {
+    "url": "db://assets/res/newHome/homeImg03.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "20c261fa-3b7d-4315-85cf-c815ba410406@6c48a": {
+    "url": "db://assets/res/newHome/homeIconChange.png@6c48a",
+    "value": {
+      "depends": [
+        "20c261fa-3b7d-4315-85cf-c815ba410406"
+      ]
+    },
+    "versionCode": 1
+  },
+  "851f311b-ad90-49d5-8aee-79e5e0d768c0": {
+    "url": "db://assets/res/newHome/homeImgStar01.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "c2e2fae8-c44a-4c92-a06e-36e379d4100e@6c48a": {
+    "url": "db://assets/res/newHome/homeIconUp.png@6c48a",
+    "value": {
+      "depends": [
+        "c2e2fae8-c44a-4c92-a06e-36e379d4100e"
+      ]
+    },
+    "versionCode": 1
+  },
+  "29581843-2cde-4f71-8d00-a228c65ee4d7": {
+    "url": "db://assets/res/newHome/homeImgStar02.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "0a82524b-810e-4bcb-abc8-11d616bc58df@6c48a": {
+    "url": "db://assets/res/newHome/homeImg03.png@6c48a",
+    "value": {
+      "depends": [
+        "0a82524b-810e-4bcb-abc8-11d616bc58df"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4f06d385-a85f-431d-aac8-39787947eda0": {
+    "url": "db://assets/res/newHome/QQ截图20240411192129.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "80b34a45-ae71-4f25-bfa9-334947ebe65c@6c48a": {
+    "url": "db://assets/res/newHome/homeImg02.png@6c48a",
+    "value": {
+      "depends": [
+        "80b34a45-ae71-4f25-bfa9-334947ebe65c"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2362b8a4-3706-4e4c-b491-8aa3c005434a": {
+    "url": "db://assets/res/newHome/yb_bg.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "3dc05eef-0893-4525-808c-85d126bfda69@6c48a": {
+    "url": "db://assets/res/newHome/homeImg01.png@6c48a",
+    "value": {
+      "depends": [
+        "3dc05eef-0893-4525-808c-85d126bfda69"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4592a265-ace2-48f9-a46f-ea226a2a567d": {
+    "url": "db://assets/res/newHome/zljq.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "851f311b-ad90-49d5-8aee-79e5e0d768c0@6c48a": {
+    "url": "db://assets/res/newHome/homeImgStar01.png@6c48a",
+    "value": {
+      "depends": [
+        "851f311b-ad90-49d5-8aee-79e5e0d768c0"
+      ]
+    },
+    "versionCode": 1
+  },
+  "bb13b506-1408-4d50-a45f-9f0a1aaf0ac4": {
+    "url": "db://assets/res/newHome/zlts.png",
+    "value": {},
+    "versionCode": 1
+  },
+  "29581843-2cde-4f71-8d00-a228c65ee4d7@6c48a": {
+    "url": "db://assets/res/newHome/homeImgStar02.png@6c48a",
+    "value": {
+      "depends": [
+        "29581843-2cde-4f71-8d00-a228c65ee4d7"
+      ]
+    },
+    "versionCode": 1
+  },
+  "2362b8a4-3706-4e4c-b491-8aa3c005434a@6c48a": {
+    "url": "db://assets/res/newHome/yb_bg.png@6c48a",
+    "value": {
+      "depends": [
+        "2362b8a4-3706-4e4c-b491-8aa3c005434a"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4592a265-ace2-48f9-a46f-ea226a2a567d@6c48a": {
+    "url": "db://assets/res/newHome/zljq.png@6c48a",
+    "value": {
+      "depends": [
+        "4592a265-ace2-48f9-a46f-ea226a2a567d"
+      ]
+    },
+    "versionCode": 1
+  },
+  "bb13b506-1408-4d50-a45f-9f0a1aaf0ac4@6c48a": {
+    "url": "db://assets/res/newHome/zlts.png@6c48a",
+    "value": {
+      "depends": [
+        "bb13b506-1408-4d50-a45f-9f0a1aaf0ac4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "4f06d385-a85f-431d-aac8-39787947eda0@6c48a": {
+    "url": "db://assets/res/newHome/QQ截图20240411192129.png@6c48a",
+    "value": {
+      "depends": [
+        "4f06d385-a85f-431d-aac8-39787947eda0"
+      ]
+    },
+    "versionCode": 1
+  },
+  "86f82256-9648-40c3-91f2-6bdbbc4fade9": {
+    "url": "db://assets/res/role01",
+    "value": {},
+    "versionCode": 1
+  },
+  "6bc7cd2e-1754-43fc-b3fe-a7275f05afae": {
+    "url": "db://assets/res/role01/DefaultMaterial.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "22ef0f77-fd13-4f62-a32e-45b0cf716ef7": {
+    "url": "db://assets/res/role01/role01.jpg",
+    "value": {},
+    "versionCode": 1
+  },
+  "3fd5add0-141f-4d23-8965-0d241943934b": {
+    "url": "db://assets/res/role01/role01.mtl",
+    "value": {},
+    "versionCode": 1
+  },
+  "51c1f9a8-3cb2-4a13-876e-a882a835b60a": {
+    "url": "db://assets/res/role01/role01.prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "5b01b3e9-e758-440a-9e07-a92859bfa4be": {
+    "url": "db://assets/res/role01/role01All.FBX",
+    "value": {},
+    "versionCode": 1
+  },
+  "22ef0f77-fd13-4f62-a32e-45b0cf716ef7@6c48a": {
+    "url": "db://assets/res/role01/role01.jpg@6c48a",
+    "value": {
+      "depends": [
+        "22ef0f77-fd13-4f62-a32e-45b0cf716ef7"
+      ]
+    },
+    "versionCode": 1
+  },
+  "5b01b3e9-e758-440a-9e07-a92859bfa4be@fd7d6": {
+    "url": "db://assets/res/role01/role01All.FBX@fd7d6",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "5b01b3e9-e758-440a-9e07-a92859bfa4be@73b7f": {
+    "url": "db://assets/res/role01/role01All.FBX@73b7f",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "5b01b3e9-e758-440a-9e07-a92859bfa4be@438fe": {
+    "url": "db://assets/res/role01/role01All.FBX@438fe",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "5b01b3e9-e758-440a-9e07-a92859bfa4be@3f561": {
+    "url": "db://assets/res/role01/role01All.FBX@3f561",
+    "value": {
+      "depends": [
+        "5b01b3e9-e758-440a-9e07-a92859bfa4be@fd7d6",
+        "5b01b3e9-e758-440a-9e07-a92859bfa4be@438fe",
+        "5b01b3e9-e758-440a-9e07-a92859bfa4be@73b7f"
+      ]
+    },
+    "versionCode": 1
+  },
+  "12e83e2b-6629-4c5e-ad57-7bbe4143d514": {
+    "url": "db://assets/res/res",
+    "value": {},
+    "versionCode": 1
+  },
+  "2b8d06ef-36af-46e2-bae4-ff1900388017": {
+    "url": "db://assets/res/model",
+    "value": {},
+    "versionCode": 1
+  },
+  "d6a512be-6318-47c8-a3df-790f98d854ae": {
+    "url": "db://assets/res/model/role",
+    "value": {},
+    "versionCode": 1
+  },
+  "b0b96235-bf62-4131-a229-6997f7d5dc22": {
+    "url": "db://assets/res/model/role/role01",
+    "value": {},
+    "versionCode": 1
+  },
+  "1ea5ddd7-78ae-4c41-af09-53972894acd1": {
+    "url": "db://assets/res/model/role/role01/DefaultMaterial.mtl",
+    "value": {
+      "depends": [
+        "c8f66d17-351a-48da-a12c-0212d28575c4"
+      ]
+    },
+    "versionCode": 1
+  },
+  "6ca8d966-89e0-4c99-bcba-64a7c0195e4a": {
+    "url": "db://assets/res/scripts/utils/clientEvent.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "4db8f429-c30a-452d-8ff7-7db045e042c8": {
+    "url": "db://assets/res/scripts/utils/oneToMultiListener.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "28d4c329-dcee-4326-9f65-a410a4f3a58b": {
+    "url": "db://assets/script/utils/clientEvent.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "96f91d70-dfa7-4d75-9052-c43195e57604": {
+    "url": "db://assets/script/utils/oneToMultiListener.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "75b9e928-53c6-4e06-a650-603f0443aabc": {
+    "url": "db://assets/script/Panel/GamePanel.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "2508b670-27a4-4bff-86c8-266dc7d2fe2e": {
+    "url": "db://assets/script/Panel",
+    "value": {},
+    "versionCode": 1
+  },
+  "e8fd5aa2-7034-405d-939a-e2a929a1d2bb": {
+    "url": "db://assets/script/HomePanel.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "7247dc31-d618-43fc-ba03-ac57c59f5815": {
+    "url": "db://assets/resources/datas",
+    "value": {},
+    "versionCode": 1
+  },
+  "4ad1185a-ad33-47f6-8b04-d0ba0c30b8df": {
+    "url": "db://assets/resources/datas/card.csv",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "0b699665-abc3-485b-85fd-f7543c295c12": {
+    "url": "db://assets/resources/datas/solider.csv",
+    "value": {
+      "depends": []
+    },
+    "versionCode": 1
+  },
+  "9d4f4bbf-04a1-453c-a993-3c2d874715bf": {
+    "url": "db://assets/script/utils/csvManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "a22b8198-c606-484a-8cb4-28ee1494a172": {
+    "url": "db://assets/script/manager/ConfigManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "8f971029-69af-4712-8c25-475c8c572719": {
+    "url": "db://assets/script/Main.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "f772aa21-b817-44f2-bfbb-cb7fad9f4de5": {
+    "url": "db://assets/script/manager/BattleManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "09689c81-19f9-40c6-8d28-a0dce8029d59": {
+    "url": "db://assets/script/manager/CardManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "380bb46e-9924-4be4-991c-b2e2a6381f28": {
+    "url": "db://assets/script/Panel/Card.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "2be590bf-5b2d-4642-bb9d-c369391c3a4c": {
+    "url": "db://assets/resources/prefab/solider",
+    "value": {},
+    "versionCode": 1
+  },
+  "70bbdd75-a780-4649-b5fd-0ae310445237": {
+    "url": "db://assets/resources/prefab/solider/axe.prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "3f629bfc-9369-4834-8a19-06c1e581849d": {
+    "url": "db://assets/resources/prefab/solider/solider.prefab",
+    "value": {},
+    "versionCode": 1
+  },
+  "480edf20-b7f3-4368-97e4-520c1c385567": {
+    "url": "db://assets/resources/prefab/solider/solider.prefab",
+    "value": {
+      "depends": [
+        "923fe17b-a36b-4b88-9f79-0feb317fb9f0",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@55758",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@438fe",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@1f586",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@cf5ee",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@989ed",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@ee525",
+        "f8c97c91-c3b1-4f51-a662-c91ba9e3abcd@5b2e9",
+        "86454e1c-2489-4b8f-815e-344b19c89015"
+      ],
+      "dependScripts": [
+        "1d346f44-ac8b-408f-a4b7-71bc60225f31",
+        "ad1fbcbd-d5f5-4b1d-a17b-0a4a88eeafea"
+      ]
+    },
+    "versionCode": 1
+  },
+  "eda9f59d-f055-44a5-a645-5d29e9f1112c": {
+    "url": "db://assets/script/manager/FightManager.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "ad1fbcbd-d5f5-4b1d-a17b-0a4a88eeafea": {
+    "url": "db://assets/script/Solider.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "8fa9c0d7-e210-4aa7-80ef-33b37d94176f": {
+    "url": "db://assets/script/battle",
+    "value": {},
+    "versionCode": 1
+  },
+  "1d346f44-ac8b-408f-a4b7-71bc60225f31": {
+    "url": "db://assets/script/battle/SoliderModel.ts",
+    "value": {},
+    "versionCode": 1
+  }
+}

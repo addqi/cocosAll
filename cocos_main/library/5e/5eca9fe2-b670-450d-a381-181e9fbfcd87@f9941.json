@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "yx_wf_ls_jdt1",
+    "atlas": "",
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "width": 42,
+      "height": 17
+    },
+    "offset": {
+      "x": 0,
+      "y": 0.5
+    },
+    "originalSize": {
+      "width": 42,
+      "height": 18
+    },
+    "rotated": false,
+    "capInsets": [
+      4,
+      3,
+      3,
+      8
+    ],
+    "vertices": {
+      "rawPosition": [
+        -21,
+        -8.5,
+        0,
+        21,
+        -8.5,
+        0,
+        -21,
+        8.5,
+        0,
+        21,
+        8.5,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        0,
+        18,
+        42,
+        18,
+        0,
+        1,
+        42,
+        1
+      ],
+      "nuv": [
+        0,
+        0.05555555555555555,
+        1,
+        0.05555555555555555,
+        0,
+        1,
+        1,
+        1
+      ],
+      "minPos": {
+        "x": -21,
+        "y": -8.5,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 21,
+        "y": 8.5,
+        "z": 0
+      }
+    },
+    "texture": "5eca9fe2-b670-450d-a381-181e9fbfcd87@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 1865,
+      "max": [
+        75.55113983154297,
+        75.55113983154297,
+        4.285511016845703
+      ],
+      "min": [
+        -75.55113983154297,
+        -75.55113983154297,
+        -9.689330937590057e-08
+      ],
+      "name": "newMap01/POSITION",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 12,
+      "componentType": 5126,
+      "count": 1865,
+      "name": "newMap01/NORMAL",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 24,
+      "componentType": 5126,
+      "count": 1865,
+      "name": "newMap01/TEXCOORD_0",
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5123,
+      "count": 3522,
+      "name": "newMap01/INDICES",
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "copyright": "Copyright (c) 2018-2020 Chukong Technologies Inc.",
+    "generator": "FBX-glTF-conv",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 59680,
+      "byteStride": 32,
+      "name": "newMap01",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 7044,
+      "byteOffset": 59680,
+      "target": 34963
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 66724,
+      "uri": "out.bin"
+    }
+  ],
+  "extras": {
+    "FBX-glTF-conv": {
+      "animationFrameRate": 30.0,
+      "fbxFileHeaderInfo": {
+        "creationTimeStamp": {
+          "day": 26,
+          "hour": 17,
+          "millisecond": 526,
+          "minute": 45,
+          "month": 3,
+          "second": 43,
+          "year": 2020
+        },
+        "creator": "FBX SDK/FBX Plugins version 2017.0.1",
+        "sceneInfo": {
+          "author": "",
+          "comment": "",
+          "keywords": "",
+          "original": {
+            "applicationName": "3ds Max",
+            "applicationVendor": "Autodesk",
+            "applicationVersion": "2017",
+            "fileName": "F:\\游戏项目\\fight\\换皮\\场景地图\\newMap01.FBX"
+          },
+          "revision": "",
+          "subject": "",
+          "title": "",
+          "url": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\map\\newMap01.FBX"
+        }
+      }
+    }
+  },
+  "images": [
+    {
+      "extras": {
+        "FBX-glTF-conv": {
+          "fileName": "E:\\cocos\\project\\CrazyGame\\assets\\res\\model\\map\\newMap01.jpg",
+          "relativeFileName": "newMap01.jpg"
+        }
+      },
+      "name": "贴图 #3",
+      "uri": "newMap01.jpg"
+    }
+  ],
+  "materials": [
+    {
+      "extras": {
+        "FBX-glTF-conv": {
+          "raw": {
+            "properties": {
+              "ambient": {
+                "value": [
+                  0.5879999995231628,
+                  0.5879999995231628,
+                  0.5879999995231628
+                ]
+              },
+              "ambientFactor": {
+                "value": 0.0
+              },
+              "bump": {
+                "value": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "bumpFactor": {
+                "value": 1.0
+              },
+              "diffuse": {
+                "texture": {
+                  "index": 0
+                },
+                "value": [
+                  0.5879999995231628,
+                  0.5879999995231628,
+                  0.5879999995231628
+                ]
+              },
+              "diffuseFactor": {
+                "value": 1.0
+              },
+              "displacementColor": {
+                "value": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "displacementFactor": {
+                "value": 1.0
+              },
+              "emissive": {
+                "value": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "emissiveFactor": {
+                "value": 0.0
+              },
+              "normalMap": {
+                "value": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "reflection": {
+                "value": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "reflectionFactor": {
+                "value": 1.0
+              },
+              "shadingModel": "phong",
+              "shininess": {
+                "value": 32.0
+              },
+              "specular": {
+                "value": [
+                  0.8999999761581421,
+                  0.8999999761581421,
+                  0.8999999761581421
+                ]
+              },
+              "specularFactor": {
+                "value": 0.699999988079071
+              },
+              "transparencyFactor": {
+                "value": 0.0
+              },
+              "transparentColor": {
+                "value": [
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              },
+              "vectorDisplacementColor": {
+                "value": [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "vectorDisplacementFactor": {
+                "value": 1.0
+              }
+            },
+            "type": "phong"
+          }
+        }
+      },
+      "name": "Material #27"
+    }
+  ],
+  "meshes": [
+    {
+      "name": "newMap01",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "name": "newMap01",
+      "rotation": [
+        -0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "translation": [
+        7.751464750072046e-07,
+        0.0,
+        -7.751464750072046e-07
+      ]
+    }
+  ],
+  "samplers": [
+    {}
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "name": "贴图 #3",
+      "sampler": 0,
+      "source": 0
+    }
+  ]
+}

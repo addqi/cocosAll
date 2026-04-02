@@ -1,0 +1,14 @@
+{
+  "version": "2.3.13",
+  "sourceTimeStamp": 1701077984000,
+  "outputTimeStamps": {
+    "log.json": 1743992667380.691,
+    "out.gltf": 1743992667379.6946,
+    "newMap01.jpg": 1701077984000,
+    "out.bin": 1743992667378.698
+  },
+  "options": {
+    "smartMaterialEnabled": true,
+    "matchMeshNames": true
+  }
+}

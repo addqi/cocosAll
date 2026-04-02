@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "homeIconUp",
+    "atlas": "",
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "width": 72,
+      "height": 82
+    },
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "originalSize": {
+      "width": 72,
+      "height": 82
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -36,
+        -41,
+        0,
+        36,
+        -41,
+        0,
+        -36,
+        41,
+        0,
+        36,
+        41,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        0,
+        82,
+        72,
+        82,
+        0,
+        0,
+        72,
+        0
+      ],
+      "nuv": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "minPos": {
+        "x": -36,
+        "y": -41,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 36,
+        "y": 41,
+        "z": 0
+      }
+    },
+    "texture": "ff1f2145-59d9-494d-a2d1-cffde5048b85@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

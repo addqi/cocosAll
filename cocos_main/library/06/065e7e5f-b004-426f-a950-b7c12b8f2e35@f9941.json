@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "balanceLightWin",
+    "atlas": "",
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "width": 212,
+      "height": 211
+    },
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "originalSize": {
+      "width": 212,
+      "height": 211
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -106,
+        -105.5,
+        0,
+        106,
+        -105.5,
+        0,
+        -106,
+        105.5,
+        0,
+        106,
+        105.5,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        0,
+        211,
+        212,
+        211,
+        0,
+        0,
+        212,
+        0
+      ],
+      "nuv": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "minPos": {
+        "x": -106,
+        "y": -105.5,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 106,
+        "y": 105.5,
+        "z": 0
+      }
+    },
+    "texture": "065e7e5f-b004-426f-a950-b7c12b8f2e35@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

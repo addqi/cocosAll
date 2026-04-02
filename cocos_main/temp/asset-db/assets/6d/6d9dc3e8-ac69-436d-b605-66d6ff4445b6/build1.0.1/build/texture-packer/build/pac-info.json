@@ -1,0 +1,252 @@
+{
+  "md5": "863a2",
+  "versionDev": "1.0.2",
+  "sharpMd5": "4e4ce",
+  "result": {
+    "atlases": [
+      {
+        "spriteFrameInfos": [
+          {
+            "name": "balanceLightWin",
+            "uuid": "065e7e5f-b004-426f-a950-b7c12b8f2e35@f9941",
+            "imageUuid": "065e7e5f-b004-426f-a950-b7c12b8f2e35",
+            "textureUuid": "065e7e5f-b004-426f-a950-b7c12b8f2e35@6c48a",
+            "trim": {
+              "rotatedWidth": 212,
+              "rotatedHeight": 211,
+              "x": 3,
+              "y": 3,
+              "width": 212,
+              "height": 211
+            },
+            "rawWidth": 212,
+            "rawHeight": 211,
+            "width": 218,
+            "height": 217,
+            "originalPath": "E:\\cocos\\project\\CrazyGame\\library\\06\\065e7e5f-b004-426f-a950-b7c12b8f2e35.png",
+            "rotated": false,
+            "_mtime": 1701077984000,
+            "x": 0,
+            "y": 0,
+            "rotatedWidth": 218,
+            "rotatedHeight": 217
+          },
+          {
+            "name": "balanceIconGet",
+            "uuid": "b0047db7-1809-43af-94e6-697a0b29808c@f9941",
+            "imageUuid": "b0047db7-1809-43af-94e6-697a0b29808c",
+            "textureUuid": "b0047db7-1809-43af-94e6-697a0b29808c@6c48a",
+            "trim": {
+              "rotatedWidth": 13,
+              "rotatedHeight": 20,
+              "x": 221,
+              "y": 3,
+              "width": 20,
+              "height": 13
+            },
+            "rawWidth": 20,
+            "rawHeight": 13,
+            "width": 26,
+            "height": 19,
+            "originalPath": "E:\\cocos\\project\\CrazyGame\\library\\b0\\b0047db7-1809-43af-94e6-697a0b29808c.png",
+            "rotated": true,
+            "_mtime": 1701077984000,
+            "x": 218,
+            "y": 0,
+            "rotatedWidth": 19,
+            "rotatedHeight": 26
+          },
+          {
+            "name": "balanceFontWin",
+            "uuid": "0ee25003-051c-4945-b544-e524a6e35c43@f9941",
+            "imageUuid": "0ee25003-051c-4945-b544-e524a6e35c43",
+            "textureUuid": "0ee25003-051c-4945-b544-e524a6e35c43@6c48a",
+            "trim": {
+              "rotatedWidth": 209,
+              "rotatedHeight": 112,
+              "x": 3,
+              "y": 220,
+              "width": 209,
+              "height": 112
+            },
+            "rawWidth": 209,
+            "rawHeight": 112,
+            "width": 215,
+            "height": 118,
+            "originalPath": "E:\\cocos\\project\\CrazyGame\\library\\0e\\0ee25003-051c-4945-b544-e524a6e35c43.png",
+            "rotated": false,
+            "_mtime": 1701077984000,
+            "x": 0,
+            "y": 217,
+            "rotatedWidth": 215,
+            "rotatedHeight": 118
+          },
+          {
+            "name": "balanceFontLose",
+            "uuid": "22c44935-9fd7-49a2-a425-563170f4ec6e@f9941",
+            "imageUuid": "22c44935-9fd7-49a2-a425-563170f4ec6e",
+            "textureUuid": "22c44935-9fd7-49a2-a425-563170f4ec6e@6c48a",
+            "trim": {
+              "rotatedWidth": 209,
+              "rotatedHeight": 112,
+              "x": 3,
+              "y": 338,
+              "width": 209,
+              "height": 112
+            },
+            "rawWidth": 209,
+            "rawHeight": 112,
+            "width": 215,
+            "height": 118,
+            "originalPath": "E:\\cocos\\project\\CrazyGame\\library\\22\\22c44935-9fd7-49a2-a425-563170f4ec6e.png",
+            "rotated": false,
+            "_mtime": 1701077984000,
+            "x": 0,
+            "y": 335,
+            "rotatedWidth": 215,
+            "rotatedHeight": 118
+          },
+          {
+            "name": "balanceImgWin",
+            "uuid": "6a05c169-ade2-4379-9808-2398fa76a171@f9941",
+            "imageUuid": "6a05c169-ade2-4379-9808-2398fa76a171",
+            "textureUuid": "6a05c169-ade2-4379-9808-2398fa76a171@6c48a",
+            "trim": {
+              "rotatedWidth": 109,
+              "rotatedHeight": 422,
+              "x": 3,
+              "y": 456,
+              "width": 422,
+              "height": 109
+            },
+            "rawWidth": 422,
+            "rawHeight": 109,
+            "width": 428,
+            "height": 115,
+            "originalPath": "E:\\cocos\\project\\CrazyGame\\library\\6a\\6a05c169-ade2-4379-9808-2398fa76a171.png",
+            "rotated": true,
+            "_mtime": 1701077984000,
+            "x": 0,
+            "y": 453,
+            "rotatedWidth": 115,
+            "rotatedHeight": 428
+          },
+          {
+            "name": "balanceImgLose",
+            "uuid": "f8302774-1404-4992-9302-8c368d8118f7@f9941",
+            "imageUuid": "f8302774-1404-4992-9302-8c368d8118f7",
+            "textureUuid": "f8302774-1404-4992-9302-8c368d8118f7@6c48a",
+            "trim": {
+              "rotatedWidth": 109,
+              "rotatedHeight": 422,
+              "x": 118,
+              "y": 456,
+              "width": 422,
+              "height": 109
+            },
+            "rawWidth": 422,
+            "rawHeight": 109,
+            "width": 428,
+            "height": 115,
+            "originalPath": "E:\\cocos\\project\\CrazyGame\\library\\f8\\f8302774-1404-4992-9302-8c368d8118f7.png",
+            "rotated": true,
+            "_mtime": 1701077984000,
+            "x": 115,
+            "y": 453,
+            "rotatedWidth": 115,
+            "rotatedHeight": 428
+          },
+          {
+            "name": "balanceIconPlay",
+            "uuid": "0ef6c17e-cad2-414f-adf1-3da73e5f64c5@f9941",
+            "imageUuid": "0ef6c17e-cad2-414f-adf1-3da73e5f64c5",
+            "textureUuid": "0ef6c17e-cad2-414f-adf1-3da73e5f64c5@6c48a",
+            "trim": {
+              "rotatedWidth": 96,
+              "rotatedHeight": 106,
+              "x": 3,
+              "y": 884,
+              "width": 96,
+              "height": 106
+            },
+            "rawWidth": 96,
+            "rawHeight": 106,
+            "width": 102,
+            "height": 112,
+            "originalPath": "E:\\cocos\\project\\CrazyGame\\library\\0e\\0ef6c17e-cad2-414f-adf1-3da73e5f64c5.png",
+            "rotated": false,
+            "_mtime": 1701077984000,
+            "x": 0,
+            "y": 881,
+            "rotatedWidth": 102,
+            "rotatedHeight": 112
+          },
+          {
+            "name": "balanceIconShare",
+            "uuid": "f35f2cdc-3c2c-4f14-ae61-f049d7146618@f9941",
+            "imageUuid": "f35f2cdc-3c2c-4f14-ae61-f049d7146618",
+            "textureUuid": "f35f2cdc-3c2c-4f14-ae61-f049d7146618@6c48a",
+            "trim": {
+              "rotatedWidth": 106,
+              "rotatedHeight": 96,
+              "x": 105,
+              "y": 884,
+              "width": 96,
+              "height": 106
+            },
+            "rawWidth": 96,
+            "rawHeight": 106,
+            "width": 102,
+            "height": 112,
+            "originalPath": "E:\\cocos\\project\\CrazyGame\\library\\f3\\f35f2cdc-3c2c-4f14-ae61-f049d7146618.png",
+            "rotated": true,
+            "_mtime": 1701077984000,
+            "x": 102,
+            "y": 881,
+            "rotatedWidth": 112,
+            "rotatedHeight": 102
+          },
+          {
+            "name": "balanceBoxGet",
+            "uuid": "dc434e02-b99f-424b-a725-3bedb1f259dd@f9941",
+            "imageUuid": "dc434e02-b99f-424b-a725-3bedb1f259dd",
+            "textureUuid": "dc434e02-b99f-424b-a725-3bedb1f259dd@6c48a",
+            "trim": {
+              "rotatedWidth": 27,
+              "rotatedHeight": 27,
+              "x": 105,
+              "y": 986,
+              "width": 27,
+              "height": 27
+            },
+            "rawWidth": 27,
+            "rawHeight": 27,
+            "width": 33,
+            "height": 33,
+            "originalPath": "E:\\cocos\\project\\CrazyGame\\library\\dc\\dc434e02-b99f-424b-a725-3bedb1f259dd.png",
+            "rotated": false,
+            "_mtime": 1701077984000,
+            "x": 102,
+            "y": 983,
+            "rotatedWidth": 33,
+            "rotatedHeight": 33
+          }
+        ],
+        "width": 237,
+        "height": 1016,
+        "name": "auto-atlas.pac-0",
+        "imagePath": "E:\\cocos\\project\\CrazyGame\\temp\\asset-db\\assets\\6d\\6d9dc3e8-ac69-436d-b605-66d6ff4445b6\\build1.0.1\\build\\texture-packer\\build\\1516b8204.png",
+        "imageUuid": "1516b8204",
+        "textureUuid": "1516b8204@6c48a",
+        "compressed": {
+          "imagePathNoExt": "",
+          "suffixs": [
+            ".png"
+          ]
+        }
+      }
+    ],
+    "unpackedImages": [],
+    "pacUuid": "6d9dc3e8-ac69-436d-b605-66d6ff4445b6"
+  }
+}

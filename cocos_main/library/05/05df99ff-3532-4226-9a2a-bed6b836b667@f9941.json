@@ -1,0 +1,90 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "homeBoxIcon01",
+    "atlas": "",
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "width": 147,
+      "height": 138
+    },
+    "offset": {
+      "x": 0,
+      "y": 0
+    },
+    "originalSize": {
+      "width": 147,
+      "height": 138
+    },
+    "rotated": false,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "vertices": {
+      "rawPosition": [
+        -73.5,
+        -69,
+        0,
+        73.5,
+        -69,
+        0,
+        -73.5,
+        69,
+        0,
+        73.5,
+        69,
+        0
+      ],
+      "indexes": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        3
+      ],
+      "uv": [
+        0,
+        138,
+        147,
+        138,
+        0,
+        0,
+        147,
+        0
+      ],
+      "nuv": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "minPos": {
+        "x": -73.5,
+        "y": -69,
+        "z": 0
+      },
+      "maxPos": {
+        "x": 73.5,
+        "y": 69,
+        "z": 0
+      }
+    },
+    "texture": "05df99ff-3532-4226-9a2a-bed6b836b667@6c48a",
+    "packable": true,
+    "pixelsToUnit": 100,
+    "pivot": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "meshType": 0
+  }
+}

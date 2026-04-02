@@ -1,0 +1,8 @@
+{
+  "__type__": "cc.TextAsset",
+  "_name": "solider",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "text": "﻿编号,小兵类型,牌型,召唤数量,攻击范围,攻击速度,移动速度,攻击,血量,体积\r\nnumber,number,number,number,number,number,number,number,number,number\r\nid,type,cardType,count,range,attackSpeed,speed,attack,hp,scale\r\n1,1,1,2,0,0.1,0,0.04,0,0\r\n2,1,2,2,1,0.1,0,0.04,0,0\r\n3,1,3,2,2,0.1,0,0.04,0,0\r\n4,2,1,2,0,0,0,0,0,0\r\n5,2,2,3,0,0,0,0,0,0\r\n6,2,3,4,0,0,0,0,0,0\r\n7,3,1,2,0,0,0,0.07,0,0\r\n8,3,2,2,0,0,0.3,0.07,0,0\r\n9,3,3,2,0,0,0.5,0.07,0,0\r\n10,4,1,1,0,0,0,0.05,0.08,0.1\r\n"
+}
