@@ -16,18 +16,17 @@ export interface PaletteInstallerOptions {
     onBrushIndexChanged?: () => void;
 }
 
-/** 对标 G15 GameUI 安装：在 Canvas 底部创建调色条 */
+/** 在指定父节点（HudLayer）底部创建调色条 */
 export class PaletteInstaller {
     static install(
-        canvas: Node,
+        parent: Node,
         palette: string[],
         brushState: BrushState,
         itemSprite: SpriteFrame,
         style: PaletteInstallerOptions,
     ): void {
         const bar = new Node('PaletteBar');
-        canvas.addChild(bar);
-        bar.setSiblingIndex(canvas.children.length - 1);
+        parent.addChild(bar);
 
         const widget = bar.addComponent(Widget);
         widget.isAlignBottom = true;

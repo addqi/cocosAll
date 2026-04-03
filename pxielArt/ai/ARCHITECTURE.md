@@ -58,7 +58,7 @@ assets/src/
 ├── game/
 │   ├── BoardRuntimeContext.ts        # 新增：聚合 boardData、brushState、各 PixelBuffer、Texture 引用
 │   ├── BoardBootstrap.ts             # 新增：createLayers、bind puzzle、调各 Layer 初始化
-│   └── PaletteInstaller.ts           # 新增：Canvas 下 PaletteBar + PalettePanel.setup
+│   └── PaletteInstaller.ts           # HudLayer 下 PaletteBar + PalettePanel.setup
 ├── render/
 │   ├── BrushLayer.ts                 # 新增：Brush 纹理 + Sprite + flush
 │   ├── DigitLayer.ts                 # 新增：Digit 纹理 + shader 材质 + 填数 + flush
@@ -94,21 +94,41 @@ assets/src/
 
 - `core/function/RleDecode.ts` — 若 `BoardData` 仅调用静态方法，可保持不动。
 
-## 6. GameManager 瘦身后的形态（目标）
+## 6. UI 层级设计
+
+**4 层架构**，全部在 `GameManager.start()` 中代码创建（场景只有一个 `main` 节点）：
+
+| 层 | 节点名 | 内容 | 触摸行为 |
+|---|---|---|---|
+| Game | `GameLayer` | 棋盘(BoardContent) + Viewport 缩放 | BoardTouchInput(Brush 上) + BoardRootPanInput(留白) |
+| HUD | `HudLayer` | 调色板、进度条、撤销按钮 | 子元素自然拦截，空白穿透到 Game |
+| Popup | `PopupLayer` | 暂停/完成/设置弹窗 | 打开时加全屏 BlockInput 阻断下层 |
+| Top | `TopLayer` | Toast、新手引导 | 穿透，不阻断 |
+
+**为什么 4 层不是 5 层**：涂色游戏没有平级功能页（背包/商店），砍掉 Normal 层。引导合入 Top（需遮罩时在 Top 内部加 GuideRoot 子节点）。
+
+**GameManager 最终形态**（已落地）：
 
 ```text
-@property puzzleJson, digitMaterial, cellDisplaySize, paletteItemSprite, palette* …
-
 start() {
-  const bootstrap = new BoardBootstrap({ node: this.node, puzzleJson, … });
-  const ctx = bootstrap.run();
-  new PaletteInstaller(canvas).install(ctx, this.paletteItemSprite, paletteOptions);
-  this.node.addComponent(BoardTouchInput).bind(ctx);
-  // 视口节点就绪后：KeyboardZoom.bind(viewportNode, ctx.viewport);
+  // 1. 创建 4 层
+  const gameLayer  = this._createLayer('GameLayer');
+  const hudLayer   = this._createLayer('HudLayer');
+  this._createLayer('PopupLayer');
+  this._createLayer('TopLayer');
+
+  // 2. 棋盘 → GameLayer
+  const ctx = BoardBootstrap.run({ boardRoot: gameLayer, ... });
+
+  // 3. 调色板 → HudLayer
+  PaletteInstaller.install(hudLayer, ...);
+
+  // 4. 输入绑定
+  ctx.brushLayer.node.addComponent(BoardTouchInput).init(ctx);
+  gameLayer.addComponent(BoardViewportInput).init(ctx);
+  gameLayer.addComponent(BoardRootPanInput).init(ctx);
 }
 ```
-
-具体 API 在落地 `BoardBootstrap.run()` 时再定；关键是 **GM 不出现 for 循环填 digit、不出现 new Texture2D**。
 
 ## 7. 与 teach / `assets/teach` 的关系
 
@@ -124,15 +144,15 @@ start() {
 
 ## 9. 已落地（代码）
 
-- `config/GameConfig.ts`、`render/BrushLayer.ts`、`render/DigitLayer.ts`、`render/BoardLayer.ts`
-- `game/BoardRuntimeContext.ts`、`BoardBootstrap.ts`、`PaletteInstaller.ts`
-- `core/input/BoardTouchInput.ts`、`core/input/BoardViewportInput.ts`
-- `core/viewport/ViewportController.ts`
-- 节点层级：`BoardContent`（缩放）→ Board（灰底）→ Digit → Brush（初始全透明）；`PaintExecutor` 接 digit，涂对清数字；`flushPaintLayers` 上传 Brush + Digit。
-- `digit.effect`：`detailParams.x` 控制网格/数字显隐；缩放 ≥ `viewportDetailShowScale` 后为 1。
-- 键盘 **W/↑** 放大、**S/↓** 缩小；`GameManager` 检查器「视口」分组可调阈值与步长。
+- **UI 层级**：`GameManager._createLayer` 动态创建 `GameLayer` / `HudLayer` / `PopupLayer` / `TopLayer`
+- **棋盘**：`BoardBootstrap` → `GameLayer` 下建 `BoardContent`（缩放根）→ Board → Digit → Brush
+- **HUD**：`PaletteInstaller` → `HudLayer` 下建 `PaletteBar`（底部横向 ScrollView）
+- **渲染**：`BoardLayer`（灰度+ZoomFade） + `DigitLayer`（digit.effect） + `BrushLayer`（全透明初始）
+- **输入**：`BoardTouchInput`(Brush 节点) + `BoardRootPanInput`(GameLayer) + `BoardViewportInput`(GameLayer, 键盘)
+- **视口**：`ViewportController` 缩放/平移/钳制 + `ZoomFadeMath` 细节渐显
+- **配置**：`GameConfig.ts` 集中管理所有数值常量
 
-*后续：双指缩放、平移钳制、Board 层随缩放渐变等。*
+*后续：双指缩放、PopupLayer/TopLayer 内容实装。*
 
 ---
 

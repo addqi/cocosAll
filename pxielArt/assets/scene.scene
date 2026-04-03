@@ -421,7 +421,7 @@
     "_id": "0cugK6av1LaZmFCKO6GVEv"
   },
   {
-    "__type__": "d87a7KcO2ZPh7q6lbBPdkq4",
+    "__type__": "082c0K7RhRMPJef4jl3JNIN",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -434,10 +434,6 @@
     "digitMaterial": {
       "__uuid__": "96d42b91-daa6-4803-bbc8-96f13e86e0c3",
       "__expectedType__": "cc.Material"
-    },
-    "puzzleJson": {
-      "__uuid__": "b91d5e6e-e77a-41b5-8dd2-56a84b9f184a",
-      "__expectedType__": "cc.JsonAsset"
     },
     "paletteItemSprite": {
       "__uuid__": "5b7846ef-7e66-4112-8aeb-a29b74cd03cf@f9941",
@@ -465,7 +461,7 @@
       "b": 255,
       "a": 255
     },
-    "_id": "48VzvrEnJEYpdlFbr84Aii"
+    "_id": "d3x805KeFCdoOwfblr1W3o"
   },
   {
     "__type__": "cc.UITransform",

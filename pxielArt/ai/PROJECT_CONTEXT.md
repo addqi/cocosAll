@@ -10,9 +10,10 @@
 
 ## 谜题数据
 
-- 示例：`assets/res/apple.json`。
+- 示例：`assets/resources/puzzles/apple.json`。
 - 结构：`PuzzleData`（`assets/src/types/types.ts`）— `gridSize`、`palette`（`#rrggbb`）、`pixels`（RLE 字符串）。
 - `BoardData`（`assets/src/core/data/BoardData.ts`）负责 RLE 解码与 `getBrushIndex` / `isEmpty`。
+- 关卡清单：`LevelManifest`（`assets/src/config/LevelManifest.ts`）— 硬编码 `LevelEntry[]`。
 
 ### Y 轴约定（重要）
 
@@ -27,42 +28,96 @@
 | `getFlippedData()` | 行翻转供 Cocos uploadData（首行 = 纹理顶部） |
 | `img2puzzle.py` | PIL 读取后自动翻转行序再 RLE 编码 |
 
-## 当前做到哪了（相对 teach 的 Phase 1–7）
+## 架构：单场景多页面
+
+场景唯一入口：`main` 节点挂 `AppRoot`，管理 3 个页面节点（show/hide 切换，不用 loadScene）。
+
+```
+Canvas
+└── main (AppRoot)
+    ├── HomePage          选关页面（首屏）
+    │   ├── TopBar        标题 + "我的作品"按钮(预留)
+    │   └── LevelScroll   纵向 ScrollView + Grid Layout
+    │       └── LevelCard_N  (动态创建，预览缩略图 + 关卡名)
+    │
+    ├── GamePage          游戏页面
+    │   ├── GameLayer     BoardContent(棋盘渲染)
+    │   ├── HudLayer      PaletteBar + BackBtn
+    │   ├── PopupLayer
+    │   └── TopLayer
+    │
+    └── MyWorksPage       预留（空节点）
+```
+
+### 页面切换流程
+
+```
+启动 → AppRoot.showHome()
+  点击关卡 → AppRoot.showGame(entry)
+    → GamePage.startLevel(entry)  [resources.load JSON → BoardBootstrap]
+  点击返回 → AppRoot.showHome()
+    → GamePage.cleanup()  [销毁所有游戏子节点]
+```
+
+**触摸穿透规则**：层节点本身只有 `UITransform`（不监听触摸），空白区域自然穿透到下层。只有 UI 子元素（Button / ScrollView）才拦截触摸。PopupLayer 弹窗打开时应在最底部加全屏 BlockInput 节点。
+
+## 当前做到哪了
 
 | 区域 | 状态 | 说明 |
 |------|------|------|
 | types + PixelBuffer + BoardData + BrushState | ✅ | 已落地 |
-| CellConverter | ✅ | 支持 offset/scale 参数（当前 GameManager 传 0/1） |
-| PaintExecutor | ⚠️ 部分 | 只传入 **Brush** 的 `PixelBuffer`；`boardPixels`、`digitPixels` 为 **null**，涂对时**不会**清 Board/Digit 纹理 |
-| 渲染 | ⚠️ 部分 | GameManager 内联：底层 Sprite=涂色纹理；子节点 Digit=数字层 + **自定义 digitMaterial**；**无**独立 `BoardLayer` 灰度底图组件 |
-| 输入 | ⚠️ 极简 | 仅 `TOUCH_END` 单点；**无** GestureDetector / TouchHandler / 拖动补线 / 双指缩放 |
-| Viewport | ❌ | 无 `ViewportController`，无 Content 节点缩放平移 |
-| UI 调色板 | ✅ | `PalettePanel` 动态创建底部横向 ScrollView，写入 `BrushState.currentIndex` |
-| GameConfig | ❌ | 未抽独立配置文件（ teach 中的常量表未建） |
-| GameManager 组装 | ⚠️ | 逻辑集中在 `GameManager.ts`，与 teach 07 的「纯组装 + 分层节点」仍有差距 |
+| CellConverter | ✅ | 支持 offset/scale 参数 |
+| PaintExecutor | ✅ | 接 Brush + Digit buffer，涂对清数字 |
+| 渲染三层 | ✅ | BoardLayer + DigitLayer + BrushLayer 独立类 |
+| 输入 | ✅ | BoardTouchInput(涂色) + BoardRootPanInput(留白平移) + BoardViewportInput(键盘缩放/HJKL平移) |
+| Viewport | ✅ | ViewportController 缩放/平移/钳制 + ZoomFade |
+| UI 调色板 | ✅ | PalettePanel 动态创建，挂 HudLayer |
+| GameConfig | ✅ | 独立配置文件 |
+| AppRoot 总管理器 | ✅ | 单场景入口，管理页面切换 |
+| HomePage 选关 | ✅ | ScrollView + Grid + LevelCard + PuzzlePreview 缩略图 |
+| GamePage 游戏 | ✅ | 从 GameManager 改造，运行时 resources.load 加载关卡 |
+| LevelManifest | ✅ | 关卡清单硬编码 |
+| PuzzlePreview | ✅ | PuzzleData → 缩略图 SpriteFrame（RLE 解码 + 行翻转） |
+| MyWorksPage | ⏳ | 预留空节点 |
 
 ## 关键源码路径（优先看这些）
 
 ```
 ai/
-├── PROJECT_CONTEXT.md      # 本文件：AI 快速上下文
-├── ARCHITECTURE.md         # 架构设计：目录映射、GameManager 拆分
-└── img2puzzle.py           # 工具：PNG → PuzzleData JSON（量化+RLE）
+├── PROJECT_CONTEXT.md          # 本文件：AI 快速上下文
+├── ARCHITECTURE.md             # 架构设计：目录映射、UI 层级
+└── img2puzzle.py               # 工具：PNG → PuzzleData JSON（量化+RLE）
 
 assets/src/
-├── GameManager.ts          # 主流程：加载 JSON、纹理、Digit 子节点、调色板、触摸涂色
-├── PixelBoard.ts           # 早期白底点变黑原型；可能与当前主流程重复/遗留
-├── touch.ts                # 空壳组件，未使用
+├── AppRoot.ts                  # 场景唯一入口：总管理器，页面切换
+├── config/
+│   ├── GameConfig.ts           # 视口/网格/吸附/缩放等全局常量
+│   └── LevelManifest.ts        # 关卡清单（LevelEntry[]）
 ├── types/types.ts
 ├── core/
 │   ├── PixelBuffer.ts
 │   ├── data/BoardData.ts, BrushState.ts
-│   └── paint/CellConverter.ts, PaintExecutor.ts
-└── ui/palette/PalettePanel.ts
+│   ├── paint/CellConverter.ts, PaintExecutor.ts
+│   ├── viewport/ViewportController.ts, ZoomFadeMath.ts
+│   └── input/BoardTouchInput.ts, BoardViewportInput.ts, BoardRootPanInput.ts
+├── game/
+│   ├── BoardBootstrap.ts, BoardRuntimeContext.ts
+│   └── PaletteInstaller.ts
+├── render/
+│   ├── BoardLayer.ts, DigitLayer.ts, BrushLayer.ts
+├── ui/
+│   ├── palette/PalettePanel.ts
+│   ├── home/
+│   │   ├── HomePage.ts         # 选关页面：TopBar + ScrollView + LevelCard
+│   │   └── LevelCard.ts        # 单张关卡卡片（预览图 + 名称 + 点击）
+│   └── game/
+│       └── GamePage.ts         # 游戏页面（原 GameManager 改造）
+└── util/
+    └── PuzzlePreview.ts        # PuzzleData → 缩略图 SpriteFrame
 
-assets/res/
-├── apple.json              # 谜题：苹果 30×30 6色
-└── mountain.json           # 谜题：山水 100×100 50色
+assets/resources/puzzles/
+├── apple.json                  # 谜题：苹果 30×30 6色
+└── mountain.json               # 谜题：山水 100×100 50色
 ```
 
 ## 设计文档（必读索引）
@@ -78,7 +133,7 @@ assets/res/
 
 ### `ai/img2puzzle.py` — 图片 → PuzzleData JSON 转换器
 
-将任意像素画 PNG 转换为项目的 `PuzzleData` JSON 格式（与 `assets/res/apple.json` 同结构）。
+将任意像素画 PNG 转换为项目的 `PuzzleData` JSON 格式（与 `assets/resources/puzzles/apple.json` 同结构）。
 
 **依赖**：Pillow（已安装至 `.pylib/`）。
 
@@ -95,14 +150,14 @@ PYTHONPATH=.pylib python3 ai/img2puzzle.py <input.png> <output.json> [--size N] 
 
 **典型流程**：
 1. AI 生图工具（豆包/Midjourney/SD）生成像素风格 PNG
-2. 运行 `img2puzzle.py` 量化并导出 JSON 到 `assets/res/`
-3. Cocos 编辑器里 `GameManager.puzzleJson` 引用新 JSON 即可
+2. 运行 `img2puzzle.py` 量化并导出 JSON 到 `assets/resources/puzzles/`
+3. 在 `LevelManifest.ts` 中添加条目即可
 
 **已生成关卡**：
 | 文件 | 尺寸 | 颜色数 | 说明 |
 |------|------|--------|------|
-| `assets/res/apple.json` | 30×30 | 6 | 苹果（手工数据） |
-| `assets/res/mountain.json` | 100×100 | 50 | 山水风景（AI 生图 + img2puzzle 转换） |
+| `assets/resources/puzzles/apple.json` | 30×30 | 6 | 苹果（手工数据） |
+| `assets/resources/puzzles/mountain.json` | 100×100 | 50 | 山水风景（AI 生图 + img2puzzle 转换） |
 
 **注意**：
 - AI 生成的"像素画"通常是 1024×1024 高分辨率，需要缩放+量化，不能直接用
@@ -111,16 +166,18 @@ PYTHONPATH=.pylib python3 ai/img2puzzle.py <input.png> <output.json> [--size N] 
 
 ## 已知缺口 / 易踩坑
 
-1. **Digit 层与 PaintExecutor 未接线**：初始 Digit 从 `BoardData` 写入 `_digitPixels`，但 `PaintExecutor` 未持有该 buffer，涂对后数字不会从纹理上清除（需把 digit `PixelBuffer` 传入构造函数并在 `flush` 里 `uploadData`）。
-2. **无灰度 Board 层**：teach 中的轮廓底图尚未实现。
-3. **PixelBoard.ts**：若场景不再使用，后续可删除或标注废弃，避免双实现混淆。
-4. **BrushState.getRGB**：实现有效，但类内缩进/格式略乱，重构时可顺带整理（非功能问题）。
+1. **PixelBoard.ts / touch.ts**：早期原型遗留，场景不再使用，可删除。
+2. **PopupLayer / TopLayer**：容器已创建，但尚无具体弹窗或 Toast 实现。
+3. **双指缩放**：键盘缩放已有，触摸双指捏合尚未实现。
+4. **MyWorksPage**：预留空节点，尚未实现。
 
-## 建议的下一步（按 teach 增量）
+## 建议的下一步
 
-1. 将 Digit（及未来的 Board）`PixelBuffer` 传入 `PaintExecutor`，涂对后刷新对应纹理。
-2. 引入 `GameConfig` 与 teach 中的视口节点层级，再接 `ViewportController`。
-3. 补 `GestureDetector` + `LineFill` + `CellHitTest` 实现拖动涂色与吸附。
+1. 补 `GestureDetector` + `LineFill` + `CellHitTest` 实现拖动涂色与吸附。
+2. 实现双指缩放（在 `BoardTouchInput` 中扩展）。
+3. PopupLayer 实装：暂停面板、完成庆祝等（打开时加 BlockInput 遮罩）。
+4. TopLayer 实装：Toast 飘字提示。
+5. MyWorksPage 实装。
 
 ---
 
