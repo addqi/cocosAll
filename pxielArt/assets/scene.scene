@@ -296,9 +296,9 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 146,
-      "g": 255,
-      "b": 220,
+      "r": 50,
+      "g": 26,
+      "b": 118,
       "a": 255
     },
     "_spriteFrame": {
@@ -430,18 +430,41 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "gridCols": 10,
-    "gridRows": 10,
     "cellDisplaySize": 20,
     "digitMaterial": {
       "__uuid__": "96d42b91-daa6-4803-bbc8-96f13e86e0c3",
       "__expectedType__": "cc.Material"
     },
     "puzzleJson": {
-      "__uuid__": "ecf47b23-d351-4d05-b442-e1c7a203bd8f",
+      "__uuid__": "b91d5e6e-e77a-41b5-8dd2-56a84b9f184a",
       "__expectedType__": "cc.JsonAsset"
     },
-    "paletteItemSprite": null,
+    "paletteItemSprite": {
+      "__uuid__": "5b7846ef-7e66-4112-8aeb-a29b74cd03cf@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "paletteItemWidth": 100,
+    "paletteItemHeight": 100,
+    "paletteItemSpacing": 12,
+    "palettePadding": 14,
+    "paletteLabelFontSize": 28,
+    "paletteRingColor": {
+      "__type__": "cc.Color",
+      "r": 48,
+      "g": 48,
+      "b": 48,
+      "a": 255
+    },
+    "paletteRingOutset": 4,
+    "paletteItemRootOutset": 6,
+    "paletteUseContrastLabel": true,
+    "paletteLabelFixedColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
     "_id": "48VzvrEnJEYpdlFbr84Aii"
   },
   {

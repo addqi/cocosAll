@@ -47,14 +47,19 @@ export class PixelBuffer {
         return this._data[idx];
     }
 
-    /** 行列 → 字节偏移量：逻辑 row0 = 图像顶部 */
+    /**
+     * 行列 → 字节偏移量。
+     * 约定：row 0 = 画面底部（Y-up，与 Cocos Creator / CellConverter 一致）。
+     * JSON pixels RLE、BoardData.cellData 均遵循此约定。
+     */
     private _index(row: number, col: number): number {
         return (row * this._width + col) * 4;
     }
 
     /**
      * 行序翻转后的副本，供 Texture2D.uploadData。
-     * OpenGL 纹理首行在底部；逻辑数据 row0 在顶部，上传前需翻转一次。
+     * Cocos uploadData 首行 = 纹理顶部；逻辑 row 0 = 画面底部，
+     * 翻转后 row(height-1) 排首位 → 纹理顶部 = 画面顶部。
      */
     getFlippedData(): Uint8Array {
         const flipped = new Uint8Array(this._data.length);
