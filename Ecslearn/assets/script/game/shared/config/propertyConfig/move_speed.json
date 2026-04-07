@@ -1,0 +1,14 @@
+{
+  "attribute": "MoveSpeed",
+  "valueNodes": [
+    { "id": "MoveSpeed-Value-Config", "value": 0, "tag": "base" },
+    { "id": "MoveSpeed-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "MoveSpeed-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "MoveSpeed-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "MoveSpeed-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "MoveSpeed-Value", "expression": "{{MoveSpeed-Value-Config}} + {{MoveSpeed-Value-Buff}} + {{MoveSpeed-Value-Other}}" },
+    { "id": "MoveSpeed",       "expression": "{{MoveSpeed-Value}} * (1 + {{MoveSpeed-Mul-Buff}} + {{MoveSpeed-Mul-Other}})" }
+  ]
+}

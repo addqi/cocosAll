@@ -1,0 +1,14 @@
+{
+  "attribute": "CritDmg",
+  "valueNodes": [
+    { "id": "CritDmg-Value-Config", "value": 0, "tag": "base" },
+    { "id": "CritDmg-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "CritDmg-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "CritDmg-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "CritDmg-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "CritDmg-Value", "expression": "{{CritDmg-Value-Config}} + {{CritDmg-Value-Buff}} + {{CritDmg-Value-Other}}" },
+    { "id": "CritDmg",       "expression": "{{CritDmg-Value}} * (1 + {{CritDmg-Mul-Buff}} + {{CritDmg-Mul-Other}})" }
+  ]
+}

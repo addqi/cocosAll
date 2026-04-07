@@ -1,0 +1,11 @@
+{
+    "id": 1001,
+    "name": "生命加成",
+    "duration": 0,
+    "maxStack": 5,
+    "tickInterval": 10,
+    "effectClass": "AddHpBuffEffect",
+    "targetAttr": "Hp-Value-Buff",
+    "addValuePerStack": 100,
+    "stackDecayOnTick": true
+}

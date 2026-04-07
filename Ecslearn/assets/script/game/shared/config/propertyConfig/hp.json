@@ -1,0 +1,14 @@
+{
+  "attribute": "Hp",
+  "valueNodes": [
+    { "id": "Hp-Value-Config", "value": 0, "tag": "base" },
+    { "id": "Hp-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "Hp-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "Hp-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "Hp-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "Hp-Value", "expression": "{{Hp-Value-Config}} + {{Hp-Value-Buff}} + {{Hp-Value-Other}}" },
+    { "id": "Hp",       "expression": "{{Hp-Value}} * (1 + {{Hp-Mul-Buff}} + {{Hp-Mul-Other}})" }
+  ]
+}

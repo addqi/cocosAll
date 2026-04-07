@@ -1,0 +1,14 @@
+{
+  "attribute": "AttackSpeed",
+  "valueNodes": [
+    { "id": "AttackSpeed-Value-Config", "value": 0, "tag": "base" },
+    { "id": "AttackSpeed-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "AttackSpeed-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "AttackSpeed-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "AttackSpeed-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "AttackSpeed-Value", "expression": "{{AttackSpeed-Value-Config}} + {{AttackSpeed-Value-Buff}} + {{AttackSpeed-Value-Other}}" },
+    { "id": "AttackSpeed",       "expression": "{{AttackSpeed-Value}} * (1 + {{AttackSpeed-Mul-Buff}} + {{AttackSpeed-Mul-Other}})" }
+  ]
+}

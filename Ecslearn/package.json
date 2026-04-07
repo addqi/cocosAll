@@ -1,0 +1,11 @@
+{
+  "name": "Ecslearn",
+  "uuid": "d46cea47-4801-47ac-807b-a7e3f0fab057",
+  "creator": {
+    "version": "3.8.8"
+  },
+  "scripts": {
+    "create:property-config": "node tools/auto/create-property-config.js",
+    "sync:buff-effects": "node tools/auto/sync-buff-effects.js"
+  }
+}

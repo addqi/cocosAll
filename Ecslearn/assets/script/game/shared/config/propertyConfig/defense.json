@@ -1,0 +1,14 @@
+{
+  "attribute": "Defense",
+  "valueNodes": [
+    { "id": "Defense-Value-Config", "value": 0, "tag": "base" },
+    { "id": "Defense-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "Defense-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "Defense-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "Defense-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "Defense-Value", "expression": "{{Defense-Value-Config}} + {{Defense-Value-Buff}} + {{Defense-Value-Other}}" },
+    { "id": "Defense",       "expression": "{{Defense-Value}} * (1 + {{Defense-Mul-Buff}} + {{Defense-Mul-Other}})" }
+  ]
+}
