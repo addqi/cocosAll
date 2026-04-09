@@ -43,6 +43,11 @@ export const GameConfig = {
     /** 启动时自动适配整盘可见 */
     viewportAutoFit: true,
 
+    /** 橡皮筋阻力：超过 min/max 后只响应 30% 的缩放量 */
+    viewportRubberBandFactor: 0.3,
+    /** 松手后弹回合法范围的时长（秒） */
+    viewportSnapBackDuration: 0.25,
+
     /**
      * ZoomFade：在 (minScale→maxScale) 归一化进度 t∈[0,1] 上做 smoothstep。
      * pxielArt 的 content.scale 量纲随盘面变化，不可用 G15 固定 0.7；改用 t 区间。

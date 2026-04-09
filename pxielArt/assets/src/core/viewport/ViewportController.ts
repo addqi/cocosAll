@@ -1,29 +1,33 @@
 import { Node, Vec2, view } from 'cc';
+import { GameConfig } from '../../config/GameConfig';
 
 export interface ViewportControllerOptions {
     minScale: number;
     maxScale: number;
     zoomStep: number;
-    /** 为 true 时初始缩放为 minScale（由外部按整盘适配算好） */
     autoFitInitial: boolean;
     boardWidthPx: number;
     boardHeightPx: number;
-    /** 对齐 G15：scale *= (1 ± zoomSpeedPerSecond * dt) */
     zoomSpeedPerSecond: number;
-    /** 平移时允许露出屏幕外的边距（像素），防止盘面被拖没 */
     viewportPadding: number;
     onScaleChanged?: (scale: number) => void;
+}
+
+interface SnapState {
+    startS: number; startPx: number; startPy: number;
+    endS: number; endPx: number; endPy: number;
+    elapsed: number; duration: number;
 }
 
 /** Content 节点：scale + position；键盘缩放 / 双指捏合 / 平移 + 边界钳制 */
 export class ViewportController {
     private _scale: number;
-    /** 进入游戏时的 content 缩放 */
     private readonly _initialScale: number;
     private _panX = 0;
     private _panY = 0;
     private readonly _content: Node;
     private readonly _opts: ViewportControllerOptions;
+    private _snap: SnapState | null = null;
 
     constructor(content: Node, opts: ViewportControllerOptions) {
         this._content = content;
@@ -36,40 +40,18 @@ export class ViewportController {
         }
         this._initialScale = s;
         this._scale = s;
-        this._panX = 0;
-        this._panY = 0;
         this._clampPan();
-        /** 构造阶段 BoardBootstrap 的 ctx 尚未赋值，勿触发 onScaleChanged */
         this._apply(false);
     }
 
-    get scale(): number {
-        return this._scale;
-    }
+    get scale(): number { return this._scale; }
+    get initialScale(): number { return this._initialScale; }
+    get minScale(): number { return this._opts.minScale; }
+    get maxScale(): number { return this._opts.maxScale; }
 
-    /** 进入游戏时的 content 缩放 */
-    get initialScale(): number {
-        return this._initialScale;
-    }
+    zoomInStep(): void { this.setScale(this._scale + this._opts.zoomStep); }
+    zoomOutStep(): void { this.setScale(this._scale - this._opts.zoomStep); }
 
-    get minScale(): number {
-        return this._opts.minScale;
-    }
-
-    get maxScale(): number {
-        return this._opts.maxScale;
-    }
-
-    /** 点按一下（可选保留） */
-    zoomInStep(): void {
-        this.setScale(this._scale + this._opts.zoomStep);
-    }
-
-    zoomOutStep(): void {
-        this.setScale(this._scale - this._opts.zoomStep);
-    }
-
-    /** 按住键时连续缩放（G15_FBase_KeyboardLogic：scale * (1 ± speed*dt)） */
     zoomContinuous(dt: number, direction: 1 | -1): void {
         if (dt <= 0) return;
         const f = 1 + direction * this._opts.zoomSpeedPerSecond * dt;
@@ -77,6 +59,7 @@ export class ViewportController {
     }
 
     setScale(s: number): void {
+        this.cancelSnap();
         const v = Math.max(this._opts.minScale, Math.min(this._opts.maxScale, s));
         if (Math.abs(v - this._scale) < 1e-6) return;
         this._scale = v;
@@ -85,16 +68,28 @@ export class ViewportController {
     }
 
     /**
-     * 双指一步：先按中点平移，再绕当前中点缩放（prevDist→curDist），最后钳制。
-     * 中点坐标为 boardRoot（Content 父节点）下的本地坐标。
+     * 双指一步 — 弹性缩放：不硬夹 [min, max]，允许越界但带橡皮筋阻力。
+     * 松手后由 snapBack() 缓动归位。
      */
     applyPinchPanStep(prevDist: number, curDist: number, prevMid: Vec2, curMid: Vec2): void {
         if (prevDist < 1e-4 || curDist < 1e-4) return;
+        this.cancelSnap();
         this._panX += curMid.x - prevMid.x;
         this._panY += curMid.y - prevMid.y;
+
         const ratio = curDist / prevDist;
         let newScale = this._scale * ratio;
-        newScale = Math.max(this._opts.minScale, Math.min(this._opts.maxScale, newScale));
+
+        const min = this._opts.minScale;
+        const max = this._opts.maxScale;
+        const rf = GameConfig.viewportRubberBandFactor;
+        if (newScale < min) {
+            newScale = min - (min - newScale) * rf;
+        } else if (newScale > max) {
+            newScale = max + (newScale - max) * rf;
+        }
+        newScale = Math.max(min * 0.5, Math.min(max * 2, newScale));
+
         const fx = curMid.x;
         const fy = curMid.y;
         const lx = (fx - this._panX) / this._scale;
@@ -102,44 +97,82 @@ export class ViewportController {
         this._scale = newScale;
         this._panX = fx - newScale * lx;
         this._panY = fy - newScale * ly;
-        this._clampPan();
         this._apply();
     }
 
-    /** 单帧平移（箭头键等），delta 为 boardRoot 本地空间像素 */
     panBy(deltaX: number, deltaY: number): void {
+        this.cancelSnap();
         this._panX += deltaX;
         this._panY += deltaY;
         this._clampPan();
         this._apply();
     }
 
-    /**
-     * 与 G15_FBase_OffsetClampFunction 一致：
-     * - 缩放后盘面大于视口：偏移限制在 ±((W-V)/2 + padding)，保证盘面仍能盖住可视区
-     * - 否则：强制居中（0），避免整盘可见时无意义拖动
-     */
-    private _clampPan(): void {
+    /* ── snap-back 弹回 ── */
+
+    snapBack(duration = GameConfig.viewportSnapBackDuration): void {
+        const ts = Math.max(this._opts.minScale, Math.min(this._opts.maxScale, this._scale));
+        const [tpx, tpy] = this._clampedPanForScale(ts);
+        if (Math.abs(ts - this._scale) < 1e-6
+            && Math.abs(tpx - this._panX) < 1
+            && Math.abs(tpy - this._panY) < 1) {
+            this._snap = null;
+            this._clampPan();
+            this._apply();
+            return;
+        }
+        this._snap = {
+            startS: this._scale, startPx: this._panX, startPy: this._panY,
+            endS: ts, endPx: tpx, endPy: tpy,
+            elapsed: 0, duration,
+        };
+    }
+
+    cancelSnap(): void { this._snap = null; }
+
+    /** 由 Component.update 驱动；返回 true 表示正在弹回中（阻断其他输入） */
+    tickSnapBack(dt: number): boolean {
+        const st = this._snap;
+        if (!st) return false;
+        st.elapsed = Math.min(st.elapsed + dt, st.duration);
+        let t = st.elapsed / st.duration;
+        t = t * (2 - t);
+        this._scale = st.startS + (st.endS - st.startS) * t;
+        this._panX = st.startPx + (st.endPx - st.startPx) * t;
+        this._panY = st.startPy + (st.endPy - st.startPy) * t;
+        this._apply();
+        if (st.elapsed >= st.duration) this._snap = null;
+        return true;
+    }
+
+    /* ── 内部 ── */
+
+    private _clampedPanForScale(scale: number): [number, number] {
         const vs = view.getVisibleSize();
         const P = this._opts.viewportPadding;
-        const W = this._opts.boardWidthPx * this._scale;
-        const H = this._opts.boardHeightPx * this._scale;
-        const Vw = vs.width;
-        const Vh = vs.height;
-
-        if (W > Vw) {
-            const maxOX = (W - Vw) * 0.5 + P;
-            this._panX = Math.max(-maxOX, Math.min(maxOX, this._panX));
+        const W = this._opts.boardWidthPx * scale;
+        const H = this._opts.boardHeightPx * scale;
+        let px = this._panX;
+        let py = this._panY;
+        if (W > vs.width) {
+            const m = (W - vs.width) * 0.5 + P;
+            px = Math.max(-m, Math.min(m, px));
         } else {
-            this._panX = 0;
+            px = 0;
         }
-
-        if (H > Vh) {
-            const maxOY = (H - Vh) * 0.5 + P;
-            this._panY = Math.max(-maxOY, Math.min(maxOY, this._panY));
+        if (H > vs.height) {
+            const m = (H - vs.height) * 0.5 + P;
+            py = Math.max(-m, Math.min(m, py));
         } else {
-            this._panY = 0;
+            py = 0;
         }
+        return [px, py];
+    }
+
+    private _clampPan(): void {
+        const [px, py] = this._clampedPanForScale(this._scale);
+        this._panX = px;
+        this._panY = py;
     }
 
     private _apply(notifyScaleChanged = true): void {

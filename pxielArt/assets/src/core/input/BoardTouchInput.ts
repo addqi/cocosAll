@@ -115,6 +115,13 @@ export class BoardTouchInput extends Component {
         if (t) this._activeTouchIds.add(t.getID());
 
         const list = this._touchList(event);
+
+        if (this._pinchSession) {
+            const active = this._getActiveTouches(list);
+            if (active.length >= 2) this._resetPinchBaseline(active);
+            return;
+        }
+
         const bt = this._brushTouches(list);
         if (bt.length >= 2) {
             btLog('TOUCH_START → 分支: 双指捏合');
@@ -122,11 +129,13 @@ export class BoardTouchInput extends Component {
             this._snapSession.reset();
             this._resetPaintGesture();
             ctx.paintExecutor.clearEntries();
+            ctx.viewport.cancelSnap();
             this._resetPinchBaseline(bt);
             return;
         }
 
         if (bt.length === 1) {
+            ctx.viewport.cancelSnap();
             ctx.paintExecutor.clearEntries();
             this._snapSession.reset();
             this._paintStarted = false;
@@ -196,31 +205,24 @@ export class BoardTouchInput extends Component {
         if (!ctx) return;
 
         const list = this._touchList(event);
-        const bt = this._brushTouches(list);
-        if (bt.length >= 2) {
-            btLog('TOUCH_MOVE → 分支: 双指捏合');
-            this._pinchSession = true;
-            const t0 = bt[0];
-            const t1 = bt[1];
-            const l0 = t0.getUILocation();
-            const l1 = t1.getUILocation();
-            const midUi = new Vec2((l0.x + l1.x) * 0.5, (l0.y + l1.y) * 0.5);
-            const dist = Vec2.distance(l0, l1);
-            const midRoot = this._uiToBoardRoot(midUi);
 
-            if (!this._pinchPrevMid || this._pinchPrevDist < 1e-4) {
-                this._pinchPrevMid = midRoot.clone();
-                this._pinchPrevDist = dist;
-                return;
-            }
-
-            ctx.viewport.applyPinchPanStep(this._pinchPrevDist, dist, this._pinchPrevMid, midRoot);
-            this._pinchPrevMid = midRoot;
-            this._pinchPrevDist = dist;
+        if (this._pinchSession) {
+            const active = this._getActiveTouches(list);
+            if (active.length >= 2) this._handlePinchMove(active[0], active[1], ctx);
             return;
         }
 
-        this._resetPinchBaseline(null);
+        const bt = this._brushTouches(list);
+        if (bt.length >= 2) {
+            btLog('TOUCH_MOVE → 双指进入捏合');
+            this._pinchSession = true;
+            this._snapSession.reset();
+            this._resetPaintGesture();
+            ctx.paintExecutor.clearEntries();
+            ctx.viewport.cancelSnap();
+            this._handlePinchMove(bt[0], bt[1], ctx);
+            return;
+        }
 
         if (bt.length !== 1) {
             btLog('TOUCH_MOVE → 忽略: brush 上有效触点数=', bt.length, '(非 1)');
@@ -377,17 +379,24 @@ export class BoardTouchInput extends Component {
         const t = event.touch;
         if (t) this._activeTouchIds.delete(t.getID());
 
-        if (this._activeTouchIds.size >= 2) {
-            const list = this._touchList(event);
-            const bt = this._brushTouches(list);
-            if (bt.length >= 2) this._resetPinchBaseline(bt);
-        } else {
+        if (this._pinchSession) {
+            if (this._activeTouchIds.size >= 2) {
+                const list = this._touchList(event);
+                const active = this._getActiveTouches(list);
+                if (active.length >= 2) this._resetPinchBaseline(active);
+                return;
+            }
+            ctx.viewport.snapBack();
+            this._pinchSession = false;
             this._resetPinchBaseline(null);
+            this._resetPaintGesture();
+            this._snapSession.reset();
+            return;
         }
 
         if (this._activeTouchIds.size > 0) return;
 
-        if (!this._pinchSession && !this._moved && t) {
+        if (!this._moved && t) {
             const loc = this._brushLocalFromTouch(t);
             const brushIdx = ctx.brushState.currentIndex;
             const scale = ctx.viewport.scale;
@@ -418,13 +427,43 @@ export class BoardTouchInput extends Component {
             }
         }
 
+        ctx.saveManager.commitMatchedEntries(
+            ctx.paintExecutor.entries,
+            ctx.boardData.gridCols,
+        );
+
         this._resetPaintGesture();
-        this._pinchSession = false;
         this._snapSession.reset();
     }
 
     private _onTouchCancel(event: EventTouch): void {
         this._onTouchEnd(event);
+    }
+
+    private _getActiveTouches(list: readonly Touch[]): Touch[] {
+        const out: Touch[] = [];
+        for (let i = 0; i < list.length; i++) {
+            if (this._activeTouchIds.has(list[i].getID())) out.push(list[i]);
+        }
+        return out;
+    }
+
+    private _handlePinchMove(t0: Touch, t1: Touch, ctx: BoardRuntimeContext): void {
+        const l0 = t0.getUILocation();
+        const l1 = t1.getUILocation();
+        const midUi = new Vec2((l0.x + l1.x) * 0.5, (l0.y + l1.y) * 0.5);
+        const dist = Vec2.distance(l0, l1);
+        const midRoot = this._uiToBoardRoot(midUi);
+
+        if (!this._pinchPrevMid || this._pinchPrevDist < 1e-4) {
+            this._pinchPrevMid = midRoot.clone();
+            this._pinchPrevDist = dist;
+            return;
+        }
+
+        ctx.viewport.applyPinchPanStep(this._pinchPrevDist, dist, this._pinchPrevMid, midRoot);
+        this._pinchPrevMid = midRoot;
+        this._pinchPrevDist = dist;
     }
 
     private _resetPinchBaseline(twoTouches: readonly Touch[] | null): void {

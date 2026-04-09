@@ -9,12 +9,11 @@ import { BrushLayer } from '../render/BrushLayer';
 import { DigitLayer } from '../render/DigitLayer';
 import { BoardLayer } from '../render/BoardLayer';
 import { ViewportController } from '../core/viewport/ViewportController';
+import { PaintSaveManager } from '../storage/PaintSaveManager';
 
 export class BoardRuntimeContext {
     readonly boardRoot: Node;
-    /** 触摸与格子换算用此节点（已含缩放变换） */
     readonly contentNode: Node;
-    /** 单格显示尺寸（与 BoardBootstrap 传入的 cellDisplaySize 一致） */
     readonly cellDisplayW: number;
     readonly cellDisplayH: number;
     readonly boardData: BoardData;
@@ -25,6 +24,7 @@ export class BoardRuntimeContext {
     readonly cellConverter: CellConverter;
     readonly paintExecutor: PaintExecutor;
     readonly viewport: ViewportController;
+    readonly saveManager: PaintSaveManager;
 
     constructor(params: {
         boardRoot: Node;
@@ -39,6 +39,7 @@ export class BoardRuntimeContext {
         cellConverter: CellConverter;
         paintExecutor: PaintExecutor;
         viewport: ViewportController;
+        saveManager: PaintSaveManager;
     }) {
         this.boardRoot = params.boardRoot;
         this.contentNode = params.contentNode;
@@ -52,6 +53,7 @@ export class BoardRuntimeContext {
         this.cellConverter = params.cellConverter;
         this.paintExecutor = params.paintExecutor;
         this.viewport = params.viewport;
+        this.saveManager = params.saveManager;
     }
 
     /**

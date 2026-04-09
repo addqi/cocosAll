@@ -10,6 +10,8 @@ import { DigitLayer } from '../render/DigitLayer';
 import { BoardLayer } from '../render/BoardLayer';
 import { BoardRuntimeContext } from './BoardRuntimeContext';
 import { ViewportController } from '../core/viewport/ViewportController';
+import { PaintSaveManager } from '../storage/PaintSaveManager';
+import { PaintRestore } from '../storage/PaintRestore';
 
 export interface BoardViewportParams {
     zoomStep: number;
@@ -23,6 +25,7 @@ export interface BoardBootstrapParams {
     cellDisplaySize: number;
     digitMaterial: Material;
     viewport: BoardViewportParams;
+    levelId: string;
 }
 
 /** 建 Content → Board → Digit → Brush，接视口缩放 */
@@ -62,6 +65,7 @@ export class BoardBootstrap {
         );
 
         const cellConverter = new CellConverter(cols, rows, cell, cell);
+        const saveManager = new PaintSaveManager(p.levelId, boardData);
 
         const vs = view.getVisibleSize();
         const fitMin =
@@ -100,8 +104,10 @@ export class BoardBootstrap {
             cellConverter,
             paintExecutor,
             viewport,
+            saveManager,
         });
 
+        PaintRestore.restore(ctx);
         ctx.refreshDetailVisibility();
         return ctx;
     }

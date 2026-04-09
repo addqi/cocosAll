@@ -69,8 +69,8 @@ Canvas
 | CellConverter | ✅ | 支持 offset/scale 参数 |
 | PaintExecutor | ✅ | 接 Brush + Digit buffer，涂对清数字 |
 | 渲染三层 | ✅ | BoardLayer + DigitLayer + BrushLayer 独立类 |
-| 输入 | ✅ | BoardTouchInput(涂色) + BoardRootPanInput(留白平移) + BoardViewportInput(键盘缩放/HJKL平移) |
-| Viewport | ✅ | ViewportController 缩放/平移/钳制 + ZoomFade |
+| 输入 | ✅ | BoardTouchInput(涂色+拖动DDA+双指捏合) + BoardRootPanInput(留白平移) + BoardViewportInput(键盘缩放/HJKL平移) |
+| Viewport | ✅ | ViewportController 缩放/平移/钳制/双指捏合 + ZoomFade |
 | UI 调色板 | ✅ | PalettePanel 动态创建，挂 HudLayer |
 | GameConfig | ✅ | 独立配置文件 |
 | AppRoot 总管理器 | ✅ | 单场景入口，管理页面切换 |
@@ -78,6 +78,9 @@ Canvas
 | GamePage 游戏 | ✅ | 从 GameManager 改造，运行时 resources.load 加载关卡 |
 | LevelManifest | ✅ | 关卡清单硬编码 |
 | PuzzlePreview | ✅ | PuzzleData → 缩略图 SpriteFrame（RLE 解码 + 行翻转） |
+| 存档/恢复 | ✅ | PaintSaveManager + PaintRestore + StorageService + PaintRecordCodec |
+| PopupLayer 完成弹窗 | ✅ | BlockInput 遮罩 + 白色面板 + 返回首页按钮 |
+| 总背景 | ✅ | AppRoot 创建全屏白色 Sprite（Widget 自适应） |
 | MyWorksPage | ⏳ | 预留空节点 |
 
 ## 关键源码路径（优先看这些）
@@ -89,7 +92,7 @@ ai/
 └── img2puzzle.py               # 工具：PNG → PuzzleData JSON（量化+RLE）
 
 assets/src/
-├── AppRoot.ts                  # 场景唯一入口：总管理器，页面切换
+├── AppRoot.ts                  # 场景唯一入口：总管理器，页面切换（含全屏白色背景）
 ├── config/
 │   ├── GameConfig.ts           # 视口/网格/吸附/缩放等全局常量
 │   └── LevelManifest.ts        # 关卡清单（LevelEntry[]）
@@ -99,7 +102,7 @@ assets/src/
 │   ├── data/BoardData.ts, BrushState.ts
 │   ├── paint/CellConverter.ts, PaintExecutor.ts
 │   ├── viewport/ViewportController.ts, ZoomFadeMath.ts
-│   └── input/BoardTouchInput.ts, BoardViewportInput.ts, BoardRootPanInput.ts
+│   └── input/BoardTouchInput.ts(涂色+拖动DDA+双指捏合+平移), BoardViewportInput.ts, BoardRootPanInput.ts
 ├── game/
 │   ├── BoardBootstrap.ts, BoardRuntimeContext.ts
 │   └── PaletteInstaller.ts
@@ -111,7 +114,13 @@ assets/src/
 │   │   ├── HomePage.ts         # 选关页面：TopBar + ScrollView + LevelCard
 │   │   └── LevelCard.ts        # 单张关卡卡片（预览图 + 名称 + 点击）
 │   └── game/
-│       └── GamePage.ts         # 游戏页面（原 GameManager 改造）
+│       └── GamePage.ts         # 游戏页面（含完成弹窗 PopupLayer）
+├── storage/
+│   ├── PaintRecord.ts          # 操作记录数据结构
+│   ├── PaintRecordCodec.ts     # 记录编解码
+│   ├── PaintSaveManager.ts     # 涂色存档管理器（防抖落盘+完成检测）
+│   ├── PaintRestore.ts         # 冷启动恢复
+│   └── StorageService.ts       # localStorage 读写
 └── util/
     └── PuzzlePreview.ts        # PuzzleData → 缩略图 SpriteFrame
 
@@ -166,18 +175,15 @@ PYTHONPATH=.pylib python3 ai/img2puzzle.py <input.png> <output.json> [--size N] 
 
 ## 已知缺口 / 易踩坑
 
-1. **PixelBoard.ts / touch.ts**：早期原型遗留，场景不再使用，可删除。
-2. **PopupLayer / TopLayer**：容器已创建，但尚无具体弹窗或 Toast 实现。
-3. **双指缩放**：键盘缩放已有，触摸双指捏合尚未实现。
-4. **MyWorksPage**：预留空节点，尚未实现。
+1. ~~**PixelBoard.ts / touch.ts**~~：已删除。
+2. **TopLayer**：容器已创建，Toast 飘字提示尚未实现。
+3. **MyWorksPage**：预留空节点，尚未实现。
 
 ## 建议的下一步
 
-1. 补 `GestureDetector` + `LineFill` + `CellHitTest` 实现拖动涂色与吸附。
-2. 实现双指缩放（在 `BoardTouchInput` 中扩展）。
-3. PopupLayer 实装：暂停面板、完成庆祝等（打开时加 BlockInput 遮罩）。
-4. TopLayer 实装：Toast 飘字提示。
-5. MyWorksPage 实装。
+1. TopLayer 实装：Toast 飘字提示。
+2. MyWorksPage 实装。
+3. 暂停面板（PopupLayer 第二个弹窗）。
 
 ---
 

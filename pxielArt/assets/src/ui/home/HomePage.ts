@@ -19,7 +19,8 @@ import {
 import { LevelManifest, LevelEntry } from '../../config/LevelManifest';
 import { PuzzleData } from '../../types/types';
 import { PuzzlePreview } from '../../util/PuzzlePreview';
-import { LevelCard } from './LevelCard';
+import { LevelCard, LevelStatus } from './LevelCard';
+import { StorageService } from '../../storage/StorageService';
 
 const { ccclass } = _decorator;
 
@@ -36,6 +37,8 @@ export class HomePage extends Component {
     private _onSelectLevel: ((entry: LevelEntry) => void) | null = null;
     private _onMyWorks: (() => void) | null = null;
 
+    private _scrollContent: Node | null = null;
+
     init(
         onSelectLevel: (entry: LevelEntry) => void,
         onMyWorks: () => void,
@@ -45,8 +48,17 @@ export class HomePage extends Component {
         this._build();
     }
 
+    /** 从 GamePage 返回时调用：重建关卡列表以刷新状态徽章 */
+    refreshList(): void {
+        if (this._scrollContent) {
+            this._scrollContent.removeAllChildren();
+            this._loadAllLevels(this._scrollContent);
+        }
+    }
+
     private _build(): void {
         this.node.removeAllChildren();
+        this._scrollContent = null;
         const vs = view.getVisibleSize();
 
         this._buildTopBar(vs.width);
@@ -172,6 +184,7 @@ export class HomePage extends Component {
         scroll.brake = 0.75;
         scroll.inertia = true;
 
+        this._scrollContent = content;
         this._loadAllLevels(content);
     }
 
@@ -183,13 +196,21 @@ export class HomePage extends Component {
                 if (err || !jsonAsset) return;
                 const puzzle = jsonAsset.json as PuzzleData;
                 const previewSF = PuzzlePreview.createSpriteFrame(puzzle);
+                const status = this._getLevelStatus(entry.id);
                 const card = LevelCard.create(
                     entry.name,
                     previewSF,
                     () => this._onSelectLevel?.(entry),
+                    status,
                 );
                 content.addChild(card);
             });
         }
+    }
+
+    private _getLevelStatus(levelId: string): LevelStatus {
+        if (StorageService.isLevelDone(levelId)) return 'done';
+        if (StorageService.hasPaintRecord(levelId)) return 'progress';
+        return 'new';
     }
 }

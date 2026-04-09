@@ -1,9 +1,10 @@
 import { Button, Color, Label, Node, Sprite, SpriteFrame, UITransform } from 'cc';
 
+export type LevelStatus = 'new' | 'progress' | 'done';
+
 export interface LevelCardStyle {
     width: number;
     height: number;
-    /** 预览图区域正方形边长 */
     previewSize: number;
     nameFontSize: number;
     nameColor: Color;
@@ -25,6 +26,7 @@ export class LevelCard {
         name: string,
         previewFrame: SpriteFrame,
         onClick: () => void,
+        status: LevelStatus = 'new',
         style: Partial<LevelCardStyle> = {},
     ): Node {
         const s = { ...DEFAULT_STYLE, ...style };
@@ -33,7 +35,6 @@ export class LevelCard {
         const rootUt = root.addComponent(UITransform);
         rootUt.setContentSize(s.width, s.height);
 
-        // 背景底板
         const bg = new Node('Bg');
         root.addChild(bg);
         const bgUt = bg.addComponent(UITransform);
@@ -42,7 +43,6 @@ export class LevelCard {
         bgSp.sizeMode = Sprite.SizeMode.CUSTOM;
         bgSp.color = s.bgColor.clone();
 
-        // 预览图
         const preview = new Node('Preview');
         root.addChild(preview);
         preview.setPosition(0, (s.height - s.previewSize) / 2 - 10, 0);
@@ -52,7 +52,6 @@ export class LevelCard {
         pvSp.sizeMode = Sprite.SizeMode.CUSTOM;
         pvSp.spriteFrame = previewFrame;
 
-        // 名称
         const labelNode = new Node('Name');
         root.addChild(labelNode);
         labelNode.setPosition(0, -s.height / 2 + 30, 0);
@@ -65,7 +64,10 @@ export class LevelCard {
         lab.verticalAlign = Label.VerticalAlign.CENTER;
         lab.color = s.nameColor.clone();
 
-        // 点击
+        if (status !== 'new') {
+            this._addStatusBadge(root, s, status);
+        }
+
         const btn = root.addComponent(Button);
         btn.target = root;
         btn.transition = Button.Transition.SCALE;
@@ -73,5 +75,33 @@ export class LevelCard {
         btn.node.on(Button.EventType.CLICK, onClick);
 
         return root;
+    }
+
+    private static _addStatusBadge(root: Node, s: LevelCardStyle, status: LevelStatus): void {
+        const badge = new Node('StatusBadge');
+        root.addChild(badge);
+
+        const isDone = status === 'done';
+        const text = isDone ? '\u2714' : '...';
+        const bgColor = isDone ? new Color(76, 175, 80, 230) : new Color(255, 152, 0, 230);
+        const size = isDone ? 40 : 50;
+
+        badge.setPosition(s.width / 2 - size / 2 - 8, s.height / 2 - size / 2 - 8, 0);
+        const bUt = badge.addComponent(UITransform);
+        bUt.setContentSize(size, size);
+        const bSp = badge.addComponent(Sprite);
+        bSp.sizeMode = Sprite.SizeMode.CUSTOM;
+        bSp.color = bgColor;
+
+        const lblNode = new Node('BadgeLabel');
+        badge.addChild(lblNode);
+        const lUt = lblNode.addComponent(UITransform);
+        lUt.setContentSize(size, size);
+        const lbl = lblNode.addComponent(Label);
+        lbl.string = text;
+        lbl.fontSize = isDone ? 26 : 20;
+        lbl.horizontalAlign = Label.HorizontalAlign.CENTER;
+        lbl.verticalAlign = Label.VerticalAlign.CENTER;
+        lbl.color = new Color(255, 255, 255, 255);
     }
 }

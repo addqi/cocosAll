@@ -1,4 +1,4 @@
-import { _decorator, Color, Component, log, Material, Node, SpriteFrame, UITransform, view } from 'cc';
+import { _decorator, Color, Component, log, Material, Node, Sprite, SpriteFrame, UITransform, view, Widget } from 'cc';
 import { GameConfig } from './config/GameConfig';
 import { LevelEntry } from './config/LevelManifest';
 import { HomePage } from './ui/home/HomePage';
@@ -68,6 +68,7 @@ export class AppRoot extends Component {
         const rootUt = this.node.getComponent(UITransform);
         if (rootUt) rootUt.setContentSize(vs.width, vs.height);
 
+        this._createBackground(vs);
         this._createPages(vs);
         this.showHome();
     }
@@ -79,6 +80,7 @@ export class AppRoot extends Component {
         this._homeNode.active = true;
         this._gameNode.active = false;
         this._myWorksNode.active = false;
+        this._homePage.refreshList();
     }
 
     showGame(entry: LevelEntry): void {
@@ -93,6 +95,22 @@ export class AppRoot extends Component {
     }
 
     /* ── 内部构建 ── */
+
+    private _createBackground(vs: { width: number; height: number }): void {
+        const bg = new Node('Background');
+        this.node.addChild(bg);
+        const ut = bg.addComponent(UITransform);
+        ut.setContentSize(vs.width, vs.height);
+        const sp = bg.addComponent(Sprite);
+        sp.sizeMode = Sprite.SizeMode.CUSTOM;
+        sp.color = Color.WHITE;
+        const w = bg.addComponent(Widget);
+        w.isAlignTop = true;    w.top = 0;
+        w.isAlignBottom = true; w.bottom = 0;
+        w.isAlignLeft = true;   w.left = 0;
+        w.isAlignRight = true;  w.right = 0;
+        w.alignMode = Widget.AlignMode.ON_WINDOW_RESIZE;
+    }
 
     private _createPages(vs: { width: number; height: number }): void {
         // HomePage
