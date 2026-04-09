@@ -13,7 +13,10 @@ import {
     ScrollView,
     Sprite,
     SpriteFrame,
+    tween,
+    UIOpacity,
     UITransform,
+    Vec3,
     view,
     Widget,
 } from 'cc';
@@ -22,6 +25,8 @@ import { PuzzleData } from '../../types/types';
 import { BoardData } from '../../core/data/BoardData';
 import { PuzzlePreview } from '../../util/PuzzlePreview';
 import { StorageService } from '../../storage/StorageService';
+import { getWhitePixelSF } from '../../util/WhitePixel';
+import { BundleManager } from '../../config/BundleManager';
 
 const { ccclass } = _decorator;
 
@@ -32,6 +37,8 @@ const CARD_GAP = 24;
 const COLS = 2;
 const SIDE_PADDING = 24;
 const PREVIEW_SIZE = 280;
+const SLIDE_IN_DUR = 0.3;
+const SLIDE_OUT_DUR = 0.25;
 
 @ccclass('MyWorksPage')
 export class MyWorksPage extends Component {
@@ -40,18 +47,41 @@ export class MyWorksPage extends Component {
     private _scrollContent: Node | null = null;
     private _emptyHint: Node | null = null;
     private _popupLayer: Node | null = null;
+    private _sliding = false;
 
     init(onBack: () => void): void {
         this._onBack = onBack;
         this._build();
+        this.node.active = false;
     }
 
-    refreshList(): void {
-        if (this._scrollContent) {
-            this._scrollContent.removeAllChildren();
-        }
-        this._dismissPopup();
-        this._loadCompletedWorks();
+    /** 从右侧滑入 */
+    show(): void {
+        this._sliding = false;
+        this.node.active = true;
+        this._refreshContent();
+
+        const vs = view.getVisibleSize();
+        this.node.setPosition(vs.width, 0, 0);
+        tween(this.node)
+            .to(SLIDE_IN_DUR, { position: new Vec3(0, 0, 0) })
+            .start();
+    }
+
+    /** 向右侧滑出 */
+    hide(): void {
+        if (this._sliding) return;
+        this._sliding = true;
+        this._dismissPreviewPopup();
+
+        const vs = view.getVisibleSize();
+        tween(this.node)
+            .to(SLIDE_OUT_DUR, { position: new Vec3(vs.width, 0, 0) })
+            .call(() => {
+                this.node.active = false;
+                this._onBack?.();
+            })
+            .start();
     }
 
     /* ========== 构建 ========== */
@@ -61,7 +91,18 @@ export class MyWorksPage extends Component {
         this._scrollContent = null;
         this._emptyHint = null;
         this._popupLayer = null;
+
         const vs = view.getVisibleSize();
+        const sf = getWhitePixelSF();
+
+        /* ── 白色背景 ── */
+        const bg = new Node('Bg');
+        this.node.addChild(bg);
+        bg.addComponent(UITransform).setContentSize(vs.width, vs.height);
+        const bgSp = bg.addComponent(Sprite);
+        bgSp.sizeMode = Sprite.SizeMode.CUSTOM;
+        bgSp.spriteFrame = sf;
+        bgSp.color = Color.WHITE;
 
         this._buildTopBar(vs.width);
         this._buildScroll(vs.width, vs.height);
@@ -74,8 +115,7 @@ export class MyWorksPage extends Component {
     private _buildTopBar(viewW: number): void {
         const bar = new Node('TopBar');
         this.node.addChild(bar);
-        const barUt = bar.addComponent(UITransform);
-        barUt.setContentSize(viewW, TOP_BAR_HEIGHT);
+        bar.addComponent(UITransform).setContentSize(viewW, TOP_BAR_HEIGHT);
 
         const w = bar.addComponent(Widget);
         w.isAlignTop = true;    w.top = 0;
@@ -116,7 +156,7 @@ export class MyWorksPage extends Component {
         backBtn.target = backNode;
         backBtn.transition = Button.Transition.SCALE;
         backBtn.zoomScale = 0.9;
-        backBtn.node.on(Button.EventType.CLICK, () => this._onBack?.());
+        backBtn.node.on(Button.EventType.CLICK, () => this.hide());
     }
 
     /* ── ScrollView ── */
@@ -214,7 +254,7 @@ export class MyWorksPage extends Component {
         btn.target = btnNode;
         btn.transition = Button.Transition.SCALE;
         btn.zoomScale = 0.9;
-        btn.node.on(Button.EventType.CLICK, () => this._onBack?.());
+        btn.node.on(Button.EventType.CLICK, () => this.hide());
 
         this._emptyHint = hint;
     }
@@ -229,32 +269,30 @@ export class MyWorksPage extends Component {
         this._popupLayer = layer;
     }
 
-    /* ========== 数据加载 ========== */
+    /* ========== 数据 ========== */
+
+    private _refreshContent(): void {
+        if (this._scrollContent) this._scrollContent.removeAllChildren();
+        this._loadCompletedWorks();
+    }
 
     private _loadCompletedWorks(): void {
         const doneEntries: LevelEntry[] = [];
         for (const entry of LevelManifest) {
-            if (StorageService.isLevelDone(entry.id)) {
-                doneEntries.push(entry);
-            }
+            if (StorageService.isLevelDone(entry.id)) doneEntries.push(entry);
         }
-
-        if (this._emptyHint) {
-            this._emptyHint.active = doneEntries.length === 0;
-        }
+        if (this._emptyHint) this._emptyHint.active = doneEntries.length === 0;
 
         for (const entry of doneEntries) {
-            resources.load(entry.jsonPath, JsonAsset, (err, jsonAsset) => {
-                if (err || !jsonAsset) return;
+            BundleManager.loadPuzzle(entry.jsonPath).then(jsonAsset => {
                 const puzzle = jsonAsset.json as PuzzleData;
                 const previewSF = this._createColorPreview(puzzle);
                 const card = this._createWorkCard(entry.name, previewSF);
                 this._scrollContent?.addChild(card);
-            });
+            }).catch(() => {});
         }
     }
 
-    /** 已完成关卡：所有非空格子都视为已涂色 → 全彩预览 */
     private _createColorPreview(puzzle: PuzzleData): SpriteFrame {
         const flat = BoardData.rleDecode(puzzle.pixels);
         const total = puzzle.gridSize * puzzle.gridSize;
@@ -307,7 +345,7 @@ export class MyWorksPage extends Component {
         return root;
     }
 
-    /* ========== 全屏预览弹窗 ========== */
+    /* ========== 预览弹窗 ========== */
 
     private _showPreviewPopup(name: string, frame: SpriteFrame): void {
         const layer = this._popupLayer;
@@ -316,68 +354,112 @@ export class MyWorksPage extends Component {
         layer.active = true;
 
         const vs = view.getVisibleSize();
+        const sf = getWhitePixelSF();
+        const CARD_PAD = 30;
+        const LABEL_H = 50;
+        const CLOSE_SIZE = 44;
+        const imgSize = Math.min(vs.width, vs.height) * 0.7;
+        const cardW = imgSize + CARD_PAD * 2;
+        const cardH = imgSize + CARD_PAD * 2 + LABEL_H;
 
+        /* ── 遮罩 ── */
         const overlay = new Node('Overlay');
         layer.addChild(overlay);
         overlay.addComponent(UITransform).setContentSize(vs.width, vs.height);
         const oSp = overlay.addComponent(Sprite);
         oSp.sizeMode = Sprite.SizeMode.CUSTOM;
-        oSp.color = new Color(0, 0, 0, 180);
+        oSp.spriteFrame = sf;
+        oSp.color = new Color(0, 0, 0, 128);
+        const overlayOpacity = overlay.addComponent(UIOpacity);
+        overlayOpacity.opacity = 0;
         const oBtn = overlay.addComponent(Button);
         oBtn.target = overlay;
         oBtn.transition = Button.Transition.NONE;
-        oBtn.node.on(Button.EventType.CLICK, () => this._dismissPopup());
+        oBtn.node.on(Button.EventType.CLICK, () => this._dismissPreviewPopup());
 
-        const imgSize = Math.min(vs.width, vs.height) * 0.75;
+        /* ── 卡片 ── */
+        const card = new Node('Card');
+        layer.addChild(card);
+        card.addComponent(UITransform).setContentSize(cardW, cardH);
 
-        const imgNode = new Node('FullPreview');
-        layer.addChild(imgNode);
-        imgNode.setPosition(0, 30, 0);
+        const cardBg = new Node('CardBg');
+        card.addChild(cardBg);
+        cardBg.addComponent(UITransform).setContentSize(cardW, cardH);
+        const cbgSp = cardBg.addComponent(Sprite);
+        cbgSp.sizeMode = Sprite.SizeMode.CUSTOM;
+        cbgSp.spriteFrame = sf;
+        cbgSp.color = Color.WHITE;
+
+        /* ── ✕ 关闭按钮 ── */
+        const closeNode = new Node('CloseBtn');
+        card.addChild(closeNode);
+        closeNode.setPosition(cardW / 2 - CLOSE_SIZE / 2 - 10, cardH / 2 - CLOSE_SIZE / 2 - 10, 0);
+        closeNode.addComponent(UITransform).setContentSize(CLOSE_SIZE, CLOSE_SIZE);
+        const closeLab = closeNode.addComponent(Label);
+        closeLab.string = '✕';
+        closeLab.fontSize = 28;
+        closeLab.horizontalAlign = Label.HorizontalAlign.CENTER;
+        closeLab.verticalAlign = Label.VerticalAlign.CENTER;
+        closeLab.color = new Color(160, 160, 160, 255);
+        const closeBtn = closeNode.addComponent(Button);
+        closeBtn.target = closeNode;
+        closeBtn.transition = Button.Transition.SCALE;
+        closeBtn.zoomScale = 0.85;
+        closeBtn.node.on(Button.EventType.CLICK, () => this._dismissPreviewPopup());
+
+        /* ── 预览图 ── */
+        const imgNode = new Node('Preview');
+        card.addChild(imgNode);
+        imgNode.setPosition(0, (cardH - imgSize) / 2 - CARD_PAD, 0);
         imgNode.addComponent(UITransform).setContentSize(imgSize, imgSize);
         const imgSp = imgNode.addComponent(Sprite);
         imgSp.sizeMode = Sprite.SizeMode.CUSTOM;
         imgSp.spriteFrame = frame;
 
+        /* ── 标题 ── */
         const titleNode = new Node('Title');
-        layer.addChild(titleNode);
-        titleNode.setPosition(0, -imgSize / 2 - 10, 0);
-        titleNode.addComponent(UITransform).setContentSize(400, 50);
+        card.addChild(titleNode);
+        titleNode.setPosition(0, -cardH / 2 + LABEL_H / 2 + 8, 0);
+        titleNode.addComponent(UITransform).setContentSize(cardW, LABEL_H);
         const titleLab = titleNode.addComponent(Label);
         titleLab.string = name;
-        titleLab.fontSize = 36;
+        titleLab.fontSize = 32;
         titleLab.horizontalAlign = Label.HorizontalAlign.CENTER;
         titleLab.verticalAlign = Label.VerticalAlign.CENTER;
-        titleLab.color = Color.WHITE;
+        titleLab.color = new Color(60, 60, 60, 255);
 
-        const closeNode = new Node('CloseBtn');
-        layer.addChild(closeNode);
-        closeNode.setPosition(0, -imgSize / 2 - 70, 0);
-        closeNode.addComponent(UITransform).setContentSize(160, 50);
-        const closeSp = closeNode.addComponent(Sprite);
-        closeSp.sizeMode = Sprite.SizeMode.CUSTOM;
-        closeSp.color = new Color(255, 255, 255, 40);
+        /* ── 弹出动画 ── */
+        const cardOpacity = card.addComponent(UIOpacity);
+        cardOpacity.opacity = 0;
+        card.setScale(0.85, 0.85, 1);
 
-        const closeLab = new Node('Label');
-        closeNode.addChild(closeLab);
-        closeLab.addComponent(UITransform).setContentSize(160, 50);
-        const cl = closeLab.addComponent(Label);
-        cl.string = '关闭';
-        cl.fontSize = 28;
-        cl.horizontalAlign = Label.HorizontalAlign.CENTER;
-        cl.verticalAlign = Label.VerticalAlign.CENTER;
-        cl.color = Color.WHITE;
-
-        const closeBtn = closeNode.addComponent(Button);
-        closeBtn.target = closeNode;
-        closeBtn.transition = Button.Transition.SCALE;
-        closeBtn.zoomScale = 0.9;
-        closeBtn.node.on(Button.EventType.CLICK, () => this._dismissPopup());
+        tween(overlayOpacity).to(0.25, { opacity: 255 }).start();
+        tween(cardOpacity).to(0.25, { opacity: 255 }).start();
+        tween(card).to(0.25, { scale: new Vec3(1, 1, 1) }).start();
     }
 
-    private _dismissPopup(): void {
-        if (this._popupLayer) {
-            this._popupLayer.removeAllChildren();
-            this._popupLayer.active = false;
+    private _dismissPreviewPopup(): void {
+        const layer = this._popupLayer;
+        if (!layer || !layer.active) return;
+
+        const overlay = layer.getChildByName('Overlay');
+        const card = layer.getChildByName('Card');
+
+        if (!card) {
+            layer.removeAllChildren();
+            layer.active = false;
+            return;
         }
+
+        const overlayOp = overlay?.getComponent(UIOpacity);
+        const cardOp = card.getComponent(UIOpacity);
+        const cleanup = () => {
+            layer.removeAllChildren();
+            layer.active = false;
+        };
+
+        if (overlayOp) tween(overlayOp).to(0.2, { opacity: 0 }).start();
+        if (cardOp) tween(cardOp).to(0.2, { opacity: 0 }).start();
+        tween(card).to(0.2, { scale: new Vec3(0.85, 0.85, 1) }).call(cleanup).start();
     }
 }

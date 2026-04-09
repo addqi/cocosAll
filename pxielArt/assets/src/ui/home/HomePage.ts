@@ -12,6 +12,7 @@ import {
     resources,
     ScrollView,
     Sprite,
+    SpriteFrame,
     UITransform,
     view,
     Widget,
@@ -20,7 +21,9 @@ import { LevelManifest, LevelEntry } from '../../config/LevelManifest';
 import { PuzzleData } from '../../types/types';
 import { PuzzlePreview } from '../../util/PuzzlePreview';
 import { LevelCard, LevelStatus } from './LevelCard';
+import { LevelDetailPopup } from '../popup/LevelDetailPopup';
 import { StorageService } from '../../storage/StorageService';
+import { BundleManager } from '../../config/BundleManager';
 
 const { ccclass } = _decorator;
 
@@ -38,6 +41,7 @@ export class HomePage extends Component {
     private _onMyWorks: (() => void) | null = null;
 
     private _scrollContent: Node | null = null;
+    private _popupLayer: Node | null = null;
 
     init(
         onSelectLevel: (entry: LevelEntry) => void,
@@ -59,10 +63,16 @@ export class HomePage extends Component {
     private _build(): void {
         this.node.removeAllChildren();
         this._scrollContent = null;
+        this._popupLayer = null;
         const vs = view.getVisibleSize();
 
         this._buildTopBar(vs.width);
         this._buildScroll(vs.width, vs.height);
+
+        const popupLayer = new Node('PopupLayer');
+        this.node.addChild(popupLayer);
+        popupLayer.addComponent(UITransform).setContentSize(vs.width, vs.height);
+        this._popupLayer = popupLayer;
     }
 
     /* ========== TopBar ========== */
@@ -194,10 +204,8 @@ export class HomePage extends Component {
             const status = this._getLevelStatus(entry.id);
             if (status === 'done') continue;
 
-            resources.load(entry.jsonPath, JsonAsset, (err, jsonAsset) => {
-                if (err || !jsonAsset) return;
+            BundleManager.loadPuzzle(entry.jsonPath).then(jsonAsset => {
                 const puzzle = jsonAsset.json as PuzzleData;
-
                 let paintedSet: Set<number> | undefined;
                 if (status === 'progress') {
                     paintedSet = new Set<number>();
@@ -209,11 +217,19 @@ export class HomePage extends Component {
                 const previewSF = PuzzlePreview.createSpriteFrame(puzzle, paintedSet);
                 const card = LevelCard.create(
                     entry.name, previewSF,
-                    () => this._onSelectLevel?.(entry), status,
+                    () => this._showLevelDetail(entry, previewSF), status,
                 );
                 content.addChild(card);
             });
         }
+    }
+
+    private _showLevelDetail(entry: LevelEntry, previewSF: SpriteFrame | null): void {
+        if (!this._popupLayer) return;
+        LevelDetailPopup.show(
+            this._popupLayer, entry, previewSF,
+            (e) => this._onSelectLevel?.(e),
+        );
     }
 
     private _getLevelStatus(levelId: string): LevelStatus {

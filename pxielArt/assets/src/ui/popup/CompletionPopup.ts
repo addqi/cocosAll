@@ -1,14 +1,9 @@
-import { Button, Color, Label, Node, Sprite, SpriteFrame, tween, UIOpacity, UITransform, Widget } from 'cc';
+import { Button, Color, Label, Node, Sprite, SpriteFrame, tween, UIOpacity, UITransform, Vec3, Widget } from 'cc';
 import { CellBrushEntry, PuzzleData } from '../../types/types';
 import { GameConfig } from '../../config/GameConfig';
 import { getWhitePixelSF } from '../../util/WhitePixel';
 import { ReplayAnimator } from './ReplayAnimator';
 
-/**
- * 结算弹窗 — 对标 G15 SettlementRender + SettlementCreateFunction + SettlementFadeFunction。
- *
- * 流程：全屏白色面板 alpha 0→255 渐显 → delay → 纯白画布逐帧回放 → 标题+按钮 fade-in。
- */
 export class CompletionPopup {
 
     static show(
@@ -20,100 +15,125 @@ export class CompletionPopup {
         onBack: () => void,
     ): void {
         const sf = getWhitePixelSF();
+        const C = GameConfig;
 
-        /* ── 根节点（挂 UIOpacity 做整体 fade-in） ── */
+        const imgSize = Math.min(viewW, viewH) * C.settlementImageScale * 0.75;
+        const CARD_PAD = 40;
+        const TITLE_H = 70;
+        const BTN_H = 70;
+        const cardW = viewW * 0.85;
+        const cardH = TITLE_H + CARD_PAD + imgSize + CARD_PAD + BTN_H + CARD_PAD;
+
+        /* ── 根节点 ── */
         const root = new Node('CompletionRoot');
         parent.addChild(root);
         root.addComponent(UITransform).setContentSize(viewW, viewH);
-        const rootOpacity = root.addComponent(UIOpacity);
-        rootOpacity.opacity = 0;
 
-        /* ── 全屏白色背景（拦截输入） ── */
-        const bg = new Node('SettlementBg');
-        root.addChild(bg);
-        bg.addComponent(UITransform).setContentSize(viewW, viewH);
-        const bgSp = bg.addComponent(Sprite);
+        /* ── 半透明暗色遮罩（拦截输入） ── */
+        const overlay = new Node('Overlay');
+        root.addChild(overlay);
+        overlay.addComponent(UITransform).setContentSize(viewW, viewH);
+        const oSp = overlay.addComponent(Sprite);
+        oSp.sizeMode = Sprite.SizeMode.CUSTOM;
+        oSp.spriteFrame = sf;
+        oSp.color = new Color(0, 0, 0, 128);
+        const oW = overlay.addComponent(Widget);
+        oW.isAlignTop = true;    oW.top = 0;
+        oW.isAlignBottom = true; oW.bottom = 0;
+        oW.isAlignLeft = true;   oW.left = 0;
+        oW.isAlignRight = true;  oW.right = 0;
+        oW.alignMode = Widget.AlignMode.ON_WINDOW_RESIZE;
+        const blocker = overlay.addComponent(Button);
+        blocker.target = overlay;
+        blocker.transition = Button.Transition.NONE;
+        const overlayOp = overlay.addComponent(UIOpacity);
+        overlayOp.opacity = 0;
+
+        /* ── 白色卡片 ── */
+        const card = new Node('Card');
+        root.addChild(card);
+        card.addComponent(UITransform).setContentSize(cardW, cardH);
+
+        const cardBg = new Node('CardBg');
+        card.addChild(cardBg);
+        cardBg.addComponent(UITransform).setContentSize(cardW, cardH);
+        const bgSp = cardBg.addComponent(Sprite);
         bgSp.sizeMode = Sprite.SizeMode.CUSTOM;
         bgSp.spriteFrame = sf;
         bgSp.color = Color.WHITE;
-        const bgW = bg.addComponent(Widget);
-        bgW.isAlignTop = true;    bgW.top = 0;
-        bgW.isAlignBottom = true; bgW.bottom = 0;
-        bgW.isAlignLeft = true;   bgW.left = 0;
-        bgW.isAlignRight = true;  bgW.right = 0;
-        bgW.alignMode = Widget.AlignMode.ON_WINDOW_RESIZE;
-        const blocker = bg.addComponent(Button);
-        blocker.target = bg;
-        blocker.transition = Button.Transition.NONE;
+
+        /* ── 标题（回放后 fade-in） ── */
+        const titleY = cardH / 2 - TITLE_H / 2 - 10;
+        const titleNode = new Node('Title');
+        card.addChild(titleNode);
+        titleNode.setPosition(0, titleY, 0);
+        titleNode.addComponent(UITransform).setContentSize(cardW, TITLE_H);
+        const titleLab = titleNode.addComponent(Label);
+        titleLab.string = '恭喜完成!';
+        titleLab.fontSize = 42;
+        titleLab.horizontalAlign = Label.HorizontalAlign.CENTER;
+        titleLab.verticalAlign = Label.VerticalAlign.CENTER;
+        titleLab.color = new Color(60, 60, 60, 255);
+        const titleOp = titleNode.addComponent(UIOpacity);
+        titleOp.opacity = 0;
 
         /* ── 回放画布 ── */
-        const imgSize = Math.min(viewW, viewH) * GameConfig.settlementImageScale;
+        const canvasY = titleY - TITLE_H / 2 - CARD_PAD - imgSize / 2 + 10;
         const canvasNode = new Node('ReplayCanvas');
-        root.addChild(canvasNode);
-        canvasNode.setPosition(0, 40, 0);
+        card.addChild(canvasNode);
+        canvasNode.setPosition(0, canvasY, 0);
         canvasNode.addComponent(UITransform).setContentSize(imgSize, imgSize);
         const canvasSp = canvasNode.addComponent(Sprite);
         canvasSp.sizeMode = Sprite.SizeMode.CUSTOM;
 
-        /* ── 标题（回放完成后 fade-in） ── */
-        const titleNode = new Node('Title');
-        root.addChild(titleNode);
-        titleNode.setPosition(0, imgSize / 2 + 70, 0);
-        titleNode.addComponent(UITransform).setContentSize(400, 60);
-        const titleLab = titleNode.addComponent(Label);
-        titleLab.string = '恭喜完成!';
-        titleLab.fontSize = 44;
-        titleLab.horizontalAlign = Label.HorizontalAlign.CENTER;
-        titleLab.verticalAlign = Label.VerticalAlign.CENTER;
-        titleLab.color = new Color(60, 60, 60, 255);
-        const titleOpacity = titleNode.addComponent(UIOpacity);
-        titleOpacity.opacity = 0;
-
-        /* ── 按钮容器（回放完成后 fade-in） ── */
+        /* ── 按钮组（回放后 fade-in） ── */
+        const btnY = -cardH / 2 + BTN_H / 2 + CARD_PAD;
         const btnGroup = new Node('BtnGroup');
-        root.addChild(btnGroup);
-        btnGroup.setPosition(0, -imgSize / 2 - 30, 0);
-        btnGroup.addComponent(UITransform).setContentSize(viewW, 70);
-        const btnGroupOpacity = btnGroup.addComponent(UIOpacity);
-        btnGroupOpacity.opacity = 0;
+        card.addChild(btnGroup);
+        btnGroup.setPosition(0, btnY, 0);
+        btnGroup.addComponent(UITransform).setContentSize(cardW, BTN_H);
+        const btnGroupOp = btnGroup.addComponent(UIOpacity);
+        btnGroupOp.opacity = 0;
 
         let animator: ReplayAnimator | null = null;
 
         const showResults = (): void => {
-            tween(titleOpacity)
-                .delay(GameConfig.settlementActionFadeInDelay)
-                .to(GameConfig.settlementActionFadeInDur, { opacity: 255 })
+            tween(titleOp)
+                .delay(C.settlementActionFadeInDelay)
+                .to(C.settlementActionFadeInDur, { opacity: 255 })
                 .start();
-            tween(btnGroupOpacity)
-                .delay(GameConfig.settlementActionFadeInDelay)
-                .to(GameConfig.settlementActionFadeInDur, { opacity: 255 })
+            tween(btnGroupOp)
+                .delay(C.settlementActionFadeInDelay)
+                .to(C.settlementActionFadeInDur, { opacity: 255 })
                 .start();
         };
 
-        /* ── "再看一次" 按钮（对标 G15 ReplayAgainLogic：按钮保持可见，仅重放像素动画） ── */
         const replayNode = this._createButton(sf, '再看一次', new Color(220, 220, 220, 255), new Color(60, 60, 60, 255));
         btnGroup.addChild(replayNode);
         replayNode.setPosition(-130, 0, 0);
         replayNode.getComponent(Button)!.node.on(Button.EventType.CLICK, () => {
-            if (animator && !animator.playing) {
-                animator.play();
-            }
+            if (animator && !animator.playing) animator.play();
         });
 
-        /* ── "返回首页" 按钮 ── */
         const backNode = this._createButton(sf, '返回首页', new Color(76, 175, 80, 255), Color.WHITE);
         btnGroup.addChild(backNode);
         backNode.setPosition(130, 0, 0);
         backNode.getComponent(Button)!.node.on(Button.EventType.CLICK, () => onBack());
 
-        /* ── 挂载回放动画器 ── */
+        /* ── 回放动画器 ── */
         animator = canvasNode.addComponent(ReplayAnimator);
-        animator.setup(puzzle, history, canvasSp, showResults, GameConfig.settlementReplayDur);
+        animator.setup(puzzle, history, canvasSp, showResults, C.settlementReplayDur);
 
-        /* ── 启动：白色面板 fade-in → delay → 回放 ── */
-        tween(rootOpacity)
-            .to(GameConfig.settlementFadeInDur, { opacity: 255 })
-            .delay(GameConfig.settlementReplayStartDelay)
+        /* ── 进入动画：遮罩渐显 + 卡片 scale 弹入 → delay → 回放 ── */
+        const cardOp = card.addComponent(UIOpacity);
+        cardOp.opacity = 0;
+        card.setScale(0.9, 0.9, 1);
+
+        tween(overlayOp).to(C.settlementFadeInDur, { opacity: 255 }).start();
+        tween(cardOp).to(C.settlementFadeInDur, { opacity: 255 }).start();
+        tween(card)
+            .to(C.settlementFadeInDur, { scale: new Vec3(1, 1, 1) })
+            .delay(C.settlementReplayStartDelay)
             .call(() => animator!.play())
             .start();
     }

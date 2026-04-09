@@ -25,10 +25,12 @@ import { ToolState } from '../../core/tool/ToolState';
 import { ToolExecutor } from '../../core/tool/ToolExecutor';
 import { PuzzleData } from '../../types/types';
 import { CompletionPopup } from '../popup/CompletionPopup';
+import { ExitConfirmPopup } from '../popup/ExitConfirmPopup';
 import { cellFilled } from '../../core/paint/PaintSnapRules';
 import { showToast } from '../../util/Toast';
 import { ProgressBar, ProgressBarHandle } from './ProgressBar';
 import { PalettePanel } from '../palette/PalettePanel';
+import { BundleManager } from '../../config/BundleManager';
 
 const { ccclass } = _decorator;
 
@@ -60,10 +62,9 @@ export class GamePage extends Component {
     startLevel(entry: LevelEntry): void {
         this.cleanup();
         this._currentLevelId = entry.id;
-        resources.load(entry.jsonPath, JsonAsset, (err, jsonAsset) => {
-            if (err || !jsonAsset) return;
+        BundleManager.loadPuzzle(entry.jsonPath).then(jsonAsset => {
             this._buildGame(jsonAsset.json as PuzzleData, entry.id);
-        });
+        }).catch(() => {});
     }
 
     cleanup(): void {
@@ -170,7 +171,13 @@ export class GamePage extends Component {
         button.target = btn;
         button.transition = Button.Transition.SCALE;
         button.zoomScale = 0.9;
-        button.node.on(Button.EventType.CLICK, () => this._onBack?.());
+        button.node.on(Button.EventType.CLICK, () => this._confirmExit());
+    }
+
+    private _confirmExit(): void {
+        const layer = this._popupLayer;
+        if (!layer) return;
+        ExitConfirmPopup.show(layer, () => {}, () => this._onBack?.());
     }
 
     private _handleToolClick(type: ToolType): void {

@@ -117,11 +117,9 @@ export class PaletteInstaller {
             columnsPerPage: cols,
             rowsPerPage: rows,
         };
-        const colorPages = panel.setup(palette, brushState, itemSprite, opts);
-        for (let i = 0; i < colorPages.length; i++) {
-            content.addChild(colorPages[i]);
-            colorPages[i].setPosition((i + 1) * viewW, 0, 0);
-        }
+        const colorContainer = panel.setup(palette, brushState, itemSprite, opts);
+        content.addChild(colorContainer);
+        colorContainer.setPosition(viewW, 0, 0);
 
         // ── Page indicator dots ─────────────────────────────────
         const dots = this._buildDots(bar, barH, totalPages, defaultPage, itemSprite);
@@ -130,6 +128,7 @@ export class PaletteInstaller {
         let currentPage = defaultPage;
         const pageX = (p: number) => -p * viewW;
         content.setPosition(pageX(currentPage), 0, 0);
+        panel.refreshVisibleSlots(pageX(currentPage));
 
         let activeTween: Tween<Node> | null = null;
 
@@ -139,12 +138,21 @@ export class PaletteInstaller {
             this._updateDots(dots, target);
             if (activeTween) { activeTween.stop(); activeTween = null; }
             const tx = pageX(target);
-            if (!animated) { content.setPosition(tx, 0, 0); return; }
+            if (!animated) {
+                content.setPosition(tx, 0, 0);
+                panel.refreshVisibleSlots(tx);
+                return;
+            }
             const dist = Math.abs(content.position.x - tx);
             const dur = Math.max(0.1, dist / snapSpeed);
             activeTween = tween(content)
-                .to(dur, { position: new Vec3(tx, 0, 0) })
-                .call(() => { activeTween = null; })
+                .to(dur, { position: new Vec3(tx, 0, 0) }, {
+                    onUpdate: () => panel.refreshVisibleSlots(content.position.x),
+                })
+                .call(() => {
+                    activeTween = null;
+                    panel.refreshVisibleSlots(content.position.x);
+                })
                 .start();
         };
 
@@ -181,6 +189,7 @@ export class PaletteInstaller {
             if (nx > maxX) nx = maxX + (nx - maxX) * 0.3;
             if (nx < minX) nx = minX + (nx - minX) * 0.3;
             content.setPosition(nx, 0, 0);
+            panel.refreshVisibleSlots(nx);
         });
 
         const onEnd = (ev: EventTouch) => {

@@ -51,22 +51,21 @@ export class AppRoot extends Component {
         this._gamePage.cleanup();
         this._homeNode.active = true;
         this._gameNode.active = false;
-        this._myWorksNode.active = false;
         this._homePage.refreshList();
     }
 
     showGame(entry: LevelEntry): void {
         this._homeNode.active = false;
         this._gameNode.active = true;
-        this._myWorksNode.active = false;
         this._gamePage.startLevel(entry);
     }
 
     showMyWorks(): void {
-        this._homeNode.active = false;
-        this._gameNode.active = false;
-        this._myWorksNode.active = true;
-        this._myWorksPage.refreshList();
+        this._myWorksPage.show();
+    }
+
+    private _onMyWorksDismissed(): void {
+        this._homePage.refreshList();
     }
 
     /* ── 内部构建 ── */
@@ -101,10 +100,10 @@ export class AppRoot extends Component {
         this._gamePage = this._gameNode.addComponent(GamePage);
         this._gamePage.init(this._buildGameAssets(), this._toolState, () => this.showHome());
 
-        // MyWorksPage
+        // MyWorksPage — standalone page, slides in from right
         this._myWorksNode = this._createPageNode('MyWorksPage', vs);
         this._myWorksPage = this._myWorksNode.addComponent(MyWorksPage);
-        this._myWorksPage.init(() => this.showHome());
+        this._myWorksPage.init(() => this._onMyWorksDismissed());
     }
 
     private _createPageNode(name: string, vs: { width: number; height: number }): Node {
