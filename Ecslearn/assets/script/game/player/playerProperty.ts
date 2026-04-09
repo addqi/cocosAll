@@ -1,5 +1,5 @@
-import { EntityPropertyMgr } from '../shared/EntityPropertyMgr';
-import type { PropertyBaseConfig } from '../shared/EntityPropertyMgr';
+import { EntityPropertyMgr } from '../entity/EntityPropertyMgr';
+import type { PropertyBaseConfig } from '../entity/EntityPropertyMgr';
 import playerConfig from './config/player.json';
 
 /**

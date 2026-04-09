@@ -1,4 +1,4 @@
-import type { AttributeConfig } from '../../../../baseSystem/properties';
+import type { AttributeConfig } from '../../../baseSystem/properties';
 
 // 由 tools/auto/create-property-config.js 自动生成，请勿直接手动编辑
 

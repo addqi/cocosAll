@@ -1,8 +1,8 @@
 import { GeneralPropertyMgr, EPropertyAddType } from '../../baseSystem/properties';
 import type { IPropertyModifier, AttributeConfig } from '../../baseSystem/properties';
-import { EPropertyId, EPropertyConfigId } from './enum/propertyEnum';
-import { SHARED_ATTRIBUTE_CONFIGS } from './config/propertyConfig/attributeConfigs';
-import { PROP_CONFIG_MAP } from './config/propertyConfig/propConfigMap';
+import { EPropertyId, EPropertyConfigId } from '../config/enum/propertyEnum';
+import { SHARED_ATTRIBUTE_CONFIGS } from '../config/propertyConfig/attributeConfigs';
+import { PROP_CONFIG_MAP } from '../config/propertyConfig/propConfigMap';
 
 /**
  * 修饰器句柄，由 add() / addModifier() 返回，用于 remove() 精确移除

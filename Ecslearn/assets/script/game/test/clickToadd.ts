@@ -1,12 +1,12 @@
 import { _decorator, Component, Label } from 'cc';
 import { PlayerProperty } from '../player/playerProperty';
 import { PlayerBuffOwner } from '../player/playerBuffperty';
-import { EntityBuffMgr } from '../shared/EntityBuffMgr';
+import { EntityBuffMgr } from '../entity/EntityBuffMgr';
 import { EPropertyAddType } from '../../baseSystem/properties';
-import { EPropertyId, EPropertyConfigId } from '../shared/enum/propertyEnum';
-import type { ModifierHandle } from '../shared/EntityPropertyMgr';
+import { EPropertyId, EPropertyConfigId } from '../config/enum/propertyEnum';
+import type { ModifierHandle } from '../entity/EntityPropertyMgr';
 import type { BuffData } from '../../baseSystem/buff';
-import addHpBuffConfig from '../shared/config/buffConfig/addHpBuff.json';
+import addHpBuffConfig from '../config/buffConfig/addHpBuff.json';
 
 const { ccclass, property } = _decorator;
 

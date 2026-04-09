@@ -1,4 +1,4 @@
-import { EPropertyId, EPropertyConfigId } from '../../enum/propertyEnum';
+import { EPropertyId, EPropertyConfigId } from '../enum/propertyEnum';
 
 // 由 tools/auto/create-property-config.js 自动生成，请勿直接手动编辑
 

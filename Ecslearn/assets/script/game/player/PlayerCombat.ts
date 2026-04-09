@@ -1,4 +1,4 @@
-import { EPropertyId } from '../shared/enum/propertyEnum';
+import { EPropertyId } from '../config/enum/propertyEnum';
 import type { PlayerProperty } from './playerProperty';
 
 /**
