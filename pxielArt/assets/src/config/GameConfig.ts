@@ -47,8 +47,8 @@ export const GameConfig = {
     selectedCellFadeColor: 0xb9b9b9,
 
     // ==================== 调色板 ====================
-    paletteItemWidth: 100,
-    paletteItemHeight: 100,
+    paletteItemWidth: 120,
+    paletteItemHeight: 120,
     paletteItemSpacing: 12,
     palettePadding: 14,
     paletteLabelFontSize: 28,

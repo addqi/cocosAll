@@ -83,6 +83,6 @@ export class BundleManager {
      * 解析游戏资源包路径
      */
     private static _resolveBundlePath(): string {
-        return GAME_BUNDLE_NAME;  // 'game-bundle'
+        return 'http://localhost:9090/game-bundle';
     }
 }
