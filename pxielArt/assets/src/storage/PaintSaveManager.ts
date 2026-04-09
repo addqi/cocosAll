@@ -18,6 +18,8 @@ export class PaintSaveManager {
 
     private _flushTimer: any = null;
     private _onAllComplete: (() => void) | null = null;
+    private _onProgressChanged: ((filled: number, total: number) => void) | null = null;
+    private _onBrushComplete: ((brushIndex: number) => void) | null = null;
 
     constructor(levelId: string, boardData: BoardData) {
         this.levelId = levelId;
@@ -39,6 +41,17 @@ export class PaintSaveManager {
     }
 
     set onAllComplete(cb: (() => void) | null) { this._onAllComplete = cb; }
+    set onProgressChanged(cb: ((filled: number, total: number) => void) | null) { this._onProgressChanged = cb; }
+    set onBrushComplete(cb: ((brushIndex: number) => void) | null) { this._onBrushComplete = cb; }
+
+    getProgress(): { filled: number; total: number } {
+        let filled = 0, total = 0;
+        for (let i = 0; i < this.brushTotalCounts.length; i++) {
+            total += this.brushTotalCounts[i];
+            filled += this.brushFilledCounts[i];
+        }
+        return { filled, total };
+    }
 
     /**
      * 触摸结束后调用：将 PaintExecutor.entries 中 matched 的格子
@@ -46,6 +59,7 @@ export class PaintSaveManager {
      */
     commitMatchedEntries(entries: readonly PaintEntry[], gridCols: number): void {
         let hasNew = false;
+        const justCompleted: number[] = [];
         for (let i = 0; i < entries.length; i++) {
             const e = entries[i];
             if (!e.matched) continue;
@@ -54,12 +68,23 @@ export class PaintSaveManager {
 
             this.paintMap[idx] = e.brushIndex;
             this.record.record(e.row, e.col, e.brushIndex);
-            if (this.brushFilledCounts[e.brushIndex] < this.brushTotalCounts[e.brushIndex]) {
-                this.brushFilledCounts[e.brushIndex]++;
+            const bi = e.brushIndex;
+            if (this.brushFilledCounts[bi] < this.brushTotalCounts[bi]) {
+                this.brushFilledCounts[bi]++;
+                if (this.brushFilledCounts[bi] === this.brushTotalCounts[bi]) {
+                    justCompleted.push(bi);
+                }
             }
             hasNew = true;
         }
         if (!hasNew) return;
+
+        for (let i = 0; i < justCompleted.length; i++) {
+            this._onBrushComplete?.(justCompleted[i]);
+        }
+
+        const p = this.getProgress();
+        this._onProgressChanged?.(p.filled, p.total);
 
         this._scheduleFlush();
 

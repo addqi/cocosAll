@@ -10,6 +10,8 @@ import { DigitLayer } from '../render/DigitLayer';
 import { BoardLayer } from '../render/BoardLayer';
 import { ViewportController } from '../core/viewport/ViewportController';
 import { PaintSaveManager } from '../storage/PaintSaveManager';
+import { ToolState } from '../core/tool/ToolState';
+import { MagnifierEffect } from '../core/tool/MagnifierEffect';
 
 export class BoardRuntimeContext {
     readonly boardRoot: Node;
@@ -25,6 +27,9 @@ export class BoardRuntimeContext {
     readonly paintExecutor: PaintExecutor;
     readonly viewport: ViewportController;
     readonly saveManager: PaintSaveManager;
+    readonly toolState: ToolState;
+    readonly magnifierEffect: MagnifierEffect;
+    onToast: ((msg: string) => void) | null = null;
 
     constructor(params: {
         boardRoot: Node;
@@ -40,6 +45,7 @@ export class BoardRuntimeContext {
         paintExecutor: PaintExecutor;
         viewport: ViewportController;
         saveManager: PaintSaveManager;
+        toolState: ToolState;
     }) {
         this.boardRoot = params.boardRoot;
         this.contentNode = params.contentNode;
@@ -54,6 +60,8 @@ export class BoardRuntimeContext {
         this.paintExecutor = params.paintExecutor;
         this.viewport = params.viewport;
         this.saveManager = params.saveManager;
+        this.toolState = params.toolState;
+        this.magnifierEffect = new MagnifierEffect();
     }
 
     /**

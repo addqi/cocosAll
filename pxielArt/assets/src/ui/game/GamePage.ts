@@ -8,12 +8,12 @@ import {
     Material,
     Node,
     resources,
-    Sprite,
     SpriteFrame,
     UITransform,
     view,
 } from 'cc';
 import { GameConfig } from '../../config/GameConfig';
+import { ToolType, ToolTriggerMode, ToolDefs } from '../../config/ToolConfig';
 import { LevelEntry } from '../../config/LevelManifest';
 import { BoardBootstrap } from '../../game/BoardBootstrap';
 import { PaletteInstaller, PaletteInstallerOptions } from '../../game/PaletteInstaller';
@@ -21,7 +21,14 @@ import { BoardRootPanInput } from '../../core/input/BoardRootPanInput';
 import { BoardTouchInput } from '../../core/input/BoardTouchInput';
 import { BoardViewportInput } from '../../core/input/BoardViewportInput';
 import { BoardRuntimeContext } from '../../game/BoardRuntimeContext';
+import { ToolState } from '../../core/tool/ToolState';
+import { ToolExecutor } from '../../core/tool/ToolExecutor';
 import { PuzzleData } from '../../types/types';
+import { CompletionPopup } from '../popup/CompletionPopup';
+import { cellFilled } from '../../core/paint/PaintSnapRules';
+import { showToast } from '../../util/Toast';
+import { ProgressBar, ProgressBarHandle } from './ProgressBar';
+import { PalettePanel } from '../palette/PalettePanel';
 
 const { ccclass } = _decorator;
 
@@ -37,12 +44,16 @@ export class GamePage extends Component {
 
     private _assets: GamePageAssets | null = null;
     private _onBack: (() => void) | null = null;
+    private _toolState: ToolState | null = null;
     private _ctx: BoardRuntimeContext | null = null;
     private _currentLevelId: string | null = null;
+    private _currentPuzzle: PuzzleData | null = null;
     private _popupLayer: Node | null = null;
+    private _topLayer: Node | null = null;
 
-    init(assets: GamePageAssets, onBack: () => void): void {
+    init(assets: GamePageAssets, toolState: ToolState, onBack: () => void): void {
         this._assets = assets;
+        this._toolState = toolState;
         this._onBack = onBack;
     }
 
@@ -61,18 +72,23 @@ export class GamePage extends Component {
         }
         this._ctx = null;
         this._currentLevelId = null;
+        this._currentPuzzle = null;
         this._popupLayer = null;
+        this._topLayer = null;
         this.node.removeAllChildren();
     }
 
     private _buildGame(puzzle: PuzzleData, levelId: string): void {
+        this._currentPuzzle = puzzle;
         const a = this._assets!;
         const vs = view.getVisibleSize();
 
         const gameLayer = this._createLayer('GameLayer', vs);
         const hudLayer = this._createLayer('HudLayer', vs);
         this._popupLayer = this._createLayer('PopupLayer', vs);
-        this._createLayer('TopLayer', vs);
+        this._topLayer = this._createLayer('TopLayer', vs);
+
+        const toolState = this._toolState!;
 
         const ctx = BoardBootstrap.run({
             boardRoot: gameLayer,
@@ -80,6 +96,7 @@ export class GamePage extends Component {
             cellDisplaySize: a.cellDisplaySize,
             digitMaterial: a.digitMaterial,
             levelId,
+            toolState,
             viewport: {
                 zoomStep: GameConfig.viewportZoomStep,
                 zoomSpeedPerSecond: GameConfig.viewportZoomSpeedPerSecond,
@@ -88,9 +105,14 @@ export class GamePage extends Component {
         });
         this._ctx = ctx;
         ctx.saveManager.onAllComplete = () => this._showCompletion();
+        ctx.onToast = (msg) => { if (this._topLayer) showToast(this._topLayer, msg); };
 
+        const hudUt = hudLayer.getComponent(UITransform)!;
+        const progressBar = ProgressBar.create(hudLayer, vs.width, hudUt.height / 2 - 50);
+
+        let palettePanel: PalettePanel | null = null;
         if (a.paletteItemSprite) {
-            PaletteInstaller.install(
+            palettePanel = PaletteInstaller.install(
                 hudLayer,
                 ctx.boardData.palette,
                 ctx.brushState,
@@ -99,7 +121,26 @@ export class GamePage extends Component {
                     ...a.paletteStyle,
                     onBrushIndexChanged: () => ctx.refreshDetailVisibility(),
                 },
+                toolState,
+                (type) => this._handleToolClick(type),
             );
+        }
+
+        const sm = ctx.saveManager;
+        const isBrushComplete = (i: number) =>
+            sm.brushTotalCounts[i] > 0 && sm.brushFilledCounts[i] >= sm.brushTotalCounts[i];
+
+        sm.onProgressChanged = (f, t) => progressBar.update(f, t);
+        sm.onBrushComplete = (bi) => {
+            palettePanel?.markBrushComplete(bi);
+            palettePanel?.autoSelectNextUnfinished(bi, isBrushComplete);
+            ctx.refreshDetailVisibility();
+        };
+
+        const initP = sm.getProgress();
+        progressBar.update(initP.filled, initP.total);
+        for (let i = 0; i < sm.brushTotalCounts.length; i++) {
+            if (isBrushComplete(i)) palettePanel?.markBrushComplete(i);
         }
 
         this._buildBackButton(hudLayer, vs.width);
@@ -132,73 +173,69 @@ export class GamePage extends Component {
         button.node.on(Button.EventType.CLICK, () => this._onBack?.());
     }
 
+    private _handleToolClick(type: ToolType): void {
+        const ctx = this._ctx;
+        const ts = this._toolState;
+        if (!ctx || !ts) return;
+        if (ts.getCount(type) <= 0) {
+            if (this._topLayer) showToast(this._topLayer, '道具次数不足');
+            return;
+        }
+
+        const def = ToolDefs.find(d => d.type === type);
+        if (!def) return;
+
+        if (def.triggerMode === ToolTriggerMode.ClickTool) {
+            this._executeMagnifier(ctx, ts);
+            return;
+        }
+        ts.activate(type);
+    }
+
+    private _executeMagnifier(ctx: BoardRuntimeContext, ts: ToolState): void {
+        const isFilled = (r: number, c: number) =>
+            cellFilled(ctx.boardData, ctx.brushLayer.pixelBuffer, r, c);
+
+        let region = ToolExecutor.magnifierFind(ctx.brushState.currentIndex, ctx.boardData, isFilled);
+
+        if (region.length === 0) {
+            const nextBrush = this._findNextUnfinishedBrush(ctx);
+            if (nextBrush >= 0 && nextBrush !== ctx.brushState.currentIndex) {
+                ctx.brushState.currentIndex = nextBrush;
+                ctx.refreshDetailVisibility();
+                region = ToolExecutor.magnifierFind(nextBrush, ctx.boardData, isFilled);
+            }
+        }
+        if (region.length === 0) {
+            if (this._topLayer) showToast(this._topLayer, '当前颜色已涂完');
+            return;
+        }
+
+        if (!ts.consume(ToolType.Magnifier)) return;
+        ctx.magnifierEffect.start(region, ctx);
+    }
+
+    private _findNextUnfinishedBrush(ctx: BoardRuntimeContext): number {
+        const sm = ctx.saveManager;
+        const paletteLen = sm.brushTotalCounts.length;
+        const cur = ctx.brushState.currentIndex;
+        for (let offset = 1; offset < paletteLen; offset++) {
+            const idx = (cur + offset) % paletteLen;
+            if (sm.brushTotalCounts[idx] > 0 && sm.brushFilledCounts[idx] < sm.brushTotalCounts[idx]) {
+                return idx;
+            }
+        }
+        return -1;
+    }
+
     private _showCompletion(): void {
         const layer = this._popupLayer;
-        if (!layer) return;
+        const ctx = this._ctx;
+        const puzzle = this._currentPuzzle;
+        if (!layer || !ctx || !puzzle) return;
         const vs = view.getVisibleSize();
-
-        const overlay = new Node('BlockInput');
-        layer.addChild(overlay);
-        overlay.addComponent(UITransform).setContentSize(vs.width, vs.height);
-        const oSp = overlay.addComponent(Sprite);
-        oSp.sizeMode = Sprite.SizeMode.CUSTOM;
-        oSp.color = new Color(0, 0, 0, 150);
-        const oBtn = overlay.addComponent(Button);
-        oBtn.target = overlay;
-        oBtn.transition = Button.Transition.NONE;
-
-        const panel = new Node('Panel');
-        layer.addChild(panel);
-        panel.addComponent(UITransform).setContentSize(480, 300);
-        const pSp = panel.addComponent(Sprite);
-        pSp.sizeMode = Sprite.SizeMode.CUSTOM;
-        pSp.color = Color.WHITE;
-
-        const title = new Node('Title');
-        panel.addChild(title);
-        title.setPosition(0, 60, 0);
-        title.addComponent(UITransform).setContentSize(400, 80);
-        const tLab = title.addComponent(Label);
-        tLab.string = '恭喜完成!';
-        tLab.fontSize = 48;
-        tLab.horizontalAlign = Label.HorizontalAlign.CENTER;
-        tLab.verticalAlign = Label.VerticalAlign.CENTER;
-        tLab.color = new Color(50, 50, 50, 255);
-
-        const sub = new Node('Sub');
-        panel.addChild(sub);
-        sub.setPosition(0, 10, 0);
-        sub.addComponent(UITransform).setContentSize(400, 40);
-        const sLab = sub.addComponent(Label);
-        sLab.string = '所有色块已正确填充';
-        sLab.fontSize = 24;
-        sLab.horizontalAlign = Label.HorizontalAlign.CENTER;
-        sLab.verticalAlign = Label.VerticalAlign.CENTER;
-        sLab.color = new Color(120, 120, 120, 255);
-
-        const backNode = new Node('BackBtn');
-        panel.addChild(backNode);
-        backNode.setPosition(0, -70, 0);
-        backNode.addComponent(UITransform).setContentSize(220, 60);
-        const bSp = backNode.addComponent(Sprite);
-        bSp.sizeMode = Sprite.SizeMode.CUSTOM;
-        bSp.color = new Color(76, 175, 80, 255);
-
-        const bLab = new Node('Label');
-        backNode.addChild(bLab);
-        bLab.addComponent(UITransform).setContentSize(220, 60);
-        const bl = bLab.addComponent(Label);
-        bl.string = '返回首页';
-        bl.fontSize = 28;
-        bl.horizontalAlign = Label.HorizontalAlign.CENTER;
-        bl.verticalAlign = Label.VerticalAlign.CENTER;
-        bl.color = Color.WHITE;
-
-        const btn = backNode.addComponent(Button);
-        btn.target = backNode;
-        btn.transition = Button.Transition.SCALE;
-        btn.zoomScale = 0.9;
-        btn.node.on(Button.EventType.CLICK, () => this._onBack?.());
+        const history = [...ctx.saveManager.record.getHistory()];
+        CompletionPopup.show(layer, vs.width, vs.height, puzzle, history, () => this._onBack?.());
     }
 
     private _createLayer(name: string, vs: { width: number; height: number }): Node {

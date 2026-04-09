@@ -4,6 +4,7 @@ import { PaintRecordCodec } from './PaintRecordCodec';
 
 const RECORD_PREFIX = 'pa_rec_';
 const DONE_KEY = 'pa_done';
+const TOOL_KEY = 'pa_tool_counts';
 
 interface SavedRecord {
     v: number;
@@ -60,5 +61,26 @@ export class StorageService {
             const list = JSON.parse(raw);
             return Array.isArray(list) ? list : [];
         } catch { return []; }
+    }
+
+    /* ── 道具次数（全局） ── */
+
+    static loadToolCounts(): Map<number, number> {
+        const map = new Map<number, number>();
+        const raw = sys.localStorage.getItem(TOOL_KEY);
+        if (!raw) return map;
+        try {
+            const obj = JSON.parse(raw);
+            for (const k of Object.keys(obj)) {
+                map.set(Number(k), obj[k]);
+            }
+        } catch { /* corrupted */ }
+        return map;
+    }
+
+    static saveToolCounts(counts: Map<number, number>): void {
+        const obj: Record<string, number> = {};
+        counts.forEach((v, k) => { obj[String(k)] = v; });
+        sys.localStorage.setItem(TOOL_KEY, JSON.stringify(obj));
     }
 }

@@ -128,6 +128,14 @@ export class ViewportController {
         };
     }
 
+    snapTo(targetScale: number, targetPanX: number, targetPanY: number, duration: number): void {
+        this._snap = {
+            startS: this._scale, startPx: this._panX, startPy: this._panY,
+            endS: targetScale, endPx: targetPanX, endPy: targetPanY,
+            elapsed: 0, duration,
+        };
+    }
+
     cancelSnap(): void { this._snap = null; }
 
     /** 由 Component.update 驱动；返回 true 表示正在弹回中（阻断其他输入） */

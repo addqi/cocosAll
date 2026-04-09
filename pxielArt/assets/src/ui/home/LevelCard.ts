@@ -24,7 +24,7 @@ export class LevelCard {
 
     static create(
         name: string,
-        previewFrame: SpriteFrame,
+        previewFrame: SpriteFrame | null,
         onClick: () => void,
         status: LevelStatus = 'new',
         style: Partial<LevelCardStyle> = {},
@@ -50,7 +50,11 @@ export class LevelCard {
         pvUt.setContentSize(s.previewSize, s.previewSize);
         const pvSp = preview.addComponent(Sprite);
         pvSp.sizeMode = Sprite.SizeMode.CUSTOM;
-        pvSp.spriteFrame = previewFrame;
+        if (previewFrame) {
+            pvSp.spriteFrame = previewFrame;
+        } else {
+            pvSp.color = new Color(200, 200, 200, 255);
+        }
 
         const labelNode = new Node('Name');
         root.addChild(labelNode);

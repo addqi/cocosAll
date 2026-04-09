@@ -1,13 +1,9 @@
 import {
     _decorator,
-    Button,
     Color,
     Component,
     Label,
-    Mask,
-    MaskType,
     Node,
-    ScrollView,
     Sprite,
     SpriteFrame,
     UITransform,
@@ -17,29 +13,25 @@ import { BrushState } from '../../core/data/BrushState';
 
 const { ccclass, property } = _decorator;
 
-/** 运行时 / setup 传入的布局与样式（2×2 等小图靠 CUSTOM 尺寸放大显示） */
 export interface PalettePanelOptions {
     itemWidth?: number;
     itemHeight?: number;
     itemSpacing?: number;
     padding?: number;
     labelFontSize?: number;
-    /** 选中描边环的 Sprite 着色 */
     ringColor?: Color;
-    /** 描环比色块每边多出的像素（环节点比色块大 2×该值） */
     ringOutset?: number;
-    /** 根节点比色块每边多出的像素（扩大点击与描环占位） */
     itemRootOutset?: number;
-    /** 数字颜色；不设且 useContrastLabel 为 true 时自动黑/白 */
     labelColor?: Color | null;
     useContrastLabel?: boolean;
-    /** 选中色块后回调（如刷新 G15 ZoomFade 盘面高亮） */
     onBrushIndexChanged?: () => void;
+    columnsPerPage?: number;
+    rowsPerPage?: number;
 }
 
 /**
- * 底部调色板：2 行 × 多列，横向 ScrollView；色块共用一张底图 + color 着色。
- * 与核心唯一交互：写入 BrushState.currentIndex。
+ * 调色板状态管理 + 色块节点工厂。
+ * 不处理任何触摸事件；点击/滑动全部由 PaletteInstaller 统一接管。
  */
 @ccclass('PalettePanel')
 export class PalettePanel extends Component {
@@ -84,146 +76,143 @@ export class PalettePanel extends Component {
     private _selectedIndex = 0;
     private _palette: string[] = [];
     private _onBrushIndexChanged: (() => void) | null = null;
+    private _completedSet = new Set<number>();
+    private _cols = 5;
+    private _rows = 2;
+
+    /** PaletteInstaller 设置：自动选色导致翻页时回调（参数为色块页索引，0-based） */
+    onScrollToPage: ((colorPageIndex: number) => void) | null = null;
+
+    get selectedIndex(): number { return this._selectedIndex; }
 
     /**
-     * @param palette   与谜题 palette 一致
-     * @param brushState 当前画笔状态
-     * @param itemFrame  色块底图（任意分辨率如 2×2；显示尺寸由 itemWidth/Height 决定）
-     * @param options   可选覆盖；GameManager 运行时创建组件时应用此参数最可靠
+     * 按 cols×rows 分页创建色块节点，返回 Node[]（每页一个）。
+     * 不含 ScrollView / Button，触摸由外部处理。
      */
-    setup(palette: string[], brushState: BrushState, itemFrame: SpriteFrame, options?: PalettePanelOptions): void {
+    setup(
+        palette: string[],
+        brushState: BrushState,
+        itemFrame: SpriteFrame,
+        options?: PalettePanelOptions,
+    ): Node[] {
         this._brushState = brushState;
         this._palette = palette;
         this._onBrushIndexChanged = options?.onBrushIndexChanged ?? null;
-        this.node.removeAllChildren();
         this._itemRoots = [];
+        this._completedSet = new Set<number>();
 
         const iw = options?.itemWidth ?? this.itemWidth;
         const ih = options?.itemHeight ?? this.itemHeight;
         const spc = options?.itemSpacing ?? this.itemSpacing;
-        const pad = options?.padding ?? this.padding;
         const fontSz = options?.labelFontSize ?? this.labelFontSize;
         const ringCol = options?.ringColor ?? this.ringColor;
         const ringO = options?.ringOutset ?? this.ringOutset;
         const rootO = options?.itemRootOutset ?? this.itemRootOutset;
         const useContrast = options?.useContrastLabel ?? this.useContrastLabel;
         const labelFixed = options?.labelColor ?? (useContrast ? null : this.labelFixedColor);
+        const cols = options?.columnsPerPage ?? 5;
+        const rows = options?.rowsPerPage ?? 2;
 
+        this._cols = cols;
+        this._rows = rows;
+
+        const perPage = cols * rows;
+        const pageCount = Math.ceil(palette.length / perPage) || 1;
         const viewW = view.getVisibleSize().width;
-        const barH = pad * 2 + ih * 2 + spc;
-
-        const rootUt = this.node.getComponent(UITransform) || this.node.addComponent(UITransform);
-        rootUt.setContentSize(viewW, barH);
-
-        const cols = Math.ceil(palette.length / 2);
+        const gridH = ih * rows + spc * Math.max(0, rows - 1);
         const gridW = cols * iw + Math.max(0, cols - 1) * spc;
-        const gridH = ih * 2 + spc;
-        const contentW = gridW + pad * 2;
-        const contentH = barH;
-
-        const scrollNode = new Node('ScrollView');
-        this.node.addChild(scrollNode);
-        const svUt = scrollNode.addComponent(UITransform);
-        svUt.setContentSize(viewW, barH);
-
-        const viewNode = new Node('view');
-        scrollNode.addChild(viewNode);
-        const vUt = viewNode.addComponent(UITransform);
-        vUt.setContentSize(viewW, barH);
-        const mask = viewNode.addComponent(Mask);
-        mask.type = MaskType.GRAPHICS_RECT;
-
-        const content = new Node('content');
-        viewNode.addChild(content);
-        const cUt = content.addComponent(UITransform);
-        cUt.setContentSize(contentW, contentH);
-        cUt.setAnchorPoint(0, 0.5);
-        content.setPosition(-viewW * 0.5, 0, 0);
-
-        const scroll = scrollNode.addComponent(ScrollView);
-        scroll.content = content;
-        scroll.horizontal = true;
-        scroll.vertical = false;
-        scroll.elastic = true;
-        scroll.brake = 0.5;
-        scroll.bounceDuration = 0.5;
-
-        const ox = pad + iw * 0.5;
-        const oyTop = gridH * 0.5 - ih * 0.5;
-        const oyBot = -gridH * 0.5 + ih * 0.5;
+        const pageH = gridH;
 
         const ringW = iw + ringO * 2;
         const ringH = ih + ringO * 2;
         const rootW = iw + rootO * 2;
         const rootH = ih + rootO * 2;
 
-        for (let i = 0; i < palette.length; i++) {
-            const col = Math.floor(i / 2);
-            const row = i % 2;
-            const x = ox + col * (iw + spc);
-            const y = row === 0 ? oyTop : oyBot;
+        const pages: Node[] = [];
 
-            const item = new Node(`PaletteItem_${i}`);
-            content.addChild(item);
-            item.setPosition(x, y, 0);
-            const iUt = item.addComponent(UITransform);
-            iUt.setContentSize(rootW, rootH);
+        for (let p = 0; p < pageCount; p++) {
+            const page = new Node(`ColorPage_${p}`);
+            page.addComponent(UITransform).setContentSize(viewW, pageH);
 
-            const ring = new Node('Ring');
-            item.addChild(ring);
-            const rUt = ring.addComponent(UITransform);
-            rUt.setContentSize(ringW, ringH);
-            const ringSp = ring.addComponent(Sprite);
-            this._spriteCustomSize(ringSp, itemFrame, ringW, ringH);
-            ringSp.color = ringCol.clone();
-            ring.active = i === brushState.currentIndex;
+            const startIdx = p * perPage;
+            const endIdx = Math.min(startIdx + perPage, palette.length);
 
-            const bg = new Node('Bg');
-            item.addChild(bg);
-            const bgUt = bg.addComponent(UITransform);
-            bgUt.setContentSize(iw, ih);
-            const sp = bg.addComponent(Sprite);
-            this._spriteCustomSize(sp, itemFrame, iw, ih);
-            sp.color = this._hexToColor(palette[i]);
+            for (let i = startIdx; i < endIdx; i++) {
+                const li = i - startIdx;
+                const col = li % cols;
+                const row = Math.floor(li / cols);
+                const ox = -gridW / 2 + iw / 2 + col * (iw + spc);
+                const oy = gridH / 2 - ih / 2 - row * (ih + spc);
 
-            const labNode = new Node('Label');
-            item.addChild(labNode);
-            labNode.setPosition(0, 0, 0);
-            const lUt = labNode.addComponent(UITransform);
-            lUt.setContentSize(iw, ih);
-            const lab = labNode.addComponent(Label);
-            lab.string = String(i + 1);
-            lab.fontSize = fontSz;
-            lab.horizontalAlign = Label.HorizontalAlign.CENTER;
-            lab.verticalAlign = Label.VerticalAlign.CENTER;
-            lab.color = (labelFixed ?? this._contrastLabelColor(sp.color)).clone();
+                const item = new Node(`PaletteItem_${i}`);
+                page.addChild(item);
+                item.setPosition(ox, oy, 0);
+                item.addComponent(UITransform).setContentSize(rootW, rootH);
 
-            const idx = i;
-            const btn = item.addComponent(Button);
-            btn.target = item;
-            btn.transition = Button.Transition.NONE;
-            btn.node.on(Button.EventType.CLICK, () => {
-                this._select(idx);
-            });
+                const ring = new Node('Ring');
+                item.addChild(ring);
+                ring.addComponent(UITransform).setContentSize(ringW, ringH);
+                const ringSp = ring.addComponent(Sprite);
+                this._spriteCustomSize(ringSp, itemFrame, ringW, ringH);
+                ringSp.color = ringCol.clone();
+                ring.active = i === brushState.currentIndex;
 
-            this._itemRoots.push(item);
+                const bg = new Node('Bg');
+                item.addChild(bg);
+                bg.addComponent(UITransform).setContentSize(iw, ih);
+                const sp = bg.addComponent(Sprite);
+                this._spriteCustomSize(sp, itemFrame, iw, ih);
+                sp.color = this._hexToColor(palette[i]);
+
+                const labNode = new Node('Label');
+                item.addChild(labNode);
+                labNode.addComponent(UITransform).setContentSize(iw, ih);
+                const lab = labNode.addComponent(Label);
+                lab.string = String(i + 1);
+                lab.fontSize = fontSz;
+                lab.horizontalAlign = Label.HorizontalAlign.CENTER;
+                lab.verticalAlign = Label.VerticalAlign.CENTER;
+                lab.color = (labelFixed ?? this._contrastLabelColor(sp.color)).clone();
+
+                this._itemRoots.push(item);
+            }
+
+            pages.push(page);
         }
 
         this._selectedIndex = brushState.currentIndex;
+        return pages;
     }
 
-    /**
-     * 必须先 CUSTOM 再赋 spriteFrame，否则会按 TRIMMED 把 UITransform 改成贴图像素（如 2×2）。
-     */
-    private _spriteCustomSize(sprite: Sprite, frame: SpriteFrame, w: number, h: number): void {
-        sprite.sizeMode = Sprite.SizeMode.CUSTOM;
-        sprite.type = Sprite.Type.SIMPLE;
-        sprite.spriteFrame = frame;
-        sprite.node.getComponent(UITransform)!.setContentSize(w, h);
+    /** 命中测试：给定色块页索引 + 页内局部坐标，返回 palette index 或 -1 */
+    hitTest(colorPageIndex: number, localX: number, localY: number): number {
+        const perPage = this._cols * this._rows;
+        const startIdx = colorPageIndex * perPage;
+        const endIdx = Math.min(startIdx + perPage, this._palette.length);
+        for (let i = startIdx; i < endIdx; i++) {
+            const item = this._itemRoots[i];
+            const p = item.position;
+            const ut = item.getComponent(UITransform)!;
+            const hw = ut.width * 0.5;
+            const hh = ut.height * 0.5;
+            if (localX >= p.x - hw && localX <= p.x + hw &&
+                localY >= p.y - hh && localY <= p.y + hh) {
+                return i;
+            }
+        }
+        return -1;
     }
 
-    private _select(index: number): void {
+    getPageForIndex(index: number): number {
+        const perPage = this._cols * this._rows;
+        return Math.floor(index / perPage);
+    }
+
+    select(index: number): void {
         if (!this._brushState) return;
+        if (this._completedSet.has(index)) return;
+        if (index < 0 || index >= this._palette.length) return;
+        const prevPage = this.getPageForIndex(this._selectedIndex);
         this._brushState.currentIndex = index;
         this._selectedIndex = index;
         for (let i = 0; i < this._itemRoots.length; i++) {
@@ -231,24 +220,51 @@ export class PalettePanel extends Component {
             if (ringNode) ringNode.active = i === index;
         }
         this._onBrushIndexChanged?.();
+        const newPage = this.getPageForIndex(index);
+        if (newPage !== prevPage) this.onScrollToPage?.(newPage);
+    }
+
+    markBrushComplete(brushIndex: number): void {
+        if (brushIndex < 0 || brushIndex >= this._itemRoots.length) return;
+        this._completedSet.add(brushIndex);
+        const item = this._itemRoots[brushIndex];
+        const labNode = item.getChildByName('Label');
+        if (labNode) {
+            const lab = labNode.getComponent(Label);
+            if (lab) { lab.string = '✓'; lab.fontSize = 36; }
+        }
+    }
+
+    autoSelectNextUnfinished(completedIndex: number, isComplete: (i: number) => boolean): void {
+        if (this._selectedIndex !== completedIndex) return;
+        const len = this._itemRoots.length;
+        for (let offset = 1; offset < len; offset++) {
+            const idx = (completedIndex + offset) % len;
+            if (!isComplete(idx)) {
+                this.select(idx);
+                return;
+            }
+        }
+    }
+
+    private _spriteCustomSize(sprite: Sprite, frame: SpriteFrame, w: number, h: number): void {
+        sprite.sizeMode = Sprite.SizeMode.CUSTOM;
+        sprite.type = Sprite.Type.SIMPLE;
+        sprite.spriteFrame = frame;
+        sprite.node.getComponent(UITransform)!.setContentSize(w, h);
     }
 
     private _hexToColor(hex: string): Color {
         let s = hex.trim();
         if (s.startsWith('#')) s = s.slice(1);
         const n = parseInt(s, 16);
-        if (Number.isNaN(n) || s.length < 6) {
-            return new Color(136, 136, 136, 255);
-        }
+        if (Number.isNaN(n) || s.length < 6) return new Color(136, 136, 136, 255);
         return new Color((n >> 16) & 0xff, (n >> 8) & 0xff, n & 0xff, 255);
     }
 
-    /** 根据底色选黑/白字，保证可读 */
     private _contrastLabelColor(bg: Color): Color {
-        const r = bg.r / 255;
-        const g = bg.g / 255;
-        const b = bg.b / 255;
-        const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-        return luminance > 0.55 ? new Color(30, 30, 30, 255) : new Color(255, 255, 255, 255);
+        const r = bg.r / 255, g = bg.g / 255, b = bg.b / 255;
+        const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        return lum > 0.55 ? new Color(30, 30, 30, 255) : new Color(255, 255, 255, 255);
     }
 }

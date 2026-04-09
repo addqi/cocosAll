@@ -6,6 +6,8 @@ export interface LevelEntry {
 }
 
 export const LevelManifest: readonly LevelEntry[] = [
-    { id: 'apple',    name: '苹果', jsonPath: 'puzzles/apple' },
-    { id: 'mountain', name: '山水', jsonPath: 'puzzles/mountain' },
+    { id: 'test_1px',    name: '1px测试', jsonPath: 'puzzles/test_1px' },
+    { id: 'test_simple', name: '测试',    jsonPath: 'puzzles/test_simple' },
+    { id: 'apple',       name: '苹果',    jsonPath: 'puzzles/apple' },
+    { id: 'mountain',    name: '山水',    jsonPath: 'puzzles/mountain' },
 ];

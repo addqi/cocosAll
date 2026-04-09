@@ -1,60 +1,86 @@
 /**
- * 全局数值 — 视口/缩放/平移与 G15_FBase_GameConfig 对齐（keyboardZoomSpeed、keyboardPanSpeed、viewportPadding、correctCellExpandPx 等）
+ * 全局数值配置 — 纯数据，零依赖
  */
 export const GameConfig = {
+
+    // ==================== 基础尺寸 ====================
     /** 单格在屏幕上的显示边长（像素） */
     defaultCellDisplaySize: 20,
-
     viewportWidth: 960,
     viewportHeight: 1320,
-
     gridCols: 120,
     gridRows: 120,
 
+    // ==================== 视口/缩放 ====================
     maxScale: 1,
     viewportPadding: 200,
-
-    /** WASD/HJKL 平移视口（像素/秒）— 对齐 G15 keyboardPanSpeed */
+    /** WASD/HJKL 平移视口（像素/秒） */
     viewportArrowPanSpeed: 600,
-
-    /** 错误格上四方向「正确格」吸附时每边放大量（屏幕 px），对齐 G15 correctCellExpandPx */
-    correctCellExpandPx: 25,
-
-    paintSnapRadiusPx: 40,
-    /** 单指平移/判定 moved：对齐 G15 TouchMoveLogic */
-    moveThreshold: 5,
-
-    boardGrayMinColor: 0x868686,
-    /** 放大时盘面灰度渐变目标色（G15 boardFadeColor） */
-    boardFadeColor: 0xffffff,
-    /** 当前画笔匹配格基础色（G15 selectedCellColor） */
-    selectedCellColor: 0x858585,
-    /** 当前画笔匹配格放大后目标色（G15 selectedCellFadeColor） */
-    selectedCellFadeColor: 0xb9b9b9,
-
-    /** 视口缩放 — 与 G15 键盘缩放同量级 */
     viewportZoomStep: 0.1,
-    /** 整盘适配屏幕时，相对「刚好塞进视口」的缩放比例（略小于 1 留边） */
+    /** 整盘适配屏幕时，相对「刚好塞进视口」的缩放比例 */
     viewportAutoFitScreenRatio: 0.9,
-    /** 最大放大：较短边约可见此数量的格子（再放大则被钳制） */
+    /** 最大放大：较短边约可见此数量的格子 */
     viewportMaxZoomVisibleCells: 8,
-    /** 对齐 G15 keyboardZoomSpeed：scale *= (1 ± 此值×dt) */
+    /** scale *= (1 ± 此值×dt) */
     viewportZoomSpeedPerSecond: 2,
-    /** 启动时自动适配整盘可见 */
     viewportAutoFit: true,
-
-    /** 橡皮筋阻力：超过 min/max 后只响应 30% 的缩放量 */
+    /** 橡皮筋阻力 */
     viewportRubberBandFactor: 0.3,
     /** 松手后弹回合法范围的时长（秒） */
     viewportSnapBackDuration: 0.25,
-
-    /**
-     * ZoomFade：在 (minScale→maxScale) 归一化进度 t∈[0,1] 上做 smoothstep。
-     * pxielArt 的 content.scale 量纲随盘面变化，不可用 G15 固定 0.7；改用 t 区间。
-     */
     viewportDetailSmoothLowT: 0,
-    /** t 达到此值时细节 alpha≈1（建议 <1，留余量到 maxScale） */
     viewportDetailSmoothHighT: 0.5,
-    /** G15：纹理上传前 alpha 量化档位数，减少 Board 重刷 */
+    /** 纹理上传前 alpha 量化档位数 */
     viewportZoomFadeAlphaSteps: 20,
+
+    // ==================== 输入/绘制 ====================
+    /** 错误格吸附时每边放大量（屏幕 px） */
+    correctCellExpandPx: 25,
+    paintSnapRadiusPx: 40,
+    /** 单指平移判定 moved 的阈值 */
+    moveThreshold: 5,
+
+    // ==================== 棋盘颜色（0xRRGGBB） ====================
+    boardGrayMinColor: 0x868686,
+    boardFadeColor: 0xffffff,
+    selectedCellColor: 0x858585,
+    selectedCellFadeColor: 0xb9b9b9,
+
+    // ==================== 调色板 ====================
+    paletteItemWidth: 100,
+    paletteItemHeight: 100,
+    paletteItemSpacing: 12,
+    palettePadding: 14,
+    paletteLabelFontSize: 28,
+    /** 选中描边颜色（0xRRGGBB） */
+    paletteRingColor: 0x303030,
+    paletteRingOutset: 4,
+    paletteItemRootOutset: 6,
+    paletteUseContrastLabel: true,
+    /** 序号固定色（仅当 useContrastLabel=false） */
+    paletteLabelFixedColor: 0xffffff,
+    /** 每页列数 */
+    paletteColumnsPerPage: 5,
+    /** 每页行数 */
+    paletteRowsPerPage: 2,
+    /** 翻页滑动阈值 (px) */
+    paletteSwipeThreshold: 50,
+    /** 翻页吸附速度 (px/s) */
+    paletteSnapSpeed: 3000,
+    /** 默认显示页（0=道具, 1=第一页色块） */
+    paletteDefaultPage: 1,
+
+    // ==================== 结算界面 ====================
+    /** 白色面板渐显时长（秒） */
+    settlementFadeInDur: 0.3,
+    /** fade-in 完成后到回放开始的延迟（秒） */
+    settlementReplayStartDelay: 0.3,
+    /** 回放总时长（秒） */
+    settlementReplayDur: 1.8,
+    /** 回放图占屏幕短边比例 */
+    settlementImageScale: 0.85,
+    /** 回放完成后按钮淡入延迟（秒） */
+    settlementActionFadeInDelay: 0.5,
+    /** 回放完成后按钮淡入时长（秒） */
+    settlementActionFadeInDur: 0.3,
 } as const;

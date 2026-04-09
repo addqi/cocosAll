@@ -1,6 +1,8 @@
 import { _decorator, Component, EventTouch, Node, Touch, UITransform, Vec2, Vec3 } from 'cc';
 import { GameConfig } from '../../config/GameConfig';
+import { ToolType } from '../../config/ToolConfig';
 import { BoardRuntimeContext } from '../../game/BoardRuntimeContext';
+import { ToolExecutor } from '../tool/ToolExecutor';
 import {
     PaintSnapSession,
     cellFilled,
@@ -397,6 +399,12 @@ export class BoardTouchInput extends Component {
         if (this._activeTouchIds.size > 0) return;
 
         if (!this._moved && t) {
+            if (this._tryExecuteTool(ctx, t)) {
+                this._resetPaintGesture();
+                this._snapSession.reset();
+                return;
+            }
+
             const loc = this._brushLocalFromTouch(t);
             const brushIdx = ctx.brushState.currentIndex;
             const scale = ctx.viewport.scale;
@@ -477,5 +485,35 @@ export class BoardTouchInput extends Component {
         const midUi = new Vec2((l0.x + l1.x) * 0.5, (l0.y + l1.y) * 0.5);
         this._pinchPrevMid = this._uiToBoardRoot(midUi);
         this._pinchPrevDist = Vec2.distance(l0, l1);
+    }
+
+    private _tryExecuteTool(ctx: BoardRuntimeContext, t: Touch): boolean {
+        const ts = ctx.toolState;
+        const activeType = ts.activeType;
+        if (activeType === ToolType.None) return false;
+
+        const cell = this._cellFromTouch(t);
+        if (!cell) { ts.deactivate(); return true; }
+
+        const isFilled = (r: number, c: number) =>
+            cellFilled(ctx.boardData, ctx.brushLayer.pixelBuffer, r, c);
+
+        let pending: import('../../types/types').CellBrushEntry[] = [];
+        if (activeType === ToolType.MagicWand) {
+            pending = ToolExecutor.magicWand(cell.row, cell.col, ctx.boardData, isFilled);
+        } else if (activeType === ToolType.Bomb) {
+            pending = ToolExecutor.bomb(cell.row, cell.col, ctx.boardData, isFilled);
+        }
+
+        if (pending.length > 0) {
+            ts.consume(activeType);
+            ctx.paintExecutor.paintCells(pending);
+            ctx.flushPaintLayers();
+            ctx.saveManager.commitMatchedEntries(ctx.paintExecutor.entries, ctx.boardData.gridCols);
+        } else {
+            ctx.onToast?.('该区域已涂完');
+        }
+        ts.deactivate();
+        return true;
     }
 }

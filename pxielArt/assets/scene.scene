@@ -22,7 +22,9 @@
     ],
     "_active": true,
     "_components": [],
-    "_prefab": null,
+    "_prefab": {
+      "__id__": 15
+    },
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
@@ -52,7 +54,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 15
+      "__id__": 16
     },
     "_id": "d01db569-b926-415b-a456-75ad1e6cbc8e"
   },
@@ -257,7 +259,7 @@
       "y": 0,
       "z": 0
     },
-    "_id": "dd0vOe0IFDMbZT/wyHXYYt"
+    "_id": "e8sB6HjWxBE6WiUKrOmGQy"
   },
   {
     "__type__": "cc.UITransform",
@@ -279,7 +281,7 @@
       "x": 0.5,
       "y": 0.5
     },
-    "_id": "49l/lEkWdFcqUNKK5TF4Rv"
+    "_id": "bff6nwmQ1KBodyaugXU0yv"
   },
   {
     "__type__": "cc.Sprite",
@@ -296,9 +298,9 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 50,
-      "g": 26,
-      "b": 118,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_spriteFrame": {
@@ -318,7 +320,7 @@
     "_isTrimmedMode": true,
     "_useGrayscale": false,
     "_atlas": null,
-    "_id": "94Xz5go7hA9rNTVzzToJBu"
+    "_id": "e9/AADssJLwZQc6jbfBO6W"
   },
   {
     "__type__": "cc.Widget",
@@ -348,7 +350,7 @@
     "_originalHeight": 100,
     "_alignMode": 2,
     "_lockFlags": 0,
-    "_id": "c3TY0wsvhNVagqXTCddYDa"
+    "_id": "fbVdB3iX1BUbEE1j20eKx4"
   },
   {
     "__type__": "cc.Node",
@@ -532,30 +534,38 @@
     "_id": "5eO3EVAP1KabiZuGMCRc3A"
   },
   {
+    "__type__": "cc.PrefabInfo",
+    "root": null,
+    "asset": null,
+    "fileId": "d01db569-b926-415b-a456-75ad1e6cbc8e",
+    "instance": null,
+    "targetOverrides": null
+  },
+  {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 16
-    },
-    "shadows": {
       "__id__": 17
     },
-    "_skybox": {
+    "shadows": {
       "__id__": 18
     },
-    "fog": {
+    "_skybox": {
       "__id__": 19
     },
-    "octree": {
+    "fog": {
       "__id__": 20
     },
-    "skin": {
+    "octree": {
       "__id__": 21
     },
-    "lightProbeInfo": {
+    "skin": {
       "__id__": 22
     },
-    "postSettings": {
+    "lightProbeInfo": {
       "__id__": 23
+    },
+    "postSettings": {
+      "__id__": 24
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false

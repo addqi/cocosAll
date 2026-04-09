@@ -32,6 +32,12 @@ export class BoardViewportInput extends Component {
     update(dt: number): void {
         const ctx = this._ctx;
         if (!ctx || dt <= 0) return;
+
+        if (ctx.magnifierEffect.active) {
+            ctx.magnifierEffect.tick(dt, ctx);
+            return;
+        }
+
         if (ctx.viewport.tickSnapBack(dt)) return;
         const speed = GameConfig.viewportArrowPanSpeed;
         if (this._panX !== 0 || this._panY !== 0) {

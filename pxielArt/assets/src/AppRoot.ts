@@ -1,8 +1,10 @@
-import { _decorator, Color, Component, log, Material, Node, Sprite, SpriteFrame, UITransform, view, Widget } from 'cc';
+import { _decorator, Color, Component, Material, Node, Sprite, SpriteFrame, UITransform, view, Widget } from 'cc';
 import { GameConfig } from './config/GameConfig';
 import { LevelEntry } from './config/LevelManifest';
 import { HomePage } from './ui/home/HomePage';
 import { GamePage, GamePageAssets } from './ui/game/GamePage';
+import { MyWorksPage } from './ui/myworks/MyWorksPage';
+import { ToolState } from './core/tool/ToolState';
 
 const { ccclass, property } = _decorator;
 
@@ -13,46 +15,13 @@ const { ccclass, property } = _decorator;
 @ccclass('AppRoot')
 export class AppRoot extends Component {
 
-    /* ── 编辑器属性（从原 GameManager 搬过来） ── */
-
-    @property({ displayName: '格子显示边长', tooltip: '单格在屏幕上的像素边长' })
-    cellDisplaySize = GameConfig.defaultCellDisplaySize;
+    /* ── 编辑器引用（只保留必须拖入的资源） ── */
 
     @property({ type: Material, displayName: 'Digit 材质' })
     digitMaterial: Material = null!;
 
     @property({ type: SpriteFrame, displayName: '调色块底图' })
     paletteItemSprite: SpriteFrame = null!;
-
-    @property({ group: { name: '调色板', id: '1' }, displayName: '色块显示宽' })
-    paletteItemWidth = 100;
-
-    @property({ group: { name: '调色板', id: '1' }, displayName: '色块显示高' })
-    paletteItemHeight = 100;
-
-    @property({ group: { name: '调色板', id: '1' }, displayName: '色块间距' })
-    paletteItemSpacing = 12;
-
-    @property({ group: { name: '调色板', id: '1' }, displayName: '内边距' })
-    palettePadding = 14;
-
-    @property({ group: { name: '调色板', id: '1' }, displayName: '序号字号' })
-    paletteLabelFontSize = 28;
-
-    @property({ type: Color, group: { name: '调色板', id: '1' }, displayName: '选中描边颜色' })
-    paletteRingColor = new Color(48, 48, 48, 255);
-
-    @property({ group: { name: '调色板', id: '1' }, displayName: '描边外扩(px/边)' })
-    paletteRingOutset = 4;
-
-    @property({ group: { name: '调色板', id: '1' }, displayName: '点击区外扩(px/边)' })
-    paletteItemRootOutset = 6;
-
-    @property({ group: { name: '调色板', id: '1' }, displayName: '序号自动对比色' })
-    paletteUseContrastLabel = true;
-
-    @property({ type: Color, group: { name: '调色板', id: '1' }, displayName: '序号固定色' })
-    paletteLabelFixedColor = new Color(255, 255, 255, 255);
 
     /* ── 页面引用 ── */
 
@@ -62,12 +31,15 @@ export class AppRoot extends Component {
 
     private _homePage: HomePage = null!;
     private _gamePage: GamePage = null!;
+    private _myWorksPage: MyWorksPage = null!;
+    private _toolState: ToolState = null!;
 
     start(): void {
         const vs = view.getVisibleSize();
         const rootUt = this.node.getComponent(UITransform);
         if (rootUt) rootUt.setContentSize(vs.width, vs.height);
 
+        this._toolState = new ToolState();
         this._createBackground(vs);
         this._createPages(vs);
         this.showHome();
@@ -91,7 +63,10 @@ export class AppRoot extends Component {
     }
 
     showMyWorks(): void {
-        log('[AppRoot] MyWorks — 尚未实现');
+        this._homeNode.active = false;
+        this._gameNode.active = false;
+        this._myWorksNode.active = true;
+        this._myWorksPage.refreshList();
     }
 
     /* ── 内部构建 ── */
@@ -124,10 +99,12 @@ export class AppRoot extends Component {
         // GamePage
         this._gameNode = this._createPageNode('GamePage', vs);
         this._gamePage = this._gameNode.addComponent(GamePage);
-        this._gamePage.init(this._buildGameAssets(), () => this.showHome());
+        this._gamePage.init(this._buildGameAssets(), this._toolState, () => this.showHome());
 
-        // MyWorksPage（预留空节点）
+        // MyWorksPage
         this._myWorksNode = this._createPageNode('MyWorksPage', vs);
+        this._myWorksPage = this._myWorksNode.addComponent(MyWorksPage);
+        this._myWorksPage.init(() => this.showHome());
     }
 
     private _createPageNode(name: string, vs: { width: number; height: number }): Node {
@@ -139,22 +116,29 @@ export class AppRoot extends Component {
     }
 
     private _buildGameAssets(): GamePageAssets {
+        const C = GameConfig;
+        const hex = (v: number) => new Color((v >> 16) & 0xff, (v >> 8) & 0xff, v & 0xff, 255);
         return {
             digitMaterial: this.digitMaterial,
             paletteItemSprite: this.paletteItemSprite,
-            cellDisplaySize: this.cellDisplaySize,
+            cellDisplaySize: C.defaultCellDisplaySize,
             paletteStyle: {
-                itemWidth: this.paletteItemWidth,
-                itemHeight: this.paletteItemHeight,
-                itemSpacing: this.paletteItemSpacing,
-                padding: this.palettePadding,
-                labelFontSize: this.paletteLabelFontSize,
-                ringColor: this.paletteRingColor,
-                ringOutset: this.paletteRingOutset,
-                itemRootOutset: this.paletteItemRootOutset,
-                useContrastLabel: this.paletteUseContrastLabel,
-                labelFixedColor: this.paletteLabelFixedColor,
-            },
+                itemWidth: C.paletteItemWidth,
+                itemHeight: C.paletteItemHeight,
+                itemSpacing: C.paletteItemSpacing,
+                padding: C.palettePadding,
+                labelFontSize: C.paletteLabelFontSize,
+                ringColor: hex(C.paletteRingColor),
+                ringOutset: C.paletteRingOutset,
+                itemRootOutset: C.paletteItemRootOutset,
+            useContrastLabel: C.paletteUseContrastLabel,
+            labelFixedColor: hex(C.paletteLabelFixedColor),
+            columnsPerPage: C.paletteColumnsPerPage,
+            rowsPerPage: C.paletteRowsPerPage,
+            swipeThreshold: C.paletteSwipeThreshold,
+            snapSpeed: C.paletteSnapSpeed,
+            defaultPage: C.paletteDefaultPage,
+        },
         };
     }
 }

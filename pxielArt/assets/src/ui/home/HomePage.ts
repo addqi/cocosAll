@@ -185,23 +185,31 @@ export class HomePage extends Component {
         scroll.inertia = true;
 
         this._scrollContent = content;
-        this._loadAllLevels(content);
     }
 
     /* ========== 加载关卡列表 ========== */
 
     private _loadAllLevels(content: Node): void {
         for (const entry of LevelManifest) {
+            const status = this._getLevelStatus(entry.id);
+            if (status === 'done') continue;
+
             resources.load(entry.jsonPath, JsonAsset, (err, jsonAsset) => {
                 if (err || !jsonAsset) return;
                 const puzzle = jsonAsset.json as PuzzleData;
-                const previewSF = PuzzlePreview.createSpriteFrame(puzzle);
-                const status = this._getLevelStatus(entry.id);
+
+                let paintedSet: Set<number> | undefined;
+                if (status === 'progress') {
+                    paintedSet = new Set<number>();
+                    for (const r of StorageService.loadPaintRecord(entry.id)) {
+                        paintedSet.add(r.row * puzzle.gridSize + r.col);
+                    }
+                }
+
+                const previewSF = PuzzlePreview.createSpriteFrame(puzzle, paintedSet);
                 const card = LevelCard.create(
-                    entry.name,
-                    previewSF,
-                    () => this._onSelectLevel?.(entry),
-                    status,
+                    entry.name, previewSF,
+                    () => this._onSelectLevel?.(entry), status,
                 );
                 content.addChild(card);
             });

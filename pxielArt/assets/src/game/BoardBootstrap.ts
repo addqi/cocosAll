@@ -12,6 +12,7 @@ import { BoardRuntimeContext } from './BoardRuntimeContext';
 import { ViewportController } from '../core/viewport/ViewportController';
 import { PaintSaveManager } from '../storage/PaintSaveManager';
 import { PaintRestore } from '../storage/PaintRestore';
+import { ToolState } from '../core/tool/ToolState';
 
 export interface BoardViewportParams {
     zoomStep: number;
@@ -26,6 +27,7 @@ export interface BoardBootstrapParams {
     digitMaterial: Material;
     viewport: BoardViewportParams;
     levelId: string;
+    toolState: ToolState;
 }
 
 /** 建 Content → Board → Digit → Brush，接视口缩放 */
@@ -91,6 +93,8 @@ export class BoardBootstrap {
             },
         });
 
+        p.toolState.resetActive();
+
         ctx = new BoardRuntimeContext({
             boardRoot: p.boardRoot,
             contentNode: content,
@@ -105,6 +109,7 @@ export class BoardBootstrap {
             paintExecutor,
             viewport,
             saveManager,
+            toolState: p.toolState,
         });
 
         PaintRestore.restore(ctx);
