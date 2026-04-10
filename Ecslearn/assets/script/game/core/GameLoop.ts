@@ -52,7 +52,6 @@ export class GameLoop extends Component {
             GameLoop._isReady = true;
             for (const fn of GameLoop._readyFns) fn();
             GameLoop._readyFns.length = 0;
-            console.log('[GameLoop] resources ready');
         });
     }
 

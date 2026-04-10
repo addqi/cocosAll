@@ -1,0 +1,9 @@
+{
+    "id": 2002,
+    "name": "暴击强化",
+    "duration": 0,
+    "maxStack": 5,
+    "effectClass": "CritBoostEffect",
+    "targetAttr": "CritRate-Value-Buff",
+    "valuePerStack": 0.1
+}

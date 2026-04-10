@@ -33,12 +33,12 @@ export class ResourceMgr {
 
     /**
      * 同步获取已缓存资源（游戏运行期专用）
-     * 预加载阶段未覆盖到的路径会返回 null 并 warn
+     * 预加载阶段未覆盖到的路径会返回 null 并输出错误
      */
     get<T extends Asset>(path: string): T | null {
         const asset = this._cache.get(path);
         if (!asset) {
-            console.warn(`[ResourceMgr] cache miss: "${path}" — 请确认已在 preload 中声明`);
+            console.error(`[ResourceMgr] cache miss: "${path}" — 请确认已在 preload 中声明`);
             return null;
         }
         return asset as T;

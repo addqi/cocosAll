@@ -67,6 +67,12 @@ export class SpriteAnimator {
         return this._clips.has(key);
     }
 
+    /** 返回指定片段在 speed=1 时的播放时长（秒），不存在则返回 0 */
+    getClipDuration(key: string): number {
+        const clip = this._clips.get(key);
+        return clip && clip.frames.length > 0 ? clip.frames.length / clip.fps : 0;
+    }
+
     // ─── 播放控制 ───
 
     /**

@@ -1,0 +1,14 @@
+{
+  "attribute": "ExtraProjectiles",
+  "valueNodes": [
+    { "id": "ExtraProjectiles-Value-Config", "value": 0, "tag": "base" },
+    { "id": "ExtraProjectiles-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "ExtraProjectiles-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "ExtraProjectiles-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "ExtraProjectiles-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "ExtraProjectiles-Value", "expression": "{{ExtraProjectiles-Value-Config}} + {{ExtraProjectiles-Value-Buff}} + {{ExtraProjectiles-Value-Other}}" },
+    { "id": "ExtraProjectiles",       "expression": "{{ExtraProjectiles-Value}} * (1 + {{ExtraProjectiles-Mul-Buff}} + {{ExtraProjectiles-Mul-Other}})" }
+  ]
+}

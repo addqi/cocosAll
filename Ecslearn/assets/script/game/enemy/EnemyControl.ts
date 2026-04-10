@@ -51,7 +51,7 @@ export class EnemyControl extends Component {
 
         this._prop = new EnemyProperty();
         this._combat = new EnemyCombat(this._prop);
-        this._buffOwner = new EnemyBuffOwner(this._prop, `enemy-${this.node.name}`);
+        this._buffOwner = new EnemyBuffOwner(this._prop, this._combat, `enemy-${this.node.name}`);
         this._buffMgr = new EntityBuffMgr(this._prop);
 
         this._createHpLabel();

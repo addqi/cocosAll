@@ -8,6 +8,7 @@ export class RawInputSystem implements ISystem {
     private frameDown = new Set<number>();
     private frameUp   = new Set<number>();
     private frameMouseDown = false;
+    private mouseLeftHeld  = false;
 
     constructor() {
         input.on(Input.EventType.KEY_DOWN, (e: EventKeyboard) => {
@@ -21,6 +22,12 @@ export class RawInputSystem implements ISystem {
         input.on(Input.EventType.MOUSE_DOWN, (e: EventMouse) => {
             if (e.getButton() === EventMouse.BUTTON_LEFT) {
                 this.frameMouseDown = true;
+                this.mouseLeftHeld  = true;
+            }
+        });
+        input.on(Input.EventType.MOUSE_UP, (e: EventMouse) => {
+            if (e.getButton() === EventMouse.BUTTON_LEFT) {
+                this.mouseLeftHeld = false;
             }
         });
     }
@@ -34,6 +41,7 @@ export class RawInputSystem implements ISystem {
             raw.down = new Set(this.frameDown);
             raw.up   = new Set(this.frameUp);
             raw.mouseDown = this.frameMouseDown;
+            raw.mouseHeld = this.mouseLeftHeld;
         }
         this.frameDown.clear();
         this.frameUp.clear();

@@ -22,16 +22,4 @@ export class AddHpBuffEffect extends BuffEffectBase {
             value,
         }];
     }
-
-    onAdd(): void {
-        console.log('AddHpBuffEffect onAdd');
-    }
-
-    onRemove(): void {
-        console.log('AddHpBuffEffect onRemove');
-    }
-
-    onTick(): void {
-        console.log('AddHpBuffEffect onTick');
-    }
 }

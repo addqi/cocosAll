@@ -29,6 +29,13 @@ export class EnemyCombat {
         return actual;
     }
 
+    /** 纯伤害，不经 DEF 减免（供 DOT 使用） */
+    takePureDamage(amount: number): number {
+        const actual = Math.max(Math.round(amount), 0);
+        this._currentHp = Math.max(this._currentHp - actual, 0);
+        return actual;
+    }
+
     heal(amount: number): number {
         const before = this._currentHp;
         this._currentHp = Math.min(this._currentHp + Math.round(amount), this.maxHp);

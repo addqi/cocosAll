@@ -1,0 +1,14 @@
+{
+  "attribute": "BounceCount",
+  "valueNodes": [
+    { "id": "BounceCount-Value-Config", "value": 0, "tag": "base" },
+    { "id": "BounceCount-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "BounceCount-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "BounceCount-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "BounceCount-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "BounceCount-Value", "expression": "{{BounceCount-Value-Config}} + {{BounceCount-Value-Buff}} + {{BounceCount-Value-Other}}" },
+    { "id": "BounceCount",       "expression": "{{BounceCount-Value}} * (1 + {{BounceCount-Mul-Buff}} + {{BounceCount-Mul-Other}})" }
+  ]
+}

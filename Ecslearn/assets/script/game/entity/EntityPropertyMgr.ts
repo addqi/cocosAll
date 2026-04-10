@@ -73,7 +73,7 @@ export class EntityPropertyMgr extends GeneralPropertyMgr {
             // 写入基础值到 Config 节点
             const nodeId = PROP_CONFIG_MAP[key as EPropertyId]?.[EPropertyConfigId.BaseValueConfig];
             if (!nodeId) {
-                console.warn(`[EntityPropertyMgr] 未找到 ${key} 的 BaseValueConfig 节点，请检查 PROP_CONFIG_MAP`);
+                console.error(`[EntityPropertyMgr] 未找到 ${key} 的 BaseValueConfig 节点，请检查 PROP_CONFIG_MAP`);
                 return;
             }
 
@@ -120,7 +120,7 @@ export class EntityPropertyMgr extends GeneralPropertyMgr {
         const handle = ++this.handleCounter;
         const propId = PROP_CONFIG_MAP[id]?.[part];
         if (!propId) {
-            console.warn(`[EntityPropertyMgr] 未找到节点：id=${id}, part=${part}`);
+            console.error(`[EntityPropertyMgr] 未找到节点：id=${id}, part=${part}`);
             return handle;
         }
         const mod = this.addByPropId(propId, type, value, maxValue);

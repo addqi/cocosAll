@@ -1,0 +1,9 @@
+{
+    "id": 3001,
+    "name": "破甲",
+    "duration": 0,
+    "maxStack": 5,
+    "effectClass": "DefenseReduceEffect",
+    "targetAttr": "Defense-Mul-Buff",
+    "valuePerStack": -0.1
+}

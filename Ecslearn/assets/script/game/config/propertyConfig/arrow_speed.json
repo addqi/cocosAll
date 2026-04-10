@@ -1,0 +1,14 @@
+{
+  "attribute": "ArrowSpeed",
+  "valueNodes": [
+    { "id": "ArrowSpeed-Value-Config", "value": 0, "tag": "base" },
+    { "id": "ArrowSpeed-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "ArrowSpeed-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "ArrowSpeed-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "ArrowSpeed-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "ArrowSpeed-Value", "expression": "{{ArrowSpeed-Value-Config}} + {{ArrowSpeed-Value-Buff}} + {{ArrowSpeed-Value-Other}}" },
+    { "id": "ArrowSpeed",       "expression": "{{ArrowSpeed-Value}} * (1 + {{ArrowSpeed-Mul-Buff}} + {{ArrowSpeed-Mul-Other}})" }
+  ]
+}

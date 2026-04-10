@@ -10,14 +10,36 @@
  * 新增属性时需同步在此添加
  */
 export enum EPropertyId {
+    /** 生命值 */
     Hp = 'Hp',
+    /** 攻击力 */
     Attack = 'Attack',
+    /** 防御力 */
     Defense = 'Defense',
+    /** 暴击率 */
     CritRate = 'CritRate',
+    /** 暴击伤害 */
     CritDmg = 'CritDmg',
+    /** 攻击速度 */
     AttackSpeed = 'AttackSpeed',
+    /** 移动速度 */
     MoveSpeed = 'MoveSpeed',
+    /** 吸血率 */
     LifestealRate = 'LifestealRate',
+    /** 额外弹道数 */
+    ExtraProjectiles = 'ExtraProjectiles',
+    /** 穿透次数 */
+    PierceCount = 'PierceCount',
+    /** 弹射次数 */
+    BounceCount = 'BounceCount',
+    /** 扇形角度 */
+    SpreadAngle = 'SpreadAngle',
+    /** 追踪强度 */
+    HomingStrength = 'HomingStrength',
+    /** 箭速 */
+    ArrowSpeed = 'ArrowSpeed',
+    /** 攻击范围 */
+    AttackRange = 'AttackRange',
 }
 
 /**

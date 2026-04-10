@@ -1,0 +1,10 @@
+{
+    "id": 3002,
+    "name": "生命回复",
+    "duration": 0,
+    "maxStack": 5,
+    "tickInterval": 1,
+    "stackDecayOnTick": true,
+    "effectClass": "RegenEffect",
+    "healPercent": 0.1
+}

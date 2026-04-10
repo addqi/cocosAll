@@ -38,7 +38,7 @@ export class BuffFactory {
             if (ctor) {
                 runtime.effect = new ctor(runtime);
             } else {
-                console.warn(`[BuffFactory] effectClass "${data.effectClass}" 未注册，Buff 将无效果`);
+                console.error(`[BuffFactory] effectClass "${data.effectClass}" 未注册，Buff 将无效果`);
             }
         }
 

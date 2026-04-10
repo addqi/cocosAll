@@ -5,6 +5,7 @@ import { Entity } from '../../baseSystem/ecs';
 import { StateMachine } from '../../baseSystem/fsm';
 import { RawInputComp, ActionComp, EAction, VelocityComp, NodeRefComp } from '../component';
 import { EntityBuffMgr } from '../entity/EntityBuffMgr';
+import { EPropertyId } from '../config/enum/propertyEnum';
 import { World } from '../core/World';
 import { GameLoop } from '../core/GameLoop';
 import { PlayerAnimation } from './anim/PlayerAnimation';
@@ -12,6 +13,10 @@ import { PlayerProperty } from './property/playerProperty';
 import { PlayerCombat } from './combat/PlayerCombat';
 import { EnemyControl } from '../enemy/EnemyControl';
 import { playerConfig } from './config/playerConfig';
+import type { IShootPolicy } from '../shoot/types';
+import { HoldToShoot } from '../shoot/ShootPolicies';
+import { HitEffectMgr } from '../entity/HitEffectMgr';
+import '../hitEffects';
 import {
     EPlayerState,
     type PlayerCtx,
@@ -48,12 +53,19 @@ export class PlayerControl extends Component {
     private _buffOwner!: IBuffOwner;
     private _buffMgr!: EntityBuffMgr;
     private _hpLabel!: Label;
+    private _shootPolicy: IShootPolicy = new HoldToShoot();
+    private _hitEffectMgr!: HitEffectMgr;
 
     get combat(): PlayerCombat { return this._playerCombat; }
     get playerProp(): PlayerProperty { return this._playerProp; }
     get buffOwner(): IBuffOwner { return this._buffOwner; }
     get buffMgr(): EntityBuffMgr { return this._buffMgr; }
     get body(): Node { return this._body; }
+    get hitEffectMgr(): HitEffectMgr { return this._hitEffectMgr; }
+
+    setShootPolicy(policy: IShootPolicy): void {
+        this._shootPolicy = policy;
+    }
 
     onLoad() {
         this._body = new Node('Body');
@@ -81,8 +93,15 @@ export class PlayerControl extends Component {
         this._playerCombat = new PlayerCombat(this._playerProp);
         this._playerCombat.setHpRatio(0.5);
 
-        this._buffOwner = { uid: 'player', getPropertyManager: () => this._playerProp };
+        this._buffOwner = {
+            uid: 'player',
+            getPropertyManager: () => this._playerProp,
+            heal: (amount: number) => { this._playerCombat.heal(amount); },
+        };
         this._buffMgr = new EntityBuffMgr(this._playerProp);
+
+        this._hitEffectMgr = new HitEffectMgr();
+        this._hitEffectMgr.add({ id: 'base-damage', effectClass: 'DamageHitEffect', priority: 0 });
 
         this._createHpLabel();
         this._initProxy();
@@ -116,7 +135,8 @@ export class PlayerControl extends Component {
         const circleNode = new Node('RangeCircle');
         this._groundFX.addChild(circleNode);
 
-        const diameter = playerConfig.attackRange * 2;
+        const range = this._playerProp.getValue(EPropertyId.AttackRange);
+        const diameter = range * 2;
         const ut = circleNode.addComponent(UITransform);
         ut.setContentSize(diameter, diameter);
 
@@ -149,7 +169,11 @@ export class PlayerControl extends Component {
             body: this._body,
             fsm: null!,
             combat: this._playerCombat,
+            prop: this._playerProp,
             targetEnemy: null,
+            findNearestEnemy: () => this._findNearestEnemy(),
+            shootCooldown: 0,
+            hitEffectMgr: this._hitEffectMgr,
         };
         this._fsm = new StateMachine<EPlayerState, PlayerCtx>(this._ctx);
         this._ctx.fsm = this._fsm;
@@ -163,6 +187,8 @@ export class PlayerControl extends Component {
     lateUpdate(dt: number) {
         if (!this._entity) return;
 
+        this._ctx.shootCooldown = Math.max(0, this._ctx.shootCooldown - dt);
+
         if (this._hpLabel) {
             this._hpLabel.string = `${this._playerCombat.currentHp} / ${this._playerCombat.maxHp}`;
         }
@@ -170,15 +196,18 @@ export class PlayerControl extends Component {
         const vel = this._entity.getComponent(VelocityComp)!;
         const act = this._entity.getComponent(ActionComp)!;
         const isMoving = vel.vx !== 0 || vel.vy !== 0;
+        const hasTarget = this._findNearestEnemy() !== null;
 
-        if (act.justPressed.has(EAction.Attack) && this._fsm.current !== EPlayerState.Shoot) {
-            this._ctx.targetEnemy = this._findNearestEnemy();
+        const wantShoot = this._shootPolicy.wantShoot(act, hasTarget, isMoving);
+
+        if (wantShoot) {
             this._fsm.changeState(EPlayerState.Shoot);
-        } else if (this._fsm.current !== EPlayerState.Shoot) {
+        } else {
             this._fsm.changeState(isMoving ? EPlayerState.Run : EPlayerState.Idle);
-            if (vel.vx !== 0) {
-                this._body.setScale(vel.vx < 0 ? -1 : 1, 1, 1);
-            }
+        }
+
+        if (this._fsm.current !== EPlayerState.Shoot && vel.vx !== 0) {
+            this._body.setScale(vel.vx < 0 ? -1 : 1, 1, 1);
         }
 
         this._fsm.tick(dt);
@@ -186,7 +215,7 @@ export class PlayerControl extends Component {
 
     private _findNearestEnemy(): EnemyControl | null {
         const myPos = this.node.worldPosition;
-        const range = playerConfig.attackRange;
+        const range = this._playerProp.getValue(EPropertyId.AttackRange);
         let best: EnemyControl | null = null;
         let bestDist = Infinity;
 

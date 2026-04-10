@@ -1,0 +1,14 @@
+{
+  "attribute": "SpreadAngle",
+  "valueNodes": [
+    { "id": "SpreadAngle-Value-Config", "value": 0, "tag": "base" },
+    { "id": "SpreadAngle-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "SpreadAngle-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "SpreadAngle-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "SpreadAngle-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "SpreadAngle-Value", "expression": "{{SpreadAngle-Value-Config}} + {{SpreadAngle-Value-Buff}} + {{SpreadAngle-Value-Other}}" },
+    { "id": "SpreadAngle",       "expression": "{{SpreadAngle-Value}} * (1 + {{SpreadAngle-Mul-Buff}} + {{SpreadAngle-Mul-Other}})" }
+  ]
+}

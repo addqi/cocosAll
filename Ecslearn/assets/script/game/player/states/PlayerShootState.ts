@@ -1,14 +1,27 @@
-import { Vec3 } from 'cc';
 import type { IState } from '../../../baseSystem/fsm';
-import { QuadBezier } from '../../../baseSystem/math';
+import { EPropertyId } from '../../config/enum/propertyEnum';
 import { EPlayerAnim } from '../anim/PlayerAnimation';
-import { EPlayerState, type PlayerCtx } from './PlayerContext';
+import { playerConfig } from '../config/playerConfig';
 import { ArrowProjectile } from '../../projectile/ArrowProjectile';
 import { ProjectilePool } from '../../projectile/ProjectilePool';
-import { playerConfig } from '../config/playerConfig';
+import { ShootResolver } from '../../shoot/ShootResolver';
+import { createHitContext } from '../../hitEffects/types';
+import type { EnemyControl } from '../../enemy/EnemyControl';
+import type { PlayerCtx } from './PlayerContext';
 
 export class PlayerShootState implements IState<PlayerCtx> {
-    enter(ctx: PlayerCtx) {
+
+    enter(_ctx: PlayerCtx) {}
+
+    update(ctx: PlayerCtx, _dt: number) {
+        if (ctx.shootCooldown > 0) return;
+
+        const atkSpeed = Math.max(ctx.prop.getValue(EPropertyId.AttackSpeed), 0.1);
+        const baseDur = ctx.anim.animator.getClipDuration(EPlayerAnim.Shoot);
+        ctx.shootCooldown = baseDur / atkSpeed;
+        ctx.anim.animator.speed = atkSpeed;
+
+        ctx.targetEnemy = ctx.findNearestEnemy();
         const enemy = ctx.targetEnemy;
 
         if (enemy?.node.isValid) {
@@ -16,61 +29,44 @@ export class PlayerShootState implements IState<PlayerCtx> {
             ctx.body.setScale(facing, 1, 1);
         }
 
-        ctx.anim.playOnce(EPlayerAnim.Shoot, () => {
-            ctx.fsm.changeState(EPlayerState.Idle);
-        });
-
-        this._spawnArrow(ctx);
+        ctx.anim.playOnce(EPlayerAnim.Shoot);
+        this._fire(ctx);
     }
 
-    update(_ctx: PlayerCtx, _dt: number) {}
+    exit(ctx: PlayerCtx) {
+        ctx.anim.animator.speed = 1;
+    }
 
-    exit(_ctx: PlayerCtx) {}
+    private _fire(ctx: PlayerCtx) {
+        const shots = ShootResolver.resolve(
+            ctx.node.worldPosition,
+            ctx.body.scale.x,
+            ctx.targetEnemy,
+            ctx.prop,
+        );
+        const projConfig = ShootResolver.snapshotProjectileConfig(ctx.prop);
+        const { arrowTexture, arrowWidth, arrowHeight } = playerConfig;
+        const combat = ctx.combat;
+        const mgr = ctx.hitEffectMgr;
 
-    private _spawnArrow(ctx: PlayerCtx) {
-        const { arrowSpeed, arrowTexture, arrowWidth, arrowHeight, arrowArcRatio, arrowNoTargetRange } = playerConfig;
-        const enemy = ctx.targetEnemy;
-
-        const arrowNode = ProjectilePool.acquire();
-        let arrow = arrowNode.getComponent(ArrowProjectile);
-        if (!arrow) arrow = arrowNode.addComponent(ArrowProjectile);
-
-        const start = ctx.node.worldPosition.clone();
-
-        if (enemy?.node.isValid) {
-            const end = enemy.node.worldPosition.clone();
-            const dist = Vec3.distance(start, end);
-            const facing = end.x > start.x ? 1 : -1;
-            const curve = QuadBezier.createArc(start, end, dist * arrowArcRatio * facing);
-            const duration = dist / arrowSpeed;
-
-            const combat = ctx.combat!;
-            const enemyCombat = enemy.combat;
-            arrow.init(
-                curve, duration, true,
-                arrowWidth, arrowHeight, arrowTexture,
-                () => {
-                    const r = combat.attack(enemyCombat);
-                    const def = enemyCombat.defense;
-                    const reduction = Math.round(def / (def + 100) * 100);
-                    console.log(
-                        `[Combat] ATK=${r.playerAtk} → raw=${r.rawDamage}` +
-                        `${r.isCrit ? ` CRIT!(${(r.critRate * 100).toFixed(0)}%, ×${r.critDmg})` : ''}` +
-                        ` → DEF=${def}(${reduction}%减免) → dmg=${r.finalDamage}` +
-                        ` | enemy ${enemyCombat.currentHp}/${enemyCombat.maxHp}` +
-                        (r.healed > 0
-                            ? ` | steal ${(r.lifestealRate * 100).toFixed(0)}%: +${r.healed} → player ${combat.currentHp}/${combat.maxHp}`
-                            : ''),
-                    );
-                },
+        const onHit = (target: EnemyControl, damageRatio: number) => {
+            const hitCtx = createHitContext(
+                ctx.prop, combat, target.combat, target.buffMgr, target.buffOwner,
             );
-        } else {
-            const facing = ctx.body.scale.x >= 0 ? 1 : -1;
-            const range = arrowNoTargetRange;
-            const end = new Vec3(start.x + facing * range, start.y, start.z);
-            const curve = QuadBezier.createArc(start, end, range * 0.5 * facing);
-            const duration = range / arrowSpeed;
-            arrow.init(curve, duration, false, arrowWidth, arrowHeight, arrowTexture);
+            hitCtx.damageRatio = damageRatio;
+            mgr.execute(hitCtx);
+        };
+
+        for (const shot of shots) {
+            const arrowNode = ProjectilePool.acquire();
+            let arrow = arrowNode.getComponent(ArrowProjectile);
+            if (!arrow) arrow = arrowNode.addComponent(ArrowProjectile);
+
+            arrow.init(
+                shot.curve, shot.duration, shot.hasTarget, shot.target,
+                arrowWidth, arrowHeight, arrowTexture,
+                projConfig, onHit,
+            );
         }
     }
 }

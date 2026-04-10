@@ -50,7 +50,6 @@ export class BuffRuntimeInfo {
         this.owner = owner;
         this.remainTime = data.duration ?? 0;
         this.tickTimer = data.tickInterval ?? 0;
-        console.log('初始时间戳 初始化', this.tickTimer);
     }
 
     /**

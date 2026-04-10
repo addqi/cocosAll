@@ -1,0 +1,14 @@
+{
+  "attribute": "HomingStrength",
+  "valueNodes": [
+    { "id": "HomingStrength-Value-Config", "value": 0, "tag": "base" },
+    { "id": "HomingStrength-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "HomingStrength-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "HomingStrength-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "HomingStrength-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "HomingStrength-Value", "expression": "{{HomingStrength-Value-Config}} + {{HomingStrength-Value-Buff}} + {{HomingStrength-Value-Other}}" },
+    { "id": "HomingStrength",       "expression": "{{HomingStrength-Value}} * (1 + {{HomingStrength-Mul-Buff}} + {{HomingStrength-Mul-Other}})" }
+  ]
+}

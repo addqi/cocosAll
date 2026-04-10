@@ -1,0 +1,14 @@
+{
+  "attribute": "PierceCount",
+  "valueNodes": [
+    { "id": "PierceCount-Value-Config", "value": 0, "tag": "base" },
+    { "id": "PierceCount-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "PierceCount-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "PierceCount-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "PierceCount-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "PierceCount-Value", "expression": "{{PierceCount-Value-Config}} + {{PierceCount-Value-Buff}} + {{PierceCount-Value-Other}}" },
+    { "id": "PierceCount",       "expression": "{{PierceCount-Value}} * (1 + {{PierceCount-Mul-Buff}} + {{PierceCount-Mul-Other}})" }
+  ]
+}

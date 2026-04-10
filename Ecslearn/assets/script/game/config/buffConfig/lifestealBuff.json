@@ -1,0 +1,9 @@
+{
+    "id": 2003,
+    "name": "吸血",
+    "duration": 0,
+    "maxStack": 3,
+    "effectClass": "LifestealEffect",
+    "targetAttr": "LifestealRate-Value-Buff",
+    "valuePerStack": 0.1
+}

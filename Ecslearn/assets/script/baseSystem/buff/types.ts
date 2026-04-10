@@ -70,4 +70,8 @@ export interface IBuffOwner {
     getPropertyManager(): any;
     /** 可选，用于日志/调试的唯一标识 */
     uid?: string | number;
+    /** 可选，治疗接口供 RegenEffect 等 onTick 类 Buff 调用 */
+    heal?(amount: number): void;
+    /** 可选，扣血接口供 BurnDotEffect 等 DOT 类 Buff 调用（纯伤害，不经 DEF） */
+    damage?(amount: number): void;
 }

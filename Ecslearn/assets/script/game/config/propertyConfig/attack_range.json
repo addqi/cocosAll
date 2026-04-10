@@ -1,0 +1,14 @@
+{
+  "attribute": "AttackRange",
+  "valueNodes": [
+    { "id": "AttackRange-Value-Config", "value": 0, "tag": "base" },
+    { "id": "AttackRange-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "AttackRange-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "AttackRange-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "AttackRange-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "AttackRange-Value", "expression": "{{AttackRange-Value-Config}} + {{AttackRange-Value-Buff}} + {{AttackRange-Value-Other}}" },
+    { "id": "AttackRange",       "expression": "{{AttackRange-Value}} * (1 + {{AttackRange-Mul-Buff}} + {{AttackRange-Mul-Other}})" }
+  ]
+}
