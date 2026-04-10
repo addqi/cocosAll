@@ -40,6 +40,9 @@ export const GameConfig = {
     /** 单指平移判定 moved 的阈值 */
     moveThreshold: 5,
 
+    /** 顶部 HUD 占用高度（返回按钮 + 进度条区域） */
+    hudTopHeight: 100,
+
     // ==================== 棋盘颜色（0xRRGGBB） ====================
     boardGrayMinColor: 0x868686,
     boardFadeColor: 0xffffff,

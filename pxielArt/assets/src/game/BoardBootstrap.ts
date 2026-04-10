@@ -18,6 +18,8 @@ export interface BoardViewportParams {
     zoomStep: number;
     zoomSpeedPerSecond: number;
     autoFitInitial: boolean;
+    topInset: number;
+    bottomInset: number;
 }
 
 export interface BoardBootstrapParams {
@@ -70,9 +72,12 @@ export class BoardBootstrap {
         const saveManager = new PaintSaveManager(p.levelId, boardData);
 
         const vs = view.getVisibleSize();
+        const topI = p.viewport.topInset;
+        const botI = p.viewport.bottomInset;
+        const availableH = vs.height - topI - botI;
         const fitMin =
-            Math.min(vs.width / bw, vs.height / bh) * GameConfig.viewportAutoFitScreenRatio;
-        const vmin = Math.min(vs.width, vs.height);
+            Math.min(vs.width / bw, availableH / bh) * GameConfig.viewportAutoFitScreenRatio;
+        const vmin = Math.min(vs.width, availableH);
         const k = GameConfig.viewportMaxZoomVisibleCells;
         const maxByCells = vmin / (k * cell);
         const minScale = fitMin;
@@ -88,6 +93,8 @@ export class BoardBootstrap {
             boardWidthPx: bw,
             boardHeightPx: bh,
             viewportPadding: GameConfig.viewportPadding,
+            topInset: topI,
+            bottomInset: botI,
             onScaleChanged: () => {
                 ctx.refreshDetailVisibility();
             },

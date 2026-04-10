@@ -90,6 +90,8 @@ export class GamePage extends Component {
         this._topLayer = this._createLayer('TopLayer', vs);
 
         const toolState = this._toolState!;
+        const paletteBarH = PaletteInstaller.computeBarHeight(a.paletteStyle);
+        const hudTopH = GameConfig.hudTopHeight;
 
         const ctx = BoardBootstrap.run({
             boardRoot: gameLayer,
@@ -102,6 +104,8 @@ export class GamePage extends Component {
                 zoomStep: GameConfig.viewportZoomStep,
                 zoomSpeedPerSecond: GameConfig.viewportZoomSpeedPerSecond,
                 autoFitInitial: GameConfig.viewportAutoFit,
+                topInset: hudTopH,
+                bottomInset: paletteBarH,
             },
         });
         this._ctx = ctx;

@@ -10,6 +10,8 @@ export interface ViewportControllerOptions {
     boardHeightPx: number;
     zoomSpeedPerSecond: number;
     viewportPadding: number;
+    topInset: number;
+    bottomInset: number;
     onScaleChanged?: (scale: number) => void;
 }
 
@@ -160,6 +162,11 @@ export class ViewportController {
         const P = this._opts.viewportPadding;
         const W = this._opts.boardWidthPx * scale;
         const H = this._opts.boardHeightPx * scale;
+        const topI = this._opts.topInset;
+        const botI = this._opts.bottomInset;
+        const availableH = vs.height - topI - botI;
+        const centerY = (botI - topI) * 0.5;
+
         let px = this._panX;
         let py = this._panY;
         if (W > vs.width) {
@@ -168,11 +175,11 @@ export class ViewportController {
         } else {
             px = 0;
         }
-        if (H > vs.height) {
-            const m = (H - vs.height) * 0.5 + P;
-            py = Math.max(-m, Math.min(m, py));
+        if (H > availableH) {
+            const m = (H - availableH) * 0.5 + P;
+            py = Math.max(centerY - m, Math.min(centerY + m, py));
         } else {
-            py = 0;
+            py = centerY;
         }
         return [px, py];
     }

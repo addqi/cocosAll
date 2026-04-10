@@ -65,7 +65,7 @@ export class AppRoot extends Component {
     }
 
     private _onMyWorksDismissed(): void {
-        this._homePage.refreshList();
+        // this._homePage.refreshList();
     }
 
     /* ── 内部构建 ── */

@@ -1,5 +1,6 @@
 import {
     _decorator,
+    BlockInputEvents,
     Button,
     Color,
     Component,
@@ -103,6 +104,7 @@ export class MyWorksPage extends Component {
         bgSp.sizeMode = Sprite.SizeMode.CUSTOM;
         bgSp.spriteFrame = sf;
         bgSp.color = Color.WHITE;
+        bg.addComponent(BlockInputEvents);
 
         this._buildTopBar(vs.width);
         this._buildScroll(vs.width, vs.height);

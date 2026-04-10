@@ -34,6 +34,12 @@ const DRAG_DETECT_PX = 8;
 
 export class PaletteInstaller {
 
+    static computeBarHeight(style: PaletteInstallerOptions): number {
+        const rows = style.rowsPerPage ?? 2;
+        const gridH = style.itemHeight * rows + style.itemSpacing * Math.max(0, rows - 1);
+        return style.padding * 2 + gridH + INDICATOR_H;
+    }
+
     static install(
         parent: Node,
         palette: string[],
