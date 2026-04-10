@@ -1,5 +1,5 @@
-import { EPropertyId } from '../config/enum/propertyEnum';
-import type { PlayerProperty } from './playerProperty';
+import { EPropertyId } from '../../config/enum/propertyEnum';
+import type { PlayerProperty } from '../property/playerProperty';
 
 /**
  * 玩家战斗状态管理

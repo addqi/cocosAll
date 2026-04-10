@@ -1,5 +1,5 @@
-import type { IBuffOwner } from '../../baseSystem/buff';
-import type { EntityPropertyMgr } from '../entity/EntityPropertyMgr';
+import type { IBuffOwner } from '../../../baseSystem/buff';
+import type { EntityPropertyMgr } from '../../entity/EntityPropertyMgr';
 import { PlayerProperty } from './playerProperty';
 
 /**

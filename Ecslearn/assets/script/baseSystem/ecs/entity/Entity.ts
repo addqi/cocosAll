@@ -9,6 +9,11 @@ export class Entity {
         this.components.set(component.constructor.name, component);
     }
 
+    /** 移除组件 */
+    removeComponent(cls: new (...args: any[]) => IComponent): void {
+        this.components.delete(cls.name);
+    }
+
     /** 获取组件 */
     getComponent<T extends IComponent>(cls: new (...args: any[]) => T): T | null {
         return (this.components.get(cls.name) as T) || null;

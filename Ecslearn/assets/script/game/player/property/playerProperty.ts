@@ -1,6 +1,6 @@
-import { EntityPropertyMgr } from '../entity/EntityPropertyMgr';
-import type { PropertyBaseConfig } from '../entity/EntityPropertyMgr';
-import playerConfig from './config/player.json';
+import { EntityPropertyMgr } from '../../entity/EntityPropertyMgr';
+import type { PropertyBaseConfig } from '../../entity/EntityPropertyMgr';
+import playerConfig from '../config/player.json';
 
 /**
  * 玩家属性管理器

@@ -233,7 +233,7 @@ PYTHONPATH=.pylib python3 ai/img2puzzle.py <input.png> <output.json> [--size N] 
 3. **BOARD_TOUCH_DEBUG = true**：`BoardTouchInput.ts` 调试开关未关，生产环境应设 false。
 4. **BrushState.ts**：`getRGB` 方法上方有临时注释 `// BrushState.ts 加一个方法`，需清理。
 5. **prefab/shadow.prefab**：存在但代码中未引用（CompletionPopup 的遮罩是代码创建 `new Node('Shadow')`），需确认是否冗余。
-6. **道具次数有限（各 5 次）**：无补充机制（广告/购买），耗尽后永久不可用。
+6. **道具补充弹窗未实现**：道具耗尽后应弹窗让用户获取（预留广告接口），目前无补充途径。
 
 ## 未实现功能（按优先级）
 
@@ -241,32 +241,38 @@ PYTHONPATH=.pylib python3 ai/img2puzzle.py <input.png> <output.json> [--size N] 
 
 | 功能 | 说明 |
 |------|------|
-| ~~Toast 飘字提示~~ | ~~已实现~~ |
-| ~~关卡进度条~~ | ~~已实现（顶部进度条 + 调色板单色完成态）~~ |
-| 暂停面板 | PopupLayer 第二个弹窗：暂停 / 继续 / 退出 |
+| 道具补充弹窗 | 道具次数=0 时点击弹出弹窗，点按钮直接获取 N 个道具（N 在 `GameConfig` 可配）；按钮预留广告回调接口，当前直接发放 |
 
 ### P1 — 内容与体验增强
 
 | 功能 | 说明 |
 |------|------|
 | 更多关卡 | 目前仅 3 关（test_simple / apple / mountain），需批量产出 |
-| 音效系统 | 涂色、完成、道具使用等音效 |
-| 道具补充机制 | 广告/购买/每日赠送等获取道具的途径 |
 | 关卡难度分级 | 按网格大小/颜色数分级展示 |
+| 调色板 DrawCall 优化 | 虚拟列表 + Sprite/Label 分层 + 道具惰性激活（详见 `PALETTE_DRAWCALL_OPT.md`） |
+| 懒加载优化 | 去 preloadDir、缩略图合集、虚拟滚动、关卡清单远程化（详见 `BUNDLE_SPLIT_PLAN.md` Phase 7） |
 
 ### P2 — polish
 
 | 功能 | 说明 |
 |------|------|
-| 涂色反馈动画 | 正确涂色时的粒子/光效 |
 | 引导教程 | 新手首次进入时的操作引导 |
-| 多语言 | 目前硬编码中文 |
+
+### 明确不做
+
+| 功能 | 原因 |
+|------|------|
+| 暂停面板 | 本项目无需暂停 |
+| 音效系统 | 无音效资源 |
+| 涂色反馈动画 | 不做 |
+| 多语言 | 不做 |
 
 ## 建议的下一步
 
 1. **关掉调试日志**：`BoardTouchInput.ts` 的 `BOARD_TOUCH_DEBUG` 设 false。
-2. **暂停面板**：PopupLayer 第二个弹窗。
+2. **道具补充弹窗**：道具耗尽时弹窗获取，预留广告接口。
 3. **批量关卡产出**：用 `img2puzzle.py` 配合 AI 生图批量生成 JSON。
+4. **调色板 DrawCall 优化**：50 色关卡 DC 从 ~120 降至 ≤10。
 
 ---
 
