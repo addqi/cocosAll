@@ -1,4 +1,5 @@
-import { SpriteFrame, Texture2D, Rect, resources } from 'cc';
+import { SpriteFrame, Texture2D, Rect } from 'cc';
+import { ResourceMgr } from '../resource';
 
 /**
  * Sprite Sheet 切帧工具
@@ -9,7 +10,6 @@ export class SpriteSheetUtil {
 
     /**
      * 从已加载的 Texture2D 创建帧数组（同步，带缓存）
-     * 支持单行和多行 sprite sheet
      * @param totalFrames 不传则自动按满格计算
      */
     static createFrames(
@@ -43,21 +43,21 @@ export class SpriteSheetUtil {
     }
 
     /**
-     * 从 resources 路径加载纹理并创建帧数组（异步）
-     * @param path resources 目录下的路径，不带后缀
+     * 同步获取帧数组（需先通过 ResourceMgr 预加载纹理）
+     * @param path resources 路径（不带 /texture 后缀）
      */
-    static loadFrames(
+    static getFrames(
         path: string,
         frameW: number,
         frameH: number,
         totalFrames?: number
-    ): Promise<SpriteFrame[]> {
-        return new Promise((resolve, reject) => {
-            resources.load(`${path}/texture`, Texture2D, (err, texture) => {
-                if (err) { reject(err); return; }
-                resolve(this.createFrames(texture, frameW, frameH, totalFrames));
-            });
-        });
+    ): SpriteFrame[] {
+        const tex = ResourceMgr.inst.get<Texture2D>(`${path}/texture`);
+        if (!tex) {
+            console.error(`[SpriteSheetUtil] texture not preloaded: "${path}/texture"`);
+            return [];
+        }
+        return this.createFrames(tex, frameW, frameH, totalFrames);
     }
 
     static clearCache() {

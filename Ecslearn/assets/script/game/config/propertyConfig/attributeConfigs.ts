@@ -8,7 +8,8 @@ import defenseConfig     from './defense.json';
 import critRateConfig    from './crit_rate.json';
 import critDmgConfig     from './crit_dmg.json';
 import attackSpeedConfig from './attack_speed.json';
-import moveSpeedConfig   from './move_speed.json';
+import moveSpeedConfig       from './move_speed.json';
+import lifestealRateConfig   from './lifesteal_rate.json';
 
 /**
  * 共享属性结构配置（所有实体通用）
@@ -16,11 +17,12 @@ import moveSpeedConfig   from './move_speed.json';
  * 实体的初始基础值由各自的 player.json 通过 setInitialValues() 注入
  */
 export const SHARED_ATTRIBUTE_CONFIGS: AttributeConfig[] = [
-    hpConfig          as AttributeConfig,
-    attackConfig      as AttributeConfig,
-    defenseConfig     as AttributeConfig,
-    critRateConfig    as AttributeConfig,
-    critDmgConfig     as AttributeConfig,
-    attackSpeedConfig as AttributeConfig,
-    moveSpeedConfig   as AttributeConfig,
+    hpConfig             as AttributeConfig,
+    attackConfig         as AttributeConfig,
+    defenseConfig        as AttributeConfig,
+    critRateConfig       as AttributeConfig,
+    critDmgConfig        as AttributeConfig,
+    attackSpeedConfig    as AttributeConfig,
+    moveSpeedConfig      as AttributeConfig,
+    lifestealRateConfig  as AttributeConfig,
 ];

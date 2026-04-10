@@ -24,6 +24,22 @@ export interface PlayerConfigData {
     displayHeight: number;
     /** 动画定义表，key 与 EPlayerAnim 枚举值一致 */
     anims: Record<string, AnimEntry>;
+    /** 攻击范围半径（像素） */
+    attackRange: number;
+    /** 箭矢飞行速度（像素/秒），用于计算飞行时长 duration = distance / speed */
+    arrowSpeed: number;
+    /** 箭矢纹理路径（resources 相对路径，不带后缀） */
+    arrowTexture: string;
+    /** 箭矢显示宽度（像素） */
+    arrowWidth: number;
+    /** 箭矢显示高度（像素） */
+    arrowHeight: number;
+    /** 弧线拱高 = 距离 × arcRatio（有目标时） */
+    arrowArcRatio: number;
+    /** 无目标时箭矢水平射程（像素），arcHeight = range × 0.5 → 45° 出射 */
+    arrowNoTargetRange: number;
+    /** 攻击范围指示圈纹理路径 */
+    rangeTexture: string;
 }
 
 export const playerConfig: PlayerConfigData = {
@@ -35,4 +51,12 @@ export const playerConfig: PlayerConfigData = {
         run:   { path: 'Archer/Archer_Run',   fps: 12, loop: true },
         shoot: { path: 'Archer/Archer_Shoot', fps: 15, loop: false },
     },
+    attackRange: 400,
+    arrowSpeed: 300,
+    arrowTexture: 'Archer/Arrow',
+    arrowWidth: 64,
+    arrowHeight: 64,
+    arrowArcRatio: 0.3,
+    arrowNoTargetRange: 600,
+    rangeTexture: 'ui/round',
 };

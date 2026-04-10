@@ -2,3 +2,4 @@
 // 新增 Buff 后运行 npm run sync:buff-effects 刷新此文件
 
 import './AddHpBuffEffect';
+import './AttackBoostEffect';

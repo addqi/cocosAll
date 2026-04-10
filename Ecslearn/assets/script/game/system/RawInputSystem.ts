@@ -1,12 +1,13 @@
-import { input, Input, EventKeyboard } from 'cc';
+import { input, Input, EventKeyboard, EventMouse } from 'cc';
 import type { ISystem, Entity } from '../../baseSystem/ecs';
 import { RawInputComp } from '../component';
 
-/** 第①层：采集键盘原始状态，写入 RawInputComp。全局唯一接触 cc.input 的地方 */
+/** 第①层：采集键盘 + 鼠标原始状态，写入 RawInputComp。全局唯一接触 cc.input 的地方 */
 export class RawInputSystem implements ISystem {
     private held      = new Map<number, boolean>();
     private frameDown = new Set<number>();
     private frameUp   = new Set<number>();
+    private frameMouseDown = false;
 
     constructor() {
         input.on(Input.EventType.KEY_DOWN, (e: EventKeyboard) => {
@@ -16,6 +17,11 @@ export class RawInputSystem implements ISystem {
         input.on(Input.EventType.KEY_UP, (e: EventKeyboard) => {
             this.held.set(e.keyCode, false);
             this.frameUp.add(e.keyCode);
+        });
+        input.on(Input.EventType.MOUSE_DOWN, (e: EventMouse) => {
+            if (e.getButton() === EventMouse.BUTTON_LEFT) {
+                this.frameMouseDown = true;
+            }
         });
     }
 
@@ -27,8 +33,10 @@ export class RawInputSystem implements ISystem {
             raw.keys = new Map(this.held);
             raw.down = new Set(this.frameDown);
             raw.up   = new Set(this.frameUp);
+            raw.mouseDown = this.frameMouseDown;
         }
         this.frameDown.clear();
         this.frameUp.clear();
+        this.frameMouseDown = false;
     }
 }

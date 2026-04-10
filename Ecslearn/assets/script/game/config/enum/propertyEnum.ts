@@ -17,6 +17,7 @@ export enum EPropertyId {
     CritDmg = 'CritDmg',
     AttackSpeed = 'AttackSpeed',
     MoveSpeed = 'MoveSpeed',
+    LifestealRate = 'LifestealRate',
 }
 
 /**

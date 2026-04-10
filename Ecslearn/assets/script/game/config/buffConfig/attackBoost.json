@@ -1,0 +1,9 @@
+{
+    "id": 2001,
+    "name": "攻击强化",
+    "duration": 0,
+    "maxStack": 5,
+    "effectClass": "AttackBoostEffect",
+    "targetAttr": "Attack-Mul-Buff",
+    "valuePerStack": 0.1
+}

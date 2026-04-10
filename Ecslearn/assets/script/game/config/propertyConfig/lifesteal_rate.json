@@ -1,0 +1,14 @@
+{
+  "attribute": "LifestealRate",
+  "valueNodes": [
+    { "id": "LifestealRate-Value-Config", "value": 0, "tag": "base" },
+    { "id": "LifestealRate-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "LifestealRate-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "LifestealRate-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "LifestealRate-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "LifestealRate-Value", "expression": "{{LifestealRate-Value-Config}} + {{LifestealRate-Value-Buff}} + {{LifestealRate-Value-Other}}" },
+    { "id": "LifestealRate",       "expression": "{{LifestealRate-Value}} * (1 + {{LifestealRate-Mul-Buff}} + {{LifestealRate-Mul-Other}})" }
+  ]
+}

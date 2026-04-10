@@ -56,4 +56,11 @@ export const PROP_CONFIG_MAP: Record<EPropertyId, Record<EPropertyConfigId, stri
         [EPropertyConfigId.MulBuff]:         'MoveSpeed-Mul-Buff',
         [EPropertyConfigId.MulOther]:        'MoveSpeed-Mul-Other',
     },
+    [EPropertyId.LifestealRate]: {
+        [EPropertyConfigId.BaseValueConfig]: 'LifestealRate-Value-Config',
+        [EPropertyConfigId.BaseValueBuff]:   'LifestealRate-Value-Buff',
+        [EPropertyConfigId.BaseValueOther]:  'LifestealRate-Value-Other',
+        [EPropertyConfigId.MulBuff]:         'LifestealRate-Mul-Buff',
+        [EPropertyConfigId.MulOther]:        'LifestealRate-Mul-Other',
+    },
 };

@@ -28,6 +28,8 @@ export class ActionMapSystem implements ISystem {
                 if (raw.down.has(key)) act.justPressed.add(action);
             }
 
+            if (raw.mouseDown) act.justPressed.add(EAction.Attack);
+
             const dx = (act.active.has(EAction.MoveRight) ? 1 : 0)
                       - (act.active.has(EAction.MoveLeft)  ? 1 : 0);
             const dy = (act.active.has(EAction.MoveUp)     ? 1 : 0)

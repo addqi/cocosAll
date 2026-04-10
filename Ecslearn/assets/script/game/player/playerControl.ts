@@ -1,9 +1,17 @@
-import { _decorator, Component, Sprite } from 'cc';
+import { _decorator, Component, Sprite, SpriteFrame, Node, Vec3, Label, Color, UITransform, UIOpacity, Texture2D } from 'cc';
+import { ResourceMgr } from '../../baseSystem/resource';
+import type { IBuffOwner } from '../../baseSystem/buff';
 import { Entity } from '../../baseSystem/ecs';
 import { StateMachine } from '../../baseSystem/fsm';
 import { RawInputComp, ActionComp, EAction, VelocityComp, NodeRefComp } from '../component';
+import { EntityBuffMgr } from '../entity/EntityBuffMgr';
 import { World } from '../core/World';
+import { GameLoop } from '../core/GameLoop';
 import { PlayerAnimation } from './anim/PlayerAnimation';
+import { PlayerProperty } from './property/playerProperty';
+import { PlayerCombat } from './combat/PlayerCombat';
+import { EnemyControl } from '../enemy/EnemyControl';
+import { playerConfig } from './config/playerConfig';
 import {
     EPlayerState,
     type PlayerCtx,
@@ -14,28 +22,50 @@ import {
 
 const { ccclass } = _decorator;
 
+const _tmpVec = new Vec3();
+
 /**
- * 玩家控制器（OOP 大脑 + ECS 代理）
- *
- * - ECS 侧：创建代理 Entity 注册到 World，共享系统处理输入和移动
- * - OOP 侧：FSM 状态机管理 Idle/Run/Shoot 等复杂行为
- * - lateUpdate 中读取 ECS 数据驱动状态机切换
- *
- * 场景节点结构：
- *   GameRoot  ← 挂 GameLoop（onLoad 创建 World）
- *     Player  ← 挂 PlayerControl + PlayerAnimation + Sprite
+ * 节点结构：
+ * Player (PlayerControl)
+ * ├── Body (Sprite + PlayerAnimation) ← 翻转只在这里
+ * ├── GroundFX
+ * │   └── RangeCircle
+ * └── UIAnchor ← 永不翻转
+ *     └── HpLabel
  */
 @ccclass('PlayerControl')
 export class PlayerControl extends Component {
+    private _body: Node = null!;
+    private _uiAnchor: Node = null!;
+    private _groundFX: Node = null!;
+
     private _entity: Entity = null!;
     private _anim: PlayerAnimation = null!;
     private _fsm!: StateMachine<EPlayerState, PlayerCtx>;
+    private _ctx!: PlayerCtx;
+    private _playerProp!: PlayerProperty;
+    private _playerCombat!: PlayerCombat;
+    private _buffOwner!: IBuffOwner;
+    private _buffMgr!: EntityBuffMgr;
+    private _hpLabel!: Label;
+
+    get combat(): PlayerCombat { return this._playerCombat; }
+    get playerProp(): PlayerProperty { return this._playerProp; }
+    get buffOwner(): IBuffOwner { return this._buffOwner; }
+    get buffMgr(): EntityBuffMgr { return this._buffMgr; }
+    get body(): Node { return this._body; }
 
     onLoad() {
-        if (!this.getComponent(Sprite)) {
-            this.node.addComponent(Sprite);
-        }
-        this._anim = this.getComponent(PlayerAnimation) || this.node.addComponent(PlayerAnimation);
+        this._body = new Node('Body');
+        this.node.addChild(this._body);
+        this._body.addComponent(Sprite);
+        this._anim = this._body.addComponent(PlayerAnimation);
+
+        this._groundFX = new Node('GroundFX');
+        this.node.addChild(this._groundFX);
+
+        this._uiAnchor = new Node('UIAnchor');
+        this.node.addChild(this._uiAnchor);
     }
 
     start() {
@@ -47,8 +77,60 @@ export class PlayerControl extends Component {
             return;
         }
 
+        this._playerProp = new PlayerProperty();
+        this._playerCombat = new PlayerCombat(this._playerProp);
+        this._playerCombat.setHpRatio(0.5);
+
+        this._buffOwner = { uid: 'player', getPropertyManager: () => this._playerProp };
+        this._buffMgr = new EntityBuffMgr(this._playerProp);
+
+        this._createHpLabel();
         this._initProxy();
         this._initFsm();
+
+        GameLoop.onReady(() => this._createRangeCircle());
+    }
+
+    update(dt: number) {
+        this._buffMgr?.update(dt);
+    }
+
+    private _createHpLabel() {
+        const labelNode = new Node('HpLabel');
+        this._uiAnchor.addChild(labelNode);
+        labelNode.setPosition(0, playerConfig.displayHeight / 2 + 15, 0);
+
+        const ut = labelNode.addComponent(UITransform);
+        ut.setContentSize(200, 30);
+
+        this._hpLabel = labelNode.addComponent(Label);
+        this._hpLabel.fontSize = 22;
+        this._hpLabel.lineHeight = 26;
+        this._hpLabel.color = new Color(80, 220, 80, 255);
+        this._hpLabel.enableOutline = true;
+        this._hpLabel.outlineColor = new Color(0, 0, 0, 200);
+        this._hpLabel.outlineWidth = 2;
+    }
+
+    private _createRangeCircle() {
+        const circleNode = new Node('RangeCircle');
+        this._groundFX.addChild(circleNode);
+
+        const diameter = playerConfig.attackRange * 2;
+        const ut = circleNode.addComponent(UITransform);
+        ut.setContentSize(diameter, diameter);
+
+        const sprite = circleNode.addComponent(Sprite);
+        sprite.sizeMode = Sprite.SizeMode.CUSTOM;
+        const tex = ResourceMgr.inst.get<Texture2D>(`${playerConfig.rangeTexture}/texture`);
+        if (tex) {
+            const sf = new SpriteFrame();
+            sf.texture = tex;
+            sprite.spriteFrame = sf;
+        }
+
+        const opacity = circleNode.addComponent(UIOpacity);
+        opacity.opacity = 76;
     }
 
     private _initProxy() {
@@ -61,9 +143,16 @@ export class PlayerControl extends Component {
     }
 
     private _initFsm() {
-        const ctx: PlayerCtx = { anim: this._anim, node: this.node, fsm: null! };
-        this._fsm = new StateMachine<EPlayerState, PlayerCtx>(ctx);
-        ctx.fsm = this._fsm;
+        this._ctx = {
+            anim: this._anim,
+            node: this.node,
+            body: this._body,
+            fsm: null!,
+            combat: this._playerCombat,
+            targetEnemy: null,
+        };
+        this._fsm = new StateMachine<EPlayerState, PlayerCtx>(this._ctx);
+        this._ctx.fsm = this._fsm;
 
         this._fsm.addState(EPlayerState.Idle,  new PlayerIdleState());
         this._fsm.addState(EPlayerState.Run,   new PlayerRunState());
@@ -74,21 +163,43 @@ export class PlayerControl extends Component {
     lateUpdate(dt: number) {
         if (!this._entity) return;
 
+        if (this._hpLabel) {
+            this._hpLabel.string = `${this._playerCombat.currentHp} / ${this._playerCombat.maxHp}`;
+        }
+
         const vel = this._entity.getComponent(VelocityComp)!;
         const act = this._entity.getComponent(ActionComp)!;
         const isMoving = vel.vx !== 0 || vel.vy !== 0;
 
         if (act.justPressed.has(EAction.Attack) && this._fsm.current !== EPlayerState.Shoot) {
+            this._ctx.targetEnemy = this._findNearestEnemy();
             this._fsm.changeState(EPlayerState.Shoot);
         } else if (this._fsm.current !== EPlayerState.Shoot) {
             this._fsm.changeState(isMoving ? EPlayerState.Run : EPlayerState.Idle);
-        }
-
-        if (vel.vx !== 0) {
-            this.node.setScale(vel.vx < 0 ? -1 : 1, 1, 1);
+            if (vel.vx !== 0) {
+                this._body.setScale(vel.vx < 0 ? -1 : 1, 1, 1);
+            }
         }
 
         this._fsm.tick(dt);
+    }
+
+    private _findNearestEnemy(): EnemyControl | null {
+        const myPos = this.node.worldPosition;
+        const range = playerConfig.attackRange;
+        let best: EnemyControl | null = null;
+        let bestDist = Infinity;
+
+        for (const enemy of EnemyControl.allEnemies) {
+            if (!enemy.node.isValid || enemy.combat.isDead) continue;
+            Vec3.subtract(_tmpVec, enemy.node.worldPosition, myPos);
+            const dist = _tmpVec.length();
+            if (dist <= range && dist < bestDist) {
+                bestDist = dist;
+                best = enemy;
+            }
+        }
+        return best;
     }
 
     onDestroy() {
