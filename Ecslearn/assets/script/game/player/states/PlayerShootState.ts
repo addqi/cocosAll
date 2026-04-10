@@ -54,6 +54,8 @@ export class PlayerShootState implements IState<PlayerCtx> {
                 ctx.prop, combat, target.combat, target.buffMgr, target.buffOwner,
             );
             hitCtx.damageRatio = damageRatio;
+            hitCtx.targetNode = target.node;
+            hitCtx.hitOriginPos = ctx.node.worldPosition.clone();
             mgr.execute(hitCtx);
         };
 

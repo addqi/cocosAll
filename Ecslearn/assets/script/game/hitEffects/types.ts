@@ -1,36 +1,26 @@
+import type { Node, Vec3 } from 'cc';
 import type { IBuffOwner } from '../../baseSystem/buff';
 import type { PlayerCombat } from '../player/combat/PlayerCombat';
 import type { PlayerProperty } from '../player/property/playerProperty';
 import type { EnemyCombat } from '../enemy/EnemyCombat';
 import type { EntityBuffMgr } from '../entity/EntityBuffMgr';
-/**
- * 命中上下文
- * 包含命中相关的所有信息
- */
+
 export interface GameHitContext {
-    /** 攻击者属性管理器 */
     attackerProp: PlayerProperty;
-    /** 攻击者战斗对象 */
     attackerCombat: PlayerCombat;
-    /** 目标战斗对象 */
     targetCombat: EnemyCombat;
-    /** 目标Buff管理器 */
     targetBuffMgr: EntityBuffMgr;
-    /** 目标Buff挂载目标 */
     targetBuffOwner: IBuffOwner;
-    /** 基础伤害 */
+    /** 被击实体节点（击退/位移用） */
+    targetNode: Node | null;
+    /** 攻击发起点（击退方向 = targetNode.pos - hitOriginPos） */
+    hitOriginPos: Vec3 | null;
     baseDamage: number;
-    /** 原始伤害 */
     rawDamage: number;
-    /** 最终伤害 */
     finalDamage: number;
-    /** 是否暴击 */
     isCrit: boolean;
-    /** 暴击倍率 */
     critMultiplier: number;
-    /** 总治疗量 */
     totalHealed: number;
-    /** 伤害缩放（穿透衰减等），1.0 = 满额 */
     damageRatio: number;
 }
 
@@ -47,6 +37,8 @@ export function createHitContext(
         targetCombat,
         targetBuffMgr,
         targetBuffOwner,
+        targetNode: null,
+        hitOriginPos: null,
         baseDamage: 0,
         rawDamage: 0,
         finalDamage: 0,

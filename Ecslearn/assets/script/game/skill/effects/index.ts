@@ -6,3 +6,4 @@ import './DefenseReduceEffect';
 import './LifestealEffect';
 import './RegenEffect';
 import './BurnDotEffect';
+import './FrostSlowEffect';

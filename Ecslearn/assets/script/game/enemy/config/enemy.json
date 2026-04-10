@@ -1,5 +1,6 @@
 {
-    "Hp":      { "base": 2000, "min": 0 },
-    "Attack":  { "base": 50 },
-    "Defense": { "base": 30 }
+    "Hp":        { "base": 2000, "min": 0 },
+    "Attack":    { "base": 50 },
+    "Defense":   { "base": 30 },
+    "MoveSpeed": { "base": 100 }
 }

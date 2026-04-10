@@ -2,30 +2,47 @@ import {
     _decorator, Component, Node, Label, Color, UITransform,
     Graphics, Button, Widget, Layout, director,
 } from 'cc';
-import type { BuffData } from '../../baseSystem/buff';
+import type { HitEffectData } from '../../baseSystem/hitEffect';
 import { EPropertyId } from '../config/enum/propertyEnum';
 import { PlayerControl } from '../player/PlayerControl';
 import { EnemyControl } from '../enemy/EnemyControl';
 
 const { ccclass } = _decorator;
 
-interface BuffToggleEntry {
+interface ToggleEntry {
     label: string;
-    data: BuffData;
+    data: HitEffectData;
 }
 
-const PROJ_BUFF_TESTS: BuffToggleEntry[] = [
+const HIT_EFFECT_TESTS: ToggleEntry[] = [
     {
-        label: '穿透+1',
-        data: { id: 9001, name: '穿透+1', duration: 0, maxStack: 10, effectClass: 'SimpleAttrBuffEffect', targetAttr: 'PierceCount-Value-Buff', valuePerStack: 1 },
+        label: '灼烧 20%',
+        data: { id: 'test-burn', effectClass: 'BurnOnHitEffect', priority: 50,
+                burnRatio: 0.2, burnBuffId: 8001 },
     },
     {
-        label: '弹射+1',
-        data: { id: 9002, name: '弹射+1', duration: 0, maxStack: 10, effectClass: 'SimpleAttrBuffEffect', targetAttr: 'BounceCount-Value-Buff', valuePerStack: 1 },
+        label: '冻伤 -15%速/层',
+        data: { id: 'test-frost', effectClass: 'FrostOnHitEffect', priority: 50,
+                frostBuffId: 8101, frostSlowPerStack: 0.15, frostDuration: 3, frostMaxStack: 5 },
     },
     {
-        label: '额外弹道+1',
-        data: { id: 9003, name: '额外弹道+1', duration: 0, maxStack: 10, effectClass: 'SimpleAttrBuffEffect', targetAttr: 'ExtraProjectiles-Value-Buff', valuePerStack: 1 },
+        label: '闪电链 100%',
+        data: { id: 'test-chain', effectClass: 'ChainLightningEffect', priority: 80,
+                chance: 1.0, jumps: 3, chainRatio: 0.5, chainDecay: 0.7, chainRange: 300 },
+    },
+    {
+        label: '击退 60px',
+        data: { id: 'test-knockback', effectClass: 'KnockbackEffect', priority: 90,
+                knockDist: 60 },
+    },
+    {
+        label: '吸血',
+        data: { id: 'test-lifesteal', effectClass: 'LifestealHitEffect', priority: 100 },
+    },
+    {
+        label: '命中回血+10',
+        data: { id: 'test-life-on-hit', effectClass: 'LifeOnHitEffect', priority: 100,
+                healAmount: 10 },
     },
 ];
 
@@ -70,46 +87,39 @@ export class BattleTestPanel extends Component {
         layout.paddingLeft = 10;
         layout.paddingRight = 10;
 
-        panel.addComponent(UITransform).setContentSize(380, 400);
+        panel.addComponent(UITransform).setContentSize(380, 500);
 
         this._playerStatusLabel = this._createLabel(panel, '', 16, new Color(80, 220, 80, 255));
         this._enemyStatusLabel = this._createLabel(panel, '', 16, new Color(255, 100, 100, 255));
 
-        this._createSectionLabel(panel, '--- 弹道属性 ---');
-        this._buildProjBuffButtons(panel);
+        this._createSectionLabel(panel, '--- 命中效果开关 ---');
+        this._buildHitEffectToggles(panel);
 
         this._createSectionLabel(panel, '--- 重置 ---');
         this._buildResetButtons(panel);
     }
 
-    private _buildProjBuffButtons(parent: Node) {
-        const player = this._player!;
-        const addColor = new Color(80, 40, 140, 230);
-        const rmColor = new Color(140, 40, 40, 230);
+    private _buildHitEffectToggles(parent: Node) {
+        const mgr = this._player!.hitEffectMgr;
+        const onColor = new Color(30, 120, 50, 230);
+        const offColor = new Color(140, 40, 40, 230);
 
-        for (const entry of PROJ_BUFF_TESTS) {
+        for (const entry of HIT_EFFECT_TESTS) {
             const row = this._createRow(parent);
-            const valLabel = this._createLabel(row, `${entry.label} (0)`, 14, new Color(200, 200, 255, 255));
-            valLabel.node.getComponent(UITransform)!.setContentSize(160, 32);
+            const statusLabel = this._createLabel(row, `[OFF] ${entry.label}`, 14, new Color(255, 100, 100, 255));
+            statusLabel.node.getComponent(UITransform)!.setContentSize(180, 32);
 
-            const updateLabel = () => {
-                let propId: EPropertyId | null = null;
-                if (entry.data.targetAttr?.startsWith('PierceCount')) propId = EPropertyId.PierceCount;
-                else if (entry.data.targetAttr?.startsWith('BounceCount')) propId = EPropertyId.BounceCount;
-                else if (entry.data.targetAttr?.startsWith('ExtraProjectiles')) propId = EPropertyId.ExtraProjectiles;
-                const val = propId ? Math.floor(player.playerProp.getValue(propId)) : 0;
-                valLabel.string = `${entry.label} (${val})`;
-            };
-
-            this._createBtn(row, '+1', addColor, () => {
-                player.buffMgr.addBuff(entry.data, player.buffOwner);
-                updateLabel();
-                console.log(`[Proj] ${entry.label} +1`);
+            this._createBtn(row, '开启', onColor, () => {
+                if (mgr.has(entry.data.id)) return;
+                mgr.add(entry.data);
+                statusLabel.string = `[ON]  ${entry.label}`;
+                statusLabel.color = new Color(80, 220, 80, 255);
             });
-            this._createBtn(row, '重置', rmColor, () => {
-                player.buffMgr.removeBuff(entry.data.id);
-                updateLabel();
-                console.log(`[Proj] ${entry.label} 重置`);
+            this._createBtn(row, '关闭', offColor, () => {
+                if (!mgr.has(entry.data.id)) return;
+                mgr.remove(entry.data.id);
+                statusLabel.string = `[OFF] ${entry.label}`;
+                statusLabel.color = new Color(255, 100, 100, 255);
             });
         }
     }
@@ -119,13 +129,11 @@ export class BattleTestPanel extends Component {
         this._createBtn(row, '敌人满血', new Color(40, 80, 160, 230), () => {
             if (this._enemy) {
                 this._enemy.combat.reset();
-                console.log('[Test] 敌人已重置满血');
             }
         });
         this._createBtn(row, '玩家满血', new Color(40, 80, 160, 230), () => {
             if (this._player) {
                 this._player.combat.reset();
-                console.log('[Test] 玩家已重置满血');
             }
         });
     }
@@ -150,11 +158,11 @@ export class BattleTestPanel extends Component {
         parent.addChild(btn);
 
         const ut = btn.addComponent(UITransform);
-        ut.setContentSize(90, 32);
+        ut.setContentSize(80, 32);
 
         const g = btn.addComponent(Graphics);
         g.fillColor = bgColor;
-        g.roundRect(-45, -16, 90, 32, 6);
+        g.roundRect(-40, -16, 80, 32, 6);
         g.fill();
 
         const button = btn.addComponent(Button);
@@ -164,7 +172,7 @@ export class BattleTestPanel extends Component {
 
         const labelNode = new Node('Label');
         btn.addChild(labelNode);
-        labelNode.addComponent(UITransform).setContentSize(90, 32);
+        labelNode.addComponent(UITransform).setContentSize(80, 32);
         const label = labelNode.addComponent(Label);
         label.string = text;
         label.fontSize = 14;
@@ -199,21 +207,21 @@ export class BattleTestPanel extends Component {
             const atk = p.getValue(EPropertyId.Attack);
             const crit = p.getValue(EPropertyId.CritRate);
             const atkSpd = p.getValue(EPropertyId.AttackSpeed);
-            const pierce = Math.floor(p.getValue(EPropertyId.PierceCount));
-            const bounce = Math.floor(p.getValue(EPropertyId.BounceCount));
-            const extra = Math.floor(p.getValue(EPropertyId.ExtraProjectiles));
             const hp = this._player.combat.currentHp;
             const maxHp = this._player.combat.maxHp;
+            const effects = this._player.hitEffectMgr.count;
             this._playerStatusLabel.string =
                 `HP:${hp}/${maxHp}  ATK:${atk.toFixed(0)}  Crit:${(crit * 100).toFixed(0)}%` +
-                `  AtkSpd:${atkSpd.toFixed(1)}  箭:${1 + extra}  穿:${pierce}  弹:${bounce}`;
+                `  AtkSpd:${atkSpd.toFixed(1)}  Effects:${effects}`;
         }
 
         if (this._enemy && this._enemyStatusLabel) {
             const hp = this._enemy.combat.currentHp;
             const maxHp = this._enemy.combat.maxHp;
             const def = this._enemy.prop.getValue(EPropertyId.Defense);
-            this._enemyStatusLabel.string = `Enemy HP:${hp}/${maxHp}  DEF:${def.toFixed(0)}`;
+            const spd = this._enemy.prop.getValue(EPropertyId.MoveSpeed);
+            this._enemyStatusLabel.string =
+                `Enemy HP:${hp}/${maxHp}  DEF:${def.toFixed(0)}  SPD:${spd.toFixed(0)}`;
         }
     }
 }
