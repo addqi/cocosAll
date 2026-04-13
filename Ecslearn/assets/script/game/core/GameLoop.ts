@@ -1,9 +1,10 @@
-import { _decorator, Component, Texture2D, EffectAsset, PhysicsSystem2D, Prefab } from 'cc';
+import { _decorator, Component, Texture2D, SpriteFrame, EffectAsset, PhysicsSystem2D, Contact2DType, Collider2D, Prefab } from 'cc';
 import { World } from './World';
 import { ResourceMgr } from '../../baseSystem/resource';
 import { ProjectilePool } from '../projectile/ProjectilePool';
-import { playerConfig } from '../player/config/playerConfig';
+import { playerConfig, AnimEntry } from '../player/config/playerConfig';
 import { enemyConfig } from '../enemy/config/enemyConfig';
+import { enemyResConfig } from '../enemy/config/enemyResConfig';
 import '../skill/effects';
 import {
     RawInputSystem,
@@ -43,6 +44,9 @@ export class GameLoop extends Component {
     get world(): World { return this._world; }
 
     onLoad() {
+        GameLoop._isReady = false;
+        GameLoop._readyFns.length = 0;
+
         PhysicsSystem2D.instance.enable = true;
 
         this._world         = new World();
@@ -62,22 +66,32 @@ export class GameLoop extends Component {
 
     private async _preloadResources(): Promise<void> {
         const texturePaths: string[] = [];
+        const frameDirs: string[] = [];
 
-        for (const key of Object.keys(playerConfig.anims)) {
-            texturePaths.push(`${playerConfig.anims[key].path}/texture`);
-        }
+        const collectAnim = (entry: AnimEntry) => {
+            if (entry.frameDir) {
+                frameDirs.push(entry.frameDir);
+            } else if (entry.path) {
+                texturePaths.push(`${entry.path}/texture`);
+            }
+        };
+
+        for (const key of Object.keys(playerConfig.anims)) collectAnim(playerConfig.anims[key]);
         texturePaths.push(`${playerConfig.arrowTexture}/texture`);
         texturePaths.push(`${playerConfig.rangeTexture}/texture`);
 
-        for (const key of Object.keys(enemyConfig.anims)) {
-            texturePaths.push(`${enemyConfig.anims[key].path}/texture`);
-        }
-        texturePaths.push(`${enemyConfig.rangeTexture}/texture`);
+        for (const key of Object.keys(enemyConfig.anims)) collectAnim(enemyConfig.anims[key]);
+        texturePaths.push(`${enemyResConfig.rangeTexture}/texture`);
 
         texturePaths.push('shader/noise/texture');
 
-        await ResourceMgr.inst.preload(texturePaths, Texture2D);
-        await ResourceMgr.inst.preload(['shader/dissolve', 'shader/flash-white'], EffectAsset);
+        const dirTasks = frameDirs.map(d => ResourceMgr.inst.preloadDir(d, SpriteFrame));
+
+        await Promise.all([
+            ResourceMgr.inst.preload(texturePaths, Texture2D),
+            ResourceMgr.inst.preload(['shader/dissolve', 'shader/flash-white'], EffectAsset),
+            ...dirTasks,
+        ]);
     }
 
     update(dt: number) {

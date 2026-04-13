@@ -1,0 +1,53 @@
+[
+  {
+    "id": "warrior",
+    "name": "战士",
+    "category": "minion",
+    "properties": {
+      "Hp":        { "base": 2000, "min": 0 },
+      "Attack":    { "base": 50 },
+      "Defense":   { "base": 30 },
+      "MoveSpeed": { "base": 100 }
+    },
+    "overrides": {}
+  },
+  {
+    "id": "bomber",
+    "name": "自爆兵",
+    "category": "minion",
+    "properties": {
+      "Hp":        { "base": 500, "min": 0 },
+      "Attack":    { "base": 200 },
+      "Defense":   { "base": 10 },
+      "MoveSpeed": { "base": 160 }
+    },
+    "overrides": {
+      "detectionRange": 300,
+      "attackRange": 80,
+      "attackAngle": 360,
+      "attackWindUp": 0,
+      "attackCooldown": 0,
+      "xpReward": 15
+    }
+  },
+  {
+    "id": "ranger",
+    "name": "射手",
+    "category": "minion",
+    "properties": {
+      "Hp":        { "base": 800, "min": 0 },
+      "Attack":    { "base": 80 },
+      "Defense":   { "base": 15 },
+      "MoveSpeed": { "base": 70 }
+    },
+    "overrides": {
+      "detectionRange": 350,
+      "attackRange": 280,
+      "attackAngle": 0,
+      "attackWindUp": 1.0,
+      "attackCooldown": 2.0,
+      "attackHitFrame": 2,
+      "xpReward": 12
+    }
+  }
+]

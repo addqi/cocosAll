@@ -7,6 +7,9 @@ export enum EAction {
     MoveRight,
     Attack,
     Dodge,
+    Skill1,
+    Skill2,
+    Skill3,
 }
 
 export class ActionComp implements IComponent {

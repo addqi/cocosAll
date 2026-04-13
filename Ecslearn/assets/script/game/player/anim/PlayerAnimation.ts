@@ -34,7 +34,9 @@ export class PlayerAnimation extends Component {
         const { frameSize, anims } = playerConfig;
         for (const key of Object.keys(anims)) {
             const entry = anims[key];
-            const frames = SpriteSheetUtil.getFrames(entry.path, frameSize, frameSize);
+            const frames = entry.frameDir
+                ? SpriteSheetUtil.getFrameDir(entry.frameDir)
+                : SpriteSheetUtil.getFrames(entry.path!, frameSize, frameSize);
             this._animator.addAnim(key, frames, entry.fps, entry.loop);
         }
         this._ready = true;

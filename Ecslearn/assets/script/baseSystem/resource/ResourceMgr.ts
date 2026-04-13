@@ -6,11 +6,7 @@ type AssetType<T extends Asset> = new (...args: any[]) => T;
  * 统一资源管理器
  *
  * 职责：预加载、缓存、同步获取。所有 resources.load 调用收拢于此。
- * 游戏运行期消费方只用 get()，零异步、零等待。
- *
- * 扩展方式：
- *   将 _loadOne 内部的 resources.load 替换为 bundle.load / assetManager.loadRemote
- *   外部 API 不变，对消费方零破坏。
+ * 游戏运行期消费方只用 get() / getDir()，零异步、零等待。
  */
 export class ResourceMgr {
     private static _inst: ResourceMgr;
@@ -20,6 +16,7 @@ export class ResourceMgr {
     }
 
     private _cache = new Map<string, Asset>();
+    private _dirCache = new Map<string, Asset[]>();
 
     /**
      * 批量预加载（启动阶段调用，await 完再进入游戏）
@@ -32,8 +29,27 @@ export class ResourceMgr {
     }
 
     /**
+     * 预加载整个目录（启动阶段调用）
+     * @param dir  resources 下的目录路径，如 'Archer/idle'
+     * @param type 资源类型
+     */
+    async preloadDir<T extends Asset>(dir: string, type: AssetType<T>): Promise<void> {
+        if (this._dirCache.has(dir)) return;
+        return new Promise((resolve, reject) => {
+            resources.loadDir(dir, type, (err, assets) => {
+                if (err) {
+                    console.error(`[ResourceMgr] loadDir failed: "${dir}"`, err);
+                    reject(err);
+                    return;
+                }
+                this._dirCache.set(dir, assets as Asset[]);
+                resolve();
+            });
+        });
+    }
+
+    /**
      * 同步获取已缓存资源（游戏运行期专用）
-     * 预加载阶段未覆盖到的路径会返回 null 并输出错误
      */
     get<T extends Asset>(path: string): T | null {
         const asset = this._cache.get(path);
@@ -45,8 +61,17 @@ export class ResourceMgr {
     }
 
     /**
-     * 异步加载单个资源（兜底：有缓存直接返回，无缓存发起加载）
+     * 同步获取已缓存的目录资源数组
      */
+    getDir<T extends Asset>(dir: string): T[] | null {
+        const assets = this._dirCache.get(dir);
+        if (!assets) {
+            console.error(`[ResourceMgr] dir cache miss: "${dir}" — 请确认已在 preloadDir 中声明`);
+            return null;
+        }
+        return assets as T[];
+    }
+
     async load<T extends Asset>(path: string, type: AssetType<T> = Texture2D as any): Promise<T> {
         const cached = this._cache.get(path) as T | undefined;
         if (cached) return cached;
@@ -69,5 +94,6 @@ export class ResourceMgr {
 
     clearCache() {
         this._cache.clear();
+        this._dirCache.clear();
     }
 }

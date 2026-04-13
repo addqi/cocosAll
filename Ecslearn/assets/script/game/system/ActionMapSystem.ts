@@ -10,6 +10,9 @@ const KEYMAP: ReadonlyMap<number, EAction> = new Map([
     [KeyCode.KEY_D, EAction.MoveRight],
     [KeyCode.KEY_J, EAction.Attack],
     [KeyCode.SPACE, EAction.Dodge],
+    [KeyCode.DIGIT_1, EAction.Skill1],
+    [KeyCode.DIGIT_2, EAction.Skill2],
+    [KeyCode.DIGIT_3, EAction.Skill3],
 ]);
 
 /** 第②层：将原始按键翻译成语义动作 + 归一化移动方向 */

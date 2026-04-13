@@ -2,14 +2,17 @@ import { SpriteFrame, Texture2D, Rect } from 'cc';
 import { ResourceMgr } from '../resource';
 
 /**
- * Sprite Sheet 切帧工具
- * 职责单一：Texture2D → SpriteFrame[]，带缓存，不管播放
+ * Sprite 帧工具
+ *
+ * 两种帧获取模式：
+ *   1. getFrames    — 从一张 Sprite Sheet 按网格切帧（旧模式，保留向后兼容）
+ *   2. getFrameDir  — 从独立帧图片目录加载（新模式，每帧一张 PNG）
  */
 export class SpriteSheetUtil {
     private static _cache = new Map<string, SpriteFrame[]>();
 
     /**
-     * 从已加载的 Texture2D 创建帧数组（同步，带缓存）
+     * 从已加载的 Texture2D 按网格切帧（同步，带缓存）
      * @param totalFrames 不传则自动按满格计算
      */
     static createFrames(
@@ -43,8 +46,7 @@ export class SpriteSheetUtil {
     }
 
     /**
-     * 同步获取帧数组（需先通过 ResourceMgr 预加载纹理）
-     * @param path resources 路径（不带 /texture 后缀）
+     * 从 Sprite Sheet 纹理同步获取帧数组（旧模式）
      */
     static getFrames(
         path: string,
@@ -58,6 +60,28 @@ export class SpriteSheetUtil {
             return [];
         }
         return this.createFrames(tex, frameW, frameH, totalFrames);
+    }
+
+    /**
+     * 从独立帧图片目录获取帧数组（新模式）
+     * 需先通过 ResourceMgr.preloadDir 预加载目录
+     * 帧文件命名须可按字典序排出正确播放顺序（如 frame_00、frame_01 …）
+     */
+    static getFrameDir(dir: string): SpriteFrame[] {
+        const cached = this._cache.get(`dir:${dir}`);
+        if (cached) return cached;
+
+        const raw = ResourceMgr.inst.getDir<SpriteFrame>(dir);
+        if (!raw || raw.length === 0) {
+            console.error(`[SpriteSheetUtil] no frames in dir: "${dir}"`);
+            return [];
+        }
+
+        const frames = raw.slice().sort(
+            (a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }),
+        );
+        this._cache.set(`dir:${dir}`, frames);
+        return frames;
     }
 
     static clearCache() {

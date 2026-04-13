@@ -82,7 +82,7 @@ export class SpriteAnimator {
      */
     play(key: string, onComplete?: () => void) {
         const clip = this._clips.get(key);
-        if (!clip || clip.frames.length === 0) return;
+        if (!clip || clip.frames.length === 0) { onComplete?.(); return; }
 
         if (this._current === key && this._playing && !this._paused && clip.loop) return;
 

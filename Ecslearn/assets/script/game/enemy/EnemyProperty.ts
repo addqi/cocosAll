@@ -1,10 +1,9 @@
 import { EntityPropertyMgr } from '../entity/EntityPropertyMgr';
 import type { PropertyBaseConfig } from '../entity/EntityPropertyMgr';
-import enemyConfig from './config/enemy.json';
 
 export class EnemyProperty extends EntityPropertyMgr {
-    constructor() {
+    constructor(propertyCfg: PropertyBaseConfig) {
         super();
-        this.setInitialValues(enemyConfig as PropertyBaseConfig);
+        this.setInitialValues(propertyCfg);
     }
 }

@@ -1,12 +1,10 @@
 /**
  * 玩家经验与等级管理
  *
- * 升级公式: requiredXP(lv) = BASE + lv * GROWTH
- * 升级时 emit 回调，外部决定触发三选一或其他逻辑
+ * 升级公式: requiredXP(lv) = xpBase + lv × xpGrowth
+ * 参数来源: playerConfig
  */
-
-const BASE_XP = 50;
-const XP_GROWTH = 30;
+import { playerConfig } from '../config/playerConfig';
 
 export type LevelUpCallback = (newLevel: number) => void;
 
@@ -17,7 +15,7 @@ export class PlayerExperience {
 
     get level(): number { return this._level; }
     get xp(): number { return this._xp; }
-    get xpToNextLevel(): number { return BASE_XP + this._level * XP_GROWTH; }
+    get xpToNextLevel(): number { return playerConfig.xpBase + this._level * playerConfig.xpGrowth; }
     get xpRatio(): number { return Math.min(this._xp / this.xpToNextLevel, 1); }
 
     set onLevelUp(fn: LevelUpCallback | null) { this._onLevelUp = fn; }

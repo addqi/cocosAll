@@ -259,6 +259,18 @@ export class PlayerControl extends Component {
         if (vel) vel.speed = this._playerProp.getValue(EPropertyId.MoveSpeed);
     }
 
+    private _tickSkillKeys(act: ActionComp): void {
+        if (act.justPressed.has(EAction.Skill1)) {
+            this._skillSystem.tryUseBySlot(0, this.buildSkillContext());
+        }
+        if (act.justPressed.has(EAction.Skill2)) {
+            this._skillSystem.tryUseBySlot(1, this.buildSkillContext());
+        }
+        if (act.justPressed.has(EAction.Skill3)) {
+            this._skillSystem.tryUseBySlot(2, this.buildSkillContext());
+        }
+    }
+
     private _createHpLabel() {
         const labelNode = new Node('HpLabel');
         this._uiAnchor.addChild(labelNode);
@@ -352,6 +364,9 @@ export class PlayerControl extends Component {
 
         const vel = this._entity.getComponent(VelocityComp)!;
         const act = this._entity.getComponent(ActionComp)!;
+
+        this._tickSkillKeys(act);
+
         const isMoving = vel.vx !== 0 || vel.vy !== 0;
         const hasTarget = findNearestEnemy(
             this.node.worldPosition,

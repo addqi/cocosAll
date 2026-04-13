@@ -1,6 +1,6 @@
 import {
-    _decorator, Component, Vec3, view,
-    RigidBody2D, CircleCollider2D, BoxCollider2D, ERigidBody2DType,
+    _decorator, Component, Vec2, Vec3, view,
+    RigidBody2D, CircleCollider2D, BoxCollider2D,
     Contact2DType, Collider2D,
 } from 'cc';
 import { QuadBezier } from '../../baseSystem/math';
@@ -10,13 +10,13 @@ import { ProjectilePool } from './ProjectilePool';
 import { EnemyControl } from '../enemy/EnemyControl';
 import { playerConfig } from '../player/config/playerConfig';
 import { PHY_GROUP } from '../physics/PhysicsGroups';
-import { attachColliderDebug } from '../physics/ColliderDebugDraw';
 import type { ProjectileConfig } from '../shoot/types';
 
 const { ccclass } = _decorator;
 
 const _tmpPos = new Vec3();
 const _tmpTan = new Vec3();
+const _tmpVel = new Vec2();
 const RAD2DEG = 180 / Math.PI;
 
 export type ArrowHitFn = (target: EnemyControl, damageRatio: number) => void;
@@ -32,7 +32,6 @@ export class ArrowProjectile extends Component {
 
     private _piercing = false;
     private _pierceDir = new Vec3();
-    private _pierceSpeed = 0;
     private _hitEnemies = new Set<EnemyControl>();
 
     private _onHit: ArrowHitFn | null = null;
@@ -41,15 +40,15 @@ export class ArrowProjectile extends Component {
     private _inited = false;
     private _done = false;
 
+    private _rb: RigidBody2D = null!;
+    private _col: Collider2D | null = null;
+
     // ── 生命周期 ──────────────────────────────────
 
     onLoad() {
         this._setupPhysics();
     }
 
-    /**
-     * 视觉由预制体承载，此处只初始化飞行参数。
-     */
     init(
         curve: QuadBezier,
         duration: number,
@@ -71,6 +70,9 @@ export class ArrowProjectile extends Component {
         this._inited = true;
         this._done = false;
 
+        this._rb.group = PHY_GROUP.PBullet;
+        if (this._col) this._col.group = PHY_GROUP.PBullet;
+
         curve.getPoint(0, _tmpPos);
         this.node.setWorldPosition(_tmpPos);
         curve.getTangent(0, _tmpTan);
@@ -86,35 +88,30 @@ export class ArrowProjectile extends Component {
         this._config = null;
         this._piercing = false;
         this._hitEnemies.clear();
+        if (this._rb) {
+            _tmpVel.set(0, 0);
+            this._rb.linearVelocity = _tmpVel;
+        }
     }
 
-    // ── 物理：复用预制体碰撞体，仅改 group ──────────
+    // ── 物理（prefab 已配好 RigidBody2D + Collider2D）────
 
     private _setupPhysics() {
-        let rb = this.node.getComponent(RigidBody2D);
-        if (!rb) {
-            rb = this.node.addComponent(RigidBody2D);
-            rb.type = ERigidBody2DType.Dynamic;
-            rb.gravityScale = 0;
-            rb.allowSleep = false;
-            rb.fixedRotation = true;
-            rb.bullet = true;
-        }
-        rb.group = PHY_GROUP.PBullet;
+        const rb = this.node.getComponent(RigidBody2D);
+        if (!rb) { console.error('[ArrowProjectile] prefab 缺少 RigidBody2D'); return; }
+        rb.enabledContactListener = true;
+        this._rb = rb;
 
         const col = this.node.getComponent(CircleCollider2D)
                  || this.node.getComponent(BoxCollider2D);
-        if (col) {
-            col.sensor = true;
-            col.group = PHY_GROUP.PBullet;
-            col.on(Contact2DType.BEGIN_CONTACT, this._onContact, this);
-            attachColliderDebug(this.node);
-        }
+        if (!col) { console.error('[ArrowProjectile] prefab 缺少 Collider2D'); return; }
+        col.on(Contact2DType.BEGIN_CONTACT, this._onContact, this);
+        this._col = col;
     }
 
     // ── 碰撞回调 ─────────────────────────────────
 
-    private _onContact(self: Collider2D, other: Collider2D) {
+    private _onContact(_self: Collider2D, other: Collider2D) {
         if (!this._inited || this._done) return;
 
         const enemy = other.node.getComponent(EnemyControl);
@@ -147,7 +144,7 @@ export class ArrowProjectile extends Component {
         if (!this._inited || this._done) return;
 
         if (this._piercing) {
-            this._updatePierce(dt);
+            this._updatePierce();
             return;
         }
 
@@ -175,12 +172,11 @@ export class ArrowProjectile extends Component {
 
     private _onCurveEnd() {
         if (this._done) return;
-
-        if (this._hasTarget && this._target?.node.isValid && !this._hitEnemies.has(this._target)) {
+        if (this._hasTarget && this._target && this._hitEnemies.size === 0
+            && this._target.node.isValid && !this._target.combat.isDead) {
             this._hitEnemies.add(this._target);
             this._onHit?.(this._target, this._damageRatio);
         }
-
         this._afterHit();
     }
 
@@ -213,20 +209,15 @@ export class ArrowProjectile extends Component {
             this._pierceDir.set(1, 0, 0);
         }
         this._pierceDir.normalize();
-        this._pierceSpeed = playerConfig.arrowSpeed;
         this._piercing = true;
+
+        const speed = playerConfig.arrowSpeed;
+        _tmpVel.set(this._pierceDir.x * speed, this._pierceDir.y * speed);
+        this._rb.linearVelocity = _tmpVel;
     }
 
-    private _updatePierce(dt: number) {
+    private _updatePierce() {
         if (this._done) return;
-        const pos = this.node.worldPosition;
-        _tmpPos.set(
-            pos.x + this._pierceDir.x * this._pierceSpeed * dt,
-            pos.y + this._pierceDir.y * this._pierceSpeed * dt,
-            0,
-        );
-        this.node.setWorldPosition(_tmpPos);
-
         if (this._isOutOfScreen()) {
             this._release();
         }
@@ -266,6 +257,9 @@ export class ArrowProjectile extends Component {
         this._hasTarget = true;
         this._target = next;
         this._piercing = false;
+
+        _tmpVel.set(0, 0);
+        this._rb.linearVelocity = _tmpVel;
     }
 
     private _split(from: Vec3, count: number) {

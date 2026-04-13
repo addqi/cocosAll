@@ -10,7 +10,10 @@
 
 /** 单条动画配置 */
 export interface AnimEntry {
-    path: string;
+    /** sprite sheet 路径（旧模式，与 frameSize 配合切帧） */
+    path?: string;
+    /** 独立帧图片目录（新模式，目录内每张 PNG 为一帧，按文件名排序） */
+    frameDir?: string;
     fps: number;
     loop: boolean;
 }
@@ -40,6 +43,12 @@ export interface PlayerConfigData {
     arrowNoTargetRange: number;
     /** 攻击范围指示圈纹理路径 */
     rangeTexture: string;
+    /** 升级基础经验值：requiredXP(lv) = xpBase + lv × xpGrowth */
+    xpBase: number;
+    /** 每级经验增长量 */
+    xpGrowth: number;
+    /** 技能栏位上限 */
+    maxSkillSlots: number;
 }
 
 export const playerConfig: PlayerConfigData = {
@@ -47,9 +56,9 @@ export const playerConfig: PlayerConfigData = {
     displayWidth: 200,
     displayHeight: 200,
     anims: {
-        idle:  { path: 'Archer/Archer_Idle',  fps: 10, loop: true },
-        run:   { path: 'Archer/Archer_Run',   fps: 12, loop: true },
-        shoot: { path: 'Archer/Archer_Shoot', fps: 15, loop: false },
+        idle:  { frameDir: 'Archer/idle',  fps: 10, loop: true },
+        run:   { frameDir: 'Archer/run',   fps: 12, loop: true },
+        shoot: { frameDir: 'Archer/shoot', fps: 15, loop: false },
     },
     attackRange: 400,
     arrowSpeed: 300,
@@ -59,4 +68,7 @@ export const playerConfig: PlayerConfigData = {
     arrowArcRatio: 0.3,
     arrowNoTargetRange: 600,
     rangeTexture: 'ui/round',
+    xpBase: 50,
+    xpGrowth: 30,
+    maxSkillSlots: 3,
 };
