@@ -6,10 +6,9 @@ import { ArrowProjectile } from '../projectile/ArrowProjectile';
 import { ProjectilePool } from '../projectile/ProjectilePool';
 import { ShootResolver } from '../shoot/ShootResolver';
 import { EnemyControl } from '../enemy/EnemyControl';
+import { findNearestEnemy } from '../enemy/EnemyQuery';
 import { createHitContext } from '../hitEffects/types';
 import type { IActiveSkill, SkillContext } from './SkillTypes';
-
-const _tmpVec = new Vec3();
 
 export class ArrowStormSkill implements IActiveSkill {
     readonly id = 'arrow-storm';
@@ -47,7 +46,7 @@ export class ArrowStormSkill implements IActiveSkill {
         const totalArrows = this.level * (1 + extraProj) * this._arrowMultiplier;
         const center      = ctx.mouseWorldPos;
 
-        const { arrowTexture, arrowWidth, arrowHeight, arrowSpeed, arrowArcRatio } = playerConfig;
+        const { arrowSpeed, arrowArcRatio } = playerConfig;
         const projConfig = ShootResolver.snapshotProjectileConfig(ctx.playerProp);
         projConfig.pierceCount = 0;
         projConfig.bounceCount = 0;
@@ -75,7 +74,7 @@ export class ArrowStormSkill implements IActiveSkill {
             const start = new Vec3(center.x + offX, center.y + this._skyHeight, 0);
 
             const landing = new Vec3(endX, endY, 0);
-            const near    = this._findNearLanding(landing, 120);
+            const near    = findNearestEnemy(landing, 120);
             const end     = near ? near.node.worldPosition.clone() : landing;
 
             const dist   = Vec3.distance(start, end);
@@ -90,21 +89,9 @@ export class ArrowStormSkill implements IActiveSkill {
 
             arrow.init(
                 curve, dur, !!near, near,
-                arrowWidth, arrowHeight, arrowTexture,
                 projConfig, onHit,
             );
         }
     }
 
-    private _findNearLanding(pos: Vec3, radius: number): EnemyControl | null {
-        let best: EnemyControl | null = null;
-        let bestDist = Infinity;
-        for (const e of EnemyControl.allEnemies) {
-            if (!e.node.isValid || e.combat.isDead) continue;
-            Vec3.subtract(_tmpVec, pos, e.node.worldPosition);
-            const d = _tmpVec.length();
-            if (d < radius && d < bestDist) { bestDist = d; best = e; }
-        }
-        return best;
-    }
 }

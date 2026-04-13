@@ -25,6 +25,7 @@ export interface SkillContext {
     buffMgr: EntityBuffMgr;
     buffOwner: IBuffOwner;
     mouseWorldPos: Vec3;
+    readonly currentShootPolicy: IShootPolicy;
     setShootPolicy(policy: IShootPolicy): void;
 }
 /**

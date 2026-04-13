@@ -1,6 +1,7 @@
 import type { IActiveSkill, SkillContext } from './SkillTypes';
 import type { BuffData } from '../../baseSystem/buff';
-import { AutoShoot, HoldToShoot } from '../shoot/ShootPolicies';
+import type { IShootPolicy } from '../shoot/types';
+import { AutoShoot } from '../shoot/ShootPolicies';
 
 const BUFF_ID = 9001;
 
@@ -15,6 +16,7 @@ export class DashShotSkill implements IActiveSkill {
     private _atkSpeedBoost: number;
     private _effectTimer = 0;
     private _ctx: SkillContext | null = null;
+    private _prevPolicy: IShootPolicy | null = null;
 
     constructor(cfg?: Partial<{
         cooldown: number;
@@ -42,6 +44,7 @@ export class DashShotSkill implements IActiveSkill {
     execute(ctx: SkillContext): void {
         this.currentCd = this.maxCooldown;
         this._effectTimer = this._duration;
+        this._prevPolicy = ctx.currentShootPolicy;
         this._ctx = ctx;
 
         const buff: BuffData = {
@@ -64,7 +67,8 @@ export class DashShotSkill implements IActiveSkill {
         this._effectTimer = 0;
         if (!this._ctx) return;
         this._ctx.buffMgr.removeBuff(BUFF_ID);
-        this._ctx.setShootPolicy(new HoldToShoot());
+        if (this._prevPolicy) this._ctx.setShootPolicy(this._prevPolicy);
         this._ctx = null;
+        this._prevPolicy = null;
     }
 }

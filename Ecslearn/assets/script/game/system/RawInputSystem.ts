@@ -45,9 +45,12 @@ export class RawInputSystem implements ISystem {
             const raw = e.getComponent(RawInputComp);
             if (!raw) continue;
 
-            raw.keys = new Map(this.held);
-            raw.down = new Set(this.frameDown);
-            raw.up   = new Set(this.frameUp);
+            raw.keys.clear();
+            for (const [k, v] of this.held) raw.keys.set(k, v);
+            raw.down.clear();
+            for (const k of this.frameDown) raw.down.add(k);
+            raw.up.clear();
+            for (const k of this.frameUp) raw.up.add(k);
             raw.mouseDown = this.frameMouseDown;
             raw.mouseHeld = this.mouseLeftHeld;
             raw.mouseScreenX = this.mouseX;

@@ -1,9 +1,16 @@
-import { _decorator, Component, Sprite, SpriteFrame, UITransform, Size, Vec3, Texture2D, view, Camera, director } from 'cc';
-import { ResourceMgr } from '../../baseSystem/resource';
+import {
+    _decorator, Component, Vec3, view,
+    RigidBody2D, CircleCollider2D, BoxCollider2D, ERigidBody2DType,
+    Contact2DType, Collider2D,
+} from 'cc';
 import { QuadBezier } from '../../baseSystem/math';
+import { getMainCamera } from '../core/CameraRef';
+import { findNearestEnemy } from '../enemy/EnemyQuery';
 import { ProjectilePool } from './ProjectilePool';
 import { EnemyControl } from '../enemy/EnemyControl';
 import { playerConfig } from '../player/config/playerConfig';
+import { PHY_GROUP } from '../physics/PhysicsGroups';
+import { attachColliderDebug } from '../physics/ColliderDebugDraw';
 import type { ProjectileConfig } from '../shoot/types';
 
 const { ccclass } = _decorator;
@@ -11,7 +18,6 @@ const { ccclass } = _decorator;
 const _tmpPos = new Vec3();
 const _tmpTan = new Vec3();
 const RAD2DEG = 180 / Math.PI;
-const PIERCE_HIT_RADIUS = 40;
 
 export type ArrowHitFn = (target: EnemyControl, damageRatio: number) => void;
 
@@ -33,14 +39,22 @@ export class ArrowProjectile extends Component {
     private _config: ProjectileConfig | null = null;
     private _damageRatio = 1;
     private _inited = false;
+    private _done = false;
 
+    // ── 生命周期 ──────────────────────────────────
+
+    onLoad() {
+        this._setupPhysics();
+    }
+
+    /**
+     * 视觉由预制体承载，此处只初始化飞行参数。
+     */
     init(
         curve: QuadBezier,
         duration: number,
         hasTarget: boolean,
         target: EnemyControl | null,
-        width: number, height: number,
-        texturePath: string,
         config: ProjectileConfig | null,
         onHit?: ArrowHitFn,
     ) {
@@ -55,30 +69,17 @@ export class ArrowProjectile extends Component {
         this._piercing = false;
         this._hitEnemies.clear();
         this._inited = true;
+        this._done = false;
 
         curve.getPoint(0, _tmpPos);
         this.node.setWorldPosition(_tmpPos);
         curve.getTangent(0, _tmpTan);
         this._applyRotation(_tmpTan);
-
-        const ut = this.node.getComponent(UITransform) || this.node.addComponent(UITransform);
-        ut.setContentSize(new Size(width, height));
-
-        const tex = ResourceMgr.inst.get<Texture2D>(`${texturePath}/texture`);
-        if (tex) {
-            let sprite = this.node.getComponent(Sprite);
-            if (!sprite) {
-                sprite = this.node.addComponent(Sprite);
-                sprite.sizeMode = Sprite.SizeMode.CUSTOM;
-            }
-            const sf = new SpriteFrame();
-            sf.texture = tex;
-            sprite.spriteFrame = sf;
-        }
     }
 
     onDisable() {
         this._inited = false;
+        this._done = true;
         this._onHit = null;
         this._curve = null;
         this._target = null;
@@ -87,8 +88,63 @@ export class ArrowProjectile extends Component {
         this._hitEnemies.clear();
     }
 
+    // ── 物理：复用预制体碰撞体，仅改 group ──────────
+
+    private _setupPhysics() {
+        let rb = this.node.getComponent(RigidBody2D);
+        if (!rb) {
+            rb = this.node.addComponent(RigidBody2D);
+            rb.type = ERigidBody2DType.Dynamic;
+            rb.gravityScale = 0;
+            rb.allowSleep = false;
+            rb.fixedRotation = true;
+            rb.bullet = true;
+        }
+        rb.group = PHY_GROUP.PBullet;
+
+        const col = this.node.getComponent(CircleCollider2D)
+                 || this.node.getComponent(BoxCollider2D);
+        if (col) {
+            col.sensor = true;
+            col.group = PHY_GROUP.PBullet;
+            col.on(Contact2DType.BEGIN_CONTACT, this._onContact, this);
+            attachColliderDebug(this.node);
+        }
+    }
+
+    // ── 碰撞回调 ─────────────────────────────────
+
+    private _onContact(self: Collider2D, other: Collider2D) {
+        if (!this._inited || this._done) return;
+
+        const enemy = other.node.getComponent(EnemyControl);
+        if (!enemy || !enemy.node.isValid || enemy.combat.isDead) return;
+        if (this._hitEnemies.has(enemy)) return;
+
+        if (this._piercing) {
+            this._hitEnemies.add(enemy);
+            this._damageRatio *= 0.7;
+            this._onHit?.(enemy, this._damageRatio);
+            const cfg = this._config!;
+            cfg.pierceCount--;
+            if (cfg.pierceCount <= 0) {
+                this._piercing = false;
+                this._postPierceCheck();
+            }
+            return;
+        }
+
+        if (this._hasTarget && enemy !== this._target) return;
+
+        this._hitEnemies.add(enemy);
+        this._onHit?.(enemy, this._damageRatio);
+        this._afterHit();
+    }
+
+    // ── 每帧更新 ──────────────────────────────────
+
     update(dt: number) {
-        if (!this._inited) return;
+        if (!this._inited || this._done) return;
 
         if (this._piercing) {
             this._updatePierce(dt);
@@ -106,26 +162,36 @@ export class ArrowProjectile extends Component {
         this._applyRotation(_tmpTan);
 
         if (t >= 1) {
-            this._onArrival();
+            this._onCurveEnd();
             return;
         }
 
         if (this._elapsed > 0.5 && this._isOutOfScreen()) {
-            ProjectilePool.release(this.node);
+            this._release();
         }
     }
 
-    // ── 曲线到达终点 ──────────────────────────────────
+    // ── 曲线飞行结束 ─────────────────────────────
 
-    private _onArrival() {
-        if (this._hasTarget && this._target?.node.isValid) {
-            this._onHit?.(this._target, this._damageRatio);
+    private _onCurveEnd() {
+        if (this._done) return;
+
+        if (this._hasTarget && this._target?.node.isValid && !this._hitEnemies.has(this._target)) {
             this._hitEnemies.add(this._target);
+            this._onHit?.(this._target, this._damageRatio);
         }
+
+        this._afterHit();
+    }
+
+    // ── 命中后统一分支 ───────────────────────────
+
+    private _afterHit() {
+        if (this._done) return;
 
         const cfg = this._config;
         if (!cfg) {
-            ProjectilePool.release(this.node);
+            this._release();
             return;
         }
 
@@ -137,11 +203,12 @@ export class ArrowProjectile extends Component {
         this._postPierceCheck();
     }
 
-    // ── 穿透：直线飞行 + 逐帧碰撞检测 ─────────────────
+    // ── 穿透 ──────────────────────────────────────
 
     private _enterPierce() {
         if (this._curve) {
-            this._curve.getTangent(1, this._pierceDir);
+            const t = Math.min(this._elapsed / this._duration, 1);
+            this._curve.getTangent(t, this._pierceDir);
         } else {
             this._pierceDir.set(1, 0, 0);
         }
@@ -151,6 +218,7 @@ export class ArrowProjectile extends Component {
     }
 
     private _updatePierce(dt: number) {
+        if (this._done) return;
         const pos = this.node.worldPosition;
         _tmpPos.set(
             pos.x + this._pierceDir.x * this._pierceSpeed * dt,
@@ -159,38 +227,21 @@ export class ArrowProjectile extends Component {
         );
         this.node.setWorldPosition(_tmpPos);
 
-        const cfg = this._config!;
-        for (const e of EnemyControl.allEnemies) {
-            if (cfg.pierceCount <= 0) break;
-            if (!e.node.isValid || e.combat.isDead || this._hitEnemies.has(e)) continue;
-            if (Vec3.distance(_tmpPos, e.node.worldPosition) < PIERCE_HIT_RADIUS) {
-                this._hitEnemies.add(e);
-                this._damageRatio *= 0.7;
-                cfg.pierceCount--;
-                this._onHit?.(e, this._damageRatio);
-            }
-        }
-
-        if (cfg.pierceCount <= 0) {
-            this._piercing = false;
-            this._postPierceCheck();
-            return;
-        }
-
         if (this._isOutOfScreen()) {
-            ProjectilePool.release(this.node);
+            this._release();
         }
     }
 
-    // ── 穿透结束后检查弹射 / 分裂 ─────────────────────
+    // ── 弹射 / 分裂 ──────────────────────────────
 
     private _postPierceCheck() {
+        if (this._done) return;
         const cfg = this._config!;
         const hitPos = this.node.worldPosition.clone();
 
         if (cfg.bounceCount > 0) {
             cfg.bounceCount--;
-            const next = this._findNearest(hitPos);
+            const next = findNearestEnemy(hitPos, Infinity, this._hitEnemies);
             if (next) {
                 this._retarget(hitPos, next);
                 return;
@@ -201,10 +252,8 @@ export class ArrowProjectile extends Component {
             this._split(hitPos, cfg.splitCount);
         }
 
-        ProjectilePool.release(this.node);
+        this._release();
     }
-
-    // ── 弹射：重建曲线飞向下一个敌人 ──────────────────
 
     private _retarget(from: Vec3, next: EnemyControl) {
         const end = next.node.worldPosition.clone();
@@ -219,14 +268,12 @@ export class ArrowProjectile extends Component {
         this._piercing = false;
     }
 
-    // ── 分裂：生成子箭矢 ──────────────────────────────
-
     private _split(from: Vec3, count: number) {
-        const { arrowTexture, arrowWidth, arrowHeight, arrowSpeed, arrowArcRatio } = playerConfig;
+        const { arrowSpeed, arrowArcRatio } = playerConfig;
         const used = new Set(this._hitEnemies);
 
         for (let i = 0; i < count; i++) {
-            const next = this._findNearest(from, used);
+            const next = findNearestEnemy(from, Infinity, used);
             if (!next) break;
             used.add(next);
 
@@ -247,25 +294,21 @@ export class ArrowProjectile extends Component {
 
             arrow.init(
                 curve, dist / arrowSpeed, true, next,
-                arrowWidth, arrowHeight, arrowTexture,
                 splitCfg, this._onHit ?? undefined,
             );
         }
     }
 
-    // ── 工具 ───────────────────────────────────────────
+    // ── 回收 ──────────────────────────────────────
 
-    private _findNearest(from: Vec3, exclude?: Set<EnemyControl>): EnemyControl | null {
-        const skip = exclude ?? this._hitEnemies;
-        let best: EnemyControl | null = null;
-        let bestDist = Infinity;
-        for (const e of EnemyControl.allEnemies) {
-            if (!e.node.isValid || e.combat.isDead || skip.has(e)) continue;
-            const d = Vec3.distance(from, e.node.worldPosition);
-            if (d < bestDist) { bestDist = d; best = e; }
-        }
-        return best;
+    private _release() {
+        if (this._done) return;
+        this._done = true;
+        this._inited = false;
+        ProjectilePool.release(this.node);
     }
+
+    // ── 工具 ──────────────────────────────────────
 
     private _applyRotation(tangent: Vec3) {
         const angle = Math.atan2(tangent.y, tangent.x) * RAD2DEG;
@@ -279,7 +322,7 @@ export class ArrowProjectile extends Component {
         const hw = width / 2 + margin;
         const hh = height / 2 + margin;
 
-        const cam = director.getScene()?.getComponentInChildren(Camera);
+        const cam = getMainCamera();
         const cx = cam ? cam.node.worldPosition.x : 0;
         const cy = cam ? cam.node.worldPosition.y : 0;
 

@@ -20,7 +20,7 @@ export interface UpgradeConfig {
     name: string;
     desc: string;
     tier: number;
-    rarity: 'common' | 'rare' | 'epic';
+    rarity: 'common' | 'rare' | 'epic' | 'legendary';
     category: 'attr' | 'proj' | 'onhit' | 'policy';
     effects: UpgradeEffect[];
     /** 进化前置：全部已 apply 时可触发进化 */

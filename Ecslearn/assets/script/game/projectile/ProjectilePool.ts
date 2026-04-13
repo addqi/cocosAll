@@ -1,18 +1,23 @@
-import { Node } from 'cc';
+import { Node, Prefab, instantiate } from 'cc';
 
 export class ProjectilePool {
     private static _pool: Node[] = [];
     private static _parent: Node | null = null;
+    private static _prefab: Prefab | null = null;
 
-    /** 由 GameLoop.onLoad 调用，传入 GameLoop 所在节点 */
-    static init(parent: Node) {
+    /** 由 GameLoop.onLoad 调用 */
+    static init(parent: Node, prefab?: Prefab) {
         const layer = new Node('ProjectileLayer');
         parent.addChild(layer);
         this._parent = layer;
+        this._prefab = prefab ?? null;
     }
 
     static acquire(): Node {
-        const node = this._pool.pop() ?? new Node('Arrow');
+        let node = this._pool.pop();
+        if (!node) {
+            node = this._prefab ? instantiate(this._prefab) : new Node('Arrow');
+        }
         node.active = true;
         this._parent!.addChild(node);
         return node;

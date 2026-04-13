@@ -1,6 +1,6 @@
 import type { UpgradeConfig, UpgradeEffect } from './types';
 
-const VALID_RARITY     = new Set(['common', 'rare', 'epic']);
+const VALID_RARITY     = new Set(['common', 'rare', 'epic', 'legendary']);
 const VALID_CATEGORY   = new Set(['attr', 'proj', 'onhit', 'policy']);
 const VALID_EFF_TYPE   = new Set(['buff', 'hit_effect', 'shoot_policy']);
 const REQUIRED         = ['id', 'name', 'desc', 'tier', 'rarity', 'category', 'effects'] as const;

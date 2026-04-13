@@ -10,6 +10,8 @@ export enum EPlayerState {
     Idle  = 'idle',
     Run   = 'run',
     Shoot = 'shoot',
+    Hurt  = 'hurt',
+    Dead  = 'dead',
 }
 
 export interface PlayerCtx {
@@ -25,4 +27,6 @@ export interface PlayerCtx {
     /** 射击冷却倒计时，跨状态持续递减 */
     shootCooldown: number;
     hitEffectMgr: HitEffectMgr;
+    /** 受击无敌帧倒计时 */
+    invincibleTimer: number;
 }

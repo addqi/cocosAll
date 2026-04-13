@@ -1,6 +1,7 @@
 import { HitEffectBase } from '../../baseSystem/hitEffect';
 import { hitEffect } from '../../baseSystem/hitEffect';
 import { EPropertyId } from '../config/enum/propertyEnum';
+import { EnemyControl } from '../enemy/EnemyControl';
 import type { GameHitContext } from './types';
 
 @hitEffect
@@ -15,5 +16,10 @@ export class DamageHitEffect extends HitEffectBase {
         ctx.baseDamage = atk;
         ctx.rawDamage = Math.round(atk * ctx.critMultiplier * ctx.damageRatio);
         ctx.finalDamage = ctx.targetCombat.takeDamage(ctx.rawDamage);
+
+        if (ctx.targetNode?.isValid) {
+            const enemy = ctx.targetNode.getComponent(EnemyControl);
+            enemy?.onHitVisual(ctx.finalDamage, ctx.isCrit);
+        }
     }
 }

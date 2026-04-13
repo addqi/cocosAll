@@ -2,6 +2,7 @@ import { Vec3 } from 'cc';
 import { HitEffectBase } from '../../baseSystem/hitEffect';
 import { hitEffect } from '../../baseSystem/hitEffect';
 import { EnemyControl } from '../enemy/EnemyControl';
+import { findNearestEnemy } from '../enemy/EnemyQuery';
 import type { GameHitContext } from './types';
 
 /**
@@ -34,7 +35,7 @@ export class ChainLightningEffect extends HitEffectBase {
         }
 
         for (let i = 0; i < jumps; i++) {
-            const next = this._findNearest(origin, range, visited);
+            const next = findNearestEnemy(origin, range, visited);
             if (!next) break;
 
             visited.add(next);
@@ -43,16 +44,5 @@ export class ChainLightningEffect extends HitEffectBase {
             origin = next.node.worldPosition;
             ratio *= decay;
         }
-    }
-
-    private _findNearest(from: Vec3, range: number, exclude: Set<EnemyControl>): EnemyControl | null {
-        let best: EnemyControl | null = null;
-        let bestDist = range;
-        for (const e of EnemyControl.allEnemies) {
-            if (!e.node.isValid || e.combat.isDead || exclude.has(e)) continue;
-            const d = Vec3.distance(from, e.node.worldPosition);
-            if (d < bestDist) { bestDist = d; best = e; }
-        }
-        return best;
     }
 }

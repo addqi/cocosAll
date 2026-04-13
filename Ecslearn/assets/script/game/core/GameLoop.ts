@@ -1,4 +1,4 @@
-import { _decorator, Component, Texture2D } from 'cc';
+import { _decorator, Component, Texture2D, EffectAsset, PhysicsSystem2D, Prefab } from 'cc';
 import { World } from './World';
 import { ResourceMgr } from '../../baseSystem/resource';
 import { ProjectilePool } from '../projectile/ProjectilePool';
@@ -12,10 +12,13 @@ import {
     MoveSyncSystem,
 } from '../system';
 
-const { ccclass } = _decorator;
+const { ccclass, property } = _decorator;
 
 @ccclass('GameLoop')
 export class GameLoop extends Component {
+    @property(Prefab)
+    arrowPrefab: Prefab = null!;
+
     private static _readyFns: (() => void)[] = [];
     private static _isReady = false;
 
@@ -40,12 +43,14 @@ export class GameLoop extends Component {
     get world(): World { return this._world; }
 
     onLoad() {
+        PhysicsSystem2D.instance.enable = true;
+
         this._world         = new World();
         this._rawInput      = new RawInputSystem();
         this._actionMap     = new ActionMapSystem();
         this._playerControl = new PlayerControlSystem();
         this._moveSync      = new MoveSyncSystem();
-        ProjectilePool.init(this.node);
+        ProjectilePool.init(this.node, this.arrowPrefab);
         this._ready         = true;
 
         this._preloadResources().then(() => {
@@ -67,8 +72,12 @@ export class GameLoop extends Component {
         for (const key of Object.keys(enemyConfig.anims)) {
             texturePaths.push(`${enemyConfig.anims[key].path}/texture`);
         }
+        texturePaths.push(`${enemyConfig.rangeTexture}/texture`);
+
+        texturePaths.push('shader/noise/texture');
 
         await ResourceMgr.inst.preload(texturePaths, Texture2D);
+        await ResourceMgr.inst.preload(['shader/dissolve', 'shader/flash-white'], EffectAsset);
     }
 
     update(dt: number) {

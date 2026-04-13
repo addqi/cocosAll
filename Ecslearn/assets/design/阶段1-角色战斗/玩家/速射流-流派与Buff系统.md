@@ -474,68 +474,186 @@ applySkill(skillId: string, entity: Entity, buffMgr: EntityBuffMgr): void {
 
 ---
 
-## 八、完整 Buff 清单速查表
+## 八、已实现 Buff 清单（JSON/Excel 已就绪）
 
-| ID | 名称 | 分类 | 进阶 | 稀有度 | 核心效果 | 实现类型 |
-|----|------|------|------|--------|----------|----------|
-| 2001 | 弹幕射手 | 核心 | 弹幕 | Epic | +2箭/次，单箭-10% | B |
-| 2002 | 扫射模式 | 核心 | 弹幕 | Rare | 扇形角60° | B |
-| 2003 | 弹幕狂热 | 核心 | 弹幕 | Legendary | 连射叠攻速+50% | C |
-| 2004 | 散弹箭 | 核心 | 弹幕 | Epic | 每箭→3短程箭 | B |
-| 2005 | 无尽弹仓 | 核心 | 弹幕 | Legendary | 每10箭免费箭雨 | C |
-| 2300 | 蓄力引擎 | 核心 | 爆发 | Epic | 蓄力5层+250%伤 | C |
-| 2301 | 满弦一射 | 核心 | 爆发 | Rare | 满蓄力大箭+穿+AOE | B |
-| 2302 | 暴击风暴 | 核心 | 爆发 | Epic | 连锁暴击×3 | C |
-| 2303 | 处刑之箭 | 核心 | 爆发 | Legendary | 低血量目标×3伤害 | A |
-| 2304 | 时间凝缩 | 核心 | 爆发 | Legendary | 蓄力期间时间减缓 | C |
-| 2400 | 无限穿透 | 核心 | 持续 | Epic | +5穿透，不衰减 | A |
-| 2401 | 连锁弹射 | 核心 | 持续 | Epic | 弹射4次不衰减 | B |
-| 2402 | 瘟疫扩散 | 核心 | 持续 | Legendary | 毒死→扩散 | C |
-| 2403 | 侵蚀箭 | 核心 | 持续 | Rare | 命中-15%防×5叠 | A |
-| 2404 | 追猎本能 | 核心 | 持续 | Epic | 强追踪 | B |
-| 2101 | 急速连射 | 通用 | — | Common | 攻速+20%×3 | A |
-| 2102 | 箭矢轻量化 | 通用 | — | Common | 箭速+40% | A |
-| 2103 | 多重射击 | 通用 | — | Rare | +1箭/次×3 | B |
-| 2104 | 穿透射击 | 通用 | — | Rare | 穿透+2 | B |
-| 2105 | 命中回馈 | 通用 | — | Epic | 每命中-5%冷却 | C |
-| 2106 | 战斗专注 | 通用 | — | Rare | 命中不同敌+ATK | C |
-| 2201 | 锐利箭头 | 全局 | — | Common | ATK+30% | A |
-| 2202 | 生命汲取 | 全局 | — | Common | 吸血+8% | A |
-| 2203 | 烈焰箭 | 全局 | — | Rare | 灼烧DOT | C |
-| 2204 | 寒冰箭 | 全局 | — | Rare | 减速/冰冻 | C |
-| 2205 | 雷电箭 | 全局 | — | Epic | 闪电链 | C |
-| 2206 | 击退之力 | 全局 | — | Common | 命中击退 | C |
-| 2207 | 护盾箭 | 全局 | — | Rare | 击杀叠盾 | C |
-| 2208 | 献祭射击 | 全局 | — | Epic | 扣血+80%伤 | C |
-| 2500 | 暴风雪 | 进化 | 弹幕 | — | 全箭冰冻 | B+C |
-| 2501 | 陨星箭 | 进化 | 爆发 | — | 巨型火箭500%AOE | B+C |
-| 2502 | 雷神之怒 | 进化 | 持续 | — | 无限弹射闪电 | B+C |
+> 配置文件：`config/upgradeConfig/upgrades.json` + `config/excel/upgrades.xlsx`
+> 进化配置：`config/upgradeConfig/evolutions.json`（当前为空，buff 组合暂不实现）
+
+### 8.1 Tier 1（前期，9 个）
+
+| 升级 ID | Buff ID | 名称 | 稀有度 | 效果 | 脚本 | targetAttr |
+|---------|---------|------|--------|------|------|-----------|
+| `rapid-fire` | 2101 | 急速连射 | Common | 攻速+20% | `SimpleAttrBuffEffect` | `AttackSpeed-Mul-Buff` |
+| `arrow-speed` | 2102 | 箭矢轻量化 | Common | 箭速+40% | `SimpleAttrBuffEffect` | `ArrowSpeed-Mul-Buff` |
+| `sharp-arrow` | 2201 | 锐利箭头 | Common | 攻击+30% | `SimpleAttrBuffEffect` | `Attack-Mul-Buff` |
+| `lifesteal` | 2202 | 生命汲取 | Common | 吸血率+8% | `SimpleAttrBuffEffect` | `LifestealRate-Value-Buff` |
+| `knockback` | — | 击退之力 | Common | 命中击退敌人 | `KnockbackEffect` | —（hit_effect） |
+| `fire-arrow` | — | 烈焰箭 | Rare | 灼烧DOT(ATK×20%/3s) | `BurnOnHitEffect` | —（hit_effect） |
+| `frost-arrow` | — | 寒冰箭 | Rare | 减速30%/2s，叠3层冰冻 | `FrostOnHitEffect` | —（hit_effect） |
+| `crit-instinct` | 2601 | 暴击直觉 | Common | 暴击率+10% | `SimpleAttrBuffEffect` | `CritRate-Value-Buff` |
+| `swift-step` | 2602 | 疾风步 | Common | 移速+20% | `SimpleAttrBuffEffect` | `MoveSpeed-Mul-Buff` |
+
+### 8.2 Tier 2（中期，9 个）
+
+| 升级 ID | Buff ID | 名称 | 稀有度 | 效果 | 脚本 | targetAttr |
+|---------|---------|------|--------|------|------|-----------|
+| `multi-shot` | 2103 | 多重射击 | Rare | 额外弹道+1 | `SimpleAttrBuffEffect` | `ExtraProjectiles-Value-Buff` |
+| `pierce-shot` | 2104 | 穿透射击 | Rare | 穿透+2 | `SimpleAttrBuffEffect` | `PierceCount-Value-Buff` |
+| `lightning-arrow` | — | 雷电箭 | Epic | 100%闪电链(3跳) | `ChainLightningEffect` | —（hit_effect） |
+| `barrage-shot` | 2001 | 弹幕射手 | Epic | 额外弹道+2 | `SimpleAttrBuffEffect` | `ExtraProjectiles-Value-Buff` |
+| `spread-mode` | 2002 | 扫射模式 | Rare | 扇形角度+45° | `SimpleAttrBuffEffect` | `SpreadAngle-Value-Buff` |
+| `chain-bounce` | 2401 | 连锁弹射 | Epic | 弹射+4次 | `SimpleAttrBuffEffect` | `BounceCount-Value-Buff` |
+| `long-range` | 2603 | 远程瞄准 | Common | 射程+50% | `SimpleAttrBuffEffect` | `AttackRange-Mul-Buff` |
+| `rapid-fire-2` | 2111 | 急速连射 II | Rare | 攻速+30% | `SimpleAttrBuffEffect` | `AttackSpeed-Mul-Buff` |
+| `sharp-arrow-2` | 2211 | 锐利箭头 II | Rare | 攻击+50% | `SimpleAttrBuffEffect` | `Attack-Mul-Buff` |
+
+### 8.3 Tier 3（后期，9 个）
+
+| 升级 ID | Buff ID | 名称 | 稀有度 | 效果 | 脚本 | targetAttr |
+|---------|---------|------|--------|------|------|-----------|
+| `infinite-pierce` | 2400 | 无限穿透 | Epic | 穿透+5(不衰减) | `SimpleAttrBuffEffect` | `PierceCount-Value-Buff` |
+| `homing-instinct` | 2404 | 追猎本能 | Epic | 强追踪(×3) | `SimpleAttrBuffEffect` | `HomingStrength-Value-Buff` |
+| `barrage-shot-2` | 2011 | 弹幕射手 II | Epic | 额外弹道+3 | `SimpleAttrBuffEffect` | `ExtraProjectiles-Value-Buff` |
+| `chain-bounce-2` | 2411 | 连锁弹射 II | Epic | 弹射+6次 | `SimpleAttrBuffEffect` | `BounceCount-Value-Buff` |
+| `crit-storm` | 2302+2312 | 暴击风暴 | Epic | 暴击率+25%，暴击伤害+50% | `SimpleAttrBuffEffect` ×2 | `CritRate/CritDmg-Value-Buff` |
+| `executioner` | 2303 | 处刑之箭 | Legendary | 攻击+80% | `SimpleAttrBuffEffect` | `Attack-Mul-Buff` |
+| `rapid-fire-3` | 2121 | 急速连射 III | Epic | 攻速+50% | `SimpleAttrBuffEffect` | `AttackSpeed-Mul-Buff` |
+| `sharp-arrow-3` | 2221 | 锐利箭头 III | Epic | 攻击+80% | `SimpleAttrBuffEffect` | `Attack-Mul-Buff` |
+| `lifesteal-2` | 2212 | 生命汲取 II | Rare | 吸血率+15% | `SimpleAttrBuffEffect` | `LifestealRate-Value-Buff` |
+
+### 8.4 Buff ID 段分配（已用 + 规划）
+
+| 段 | 范围 | 用途 | 状态 |
+|----|------|------|------|
+| 2000-2099 | 弹幕流核心 | C1-C5（弹幕射手等） | ✅ 2001,2002,2011 已配置 |
+| 2100-2199 | 速射流通用 | G1-G6（急速连射等） | ✅ 2101-2104,2111,2121 已配置 |
+| 2200-2299 | 全局通用 | U1-U8（锐利箭头等） | ✅ 2201,2202,2211,2212,2221 已配置 |
+| 2300-2399 | 爆发流核心 | C6-C10（蓄力引擎等） | ✅ 2302,2303,2312 已配置 |
+| 2400-2499 | 持续流核心 | C11-C15（无限穿透等） | ✅ 2400,2401,2404,2411 已配置 |
+| 2500-2599 | 进化 Buff | 暴风雪/陨星箭/雷神之怒 | ⏳ 待实现 |
+| 2600-2699 | 补充通用 | 暴击直觉/疾风步/远程瞄准 | ✅ 2601,2602,2603 已配置 |
+
+### 8.5 未实现的设计 Buff（需新脚本）
+
+| 设计ID | 名称 | 需要的新机制 | 优先级 |
+|--------|------|-------------|--------|
+| 2003 | 弹幕狂热 | 连射计时器 + 动态攻速叠加 | P3 |
+| 2004 | 散弹箭 | 新弹道类型 shotgun | P4 |
+| 2005 | 无尽弹仓 | 射击计数器 + 技能调用 | P4 |
+| 2105 | 命中回馈 | on-hit 冷却回复 | P3 |
+| 2106 | 战斗专注 | 命中不同敌人记录 + 动态 ATK | P3 |
+| 2207 | 护盾箭 | 击杀事件 → 护盾 Buff | P4 |
+| 2208 | 献祭射击 | 射击事件 → 扣血 + 临时伤害加成 | P4 |
+| 2300 | 蓄力引擎 | 全新蓄力系统 | P5 |
+| 2301 | 满弦一射 | 蓄力 + 弹道参数联动 | P5 |
+| 2304 | 时间凝缩 | 全局时间缩放 | P6 |
+| 2402 | 瘟疫扩散 | 敌人死亡事件 + Buff 复制 | P5 |
+| 2403 | 侵蚀箭 | 命中施加防御削减（需 DefReduceOnHitEffect） | P3 |
 
 ---
 
-## 九、与现有代码的对接方案
+## 九、测试面板（BattleTestPanel）
 
-| 现有模块 | 需要改动 | 改动量 |
-|----------|----------|--------|
-| `PlayerProperty` | 新增属性：`ExtraProjectiles`, `PierceCount`, `BounceCount`, `SpreadAngle`, `HomingStrength`, `ChargeLevel`, `ProjectileType` | 小（加JSON字段+注册） |
-| `PlayerShootState` | 读取 `AttackSpeed` 做冷却间隔；读取 `ExtraProjectiles` + `SpreadAngle` 生成多箭 | 中（核心改造） |
-| `ArrowProjectile` | 穿透计数、弹射逻辑、追踪转向、散弹模式 | 大（弹道系统重写） |
-| `PlayerCombat.attack()` | 加入 on-hit 回调链：元素施加、击退、命中回馈等 | 中（回调链模式） |
-| `EntityBuffMgr` | 支持对敌方施加 Buff（灼烧/冻伤/中毒） | 小（已有框架） |
-| `SkillManager` | 接入 `ArchetypeManager` 过滤池；加入进化检测 | 中（新模块） |
-| **新增** `ArchetypeManager` | 流派选择、进阶选择、Buff池过滤 | 中（新模块） |
+### 当前测试流程
+
+```
+┌─────────────────────────────────┐
+│ HP:500/1000  ATK:100  SPD:1.0   │  ← 实时属性
+│ 箭:1  穿:0  弹:0                │
+├─────────────────────────────────┤
+│ --- 主动技能 ---                 │
+│ 箭雨倾泻  CD:12  [装备] [释放]   │
+│ 闪身射击  CD:6   [装备] [释放]   │
+├─────────────────────────────────┤
+│ --- 进化选择 ---                 │
+│ 第1层 (0/6)  剩余:9             │
+│ ┌ 急速连射     攻速+20%   [选择]│
+│ ├ 锐利箭头     攻击+30%   [选择]│
+│ └ 击退之力     命中击退   [选择]│
+│ [🔄 刷新选择]                    │
+├─────────────────────────────────┤
+│ --- 已选升级 ---                 │
+│ 1. 急速连射 (攻速+20%)          │
+│ 2. 烈焰箭 (灼烧DOT)            │
+│ ...                             │
+├─────────────────────────────────┤
+│ [敌人满血] [玩家满血] [重置全部] │
+└─────────────────────────────────┘
+```
+
+### 选择规则
+
+| 规则 | 说明 |
+|------|------|
+| 每层选择 | 从当前层池中随机3个，玩家选1个 |
+| 层推进 | 选满6个 → 自动进入下一层 |
+| 总层数 | 3层 × 6选 = 18个升级 |
+| 刷新 | 点击刷新重新随机3个（不消耗次数） |
+| 重置 | "重置全部" 移除所有已选升级，回到第1层 |
+| 稀有度颜色 | Common白/Rare蓝/Epic紫/Legendary金 |
 
 ---
 
-## 十、实现优先级
+## 十、文件清单与脚本映射
 
-| 阶段 | 内容 | 估时 |
+### 配置文件
+
+| 文件 | 路径 | 说明 |
 |------|------|------|
-| **P0** | `AttackSpeed` 接入射击冷却 + `SkillManager` 基础框架 | 2h |
-| **P1** | 全部 A 类 Buff（纯属性：锐利箭头、急速连射、吸血等） | 1h |
-| **P2** | `ArchetypeManager` + Buff 池过滤 + 进阶选择 UI | 3h |
-| **P3** | B 类 Buff：多重射击 + 穿透 + 弹射（弹道系统改造） | 4h |
-| **P4** | C 类 Buff：元素效果 + on-hit 回调链 | 3h |
-| **P5** | 主动技能：箭雨倾泻 + 闪身射击 | 3h |
-| **P6** | 进化系统 + 联动检测 | 2h |
-| **P7** | 爆发流蓄力系统 + 持续流追踪系统 | 4h |
+| `upgrades.json` | `game/config/upgradeConfig/` | 27个升级配置 (9/tier × 3 tiers) |
+| `evolutions.json` | `game/config/upgradeConfig/` | 进化配置（当前为空） |
+| `upgrades.xlsx` | `config/excel/` | Excel 版配置（与 JSON 双向同步） |
+| `player.json` | `game/player/config/` | 玩家属性定义 |
+
+### Buff 效果脚本
+
+| 脚本 | 路径 | 用途 |
+|------|------|------|
+| `SimpleAttrBuffEffect` | `game/skill/effects/` | A/B 类属性 Buff（占 80%+ 配置） |
+| `BurnDotEffect` | `game/skill/effects/` | 灼烧 DOT Buff |
+| `FrostSlowEffect` | `game/skill/effects/` | 冻伤减速 Buff |
+| `AttackBoostEffect` | `game/skill/effects/` | 攻击提升 Buff |
+| `CritBoostEffect` | `game/skill/effects/` | 暴击提升 Buff |
+| `DefenseReduceEffect` | `game/skill/effects/` | 防御削减 Buff |
+| `LifestealEffect` | `game/skill/effects/` | 吸血率 Buff |
+| `RegenEffect` | `game/skill/effects/` | 回血 Buff |
+
+### 命中效果脚本
+
+| 脚本 | 路径 | 用途 |
+|------|------|------|
+| `DamageHitEffect` | `game/hitEffects/` | 基础伤害计算 |
+| `BurnOnHitEffect` | `game/hitEffects/` | 命中施加灼烧 |
+| `FrostOnHitEffect` | `game/hitEffects/` | 命中施加冻伤 |
+| `ChainLightningEffect` | `game/hitEffects/` | 闪电链 AOE |
+| `KnockbackEffect` | `game/hitEffects/` | 命中击退 |
+| `LifestealHitEffect` | `game/hitEffects/` | 命中吸血 |
+| `CritBonusDamageEffect` | `game/hitEffects/` | 暴击额外伤害 |
+| `LifeOnHitEffect` | `game/hitEffects/` | 命中回血 |
+
+### 系统脚本
+
+| 脚本 | 路径 | 用途 |
+|------|------|------|
+| `UpgradeManager` | `game/upgrade/` | 升级应用/移除/进化检测 |
+| `UpgradeValidator` | `game/upgrade/` | JSON 配置校验 |
+| `upgradeConfigs` | `game/upgrade/` | 加载并导出 ALL_UPGRADES |
+| `upgrade-excel.js` | `tools/auto/` | JSON ↔ Excel 双向转换工具 |
+| `BattleTestPanel` | `game/test/` | 肉鸽选择 UI + 技能测试 |
+
+---
+
+## 十一、实现优先级
+
+| 阶段 | 内容 | 状态 |
+|------|------|------|
+| **P0** | AttackSpeed 接入射击冷却 + SkillSystem 基础框架 | ✅ 已完成 |
+| **P1** | A 类 Buff（属性：锐利箭头、急速连射、吸血等） | ✅ 已完成 |
+| **P1.5** | JSON/Excel 数据驱动配置 + 肉鸽测试面板 | ✅ 已完成 |
+| **P2** | B 类 Buff：多重射击 + 穿透 + 弹射（弹道系统） | ✅ 已完成 |
+| **P2.5** | 元素命中效果：灼烧 + 冻伤 + 闪电链 + 击退 | ✅ 已完成 |
+| **P3** | C 类触发 Buff：命中回馈 + 战斗专注 + 侵蚀箭 | ⏳ 待实现 |
+| **P4** | 弹幕流专属：散弹箭 + 弹幕狂热 + 无尽弹仓 | ⏳ 待实现 |
+| **P5** | 爆发流蓄力系统 + 持续流瘟疫扩散 | ⏳ 待实现 |
+| **P6** | ArchetypeManager + 进阶选择 + 进化系统 | ⏳ 待实现 |
+| **P7** | 主动技能 Buff 联动（箭雨×弹幕、闪身×寒冰等） | ⏳ 待实现 |

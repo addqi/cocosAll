@@ -9,6 +9,7 @@ export enum EEnemyAnim {
     Idle   = 'idle',
     Run    = 'run',
     Attack = 'attack',
+    Die    = 'die',
 }
 
 @ccclass('EnemyAnimation')

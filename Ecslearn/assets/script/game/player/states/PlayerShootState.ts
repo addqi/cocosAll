@@ -1,7 +1,6 @@
 import type { IState } from '../../../baseSystem/fsm';
 import { EPropertyId } from '../../config/enum/propertyEnum';
 import { EPlayerAnim } from '../anim/PlayerAnimation';
-import { playerConfig } from '../config/playerConfig';
 import { ArrowProjectile } from '../../projectile/ArrowProjectile';
 import { ProjectilePool } from '../../projectile/ProjectilePool';
 import { ShootResolver } from '../../shoot/ShootResolver';
@@ -45,7 +44,6 @@ export class PlayerShootState implements IState<PlayerCtx> {
             ctx.prop,
         );
         const projConfig = ShootResolver.snapshotProjectileConfig(ctx.prop);
-        const { arrowTexture, arrowWidth, arrowHeight } = playerConfig;
         const combat = ctx.combat;
         const mgr = ctx.hitEffectMgr;
 
@@ -66,7 +64,6 @@ export class PlayerShootState implements IState<PlayerCtx> {
 
             arrow.init(
                 shot.curve, shot.duration, shot.hasTarget, shot.target,
-                arrowWidth, arrowHeight, arrowTexture,
                 projConfig, onHit,
             );
         }

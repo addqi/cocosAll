@@ -1,8 +1,8 @@
 [
   {
     "id": "rapid-fire",
-    "name": "急速弓弦",
-    "desc": "攻速+30%",
+    "name": "急速连射",
+    "desc": "攻速+20%",
     "tier": 1,
     "rarity": "common",
     "category": "attr",
@@ -10,19 +10,41 @@
       {
         "type": "buff",
         "data": {
-          "id": 7001,
-          "name": "急速弓弦",
+          "id": 2101,
+          "name": "急速连射",
           "duration": 0,
           "maxStack": 1,
           "effectClass": "SimpleAttrBuffEffect",
           "targetAttr": "AttackSpeed-Mul-Buff",
-          "valuePerStack": 0.3
+          "valuePerStack": 0.2
         }
       }
     ]
   },
   {
-    "id": "power-strike",
+    "id": "arrow-speed",
+    "name": "箭矢轻量化",
+    "desc": "箭速+40%",
+    "tier": 1,
+    "rarity": "common",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2102,
+          "name": "箭矢轻量化",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "ArrowSpeed-Mul-Buff",
+          "valuePerStack": 0.4
+        }
+      }
+    ]
+  },
+  {
+    "id": "sharp-arrow",
     "name": "锐利箭头",
     "desc": "攻击+30%",
     "tier": 1,
@@ -32,7 +54,7 @@
       {
         "type": "buff",
         "data": {
-          "id": 7002,
+          "id": 2201,
           "name": "锐利箭头",
           "duration": 0,
           "maxStack": 1,
@@ -44,9 +66,9 @@
     ]
   },
   {
-    "id": "long-range",
-    "name": "远程瞄准",
-    "desc": "射程+50%",
+    "id": "lifesteal",
+    "name": "生命汲取",
+    "desc": "吸血率+8%",
     "tier": 1,
     "rarity": "common",
     "category": "attr",
@@ -54,35 +76,121 @@
       {
         "type": "buff",
         "data": {
-          "id": 7003,
-          "name": "远程瞄准",
+          "id": 2202,
+          "name": "生命汲取",
           "duration": 0,
           "maxStack": 1,
           "effectClass": "SimpleAttrBuffEffect",
-          "targetAttr": "AttackRange-Mul-Buff",
-          "valuePerStack": 0.5
+          "targetAttr": "LifestealRate-Value-Buff",
+          "valuePerStack": 0.08
         }
       }
     ]
   },
   {
-    "id": "pierce-shot",
-    "name": "穿透射击",
-    "desc": "穿透+1",
+    "id": "knockback",
+    "name": "击退之力",
+    "desc": "命中击退敌人",
     "tier": 1,
     "rarity": "common",
-    "category": "proj",
+    "category": "onhit",
+    "effects": [
+      {
+        "type": "hit_effect",
+        "data": {
+          "id": "upg-knockback",
+          "effectClass": "KnockbackEffect",
+          "priority": 90,
+          "knockDist": 60
+        }
+      }
+    ]
+  },
+  {
+    "id": "fire-arrow",
+    "name": "烈焰箭",
+    "desc": "命中施加灼烧DOT(ATK×20%/3s)",
+    "tier": 1,
+    "rarity": "rare",
+    "category": "onhit",
+    "effects": [
+      {
+        "type": "hit_effect",
+        "data": {
+          "id": "upg-burn",
+          "effectClass": "BurnOnHitEffect",
+          "priority": 50,
+          "burnRatio": 0.2,
+          "burnBuffId": 8001,
+          "burnDuration": 3,
+          "burnTickInterval": 0.5,
+          "burnMaxStack": 5
+        }
+      }
+    ]
+  },
+  {
+    "id": "frost-arrow",
+    "name": "寒冰箭",
+    "desc": "命中减速30%/2s，叠3层冰冻",
+    "tier": 1,
+    "rarity": "rare",
+    "category": "onhit",
+    "effects": [
+      {
+        "type": "hit_effect",
+        "data": {
+          "id": "upg-frost",
+          "effectClass": "FrostOnHitEffect",
+          "priority": 50,
+          "frostBuffId": 8101,
+          "frostSlowPerStack": 0.3,
+          "frostDuration": 2,
+          "frostMaxStack": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "crit-instinct",
+    "name": "暴击直觉",
+    "desc": "暴击率+10%",
+    "tier": 1,
+    "rarity": "common",
+    "category": "attr",
     "effects": [
       {
         "type": "buff",
         "data": {
-          "id": 7101,
-          "name": "穿透射击",
+          "id": 2601,
+          "name": "暴击直觉",
           "duration": 0,
           "maxStack": 1,
           "effectClass": "SimpleAttrBuffEffect",
-          "targetAttr": "PierceCount-Value-Buff",
-          "valuePerStack": 1
+          "targetAttr": "CritRate-Value-Buff",
+          "valuePerStack": 0.1
+        }
+      }
+    ]
+  },
+  {
+    "id": "swift-step",
+    "name": "疾风步",
+    "desc": "移速+20%",
+    "tier": 1,
+    "rarity": "common",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2602,
+          "name": "疾风步",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "MoveSpeed-Mul-Buff",
+          "valuePerStack": 0.2
         }
       }
     ]
@@ -90,15 +198,15 @@
   {
     "id": "multi-shot",
     "name": "多重射击",
-    "desc": "弹道+1",
-    "tier": 1,
+    "desc": "额外弹道+1",
+    "tier": 2,
     "rarity": "rare",
     "category": "proj",
     "effects": [
       {
         "type": "buff",
         "data": {
-          "id": 7102,
+          "id": 2103,
           "name": "多重射击",
           "duration": 0,
           "maxStack": 1,
@@ -110,66 +218,23 @@
     ]
   },
   {
-    "id": "bounce-shot",
-    "name": "弹射之弓",
-    "desc": "弹射+1",
-    "tier": 1,
+    "id": "pierce-shot",
+    "name": "穿透射击",
+    "desc": "穿透+2",
+    "tier": 2,
     "rarity": "rare",
     "category": "proj",
     "effects": [
       {
         "type": "buff",
         "data": {
-          "id": 7103,
-          "name": "弹射之弓",
+          "id": 2104,
+          "name": "穿透射击",
           "duration": 0,
           "maxStack": 1,
           "effectClass": "SimpleAttrBuffEffect",
-          "targetAttr": "BounceCount-Value-Buff",
-          "valuePerStack": 1
-        }
-      }
-    ]
-  },
-  {
-    "id": "fire-arrow",
-    "name": "烈焰箭",
-    "desc": "命中施加灼烧 DOT",
-    "tier": 1,
-    "rarity": "common",
-    "category": "onhit",
-    "effects": [
-      {
-        "type": "hit_effect",
-        "data": {
-          "id": "upg-burn",
-          "effectClass": "BurnOnHitEffect",
-          "priority": 50,
-          "burnRatio": 0.2,
-          "burnBuffId": 8001,
-          "burnDuration": 5
-        }
-      }
-    ]
-  },
-  {
-    "id": "frost-arrow",
-    "name": "寒冰箭",
-    "desc": "命中施加冻伤减速",
-    "tier": 1,
-    "rarity": "common",
-    "category": "onhit",
-    "effects": [
-      {
-        "type": "hit_effect",
-        "data": {
-          "id": "upg-frost",
-          "effectClass": "FrostOnHitEffect",
-          "priority": 50,
-          "frostBuffId": 8101,
-          "frostSlowPerStack": 0.15,
-          "frostDuration": 3,
-          "frostMaxStack": 5
+          "targetAttr": "PierceCount-Value-Buff",
+          "valuePerStack": 2
         }
       }
     ]
@@ -177,9 +242,9 @@
   {
     "id": "lightning-arrow",
     "name": "雷电箭",
-    "desc": "命中触发闪电链",
+    "desc": "命中100%触发闪电链(3跳)",
     "tier": 2,
-    "rarity": "rare",
+    "rarity": "epic",
     "category": "onhit",
     "effects": [
       {
@@ -188,7 +253,7 @@
           "id": "upg-chain",
           "effectClass": "ChainLightningEffect",
           "priority": 80,
-          "chance": 0.25,
+          "chance": 1,
           "jumps": 3,
           "chainRatio": 0.5,
           "chainDecay": 0.7,
@@ -198,52 +263,343 @@
     ]
   },
   {
-    "id": "auto-fire-1",
-    "name": "自动速射 Lv1",
-    "desc": "静止时自动射击",
-    "tier": 1,
-    "rarity": "common",
-    "category": "policy",
+    "id": "barrage-shot",
+    "name": "弹幕射手",
+    "desc": "额外弹道+2(扇形散开)",
+    "tier": 2,
+    "rarity": "epic",
+    "category": "proj",
     "effects": [
       {
-        "type": "shoot_policy",
+        "type": "buff",
         "data": {
-          "policyClass": "AutoShoot",
-          "level": 1
+          "id": 2001,
+          "name": "弹幕射手",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "ExtraProjectiles-Value-Buff",
+          "valuePerStack": 2
         }
       }
     ]
   },
   {
-    "id": "auto-fire-2",
-    "name": "自动速射 Lv2",
-    "desc": "移动中也自动射击",
+    "id": "spread-mode",
+    "name": "扫射模式",
+    "desc": "扇形角度+45°",
     "tier": 2,
     "rarity": "rare",
-    "category": "policy",
+    "category": "proj",
     "effects": [
       {
-        "type": "shoot_policy",
+        "type": "buff",
         "data": {
-          "policyClass": "AutoShoot",
-          "level": 2
+          "id": 2002,
+          "name": "扫射模式",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "SpreadAngle-Value-Buff",
+          "valuePerStack": 45
         }
       }
     ]
   },
   {
-    "id": "auto-fire-3",
-    "name": "自动速射 Lv3",
-    "desc": "始终自动射击（含无目标）",
-    "tier": 3,
+    "id": "chain-bounce",
+    "name": "连锁弹射",
+    "desc": "弹射+4次(不衰减)",
+    "tier": 2,
     "rarity": "epic",
-    "category": "policy",
+    "category": "proj",
     "effects": [
       {
-        "type": "shoot_policy",
+        "type": "buff",
         "data": {
-          "policyClass": "AutoShoot",
-          "level": 3
+          "id": 2401,
+          "name": "连锁弹射",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "BounceCount-Value-Buff",
+          "valuePerStack": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": "long-range",
+    "name": "远程瞄准",
+    "desc": "射程+50%",
+    "tier": 2,
+    "rarity": "common",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2603,
+          "name": "远程瞄准",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "AttackRange-Mul-Buff",
+          "valuePerStack": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "rapid-fire-2",
+    "name": "急速连射 II",
+    "desc": "攻速+30%",
+    "tier": 2,
+    "rarity": "rare",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2111,
+          "name": "急速连射 II",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "AttackSpeed-Mul-Buff",
+          "valuePerStack": 0.3
+        }
+      }
+    ]
+  },
+  {
+    "id": "sharp-arrow-2",
+    "name": "锐利箭头 II",
+    "desc": "攻击+50%",
+    "tier": 2,
+    "rarity": "rare",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2211,
+          "name": "锐利箭头 II",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "Attack-Mul-Buff",
+          "valuePerStack": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "infinite-pierce",
+    "name": "无限穿透",
+    "desc": "穿透+5(不衰减)",
+    "tier": 3,
+    "rarity": "epic",
+    "category": "proj",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2400,
+          "name": "无限穿透",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "PierceCount-Value-Buff",
+          "valuePerStack": 5
+        }
+      }
+    ]
+  },
+  {
+    "id": "homing-instinct",
+    "name": "追猎本能",
+    "desc": "强追踪(转向×3)",
+    "tier": 3,
+    "rarity": "epic",
+    "category": "proj",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2404,
+          "name": "追猎本能",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "HomingStrength-Value-Buff",
+          "valuePerStack": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "barrage-shot-2",
+    "name": "弹幕射手 II",
+    "desc": "额外弹道+3",
+    "tier": 3,
+    "rarity": "epic",
+    "category": "proj",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2011,
+          "name": "弹幕射手 II",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "ExtraProjectiles-Value-Buff",
+          "valuePerStack": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "chain-bounce-2",
+    "name": "连锁弹射 II",
+    "desc": "弹射+6次",
+    "tier": 3,
+    "rarity": "epic",
+    "category": "proj",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2411,
+          "name": "连锁弹射 II",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "BounceCount-Value-Buff",
+          "valuePerStack": 6
+        }
+      }
+    ]
+  },
+  {
+    "id": "crit-storm",
+    "name": "暴击风暴",
+    "desc": "暴击率+25%，暴击伤害+50%",
+    "tier": 3,
+    "rarity": "epic",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2302,
+          "name": "暴击风暴·概率",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "CritRate-Value-Buff",
+          "valuePerStack": 0.25
+        }
+      },
+      {
+        "type": "buff",
+        "data": {
+          "id": 2312,
+          "name": "暴击风暴·伤害",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "CritDmg-Value-Buff",
+          "valuePerStack": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "executioner",
+    "name": "处刑之箭",
+    "desc": "攻击+80%(对低血量更强)",
+    "tier": 3,
+    "rarity": "legendary",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2303,
+          "name": "处刑之箭",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "Attack-Mul-Buff",
+          "valuePerStack": 0.8
+        }
+      }
+    ]
+  },
+  {
+    "id": "rapid-fire-3",
+    "name": "急速连射 III",
+    "desc": "攻速+50%",
+    "tier": 3,
+    "rarity": "epic",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2121,
+          "name": "急速连射 III",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "AttackSpeed-Mul-Buff",
+          "valuePerStack": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "sharp-arrow-3",
+    "name": "锐利箭头 III",
+    "desc": "攻击+80%",
+    "tier": 3,
+    "rarity": "epic",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2221,
+          "name": "锐利箭头 III",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "Attack-Mul-Buff",
+          "valuePerStack": 0.8
+        }
+      }
+    ]
+  },
+  {
+    "id": "lifesteal-2",
+    "name": "生命汲取 II",
+    "desc": "吸血率+15%",
+    "tier": 3,
+    "rarity": "rare",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2212,
+          "name": "生命汲取 II",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "LifestealRate-Value-Buff",
+          "valuePerStack": 0.15
         }
       }
     ]
