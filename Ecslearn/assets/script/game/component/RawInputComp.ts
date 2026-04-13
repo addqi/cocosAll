@@ -11,4 +11,8 @@ export class RawInputComp implements IComponent {
     mouseDown = false;
     /** 鼠标左键是否持续按住 */
     mouseHeld = false;
+    /** 鼠标屏幕坐标 X（像素，左下角 0） */
+    mouseScreenX = 0;
+    /** 鼠标屏幕坐标 Y（像素，左下角 0） */
+    mouseScreenY = 0;
 }

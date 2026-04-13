@@ -9,6 +9,8 @@ export class RawInputSystem implements ISystem {
     private frameUp   = new Set<number>();
     private frameMouseDown = false;
     private mouseLeftHeld  = false;
+    private mouseX = 0;
+    private mouseY = 0;
 
     constructor() {
         input.on(Input.EventType.KEY_DOWN, (e: EventKeyboard) => {
@@ -24,11 +26,17 @@ export class RawInputSystem implements ISystem {
                 this.frameMouseDown = true;
                 this.mouseLeftHeld  = true;
             }
+            this.mouseX = e.getLocationX();
+            this.mouseY = e.getLocationY();
         });
         input.on(Input.EventType.MOUSE_UP, (e: EventMouse) => {
             if (e.getButton() === EventMouse.BUTTON_LEFT) {
                 this.mouseLeftHeld = false;
             }
+        });
+        input.on(Input.EventType.MOUSE_MOVE, (e: EventMouse) => {
+            this.mouseX = e.getLocationX();
+            this.mouseY = e.getLocationY();
         });
     }
 
@@ -42,6 +50,8 @@ export class RawInputSystem implements ISystem {
             raw.up   = new Set(this.frameUp);
             raw.mouseDown = this.frameMouseDown;
             raw.mouseHeld = this.mouseLeftHeld;
+            raw.mouseScreenX = this.mouseX;
+            raw.mouseScreenY = this.mouseY;
         }
         this.frameDown.clear();
         this.frameUp.clear();

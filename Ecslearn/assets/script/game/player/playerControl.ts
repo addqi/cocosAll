@@ -1,4 +1,4 @@
-import { _decorator, Component, Sprite, SpriteFrame, Node, Vec3, Label, Color, UITransform, UIOpacity, Texture2D } from 'cc';
+import { _decorator, Component, Sprite, SpriteFrame, Node, Vec3, Label, Color, UITransform, UIOpacity, Texture2D, Camera, director } from 'cc';
 import { ResourceMgr } from '../../baseSystem/resource';
 import type { IBuffOwner } from '../../baseSystem/buff';
 import { Entity } from '../../baseSystem/ecs';
@@ -16,6 +16,9 @@ import { playerConfig } from './config/playerConfig';
 import type { IShootPolicy } from '../shoot/types';
 import { HoldToShoot } from '../shoot/ShootPolicies';
 import { HitEffectMgr } from '../entity/HitEffectMgr';
+import { UpgradeManager } from '../upgrade/UpgradeManager';
+import { SkillSystem } from '../skill/SkillSystem';
+import type { SkillContext } from '../skill/SkillTypes';
 import '../hitEffects';
 import {
     EPlayerState,
@@ -55,6 +58,10 @@ export class PlayerControl extends Component {
     private _hpLabel!: Label;
     private _shootPolicy: IShootPolicy = new HoldToShoot();
     private _hitEffectMgr!: HitEffectMgr;
+    private _upgradeMgr!: UpgradeManager;
+    private _skillSystem!: SkillSystem;
+    private _mouseScreenPos = new Vec3();
+    private _mouseWorldPos = new Vec3();
 
     get combat(): PlayerCombat { return this._playerCombat; }
     get playerProp(): PlayerProperty { return this._playerProp; }
@@ -62,6 +69,9 @@ export class PlayerControl extends Component {
     get buffMgr(): EntityBuffMgr { return this._buffMgr; }
     get body(): Node { return this._body; }
     get hitEffectMgr(): HitEffectMgr { return this._hitEffectMgr; }
+    get upgradeMgr(): UpgradeManager { return this._upgradeMgr; }
+    get skillSystem(): SkillSystem { return this._skillSystem; }
+    get mouseWorldPos(): Readonly<Vec3> { return this._mouseWorldPos; }
 
     setShootPolicy(policy: IShootPolicy): void {
         this._shootPolicy = policy;
@@ -103,6 +113,15 @@ export class PlayerControl extends Component {
         this._hitEffectMgr = new HitEffectMgr();
         this._hitEffectMgr.add({ id: 'base-damage', effectClass: 'DamageHitEffect', priority: 0 });
 
+        this._upgradeMgr = new UpgradeManager({
+            buffMgr: this._buffMgr,
+            buffOwner: this._buffOwner,
+            hitEffectMgr: this._hitEffectMgr,
+            setShootPolicy: (p) => { this._shootPolicy = p; },
+        });
+
+        this._skillSystem = new SkillSystem();
+
         this._createHpLabel();
         this._initProxy();
         this._initFsm();
@@ -112,6 +131,32 @@ export class PlayerControl extends Component {
 
     update(dt: number) {
         this._buffMgr?.update(dt);
+        this._skillSystem?.tick(dt);
+        this._updateMouseWorldPos();
+    }
+
+    buildSkillContext(): SkillContext {
+        return {
+            playerProp:     this._playerProp,
+            playerCombat:   this._playerCombat,
+            playerNode:     this.node,
+            hitEffectMgr:   this._hitEffectMgr,
+            buffMgr:        this._buffMgr,
+            buffOwner:      this._buffOwner,
+            mouseWorldPos:  this._mouseWorldPos.clone(),
+            setShootPolicy: (p) => { this._shootPolicy = p; },
+        };
+    }
+
+    private _updateMouseWorldPos(): void {
+        if (!this._entity) return;
+        const raw = this._entity.getComponent(RawInputComp);
+        if (!raw) return;
+        this._mouseScreenPos.set(raw.mouseScreenX, raw.mouseScreenY, 0);
+        const cam = director.getScene()?.getComponentInChildren(Camera);
+        if (cam) {
+            cam.screenToWorld(this._mouseScreenPos, this._mouseWorldPos);
+        }
     }
 
     private _createHpLabel() {

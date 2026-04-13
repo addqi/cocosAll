@@ -110,7 +110,7 @@ export class ArrowProjectile extends Component {
             return;
         }
 
-        if (this._isOutOfScreen()) {
+        if (this._elapsed > 0.5 && this._isOutOfScreen()) {
             ProjectilePool.release(this.node);
         }
     }

@@ -1,0 +1,251 @@
+[
+  {
+    "id": "rapid-fire",
+    "name": "急速弓弦",
+    "desc": "攻速+30%",
+    "tier": 1,
+    "rarity": "common",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 7001,
+          "name": "急速弓弦",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "AttackSpeed-Mul-Buff",
+          "valuePerStack": 0.3
+        }
+      }
+    ]
+  },
+  {
+    "id": "power-strike",
+    "name": "锐利箭头",
+    "desc": "攻击+30%",
+    "tier": 1,
+    "rarity": "common",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 7002,
+          "name": "锐利箭头",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "Attack-Mul-Buff",
+          "valuePerStack": 0.3
+        }
+      }
+    ]
+  },
+  {
+    "id": "long-range",
+    "name": "远程瞄准",
+    "desc": "射程+50%",
+    "tier": 1,
+    "rarity": "common",
+    "category": "attr",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 7003,
+          "name": "远程瞄准",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "AttackRange-Mul-Buff",
+          "valuePerStack": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "pierce-shot",
+    "name": "穿透射击",
+    "desc": "穿透+1",
+    "tier": 1,
+    "rarity": "common",
+    "category": "proj",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 7101,
+          "name": "穿透射击",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "PierceCount-Value-Buff",
+          "valuePerStack": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "multi-shot",
+    "name": "多重射击",
+    "desc": "弹道+1",
+    "tier": 1,
+    "rarity": "rare",
+    "category": "proj",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 7102,
+          "name": "多重射击",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "ExtraProjectiles-Value-Buff",
+          "valuePerStack": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "bounce-shot",
+    "name": "弹射之弓",
+    "desc": "弹射+1",
+    "tier": 1,
+    "rarity": "rare",
+    "category": "proj",
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 7103,
+          "name": "弹射之弓",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "SimpleAttrBuffEffect",
+          "targetAttr": "BounceCount-Value-Buff",
+          "valuePerStack": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "fire-arrow",
+    "name": "烈焰箭",
+    "desc": "命中施加灼烧 DOT",
+    "tier": 1,
+    "rarity": "common",
+    "category": "onhit",
+    "effects": [
+      {
+        "type": "hit_effect",
+        "data": {
+          "id": "upg-burn",
+          "effectClass": "BurnOnHitEffect",
+          "priority": 50,
+          "burnRatio": 0.2,
+          "burnBuffId": 8001,
+          "burnDuration": 5
+        }
+      }
+    ]
+  },
+  {
+    "id": "frost-arrow",
+    "name": "寒冰箭",
+    "desc": "命中施加冻伤减速",
+    "tier": 1,
+    "rarity": "common",
+    "category": "onhit",
+    "effects": [
+      {
+        "type": "hit_effect",
+        "data": {
+          "id": "upg-frost",
+          "effectClass": "FrostOnHitEffect",
+          "priority": 50,
+          "frostBuffId": 8101,
+          "frostSlowPerStack": 0.15,
+          "frostDuration": 3,
+          "frostMaxStack": 5
+        }
+      }
+    ]
+  },
+  {
+    "id": "lightning-arrow",
+    "name": "雷电箭",
+    "desc": "命中触发闪电链",
+    "tier": 2,
+    "rarity": "rare",
+    "category": "onhit",
+    "effects": [
+      {
+        "type": "hit_effect",
+        "data": {
+          "id": "upg-chain",
+          "effectClass": "ChainLightningEffect",
+          "priority": 80,
+          "chance": 0.25,
+          "jumps": 3,
+          "chainRatio": 0.5,
+          "chainDecay": 0.7,
+          "chainRange": 300
+        }
+      }
+    ]
+  },
+  {
+    "id": "auto-fire-1",
+    "name": "自动速射 Lv1",
+    "desc": "静止时自动射击",
+    "tier": 1,
+    "rarity": "common",
+    "category": "policy",
+    "effects": [
+      {
+        "type": "shoot_policy",
+        "data": {
+          "policyClass": "AutoShoot",
+          "level": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "auto-fire-2",
+    "name": "自动速射 Lv2",
+    "desc": "移动中也自动射击",
+    "tier": 2,
+    "rarity": "rare",
+    "category": "policy",
+    "effects": [
+      {
+        "type": "shoot_policy",
+        "data": {
+          "policyClass": "AutoShoot",
+          "level": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "auto-fire-3",
+    "name": "自动速射 Lv3",
+    "desc": "始终自动射击（含无目标）",
+    "tier": 3,
+    "rarity": "epic",
+    "category": "policy",
+    "effects": [
+      {
+        "type": "shoot_policy",
+        "data": {
+          "policyClass": "AutoShoot",
+          "level": 3
+        }
+      }
+    ]
+  }
+]

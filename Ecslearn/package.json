@@ -6,6 +6,11 @@
   },
   "scripts": {
     "create:property-config": "node tools/auto/create-property-config.js",
-    "sync:buff-effects": "node tools/auto/sync-buff-effects.js"
+    "sync:buff-effects": "node tools/auto/sync-buff-effects.js",
+    "upgrade:export": "node tools/auto/upgrade-excel.js --export",
+    "upgrade:import": "node tools/auto/upgrade-excel.js --import"
+  },
+  "devDependencies": {
+    "xlsx": "^0.18.5"
   }
 }
