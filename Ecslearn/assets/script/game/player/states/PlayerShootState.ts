@@ -7,17 +7,18 @@ import { ShootResolver } from '../../shoot/ShootResolver';
 import { createHitContext } from '../../hitEffects/types';
 import type { EnemyControl } from '../../enemy/EnemyControl';
 import type { PlayerCtx } from './PlayerContext';
+import { archerConfig } from '../archer/archerConfig';
 
 export class PlayerShootState implements IState<PlayerCtx> {
 
     enter(_ctx: PlayerCtx) {}
 
     update(ctx: PlayerCtx, _dt: number) {
-        if (ctx.shootCooldown > 0) return;
+        if (ctx.attackCooldown > 0) return;
 
         const atkSpeed = Math.max(ctx.prop.getValue(EPropertyId.AttackSpeed), 0.1);
         const baseDur = ctx.anim.animator.getClipDuration(EPlayerAnim.Shoot);
-        ctx.shootCooldown = baseDur / atkSpeed;
+        ctx.attackCooldown = baseDur / atkSpeed;
         ctx.anim.animator.speed = atkSpeed;
 
         ctx.targetEnemy = ctx.findNearestEnemy();
@@ -42,6 +43,8 @@ export class PlayerShootState implements IState<PlayerCtx> {
             ctx.body.scale.x,
             ctx.targetEnemy,
             ctx.prop,
+            archerConfig.arrowArcRatio,
+            archerConfig.arrowNoTargetRange,
         );
         const projConfig = ShootResolver.snapshotProjectileConfig(ctx.prop);
         const combat = ctx.combat;

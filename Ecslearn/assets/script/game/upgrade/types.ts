@@ -2,11 +2,16 @@ import type { BuffData, IBuffOwner } from '../../baseSystem/buff';
 import type { HitEffectData } from '../../baseSystem/hitEffect';
 import type { EntityBuffMgr } from '../entity/EntityBuffMgr';
 import type { HitEffectMgr } from '../entity/HitEffectMgr';
-import type { IShootPolicy } from '../shoot/types';
+export type UpgradeEffectType =
+    | 'buff'
+    | 'hit_effect'
+    | 'shoot_policy'
+    | 'behavior_command'
+    | 'grant_skill'
+    | 'modify_skill';
 
 export interface UpgradeEffect {
-    type: 'buff' | 'hit_effect' | 'shoot_policy';
-    /** buff → BuffData, hit_effect → HitEffectData, shoot_policy → ShootPolicyData */
+    type: UpgradeEffectType;
     data: any;
 }
 
@@ -31,5 +36,7 @@ export interface UpgradeTarget {
     buffMgr: EntityBuffMgr;
     buffOwner: IBuffOwner;
     hitEffectMgr: HitEffectMgr;
-    setShootPolicy(policy: IShootPolicy): void;
+    /** @deprecated 由 behavior_command 替代 */
+    setShootPolicy(policy: unknown): void;
+    sendBehaviorCommand?(cmd: string, ...args: unknown[]): void;
 }

@@ -1,0 +1,121 @@
+{
+  "arrow-storm": {
+    "id": "arrow-storm",
+    "name": "箭雨倾泻",
+    "skillClass": "SpawnProjectileSkill",
+    "cooldown": 8,
+    "params": {
+      "projectileCount": 3,
+      "arrowMultiplier": 3,
+      "skyHeight": 500,
+      "scatter": 200,
+      "pierceCount": 0,
+      "bounceCount": 0,
+      "splitCount": 0
+    },
+    "payloadRef": "payload.arrow_storm",
+    "tags": ["projectile", "aoe", "archer"]
+  },
+  "dash-shot": {
+    "id": "dash-shot",
+    "name": "闪身射击",
+    "skillClass": "ApplySelfBuffSkill",
+    "cooldown": 10,
+    "params": {
+      "duration": 5,
+      "buffId": 9001,
+      "buffName": "闪身射击",
+      "effectClass": "SimpleAttrBuffEffect",
+      "targetAttr": "AttackSpeed-Mul-Buff",
+      "valuePerStack": 1.0,
+      "behaviorCmd": "set_shoot_policy_class",
+      "behaviorArgs": ["AutoShoot", 3],
+      "endBehaviorCmd": "set_shoot_policy_class",
+      "endBehaviorArgs": ["HoldToShoot"]
+    },
+    "tags": ["self-buff", "archer"]
+  },
+  "fireball": {
+    "id": "fireball",
+    "name": "烈焰弹",
+    "skillClass": "SpawnProjectileSkill",
+    "cooldown": 6,
+    "params": {
+      "projectileCount": 1,
+      "speed": 600,
+      "homingStrength": 0.3
+    },
+    "payloadRef": "payload.burn",
+    "tags": ["projectile", "fire"]
+  },
+  "ice-ring": {
+    "id": "ice-ring",
+    "name": "冰霜之环",
+    "skillClass": "AreaDamageSkill",
+    "cooldown": 12,
+    "params": {
+      "radius": 200,
+      "damageRatio": 1.5,
+      "centered": true
+    },
+    "payloadRef": "payload.frost",
+    "tags": ["area", "ice"]
+  },
+  "berserk": {
+    "id": "berserk",
+    "name": "狂暴",
+    "skillClass": "ApplySelfBuffSkill",
+    "cooldown": 15,
+    "params": {
+      "duration": 8,
+      "buffId": 9010,
+      "buffName": "狂暴",
+      "effectClass": "AttrModifierEffect",
+      "targetAttr": "Attack-Mul-Buff",
+      "valuePerStack": 0.5
+    },
+    "tags": ["self-buff", "warrior"]
+  },
+  "shield": {
+    "id": "shield",
+    "name": "能量护盾",
+    "skillClass": "ApplySelfBuffSkill",
+    "cooldown": 20,
+    "params": {
+      "duration": 10,
+      "buffId": 9011,
+      "buffName": "能量护盾",
+      "effectClass": "AttrModifierEffect",
+      "targetAttr": "Defense-Value-Buff",
+      "valuePerStack": 50
+    },
+    "tags": ["self-buff", "defense"]
+  },
+  "charge-slash": {
+    "id": "charge-slash",
+    "name": "冲锋斩",
+    "skillClass": "DashAttackSkill",
+    "cooldown": 8,
+    "params": {
+      "dashDistance": 300,
+      "dashDuration": 0.3,
+      "damageRatio": 2.0
+    },
+    "payloadRef": "payload.melee_base",
+    "tags": ["melee", "dash", "warrior"]
+  },
+  "summon-wolf": {
+    "id": "summon-wolf",
+    "name": "召唤战狼",
+    "skillClass": "SummonSkill",
+    "cooldown": 25,
+    "params": {
+      "summonId": "wolf",
+      "maxCount": 2,
+      "duration": 30,
+      "summonHp": 200,
+      "summonAtk": 15
+    },
+    "tags": ["summon", "summoner"]
+  }
+}

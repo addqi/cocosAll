@@ -1,7 +1,6 @@
 import { Vec3 } from 'cc';
 import { QuadBezier } from '../../baseSystem/math';
 import { EPropertyId } from '../config/enum/propertyEnum';
-import { playerConfig } from '../player/config/playerConfig';
 import type { PlayerProperty } from '../player/property/playerProperty';
 import type { EnemyControl } from '../enemy/EnemyControl';
 import type { ShotDescriptor, ProjectileConfig } from './types';
@@ -16,6 +15,8 @@ export class ShootResolver {
         facingX: number,
         target: EnemyControl | null,
         prop: PlayerProperty,
+        arcRatio: number,
+        noTargetRange: number,
     ): ShotDescriptor[] {
         const arrowSpeed = prop.getValue(EPropertyId.ArrowSpeed);
         const extraProj  = Math.floor(prop.getValue(EPropertyId.ExtraProjectiles));
@@ -25,9 +26,9 @@ export class ShootResolver {
         const start = shooterPos.clone();
 
         if (target?.node.isValid) {
-            return this._resolveTargeted(start, target, totalCount, spreadAngle, arrowSpeed);
+            return this._resolveTargeted(start, target, totalCount, spreadAngle, arrowSpeed, arcRatio);
         }
-        return this._resolveUntargeted(start, facingX, totalCount, spreadAngle, arrowSpeed);
+        return this._resolveUntargeted(start, facingX, totalCount, spreadAngle, arrowSpeed, noTargetRange);
     }
 
     static snapshotProjectileConfig(prop: PlayerProperty): ProjectileConfig {
@@ -47,19 +48,19 @@ export class ShootResolver {
         count: number,
         spreadDeg: number,
         speed: number,
+        arcRatio: number,
     ): ShotDescriptor[] {
         const end = target.node.worldPosition.clone();
         const dist = Vec3.distance(start, end);
         const duration = dist / speed;
         const baseFacing = end.x > start.x ? 1 : -1;
-        const { arrowArcRatio } = playerConfig;
 
         if (count <= 1) {
-            const curve = QuadBezier.createArc(start, end, dist * arrowArcRatio * baseFacing);
+            const curve = QuadBezier.createArc(start, end, dist * arcRatio * baseFacing);
             return [{ curve, duration, hasTarget: true, target }];
         }
 
-        const arcBase = dist * arrowArcRatio;
+        const arcBase = dist * arcRatio;
         const results: ShotDescriptor[] = [];
 
         for (let i = 0; i < count; i++) {
@@ -76,9 +77,10 @@ export class ShootResolver {
         count: number,
         spreadDeg: number,
         speed: number,
+        noTargetRange: number,
     ): ShotDescriptor[] {
         const facing = facingX >= 0 ? 1 : -1;
-        const range = playerConfig.arrowNoTargetRange;
+        const range = noTargetRange;
         const duration = range / speed;
 
         if (count <= 1) {

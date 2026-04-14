@@ -1,5 +1,4 @@
-import type { PropertyBaseConfig } from '../../game/entity/EntityPropertyMgr';
-import type { EnemyConfigData } from '../../game/enemy/config/enemyConfig';
+import type { PropertyBaseConfig, EnemyOverrides } from '../sharedTypes';
 import enemiesRaw from './enemies.json';
 
 export interface EnemyDataEntry {
@@ -7,7 +6,7 @@ export interface EnemyDataEntry {
     readonly name: string;
     readonly category: string;
     readonly properties: PropertyBaseConfig;
-    readonly overrides: Partial<EnemyConfigData>;
+    readonly overrides: Partial<EnemyOverrides>;
 }
 
 const _map = new Map<string, EnemyDataEntry>();

@@ -1,18 +1,17 @@
 import type { UpgradeConfig, UpgradeEffect, UpgradeTarget, ShootPolicyData } from './types';
-import { HoldToShoot, ClickToShoot, AutoShoot } from '../shoot/ShootPolicies';
-import type { IShootPolicy } from '../shoot/types';
+import { UpgradeEffectRegistry, type EffectApplyResult } from './UpgradeEffectRegistry';
+import './baseEffects';
 
 interface AppliedRecord {
     config: UpgradeConfig;
-    buffIds: number[];
-    hitEffectIds: string[];
+    results: { eff: UpgradeEffect; result: EffectApplyResult }[];
+    /** legacy: shoot_policy 是否被旧路径修改过 */
     wasPolicy: boolean;
 }
 
 export class UpgradeManager {
     private _applied = new Map<string, AppliedRecord>();
     private _target: UpgradeTarget;
-    private _defaultPolicy: IShootPolicy = new HoldToShoot();
 
     constructor(target: UpgradeTarget) {
         this._target = target;
@@ -21,12 +20,7 @@ export class UpgradeManager {
     apply(config: UpgradeConfig): boolean {
         if (this._applied.has(config.id)) return false;
 
-        const record: AppliedRecord = {
-            config,
-            buffIds: [],
-            hitEffectIds: [],
-            wasPolicy: false,
-        };
+        const record: AppliedRecord = { config, results: [], wasPolicy: false };
 
         for (const eff of config.effects) {
             this._applyEffect(eff, record);
@@ -40,14 +34,15 @@ export class UpgradeManager {
         const record = this._applied.get(configId);
         if (!record) return false;
 
-        for (const buffId of record.buffIds) {
-            this._target.buffMgr.removeBuff(buffId);
+        for (const { eff, result } of record.results) {
+            const handler = UpgradeEffectRegistry.get(eff.type);
+            if (handler) {
+                handler.remove(eff.data, this._target, result);
+            }
         }
-        for (const hid of record.hitEffectIds) {
-            this._target.hitEffectMgr.remove(hid);
-        }
+
         if (record.wasPolicy) {
-            this._target.setShootPolicy(this._defaultPolicy);
+            this._target.setShootPolicy(this._getDefaultPolicy());
         }
 
         this._applied.delete(configId);
@@ -66,10 +61,6 @@ export class UpgradeManager {
         return this._applied.size;
     }
 
-    /**
-     * 检查是否有可触发的进化升级
-     * @param allConfigs 全部升级配置（含进化类）
-     */
     checkEvolution(allConfigs: readonly UpgradeConfig[]): UpgradeConfig[] {
         const result: UpgradeConfig[] = [];
         for (const cfg of allConfigs) {
@@ -83,31 +74,32 @@ export class UpgradeManager {
     }
 
     private _applyEffect(eff: UpgradeEffect, record: AppliedRecord) {
-        switch (eff.type) {
-            case 'buff': {
-                this._target.buffMgr.addBuff(eff.data, this._target.buffOwner);
-                record.buffIds.push(eff.data.id);
-                break;
-            }
-            case 'hit_effect': {
-                this._target.hitEffectMgr.add(eff.data);
-                record.hitEffectIds.push(eff.data.id);
-                break;
-            }
-            case 'shoot_policy': {
-                const policy = this._createPolicy(eff.data as ShootPolicyData);
-                this._target.setShootPolicy(policy);
-                record.wasPolicy = true;
-                break;
-            }
+        const handler = UpgradeEffectRegistry.get(eff.type);
+        if (handler) {
+            const result = handler.apply(eff.data, this._target);
+            record.results.push({ eff, result });
+            return;
+        }
+
+        if (eff.type === 'shoot_policy') {
+            this._legacyApplyPolicy(eff.data as ShootPolicyData);
+            record.wasPolicy = true;
+            record.results.push({ eff, result: {} });
+            return;
+        }
+
+        console.warn(`[UpgradeManager] 未知 effect type: "${eff.type}"`);
+    }
+
+    private _legacyApplyPolicy(data: ShootPolicyData): void {
+        if (this._target.sendBehaviorCommand) {
+            this._target.sendBehaviorCommand('set_shoot_policy_class', data.policyClass, data.level);
+        } else {
+            this._target.setShootPolicy(data);
         }
     }
 
-    private _createPolicy(data: ShootPolicyData): IShootPolicy {
-        switch (data.policyClass) {
-            case 'ClickToShoot': return new ClickToShoot();
-            case 'AutoShoot':    return new AutoShoot(data.level ?? 1);
-            default:             return new HoldToShoot();
-        }
+    private _getDefaultPolicy(): unknown {
+        return { policyClass: 'HoldToShoot' };
     }
 }

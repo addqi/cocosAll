@@ -1,0 +1,48 @@
+{
+  "payload.normal_arrow": {
+    "id": "payload.normal_arrow",
+    "damageRatio": 1.0,
+    "hitEffects": ["base-damage"],
+    "tags": ["physical", "arrow"]
+  },
+  "payload.arrow_storm": {
+    "id": "payload.arrow_storm",
+    "damageRatio": 0.6,
+    "hitEffects": ["base-damage"],
+    "tags": ["physical", "arrow", "aoe"]
+  },
+  "payload.burn": {
+    "id": "payload.burn",
+    "damageRatio": 1.2,
+    "hitEffects": ["base-damage"],
+    "targetBuffs": ["buff.burn_dot"],
+    "tags": ["fire", "magic"]
+  },
+  "payload.frost": {
+    "id": "payload.frost",
+    "damageRatio": 1.0,
+    "hitEffects": ["base-damage"],
+    "targetBuffs": ["buff.frost_slow"],
+    "tags": ["ice", "magic"]
+  },
+  "payload.poison": {
+    "id": "payload.poison",
+    "damageRatio": 0.8,
+    "hitEffects": ["base-damage"],
+    "targetBuffs": ["buff.burn_dot"],
+    "tags": ["poison"]
+  },
+  "payload.melee_base": {
+    "id": "payload.melee_base",
+    "damageRatio": 1.5,
+    "hitEffects": ["base-damage"],
+    "tags": ["physical", "melee"]
+  },
+  "payload.lifesteal": {
+    "id": "payload.lifesteal",
+    "damageRatio": 1.0,
+    "hitEffects": ["base-damage"],
+    "attackerBuffs": ["buff.lifesteal_8"],
+    "tags": ["physical", "sustain"]
+  }
+}

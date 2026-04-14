@@ -1,0 +1,52 @@
+{
+  "buff.attack_speed_20": {
+    "id": 2101, "name": "急速连射",
+    "duration": 0, "maxStack": 1,
+    "effectClass": "AttrModifierEffect",
+    "targetAttr": "AttackSpeed-Mul-Buff", "valuePerStack": 0.2
+  },
+  "buff.attack_30": {
+    "id": 2201, "name": "锐利箭头",
+    "duration": 0, "maxStack": 1,
+    "effectClass": "AttrModifierEffect",
+    "targetAttr": "Attack-Mul-Buff", "valuePerStack": 0.3
+  },
+  "buff.lifesteal_8": {
+    "id": 2202, "name": "生命汲取",
+    "duration": 0, "maxStack": 1,
+    "effectClass": "AttrModifierEffect",
+    "targetAttr": "LifestealRate-Value-Buff", "valuePerStack": 0.08
+  },
+  "buff.crit_rate_10": {
+    "id": 2601, "name": "暴击直觉",
+    "duration": 0, "maxStack": 1,
+    "effectClass": "AttrModifierEffect",
+    "targetAttr": "CritRate-Value-Buff", "valuePerStack": 0.1
+  },
+  "buff.move_speed_20": {
+    "id": 2602, "name": "疾风步",
+    "duration": 0, "maxStack": 1,
+    "effectClass": "AttrModifierEffect",
+    "targetAttr": "MoveSpeed-Mul-Buff", "valuePerStack": 0.2
+  },
+  "buff.frost_slow": {
+    "id": 8101, "name": "冻伤",
+    "duration": 3, "maxStack": 5,
+    "effectClass": "AttrModifierEffect",
+    "targetAttr": "MoveSpeed-Mul-Buff", "valuePerStack": -0.15
+  },
+  "buff.burn_dot": {
+    "id": 8001, "name": "灼烧",
+    "duration": 5, "maxStack": 99,
+    "tickInterval": 0.5, "stackDecayOnTick": false,
+    "effectClass": "PeriodicDamageEffect",
+    "damagePerStack": 5
+  },
+  "buff.regen_5pct": {
+    "id": 9001, "name": "再生",
+    "duration": 10, "maxStack": 1,
+    "tickInterval": 1, "stackDecayOnTick": true,
+    "effectClass": "PeriodicHealEffect",
+    "healPercent": 0.05
+  }
+}

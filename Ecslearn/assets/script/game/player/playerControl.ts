@@ -1,40 +1,35 @@
 import { _decorator, Component, Sprite, SpriteFrame, Node, Vec3, Label, Color, UITransform, UIOpacity, Texture2D,
     RigidBody2D, CircleCollider2D, ERigidBody2DType, EffectAsset } from 'cc';
 import { ResourceMgr } from '../../baseSystem/resource';
-import type { IBuffOwner } from '../../baseSystem/buff';
 import { PHY_GROUP } from '../physics/PhysicsGroups';
 import { attachColliderDebug } from '../physics/ColliderDebugDraw';
 import { Entity } from '../../baseSystem/ecs';
 import { StateMachine } from '../../baseSystem/fsm';
 import { RawInputComp, ActionComp, EAction, VelocityComp, NodeRefComp } from '../component';
-import { EntityBuffMgr } from '../entity/EntityBuffMgr';
 import { EPropertyId } from '../config/enum/propertyEnum';
 import { World } from '../core/World';
 import { GameLoop } from '../core/GameLoop';
 import { getMainCamera } from '../core/CameraRef';
 import { CameraController } from '../core/CameraController';
-import { GameSession, ESessionPhase } from '../core/GameSession';
+import { GameSession } from '../core/GameSession';
 import { findNearestEnemy } from '../enemy/EnemyQuery';
 import { PlayerAnimation } from './anim/PlayerAnimation';
 import { PlayerProperty } from './property/playerProperty';
 import { PlayerCombat } from './combat/PlayerCombat';
 import { PlayerExperience } from './experience/PlayerExperience';
 import { playerConfig } from './config/playerConfig';
-import type { IShootPolicy } from '../shoot/types';
-import { HoldToShoot } from '../shoot/ShootPolicies';
-import { HitEffectMgr } from '../entity/HitEffectMgr';
-import { UpgradeManager } from '../upgrade/UpgradeManager';
-import { SkillSystem } from '../skill/SkillSystem';
-import type { SkillContext } from '../skill/SkillTypes';
-import { FlashWhite } from '../vfx/FlashWhite';
+import { PlayerBehaviorFactory } from '../../baseSystem/player';
+import type { PlayerBehavior } from './base';
+import './behaviors';
+import { PlayerRuntime } from './runtime';
 import { DamagePopupMgr, EDamageStyle } from '../vfx/DamagePopupMgr';
 import '../hitEffects';
+import type { SkillContext } from '../skill/SkillTypes';
 import {
     EPlayerState,
     type PlayerCtx,
     PlayerIdleState,
     PlayerRunState,
-    PlayerShootState,
     PlayerHurtState,
     PlayerDeadState,
 } from './states';
@@ -50,7 +45,7 @@ const INVINCIBLE_DURATION = 0.5;
  * ├── GroundFX
  * │   └── RangeCircle
  * └── UIAnchor
- *     └── HpLabel（保留简易显示，主 HUD 在屏幕左上角）
+ *     └── HpLabel
  */
 @ccclass('PlayerControl')
 export class PlayerControl extends Component {
@@ -68,32 +63,26 @@ export class PlayerControl extends Component {
     private _playerProp!: PlayerProperty;
     private _playerCombat!: PlayerCombat;
     private _playerExp!: PlayerExperience;
-    private _buffOwner!: IBuffOwner;
-    private _buffMgr!: EntityBuffMgr;
     private _hpLabel!: Label;
-    private _shootPolicy: IShootPolicy = new HoldToShoot();
-    private _hitEffectMgr!: HitEffectMgr;
-    private _upgradeMgr!: UpgradeManager;
-    private _skillSystem!: SkillSystem;
-    private _flashWhite!: FlashWhite;
+    private _behaviorId = 'archer';
+    private _behavior!: PlayerBehavior;
+    private _runtime!: PlayerRuntime;
     private _mouseScreenPos = new Vec3();
     private _mouseWorldPos = new Vec3();
 
     get combat(): PlayerCombat { return this._playerCombat; }
     get playerProp(): PlayerProperty { return this._playerProp; }
     get experience(): PlayerExperience { return this._playerExp; }
-    get buffOwner(): IBuffOwner { return this._buffOwner; }
-    get buffMgr(): EntityBuffMgr { return this._buffMgr; }
+    get buffOwner() { return this._runtime.buffOwner; }
+    get buffMgr() { return this._runtime.buffMgr; }
     get body(): Node { return this._body; }
-    get hitEffectMgr(): HitEffectMgr { return this._hitEffectMgr; }
-    get upgradeMgr(): UpgradeManager { return this._upgradeMgr; }
-    get skillSystem(): SkillSystem { return this._skillSystem; }
+    get hitEffectMgr() { return this._runtime.hitEffectMgr; }
+    get upgradeMgr() { return this._runtime.upgradeMgr; }
+    get skillSystem() { return this._runtime.skillSystem; }
     get mouseWorldPos(): Readonly<Vec3> { return this._mouseWorldPos; }
     get isDead(): boolean { return this._playerCombat?.isDead ?? false; }
-
-    setShootPolicy(policy: IShootPolicy): void {
-        this._shootPolicy = policy;
-    }
+    get behavior(): PlayerBehavior { return this._behavior; }
+    get runtime(): PlayerRuntime { return this._runtime; }
 
     onLoad() {
         PlayerControl._inst = this;
@@ -145,28 +134,15 @@ export class PlayerControl extends Component {
             console.log(`[PlayerControl] Level Up! → Lv.${lv}`);
         };
 
-        this._buffOwner = {
-            uid: 'player',
-            getPropertyManager: () => this._playerProp,
-            heal: (amount: number) => { this._playerCombat.heal(amount); },
-        };
-        this._buffMgr = new EntityBuffMgr(this._playerProp);
+        this._behavior = PlayerBehaviorFactory.create<PlayerBehavior>(this._behaviorId);
 
-        this._hitEffectMgr = new HitEffectMgr();
-        this._hitEffectMgr.add({ id: 'base-damage', effectClass: 'DamageHitEffect', priority: 0 });
-
-        this._upgradeMgr = new UpgradeManager({
-            buffMgr: this._buffMgr,
-            buffOwner: this._buffOwner,
-            hitEffectMgr: this._hitEffectMgr,
-            setShootPolicy: (p) => { this._shootPolicy = p; },
+        this._runtime = new PlayerRuntime({
+            prop: this._playerProp,
+            combat: this._playerCombat,
+            behavior: this._behavior,
+            bodySprite: this._body.getComponent(Sprite)!,
+            parentNode: this.node.parent!,
         });
-
-        this._skillSystem = new SkillSystem();
-
-        this._flashWhite = new FlashWhite(this._body.getComponent(Sprite)!);
-
-        DamagePopupMgr.inst.init(this.node.parent!);
 
         this._createHpLabel();
         this._initProxy();
@@ -188,7 +164,7 @@ export class PlayerControl extends Component {
 
         const actual = this._playerCombat.takeDamage(rawDmg);
         if (actual > 0) {
-            this._flashWhite.flash();
+            this._runtime.flashWhite.flash();
             CameraController.inst.shake(3, 0.1);
             DamagePopupMgr.inst.show(this.node.worldPosition, actual, EDamageStyle.PlayerHurt);
 
@@ -201,12 +177,10 @@ export class PlayerControl extends Component {
         return actual;
     }
 
-    /** 经验获取入口 */
     grantXp(amount: number): void {
         this._playerExp.addXp(amount);
     }
 
-    /** 复活：恢复到指定血量比例 */
     revive(hpRatio = 0.5): void {
         this._playerCombat.setHpRatio(hpRatio);
         GameSession.inst.confirmRevive();
@@ -219,27 +193,22 @@ export class PlayerControl extends Component {
     }
 
     update(dt: number) {
-        this._buffMgr?.update(dt);
-        this._skillSystem?.tick(dt);
-        this._flashWhite?.tick(dt);
-        DamagePopupMgr.inst.tick(dt);
+        this._runtime?.tick(dt);
         CameraController.inst.tick(dt);
         this._updateMouseWorldPos();
         this._syncMoveSpeed();
     }
 
     buildSkillContext(): SkillContext {
-        return {
-            playerProp:          this._playerProp,
-            playerCombat:        this._playerCombat,
-            playerNode:          this.node,
-            hitEffectMgr:        this._hitEffectMgr,
-            buffMgr:             this._buffMgr,
-            buffOwner:           this._buffOwner,
-            mouseWorldPos:       this._mouseWorldPos.clone(),
-            currentShootPolicy:  this._shootPolicy,
-            setShootPolicy:      (p) => { this._shootPolicy = p; },
-        };
+        return this._behavior.buildSkillContext({
+            playerProp:    this._playerProp,
+            playerCombat:  this._playerCombat,
+            playerNode:    this.node,
+            hitEffectMgr:  this._runtime.hitEffectMgr,
+            buffMgr:       this._runtime.buffMgr,
+            buffOwner:     this._runtime.buffOwner,
+            mouseWorldPos: this._mouseWorldPos.clone(),
+        });
     }
 
     private _updateMouseWorldPos(): void {
@@ -261,13 +230,13 @@ export class PlayerControl extends Component {
 
     private _tickSkillKeys(act: ActionComp): void {
         if (act.justPressed.has(EAction.Skill1)) {
-            this._skillSystem.tryUseBySlot(0, this.buildSkillContext());
+            this._runtime.skillSystem.tryUseBySlot(0, this.buildSkillContext());
         }
         if (act.justPressed.has(EAction.Skill2)) {
-            this._skillSystem.tryUseBySlot(1, this.buildSkillContext());
+            this._runtime.skillSystem.tryUseBySlot(1, this.buildSkillContext());
         }
         if (act.justPressed.has(EAction.Skill3)) {
-            this._skillSystem.tryUseBySlot(2, this.buildSkillContext());
+            this._runtime.skillSystem.tryUseBySlot(2, this.buildSkillContext());
         }
     }
 
@@ -325,6 +294,7 @@ export class PlayerControl extends Component {
             node: this.node,
             body: this._body,
             fsm: null!,
+            behavior: this._behavior,
             combat: this._playerCombat,
             prop: this._playerProp,
             targetEnemy: null,
@@ -332,25 +302,25 @@ export class PlayerControl extends Component {
                 this.node.worldPosition,
                 this._playerProp.getValue(EPropertyId.AttackRange),
             ),
-            shootCooldown: 0,
-            hitEffectMgr: this._hitEffectMgr,
+            attackCooldown: 0,
+            hitEffectMgr: this._runtime.hitEffectMgr,
             invincibleTimer: 0,
         };
         this._fsm = new StateMachine<EPlayerState, PlayerCtx>(this._ctx);
         this._ctx.fsm = this._fsm;
 
-        this._fsm.addState(EPlayerState.Idle,  new PlayerIdleState());
-        this._fsm.addState(EPlayerState.Run,   new PlayerRunState());
-        this._fsm.addState(EPlayerState.Shoot, new PlayerShootState());
-        this._fsm.addState(EPlayerState.Hurt,  new PlayerHurtState());
-        this._fsm.addState(EPlayerState.Dead,  new PlayerDeadState());
+        this._fsm.addState(EPlayerState.Idle,   new PlayerIdleState());
+        this._fsm.addState(EPlayerState.Run,    new PlayerRunState());
+        this._fsm.addState(EPlayerState.Attack, this._behavior.createAttackState());
+        this._fsm.addState(EPlayerState.Hurt,   new PlayerHurtState());
+        this._fsm.addState(EPlayerState.Dead,   new PlayerDeadState());
         this._fsm.changeState(EPlayerState.Idle);
     }
 
     lateUpdate(dt: number) {
         if (!this._entity) return;
 
-        this._ctx.shootCooldown = Math.max(0, this._ctx.shootCooldown - dt);
+        this._ctx.attackCooldown = Math.max(0, this._ctx.attackCooldown - dt);
         this._ctx.invincibleTimer = Math.max(0, this._ctx.invincibleTimer - dt);
 
         if (this._hpLabel) {
@@ -373,15 +343,15 @@ export class PlayerControl extends Component {
             this._playerProp.getValue(EPropertyId.AttackRange),
         ) !== null;
 
-        const wantShoot = this._shootPolicy.wantShoot(act, hasTarget, isMoving);
+        const wantAttack = this._behavior.wantAttack({ input: act, hasTarget, isMoving });
 
-        if (wantShoot) {
-            this._fsm.changeState(EPlayerState.Shoot);
+        if (wantAttack) {
+            this._fsm.changeState(EPlayerState.Attack);
         } else {
             this._fsm.changeState(isMoving ? EPlayerState.Run : EPlayerState.Idle);
         }
 
-        if (this._fsm.current !== EPlayerState.Shoot && vel.vx !== 0) {
+        if (this._fsm.current !== EPlayerState.Attack && vel.vx !== 0) {
             this._body.setScale(vel.vx < 0 ? -1 : 1, 1, 1);
         }
 

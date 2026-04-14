@@ -1,0 +1,36 @@
+{
+  "hit.burn_on_hit": {
+    "id": "burn-on-hit",
+    "effectClass": "ApplyBuffOnHitEffect",
+    "priority": 50,
+    "scaleWithBaseDamage": 0.2,
+    "buff": {
+      "id": 8001, "name": "灼烧", "duration": 5,
+      "maxStack": 99, "tickInterval": 0.5, "stackDecayOnTick": false,
+      "effectClass": "PeriodicDamageEffect",
+      "damagePerStack": 5
+    }
+  },
+  "hit.frost_on_hit": {
+    "id": "frost-on-hit",
+    "effectClass": "ApplyBuffOnHitEffect",
+    "priority": 50,
+    "buff": {
+      "id": 8101, "name": "冻伤", "duration": 3,
+      "maxStack": 5,
+      "effectClass": "AttrModifierEffect",
+      "targetAttr": "MoveSpeed-Mul-Buff", "valuePerStack": -0.15
+    }
+  },
+  "hit.poison_on_hit": {
+    "id": "poison-on-hit",
+    "effectClass": "ApplyBuffOnHitEffect",
+    "priority": 50,
+    "buff": {
+      "id": 8201, "name": "中毒", "duration": 4,
+      "maxStack": 10, "tickInterval": 0.5, "stackDecayOnTick": false,
+      "effectClass": "PeriodicDamageEffect",
+      "damagePerStack": 3
+    }
+  }
+}

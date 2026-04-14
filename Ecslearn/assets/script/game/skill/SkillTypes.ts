@@ -4,18 +4,16 @@ import type { PlayerCombat } from '../player/combat/PlayerCombat';
 import type { PlayerProperty } from '../player/property/playerProperty';
 import type { EntityBuffMgr } from '../entity/EntityBuffMgr';
 import type { HitEffectMgr } from '../entity/HitEffectMgr';
-import type { IShootPolicy } from '../shoot/types';
+import type { PlayerServices } from '../player/runtime/PlayerServices';
+
+/** 行为层命令接口 — 技能不直接依赖具体职业 */
+export interface IBehaviorCommandSink {
+    onBehaviorCommand(cmd: string, ...args: unknown[]): void;
+}
+
 /**
- * 技能上下文
- * 
- * - playerProp: 玩家属性
- * - playerCombat: 玩家战斗
- * - playerNode: 玩家节点
- * - hitEffectMgr: 命中效果管理器
- * - buffMgr: 属性管理器
- * - buffOwner: 属性所有者
- * - mouseWorldPos: 鼠标世界位置
- * - setShootPolicy: 设置射击策略
+ * 通用技能上下文 — 不含任何职业私货。
+ * 职业私有能力（射击策略等）通过 behavior 命令暴露。
  */
 export interface SkillContext {
     playerProp: PlayerProperty;
@@ -25,18 +23,23 @@ export interface SkillContext {
     buffMgr: EntityBuffMgr;
     buffOwner: IBuffOwner;
     mouseWorldPos: Vec3;
-    readonly currentShootPolicy: IShootPolicy;
-    setShootPolicy(policy: IShootPolicy): void;
+    behavior: IBehaviorCommandSink;
+    services: PlayerServices;
 }
+
 /**
- * 主动技能接口
- * 
- * - id: 技能唯一标识
- * - name: 技能名称
- * - maxCooldown: 技能最大冷却时间
- * - currentCd: 技能当前冷却时间
- * - level: 技能等级
+ * JSON 驱动的技能定义
  */
+export interface SkillDef {
+    id: string;
+    name: string;
+    skillClass: string;
+    cooldown: number;
+    params: Record<string, unknown>;
+    payloadRef?: string;
+    tags?: string[];
+}
+
 export interface IActiveSkill {
     readonly id: string;
     readonly name: string;

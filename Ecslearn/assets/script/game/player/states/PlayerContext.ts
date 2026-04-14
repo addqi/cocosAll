@@ -5,28 +5,27 @@ import type { PlayerCombat } from '../combat/PlayerCombat';
 import type { PlayerProperty } from '../property/playerProperty';
 import type { EnemyControl } from '../../enemy/EnemyControl';
 import type { HitEffectMgr } from '../../entity/HitEffectMgr';
+import type { PlayerBehavior } from '../base';
 
 export enum EPlayerState {
-    Idle  = 'idle',
-    Run   = 'run',
-    Shoot = 'shoot',
-    Hurt  = 'hurt',
-    Dead  = 'dead',
+    Idle   = 'idle',
+    Run    = 'run',
+    Attack = 'attack',
+    Hurt   = 'hurt',
+    Dead   = 'dead',
 }
 
 export interface PlayerCtx {
     anim: PlayerAnimation;
     node: Node;
-    /** 模型节点 — 翻转朝向只在这里做 */
     body: Node;
     fsm: StateMachine<EPlayerState, PlayerCtx>;
+    behavior: PlayerBehavior;
     combat: PlayerCombat;
     prop: PlayerProperty;
     targetEnemy: EnemyControl | null;
     findNearestEnemy: () => EnemyControl | null;
-    /** 射击冷却倒计时，跨状态持续递减 */
-    shootCooldown: number;
+    attackCooldown: number;
     hitEffectMgr: HitEffectMgr;
-    /** 受击无敌帧倒计时 */
     invincibleTimer: number;
 }
