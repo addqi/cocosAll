@@ -16,7 +16,11 @@ export class ProjectilePool {
     static acquire(): Node {
         let node = this._pool.pop();
         if (!node) {
-            node = this._prefab ? instantiate(this._prefab) : new Node('Arrow');
+            if (!this._prefab) {
+                console.error('[ProjectilePool] prefab 未设置，无法创建弹射物');
+                return new Node('Arrow_ERROR');
+            }
+            node = instantiate(this._prefab);
         }
         node.active = true;
         this._parent!.addChild(node);

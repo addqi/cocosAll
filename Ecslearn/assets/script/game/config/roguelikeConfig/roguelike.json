@@ -1,0 +1,35 @@
+{
+  "expCurve": {
+    "base": 10,
+    "perLevel": 5
+  },
+  "goldOnDeath": {
+    "keepRatio": 0.5
+  },
+  "skillSelect": {
+    "choiceCount": 3,
+    "rarityWeights": {
+      "common": 60,
+      "rare": 25,
+      "epic": 12,
+      "legendary": 3
+    }
+  },
+  "pity": {
+    "epicAfter": 5,
+    "epicBoost": 20,
+    "legendaryAfter": 15,
+    "legendaryBoost": 10
+  },
+  "synergies": {
+    "multi-shot":  ["rapid-fire", "pierce-shot"],
+    "pierce-shot": ["crit-instinct", "chain-bounce"],
+    "crit-instinct": ["crit-storm"],
+    "max_hp_up":   ["hp_regen", "shield"]
+  },
+  "shop": {
+    "skillSlots": 3,
+    "healRatio": 0.3,
+    "rerollCost": 30
+  }
+}

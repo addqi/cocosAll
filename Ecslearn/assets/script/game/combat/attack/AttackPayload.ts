@@ -25,14 +25,4 @@ export interface AttackSpec {
     [key: string]: unknown;
 }
 
-import payloadDefs from './payloads.json';
-
-const _payloads = payloadDefs as Record<string, AttackPayloadDef>;
-
-export function getPayloadDef(ref: string): AttackPayloadDef | null {
-    return _payloads[ref] ?? null;
-}
-
-export function allPayloadIds(): string[] {
-    return Object.keys(_payloads);
-}
+export { getPayloadDef, allPayloadIds } from '../../config/payloadConfig/PayloadConfigLoader';

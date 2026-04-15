@@ -8,7 +8,7 @@ import { getMainCamera } from '../core/CameraRef';
 import { findNearestEnemy } from '../enemy/EnemyQuery';
 import { ProjectilePool } from './ProjectilePool';
 import { EnemyControl } from '../enemy/EnemyControl';
-import { playerConfig } from '../player/config/playerConfig';
+import { archerConfig } from '../player/archer/archerConfig';
 import { PHY_GROUP } from '../physics/PhysicsGroups';
 import type { ProjectileConfig } from '../shoot/types';
 
@@ -39,6 +39,7 @@ export class ArrowProjectile extends Component {
     private _damageRatio = 1;
     private _inited = false;
     private _done = false;
+    private _pendingRelease = false;
 
     private _rb: RigidBody2D = null!;
     private _col: Collider2D | null = null;
@@ -69,6 +70,7 @@ export class ArrowProjectile extends Component {
         this._hitEnemies.clear();
         this._inited = true;
         this._done = false;
+        this._pendingRelease = false;
 
         this._rb.group = PHY_GROUP.PBullet;
         if (this._col) this._col.group = PHY_GROUP.PBullet;
@@ -82,6 +84,7 @@ export class ArrowProjectile extends Component {
     onDisable() {
         this._inited = false;
         this._done = true;
+        this._pendingRelease = false;
         this._onHit = null;
         this._curve = null;
         this._target = null;
@@ -211,7 +214,7 @@ export class ArrowProjectile extends Component {
         this._pierceDir.normalize();
         this._piercing = true;
 
-        const speed = playerConfig.arrowSpeed;
+        const speed = archerConfig.arrowSpeed;
         _tmpVel.set(this._pierceDir.x * speed, this._pierceDir.y * speed);
         this._rb.linearVelocity = _tmpVel;
     }
@@ -251,8 +254,8 @@ export class ArrowProjectile extends Component {
         const dist = Vec3.distance(from, end);
         const facing = end.x > from.x ? 1 : -1;
 
-        this._curve = QuadBezier.createArc(from, end, dist * playerConfig.arrowArcRatio * facing);
-        this._duration = dist / playerConfig.arrowSpeed;
+        this._curve = QuadBezier.createArc(from, end, dist * archerConfig.arrowArcRatio * facing);
+        this._duration = dist / archerConfig.arrowSpeed;
         this._elapsed = 0;
         this._hasTarget = true;
         this._target = next;
@@ -263,7 +266,7 @@ export class ArrowProjectile extends Component {
     }
 
     private _split(from: Vec3, count: number) {
-        const { arrowSpeed, arrowArcRatio } = playerConfig;
+        const { arrowSpeed, arrowArcRatio } = archerConfig;
         const used = new Set(this._hitEnemies);
 
         for (let i = 0; i < count; i++) {
@@ -293,21 +296,34 @@ export class ArrowProjectile extends Component {
         }
     }
 
+    lateUpdate() {
+        if (this._pendingRelease) {
+            this._pendingRelease = false;
+            ProjectilePool.release(this.node);
+        }
+    }
+
     // ── 回收 ──────────────────────────────────────
 
     private _release() {
         if (this._done) return;
         this._done = true;
         this._inited = false;
-        ProjectilePool.release(this.node);
+        this._pendingRelease = true;
     }
 
     // ── 工具 ──────────────────────────────────────
 
     private _applyRotation(tangent: Vec3) {
-        const angle = Math.atan2(tangent.y, tangent.x) * RAD2DEG;
-        this.node.setRotationFromEuler(0, 0, angle);
-        this.node.setScale(1, tangent.x < 0 ? -1 : 1, 1);
+        if (tangent.x >= 0) {
+            const angle = Math.atan2(tangent.y, tangent.x) * RAD2DEG;
+            this.node.setRotationFromEuler(0, 0, angle);
+            this.node.setScale(1, 1, 1);
+        } else {
+            const angle = Math.atan2(-tangent.y, -tangent.x) * RAD2DEG;
+            this.node.setRotationFromEuler(0, 0, angle);
+            this.node.setScale(-1, 1, 1);
+        }
     }
 
     private _isOutOfScreen(): boolean {

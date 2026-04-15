@@ -1,0 +1,89 @@
+{
+  "room_forest_01": {
+    "id": "room_forest_01",
+    "name": "林间空地",
+    "width": 12,
+    "height": 8,
+    "tileSize": 64,
+    "playerSpawn": { "x": 1, "y": 4 },
+    "warpGatePos": { "x": 10, "y": 4 },
+    "spawnPoints": [
+      { "position": { "x": 5, "y": 2 }, "allowedTypes": ["warrior", "ranger"], "weight": 1 },
+      { "position": { "x": 7, "y": 5 }, "allowedTypes": ["warrior", "bomber"], "weight": 1 },
+      { "position": { "x": 9, "y": 3 }, "allowedTypes": ["warrior", "ranger", "bomber"], "weight": 0.5 },
+      { "position": { "x": 4, "y": 6 }, "allowedTypes": ["warrior"], "weight": 1 },
+      { "position": { "x": 8, "y": 1 }, "allowedTypes": ["warrior", "bomber"], "weight": 0.8 }
+    ],
+    "obstacles": [
+      { "position": { "x": 3, "y": 3 }, "type": "rock_large" },
+      { "position": { "x": 6, "y": 6 }, "type": "bush" }
+    ],
+    "tags": ["forest", "easy"]
+  },
+  "room_ruins_01": {
+    "id": "room_ruins_01",
+    "name": "废墟庭院",
+    "width": 14,
+    "height": 10,
+    "tileSize": 64,
+    "playerSpawn": { "x": 1, "y": 5 },
+    "warpGatePos": { "x": 12, "y": 5 },
+    "spawnPoints": [
+      { "position": { "x": 4, "y": 2 }, "allowedTypes": ["warrior", "ranger"], "weight": 1 },
+      { "position": { "x": 6, "y": 8 }, "allowedTypes": ["warrior", "bomber"], "weight": 1 },
+      { "position": { "x": 10, "y": 3 }, "allowedTypes": ["ranger"], "weight": 0.8 },
+      { "position": { "x": 8, "y": 6 }, "allowedTypes": ["warrior", "ranger", "bomber"], "weight": 0.6 },
+      { "position": { "x": 11, "y": 8 }, "allowedTypes": ["warrior", "bomber"], "weight": 0.7 },
+      { "position": { "x": 3, "y": 7 }, "allowedTypes": ["warrior"], "weight": 1 }
+    ],
+    "obstacles": [
+      { "position": { "x": 5, "y": 5 }, "type": "pillar" },
+      { "position": { "x": 9, "y": 5 }, "type": "pillar" },
+      { "position": { "x": 7, "y": 2 }, "type": "rock_large" }
+    ],
+    "tags": ["ruins", "medium"]
+  },
+  "room_bridge_01": {
+    "id": "room_bridge_01",
+    "name": "河畔桥头",
+    "width": 16,
+    "height": 8,
+    "tileSize": 64,
+    "playerSpawn": { "x": 1, "y": 4 },
+    "warpGatePos": { "x": 14, "y": 4 },
+    "spawnPoints": [
+      { "position": { "x": 6, "y": 2 }, "allowedTypes": ["ranger"], "weight": 1 },
+      { "position": { "x": 10, "y": 6 }, "allowedTypes": ["warrior", "bomber"], "weight": 1 },
+      { "position": { "x": 12, "y": 2 }, "allowedTypes": ["warrior", "ranger"], "weight": 0.8 },
+      { "position": { "x": 8, "y": 4 }, "allowedTypes": ["warrior"], "weight": 0.5 },
+      { "position": { "x": 13, "y": 5 }, "allowedTypes": ["bomber"], "weight": 0.6 }
+    ],
+    "obstacles": [
+      { "position": { "x": 4, "y": 1 }, "type": "rock_small" },
+      { "position": { "x": 4, "y": 7 }, "type": "rock_small" },
+      { "position": { "x": 11, "y": 1 }, "type": "bush" }
+    ],
+    "tags": ["bridge", "medium"]
+  },
+  "room_boss_01": {
+    "id": "room_boss_01",
+    "name": "王座厅",
+    "width": 16,
+    "height": 12,
+    "tileSize": 64,
+    "playerSpawn": { "x": 2, "y": 6 },
+    "warpGatePos": { "x": 14, "y": 6 },
+    "spawnPoints": [
+      { "position": { "x": 10, "y": 6 }, "allowedTypes": ["boss"], "weight": 1 },
+      { "position": { "x": 6, "y": 3 }, "allowedTypes": ["warrior", "ranger"], "weight": 0.5 },
+      { "position": { "x": 6, "y": 9 }, "allowedTypes": ["warrior", "ranger"], "weight": 0.5 }
+    ],
+    "obstacles": [
+      { "position": { "x": 4, "y": 4 }, "type": "pillar" },
+      { "position": { "x": 4, "y": 8 }, "type": "pillar" },
+      { "position": { "x": 12, "y": 4 }, "type": "pillar" },
+      { "position": { "x": 12, "y": 8 }, "type": "pillar" }
+    ],
+    "tags": ["boss", "hard"]
+  }
+}

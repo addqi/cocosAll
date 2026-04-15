@@ -21,3 +21,9 @@ import './testStep3_SkillPrimitives';
 import './testStep3_AttackPayload';
 import './testStep3_CombatInterfaces';
 import './testStep3_FullChain';
+
+// ── Step-4 基础设施收口 ──
+import './testStep4_Infrastructure';
+
+// ── Step-5 全配置目录结构 ──
+import './testStep5_ConfigStructure';

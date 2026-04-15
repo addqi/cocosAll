@@ -112,4 +112,11 @@ export const PROP_CONFIG_MAP: Record<EPropertyId, Record<EPropertyConfigId, stri
         [EPropertyConfigId.MulBuff]:         'AttackRange-Mul-Buff',
         [EPropertyConfigId.MulOther]:        'AttackRange-Mul-Other',
     },
+    [EPropertyId.StaggerDuration]: {
+        [EPropertyConfigId.BaseValueConfig]: 'StaggerDuration-Value-Config',
+        [EPropertyConfigId.BaseValueBuff]:   'StaggerDuration-Value-Buff',
+        [EPropertyConfigId.BaseValueOther]:  'StaggerDuration-Value-Other',
+        [EPropertyConfigId.MulBuff]:         'StaggerDuration-Mul-Buff',
+        [EPropertyConfigId.MulOther]:        'StaggerDuration-Mul-Other',
+    },
 };

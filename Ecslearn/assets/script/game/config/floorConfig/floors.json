@@ -1,0 +1,26 @@
+{
+  "enemyCountBase": 3,
+  "enemyCountGrowthPerFloor": 0.333,
+  "enemyCountMax": 10,
+  "scaling": {
+    "hpPerFloor": 0.15,
+    "atkPerFloor": 0.10,
+    "defPerFloor": 0.05,
+    "speedPerFloor": 0.02
+  },
+  "enemyUnlock": [
+    { "floor": 1,  "types": ["warrior"] },
+    { "floor": 3,  "types": ["ranger"] },
+    { "floor": 6,  "types": ["bomber"] }
+  ],
+  "sequence": {
+    "bossEvery": 10,
+    "shopEvery": 5,
+    "eliteEvery": 3,
+    "eliteChance": 0.3,
+    "restMinFloor": 8,
+    "restChance": 0.15,
+    "treasureChance": 0.1
+  },
+  "floorTypes": ["combat", "elite", "boss", "shop", "rest", "treasure"]
+}

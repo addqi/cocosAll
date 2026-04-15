@@ -9,6 +9,8 @@ import type { EnemyConfigData } from '../config/enemyConfig';
 import type { PropertyBaseConfig } from '../../entity/EntityPropertyMgr';
 import { PHY_GROUP } from '../../physics/PhysicsGroups';
 import { attachColliderDebug } from '../../physics/ColliderDebugDraw';
+import { EPropertyId } from '../../config/enum/propertyEnum';
+import { CameraController } from '../../core/CameraController';
 import { FlashWhite } from '../../vfx/FlashWhite';
 import { DamagePopupMgr, EDamageStyle } from '../../vfx/DamagePopupMgr';
 import { EnemyVisual } from './EnemyVisual';
@@ -45,6 +47,7 @@ export abstract class EnemyBase extends Component {
 
     protected _state = EMobState.Idle;
     protected _xpGranted = false;
+    protected _staggerTimer = 0;
 
     get combat(): EnemyCombat { return this._combat; }
     get prop(): EnemyProperty { return this._prop; }
@@ -98,13 +101,24 @@ export abstract class EnemyBase extends Component {
         );
     }
 
+    get staggerTimer(): number { return this._staggerTimer; }
+
     onHitVisual(damage: number, isCrit: boolean): void {
         this._flashWhite?.flash();
+        CameraController.inst.shake(isCrit ? 2.5 : 1.5, 0.06);
+
         DamagePopupMgr.inst.show(
             this.node.worldPosition,
             damage,
             isCrit ? EDamageStyle.Crit : EDamageStyle.Normal,
         );
+
+        this._requestStagger();
+    }
+
+    private _requestStagger(): void {
+        const dur = this._prop.getValue(EPropertyId.StaggerDuration);
+        if (dur > 0) this._staggerTimer = dur;
     }
 
     onDestroy() {

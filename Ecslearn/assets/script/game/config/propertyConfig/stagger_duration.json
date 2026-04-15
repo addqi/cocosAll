@@ -1,0 +1,14 @@
+{
+  "attribute": "StaggerDuration",
+  "valueNodes": [
+    { "id": "StaggerDuration-Value-Config", "value": 0, "tag": "base" },
+    { "id": "StaggerDuration-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "StaggerDuration-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "StaggerDuration-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "StaggerDuration-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "StaggerDuration-Value", "expression": "{{StaggerDuration-Value-Config}} + {{StaggerDuration-Value-Buff}} + {{StaggerDuration-Value-Other}}" },
+    { "id": "StaggerDuration",       "expression": "{{StaggerDuration-Value}} * (1 + {{StaggerDuration-Mul-Buff}} + {{StaggerDuration-Mul-Other}})" }
+  ]
+}

@@ -8,6 +8,30 @@
     ".png"
   ],
   "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "419a072c-8492-42d2-a3c9-d86756ee84ce@6c48a",
+      "displayName": "tile_2_1",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "419a072c-8492-42d2-a3c9-d86756ee84ce",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
     "f9941": {
       "importer": "sprite-frame",
       "uuid": "419a072c-8492-42d2-a3c9-d86756ee84ce@f9941",
@@ -94,30 +118,6 @@
         "trimType": "auto"
       },
       "ver": "1.0.12",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
-    "6c48a": {
-      "importer": "texture",
-      "uuid": "419a072c-8492-42d2-a3c9-d86756ee84ce@6c48a",
-      "displayName": "tile_2_1",
-      "id": "6c48a",
-      "name": "texture",
-      "userData": {
-        "wrapModeS": "repeat",
-        "wrapModeT": "repeat",
-        "minfilter": "linear",
-        "magfilter": "linear",
-        "mipfilter": "none",
-        "anisotropy": 0,
-        "isUuid": true,
-        "imageUuidOrDatabaseUri": "419a072c-8492-42d2-a3c9-d86756ee84ce",
-        "visible": false
-      },
-      "ver": "1.0.22",
       "imported": true,
       "files": [
         ".json"

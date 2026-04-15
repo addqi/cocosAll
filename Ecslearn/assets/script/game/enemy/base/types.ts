@@ -5,5 +5,6 @@ export enum EMobState {
     WindUp   = 'windUp',
     Attack   = 'attack',
     Recovery = 'recovery',
+    Stagger  = 'stagger',
     Dead     = 'dead',
 }

@@ -16,6 +16,7 @@ import {
     MinionWindUpState,
     MinionAttackState,
     MinionRecoveryState,
+    MinionStaggerState,
     MinionDeadState,
 } from './states';
 
@@ -49,11 +50,29 @@ export class MinionControl extends EnemyBase {
             this._fsm.changeState(EMobState.Dead);
         }
 
+        this._tickStagger(dt);
+
         this._buffMgr.update(dt);
         this._fsm.tick(dt);
 
         if (this._state !== EMobState.Dead) {
             this._visual.updateHpBar(this._combat, dt);
+        }
+    }
+
+    private _tickStagger(dt: number): void {
+        if (this._state === EMobState.Dead) return;
+
+        if (this._staggerTimer > 0) {
+            if (this._state !== EMobState.Stagger) {
+                this._state = EMobState.Stagger;
+                this._fsm.changeState(EMobState.Stagger);
+            }
+            this._staggerTimer -= dt;
+            if (this._staggerTimer < 0) this._staggerTimer = 0;
+        } else if (this._state === EMobState.Stagger) {
+            this._state = EMobState.Idle;
+            this._fsm.changeState(EMobState.Idle);
         }
     }
 
@@ -84,6 +103,7 @@ export class MinionControl extends EnemyBase {
         this._fsm.addState(EMobState.WindUp,   new MinionWindUpState());
         this._fsm.addState(EMobState.Attack,   new MinionAttackState());
         this._fsm.addState(EMobState.Recovery, new MinionRecoveryState());
+        this._fsm.addState(EMobState.Stagger,  new MinionStaggerState());
         this._fsm.addState(EMobState.Dead,     new MinionDeadState());
         this._fsm.changeState(EMobState.Idle);
     }

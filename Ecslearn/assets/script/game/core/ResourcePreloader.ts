@@ -28,9 +28,12 @@ export async function preloadAllResources(): Promise<void> {
 
     const dirTasks = frameDirs.map(d => ResourceMgr.inst.preloadDir(d, SpriteFrame));
 
+    const wrap = (p: Promise<void>, label: string) =>
+        p.catch(err => { console.warn(`[ResourcePreloader] ${label} failed:`, err); });
+
     await Promise.all([
-        ResourceMgr.inst.preload(texturePaths, Texture2D),
-        ResourceMgr.inst.preload(['shader/dissolve', 'shader/flash-white'], EffectAsset),
-        ...dirTasks,
+        wrap(ResourceMgr.inst.preload(texturePaths, Texture2D), 'textures'),
+        wrap(ResourceMgr.inst.preload(['shader/dissolve', 'shader/flash-white'], EffectAsset), 'effects'),
+        ...dirTasks.map((t, i) => wrap(t, `frameDir[${frameDirs[i]}]`)),
     ]);
 }

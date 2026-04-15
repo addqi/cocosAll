@@ -40,6 +40,8 @@ export enum EPropertyId {
     ArrowSpeed = 'ArrowSpeed',
     /** 攻击范围 */
     AttackRange = 'AttackRange',
+    /** 受击硬直时长（秒） */
+    StaggerDuration = 'StaggerDuration',
 }
 
 /**

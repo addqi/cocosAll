@@ -4,4 +4,5 @@ export { MinionChaseState } from './MinionChaseState';
 export { MinionWindUpState } from './MinionWindUpState';
 export { MinionAttackState } from './MinionAttackState';
 export { MinionRecoveryState } from './MinionRecoveryState';
+export { MinionStaggerState } from './MinionStaggerState';
 export { MinionDeadState } from './MinionDeadState';
