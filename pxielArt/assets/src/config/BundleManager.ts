@@ -64,7 +64,7 @@ export class BundleManager {
                     if (err) { reject(err); return; }
                     idx++;
                     onProgress(idx, total);
-                    setTimeout(next, 200);
+                    next();
                 });
             };
             next();

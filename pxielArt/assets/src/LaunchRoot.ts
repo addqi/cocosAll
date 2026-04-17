@@ -14,6 +14,11 @@ export class LaunchRoot extends Component {
     private _progressLabel: Label | null = null;
     private _barWidth = 0;
 
+    private _targetRatio = 0;
+    private _displayRatio = 0;
+    private _loading = false;
+    private static readonly FILL_SPEED = 0.8;
+
     start(): void {
         const vs = view.getVisibleSize();
         const ut = this.node.getComponent(UITransform);
@@ -124,27 +129,60 @@ export class LaunchRoot extends Component {
         this._progressLabel = lab;
     }
     private async _onStartClick(btnNode: Node): Promise<void> {
+        if (this._loading) return;
+        this._loading = true;
+
         btnNode.active = false;
         const bar = this.node.getChildByName('LoadingBar');
         if (bar) bar.active = true;
 
+        this._targetRatio = 0;
+        this._displayRatio = 0;
+
         try {
             await BundleManager.load((finished, total) => {
-                const ratio = total > 0 ? finished / total : 0;
-                if (this._progressFill) {
-                    this._progressFill.setContentSize(this._barWidth * ratio, 12);
-                }
-                if (this._progressLabel) {
-                    this._progressLabel.string = `加载中... ${Math.round(ratio * 100)}%`;
-                }
+                this._targetRatio = total > 0 ? finished / total : 0;
             });
+            this._targetRatio = 1;
+            await this._waitDisplayCatchUp();
             director.loadScene('game');
         } catch (e) {
+            console.error('[LaunchRoot] bundle load failed:', e);
             if (this._progressLabel) {
                 this._progressLabel.string = '加载失败，请重试';
             }
             btnNode.active = true;
             if (bar) bar.active = false;
+            this._loading = false;
         }
+    }
+
+    update(dt: number): void {
+        if (!this._progressFill) return;
+
+        const target = this._targetRatio;
+        const display = this._displayRatio;
+        if (display >= target) return;
+
+        const next = Math.min(target, display + LaunchRoot.FILL_SPEED * dt);
+        this._displayRatio = next;
+
+        this._progressFill.setContentSize(this._barWidth * next, 12);
+        if (this._progressLabel) {
+            this._progressLabel.string = `加载中... ${Math.round(next * 100)}%`;
+        }
+    }
+
+    private _waitDisplayCatchUp(): Promise<void> {
+        return new Promise((resolve) => {
+            const tick = (): void => {
+                if (this._displayRatio >= this._targetRatio) {
+                    resolve();
+                    return;
+                }
+                this.scheduleOnce(tick, 0);
+            };
+            tick();
+        });
     }
 }

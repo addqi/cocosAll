@@ -23,6 +23,13 @@ export class ToolState {
         return this._counts.get(type) ?? 0;
     }
 
+    addCount(type: ToolType, n: number): void {
+        const c = this.getCount(type);
+        this._counts.set(type, c + n);
+        this._persist();
+        this.onChanged?.();
+    }
+
     consume(type: ToolType): boolean {
         const c = this.getCount(type);
         if (c <= 0) return false;

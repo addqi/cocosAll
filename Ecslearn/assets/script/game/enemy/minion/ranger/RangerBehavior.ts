@@ -32,6 +32,8 @@ export class RangerBehavior extends MinionBehavior {
     // ─── 指示器钩子 ──────────────────────────────
 
     createIndicator(ctx: IMinionCtx): void {
+        this.destroyIndicator(ctx);
+
         const root = new Node('RangerBeam');
         ctx.groundFX.addChild(root);
         root.setRotationFromEuler(0, 0, ctx.facingAngle / DEG2RAD);

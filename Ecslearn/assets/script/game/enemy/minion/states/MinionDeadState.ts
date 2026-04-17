@@ -8,6 +8,7 @@ export class MinionDeadState implements IState<IMinionCtx> {
 
     enter(ctx: IMinionCtx): void {
         this._timer = 0;
+        ctx.behavior.destroyIndicator(ctx);
         ctx.visual.hideIndicator();
         ctx.uiAnchor.active = false;
         ctx.groundFX.active = false;

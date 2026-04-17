@@ -26,6 +26,7 @@ import { ToolExecutor } from '../../core/tool/ToolExecutor';
 import { PuzzleData } from '../../types/types';
 import { CompletionPopup } from '../popup/CompletionPopup';
 import { ExitConfirmPopup } from '../popup/ExitConfirmPopup';
+import { ToolRefillPopup } from '../popup/ToolRefillPopup';
 import { cellFilled } from '../../core/paint/PaintSnapRules';
 import { showToast } from '../../util/Toast';
 import { ProgressBar, ProgressBarHandle } from './ProgressBar';
@@ -188,11 +189,30 @@ export class GamePage extends Component {
         const ctx = this._ctx;
         const ts = this._toolState;
         if (!ctx || !ts) return;
+
         if (ts.getCount(type) <= 0) {
-            if (this._topLayer) showToast(this._topLayer, '道具次数不足');
+            const def = ToolDefs.find(d => d.type === type);
+            if (!def || !this._popupLayer) return;
+            ToolRefillPopup.show(
+                this._popupLayer,
+                def.name,
+                GameConfig.toolRefillCount,
+                () => Promise.resolve(true),
+                () => {
+                    ts.addCount(type, GameConfig.toolRefillCount);
+                    this._useToolAfterRefill(type);
+                },
+            );
             return;
         }
 
+        this._useToolAfterRefill(type);
+    }
+
+    private _useToolAfterRefill(type: ToolType): void {
+        const ctx = this._ctx;
+        const ts = this._toolState;
+        if (!ctx || !ts) return;
         const def = ToolDefs.find(d => d.type === type);
         if (!def) return;
 

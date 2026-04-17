@@ -10,6 +10,7 @@ import type { IMinionCtx } from '../MinionContext';
  */
 export class MinionStaggerState implements IState<IMinionCtx> {
     enter(ctx: IMinionCtx): void {
+        ctx.behavior.destroyIndicator(ctx);
         ctx.anim.play('idle' as any);
     }
 

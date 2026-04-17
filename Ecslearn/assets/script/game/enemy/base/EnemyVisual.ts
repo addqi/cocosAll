@@ -134,7 +134,7 @@ export class EnemyVisual {
         needsRotation: boolean,
         drawFn: (g: Graphics, r: number) => void,
     ): void {
-        if (this._indicatorRoot) return;
+        this.hideIndicator();
 
         const DEG2RAD = Math.PI / 180;
         const root = new Node('AttackIndicator');
