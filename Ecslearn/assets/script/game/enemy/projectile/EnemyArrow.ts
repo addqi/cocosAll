@@ -11,7 +11,6 @@ import { getMainCamera } from '../../core/CameraRef';
 const { ccclass } = _decorator;
 
 const RAD2DEG = 180 / Math.PI;
-const ARROW_SPEED = 250;
 const _v2 = new Vec2();
 
 @ccclass('EnemyArrow')
@@ -26,7 +25,7 @@ export class EnemyArrow extends Component {
         this._setupPhysics();
     }
 
-    init(worldX: number, worldY: number, angle: number, damage: number) {
+    init(worldX: number, worldY: number, angle: number, damage: number, speed: number) {
         this._damage = damage;
         this._inited = true;
         this._done = false;
@@ -39,7 +38,7 @@ export class EnemyArrow extends Component {
         this._rb.group = PHY_GROUP.EBullet;
         this._col.group = PHY_GROUP.EBullet;
 
-        _v2.set(dirX * ARROW_SPEED, Math.sin(angle) * ARROW_SPEED);
+        _v2.set(dirX * speed, Math.sin(angle) * speed);
         this._rb.linearVelocity = _v2;
     }
 
@@ -74,17 +73,17 @@ export class EnemyArrow extends Component {
         if (!player) return;
 
         player.applyDamage(this._damage);
-        this._release();
+        this._done = true;
     }
 
     update(_dt: number) {
-        if (!this._inited || this._done) return;
-        if (this._isOutOfScreen()) this._release();
+        if (!this._inited) return;
+        if (this._done) { this._release(); return; }
+        if (this._isOutOfScreen()) { this._done = true; this._release(); }
     }
 
     private _release() {
-        if (this._done) return;
-        this._done = true;
+        if (!this._inited) return;
         this._inited = false;
         ProjectilePool.release(this.node);
     }

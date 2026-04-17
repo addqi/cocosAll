@@ -40,6 +40,7 @@ export class ArrowProjectile extends Component {
     private _inited = false;
     private _done = false;
     private _pendingRelease = false;
+    private _pendingAfterHit = false;
 
     private _rb: RigidBody2D = null!;
     private _col: Collider2D | null = null;
@@ -71,6 +72,7 @@ export class ArrowProjectile extends Component {
         this._inited = true;
         this._done = false;
         this._pendingRelease = false;
+        this._pendingAfterHit = false;
 
         this._rb.group = PHY_GROUP.PBullet;
         if (this._col) this._col.group = PHY_GROUP.PBullet;
@@ -85,6 +87,7 @@ export class ArrowProjectile extends Component {
         this._inited = false;
         this._done = true;
         this._pendingRelease = false;
+        this._pendingAfterHit = false;
         this._onHit = null;
         this._curve = null;
         this._target = null;
@@ -129,7 +132,7 @@ export class ArrowProjectile extends Component {
             cfg.pierceCount--;
             if (cfg.pierceCount <= 0) {
                 this._piercing = false;
-                this._postPierceCheck();
+                this._pendingAfterHit = true;
             }
             return;
         }
@@ -138,13 +141,19 @@ export class ArrowProjectile extends Component {
 
         this._hitEnemies.add(enemy);
         this._onHit?.(enemy, this._damageRatio);
-        this._afterHit();
+        this._pendingAfterHit = true;
     }
 
     // ── 每帧更新 ──────────────────────────────────
 
     update(dt: number) {
         if (!this._inited || this._done) return;
+
+        if (this._pendingAfterHit) {
+            this._pendingAfterHit = false;
+            this._afterHit();
+            return;
+        }
 
         if (this._piercing) {
             this._updatePierce();

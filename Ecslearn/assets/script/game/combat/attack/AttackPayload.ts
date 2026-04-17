@@ -17,6 +17,10 @@ export type AttackType = 'projectile' | 'area' | 'melee' | 'summon';
 
 /**
  * 攻击规格 — 技能只生产这个东西，交给执行器落地。
+ *
+ * 必填字段保持最小集，便于向前兼容测试；
+ * 真实战斗执行所需的瞬时量（原点、目标、命中回调）通过可选字段携带，
+ * 由 handler 各自按需读取。
  */
 export interface AttackSpec {
     attackType: AttackType;

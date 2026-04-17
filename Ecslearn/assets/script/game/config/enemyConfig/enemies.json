@@ -41,6 +41,7 @@
       "Attack":          { "base": 80 },
       "Defense":         { "base": 15 },
       "MoveSpeed":       { "base": 70 },
+      "ArrowSpeed":      { "base": 250, "min": 50, "max": 2000 },
       "StaggerDuration": { "base": 0.2, "min": 0 }
     },
     "overrides": {

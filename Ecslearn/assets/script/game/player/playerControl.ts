@@ -24,7 +24,11 @@ import './behaviors';
 import { PlayerRuntime } from './runtime';
 import { DamagePopupMgr, EDamageStyle } from '../vfx/DamagePopupMgr';
 import '../hitEffects';
-import type { SkillContext } from '../skill/SkillTypes';
+import '../skill';
+import { installAttackHandlers } from '../combat/attack';
+import { SkillFactory } from '../skill/SkillFactory';
+import { getSkillDef } from '../config/skillConfig/SkillConfigLoader';
+import type { IActiveSkill, SkillContext } from '../skill/SkillTypes';
 import {
     EPlayerState,
     type PlayerCtx,
@@ -153,7 +157,36 @@ export class PlayerControl extends Component {
         GameLoop.onReady(() => {
             this._createRangeCircle();
             ResourceMgr.inst.preload(['shader/flash-white'], EffectAsset);
+            this._installAttackRuntime();
+            this._equipDefaultSkills();
         });
+    }
+
+    private _installAttackRuntime(): void {
+        const parent = this.node.parent;
+        if (!parent) {
+            console.warn('[PlayerControl] parent 丢失，跳过 attack handler 安装');
+            return;
+        }
+        installAttackHandlers(parent);
+    }
+
+    private _equipDefaultSkills(): void {
+        const slots: Array<[string, number]> = [
+            ['berserk',   0],
+            ['fireball',  1],
+            ['ice-ring',  2],
+        ];
+        const sys = this._runtime.skillSystem;
+        for (const [id, slot] of slots) {
+            const def = getSkillDef(id);
+            if (!def) {
+                console.warn(`[PlayerControl] 未找到 skill def: ${id}`);
+                continue;
+            }
+            const skill = SkillFactory.create(def) as IActiveSkill;
+            sys.equip(skill, slot);
+        }
     }
 
     // ─── Damage interface (called by enemies) ──────
@@ -172,6 +205,8 @@ export class PlayerControl extends Component {
 
             if (this._playerCombat.isDead) {
                 this._onDeath();
+            } else if (this._fsm) {
+                this._fsm.changeState(EPlayerState.Hurt);
             }
         }
         return actual;
@@ -328,6 +363,11 @@ export class PlayerControl extends Component {
         }
 
         if (this._playerCombat.isDead) {
+            this._fsm.tick(dt);
+            return;
+        }
+
+        if (this._fsm.current === EPlayerState.Hurt) {
             this._fsm.tick(dt);
             return;
         }

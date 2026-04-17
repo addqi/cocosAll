@@ -108,6 +108,7 @@ export class RangerBehavior extends MinionBehavior {
 
         const pos = ctx.node.worldPosition;
         const dmg = ctx.prop.getValue(EPropertyId.Attack);
-        arrow.init(pos.x, pos.y, ctx.facingAngle, dmg);
+        const speed = ctx.prop.getValue(EPropertyId.ArrowSpeed);
+        arrow.init(pos.x, pos.y, ctx.facingAngle, dmg, speed);
     }
 }

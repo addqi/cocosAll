@@ -7,6 +7,8 @@ import type { SkillContext } from '../../skill/SkillTypes';
 import type { PlayerServices } from '../runtime/PlayerServices';
 import type { IShootPolicy } from '../../shoot/types';
 import { HoldToShoot } from '../../shoot/ShootPolicies';
+import { AttackExecutor } from '../../combat/attack/AttackExecutor';
+import type { AttackSpec } from '../../combat/attack/AttackPayload';
 import { ArcherAttackState } from './ArcherAttackState';
 
 @playerBehavior
@@ -45,6 +47,11 @@ export class ArcherBehavior extends PlayerBehavior {
     onBehaviorCommand(cmd: string, ...args: unknown[]): void {
         if (cmd === 'set_shoot_policy') {
             this._shootPolicy = args[0] as IShootPolicy;
+            return;
+        }
+        if (cmd === 'execute_attack') {
+            AttackExecutor.execute(args[0] as AttackSpec);
+            return;
         }
     }
 }
