@@ -1,8 +1,8 @@
-import { _decorator, Component, Node, UITransform } from 'cc';
+import { _decorator, Component, Enum, Node, UITransform } from 'cc';
 import { IRed } from './IRed';
 
 import { getRed } from './RedRegister';
-import { RedDisplay } from './RedDisplay';
+import { RedDisplay, RedDisplayMode } from './RedDisplay';
 import { Signal } from './Signal';
 const { ccclass, property } = _decorator;
 
@@ -15,11 +15,13 @@ export class RedCom extends Component {
     @property
     redKey: string = '';
 
+    @property({ type: Enum(RedDisplayMode) })
+    displayMode: RedDisplayMode = RedDisplayMode.AUTO;
+
     private _inst: IRed | null = null;
     private _signals: Signal<any>[] = [];
     private _display: RedDisplay | null = null;
     private _scheduled: boolean = false;
-    private _number: number = 0;
 
     onLoad(): void {
         const Ctor = getRed(this.redKey);
@@ -48,7 +50,7 @@ export class RedCom extends Component {
         );
 
         this._display = dotNode.addComponent(RedDisplay);
-        this._display.setRed(false);
+        this._display.setRed(0, this.displayMode);
     }
 
     onEnable(): void {
@@ -85,8 +87,8 @@ export class RedCom extends Component {
     private _refreshNow = (): void => {
         this._scheduled = false;
         if (!this._inst || !this._display) return;
-        const isRed = this._inst.calcRed();
-        this._display.setRed(isRed);
+        const number = this._inst.calcCount();
+        this._display.setRed(number, this.displayMode);
     };
 
     /** 业务强刷：账号切换、发奖结算等场景，等不及 0.5s 防抖 */
