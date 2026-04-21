@@ -29,7 +29,8 @@
       "attackAngle": 360,
       "attackWindUp": 0,
       "attackCooldown": 0,
-      "xpReward": 15
+      "xpReward": 15,
+      "goldDrop": 3
     }
   },
   {
@@ -51,7 +52,8 @@
       "attackWindUp": 1.0,
       "attackCooldown": 2.0,
       "attackHitFrame": 2,
-      "xpReward": 12
+      "xpReward": 12,
+      "goldDrop": 3
     }
   }
 ]

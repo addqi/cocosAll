@@ -18,6 +18,7 @@ import homingStrengthConfig   from './homing_strength.json';
 import arrowSpeedConfig       from './arrow_speed.json';
 import attackRangeConfig      from './attack_range.json';
 import staggerDurationConfig from './stagger_duration.json';
+import pickupRangeConfig     from './pickup_range.json';
 
 /**
  * 共享属性结构配置（所有实体通用）
@@ -41,4 +42,5 @@ export const SHARED_ATTRIBUTE_CONFIGS: AttributeConfig[] = [
     arrowSpeedConfig       as AttributeConfig,
     attackRangeConfig      as AttributeConfig,
     staggerDurationConfig  as AttributeConfig,
+    pickupRangeConfig      as AttributeConfig,
 ];

@@ -1,0 +1,14 @@
+{
+  "attribute": "PickupRange",
+  "valueNodes": [
+    { "id": "PickupRange-Value-Config", "value": 0, "tag": "base" },
+    { "id": "PickupRange-Value-Buff",   "value": 0, "tag": "add-buff" },
+    { "id": "PickupRange-Value-Other",  "value": 0, "tag": "add-other" },
+    { "id": "PickupRange-Mul-Buff",     "value": 0, "tag": "mul-buff" },
+    { "id": "PickupRange-Mul-Other",    "value": 0, "tag": "mul-other" }
+  ],
+  "computeNodes": [
+    { "id": "PickupRange-Value", "expression": "{{PickupRange-Value-Config}} + {{PickupRange-Value-Buff}} + {{PickupRange-Value-Other}}" },
+    { "id": "PickupRange",       "expression": "{{PickupRange-Value}} * (1 + {{PickupRange-Mul-Buff}} + {{PickupRange-Mul-Other}})" }
+  ]
+}

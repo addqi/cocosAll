@@ -33,6 +33,8 @@ export interface EnemyConfigData {
     wanderSpeedRatio: number;
     /** 击杀奖励经验值 */
     xpReward: number;
+    /** 金币基础掉落（baseAmount，进 Modifier 链前）*/
+    goldDrop: number;
 }
 
 export const enemyConfig: EnemyConfigData = {
@@ -56,4 +58,5 @@ export const enemyConfig: EnemyConfigData = {
     wanderTimeMax: 2,
     wanderSpeedRatio: 0.4,
     xpReward: 10,
+    goldDrop: 2,
 };

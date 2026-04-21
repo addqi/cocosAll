@@ -1,6 +1,8 @@
 import { _decorator, Component, Sprite, SpriteFrame, Node, Vec3, Label, Color, UITransform, UIOpacity, Texture2D,
     RigidBody2D, CircleCollider2D, ERigidBody2DType, EffectAsset } from 'cc';
 import { ResourceMgr } from '../../baseSystem/resource';
+import { on, off } from '../../baseSystem/util';
+import { GameEvt, type EnemyDeathEvent } from '../events/GameEvents';
 import { PHY_GROUP } from '../physics/PhysicsGroups';
 import { attachColliderDebug } from '../physics/ColliderDebugDraw';
 import { Entity } from '../../baseSystem/ecs';
@@ -103,7 +105,13 @@ export class PlayerControl extends Component {
         this.node.addChild(this._uiAnchor);
 
         this._setupPhysics();
+
+        on(GameEvt.EnemyDeath, this._onEnemyDeath);
     }
+
+    private _onEnemyDeath = (e: EnemyDeathEvent) => {
+        this._playerExp?.addXp(e.xpReward);
+    };
 
     private _setupPhysics() {
         const rb = this.node.addComponent(RigidBody2D);
@@ -399,6 +407,7 @@ export class PlayerControl extends Component {
     }
 
     onDestroy() {
+        off(GameEvt.EnemyDeath, this._onEnemyDeath);
         if (PlayerControl._inst === this) PlayerControl._inst = null;
         if (this._entity && World.inst) {
             World.inst.remove(this._entity);

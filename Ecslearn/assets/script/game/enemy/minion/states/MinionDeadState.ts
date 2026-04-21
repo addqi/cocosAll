@@ -1,7 +1,8 @@
 import type { IState } from '../../../../baseSystem/fsm';
 import type { IMinionCtx } from '../MinionContext';
-import { PlayerControl } from '../../../player/PlayerControl';
 import { EEnemyAnim } from '../../anim/EnemyAnimation';
+import { emit } from '../../../../baseSystem/util';
+import { GameEvt, type EnemyDeathEvent } from '../../../events/GameEvents';
 
 export class MinionDeadState implements IState<IMinionCtx> {
     private _timer = 0;
@@ -24,7 +25,14 @@ export class MinionDeadState implements IState<IMinionCtx> {
 
         if (!ctx.xpGranted) {
             ctx.xpGranted = true;
-            PlayerControl.instance?.grantXp(ctx.cfg.xpReward);
+            const payload: EnemyDeathEvent = {
+                enemyId: '',
+                xpReward: ctx.cfg.xpReward,
+                goldDrop: ctx.cfg.goldDrop,
+                worldPos: ctx.node.worldPosition.clone(),
+                killerId: 'player',
+            };
+            emit(GameEvt.EnemyDeath, payload);
         }
     }
 

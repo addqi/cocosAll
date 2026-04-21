@@ -12,7 +12,7 @@ const { ccclass } = _decorator;
 @ccclass('TestManager')
 export class TestManager extends Component {
     start() {
-        // this._runAll();
+        this._runAll();
     }
 
     private _runAll() {

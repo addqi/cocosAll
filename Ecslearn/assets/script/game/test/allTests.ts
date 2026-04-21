@@ -15,15 +15,18 @@
 // import './testStep2_ConfigClean';
 
 // ── Step-3 测试 ──
-import './testStep3_SkillContext';
-import './testStep3_SkillFactory';
-import './testStep3_SkillPrimitives';
-import './testStep3_AttackPayload';
-import './testStep3_CombatInterfaces';
-import './testStep3_FullChain';
+// import './testStep3_SkillContext';
+// import './testStep3_SkillFactory';
+// import './testStep3_SkillPrimitives';
+// import './testStep3_AttackPayload';
+// import './testStep3_CombatInterfaces';
+// import './testStep3_FullChain';
 
 // ── Step-4 基础设施收口 ──
-import './testStep4_Infrastructure';
+// import './testStep4_Infrastructure';
 
 // ── Step-5 全配置目录结构 ──
-import './testStep5_ConfigStructure';
+// import './testStep5_ConfigStructure';
+
+// ── 阶段 2 / 04: 敌人死亡与金币系统 ──
+import './testGoldSystem';

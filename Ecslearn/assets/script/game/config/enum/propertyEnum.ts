@@ -42,6 +42,8 @@ export enum EPropertyId {
     AttackRange = 'AttackRange',
     /** 受击硬直时长（秒） */
     StaggerDuration = 'StaggerDuration',
+    /** 金币拾取半径（px，吸附距离） */
+    PickupRange = 'PickupRange',
 }
 
 /**

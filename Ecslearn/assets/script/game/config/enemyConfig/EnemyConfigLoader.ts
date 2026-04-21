@@ -14,6 +14,7 @@ export interface EnemyOverrides {
     attackCooldown?: number;
     attackHitFrame?: number;
     xpReward?: number;
+    goldDrop?: number;
 }
 
 export interface EnemyDataEntry {

@@ -3,6 +3,7 @@ import { World } from './World';
 import { bootstrap, type GameSystems } from './GameBootstrap';
 import { preloadAllResources } from './ResourcePreloader';
 import { ResourceState } from './ResourceState';
+import { GoldSystem } from '../gold/GoldSystem';
 
 const { ccclass, property } = _decorator;
 
@@ -51,5 +52,7 @@ export class GameLoop extends Component {
         this._systems.actionMap.update(entities);
         this._systems.playerControl.update(entities);
         this._systems.moveSync.update(entities, dt);
+        this._systems.coinPickup.update(entities, dt);
+        GoldSystem.inst.tick(dt);
     }
 }

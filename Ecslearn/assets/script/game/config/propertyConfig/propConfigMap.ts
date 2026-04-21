@@ -119,4 +119,11 @@ export const PROP_CONFIG_MAP: Record<EPropertyId, Record<EPropertyConfigId, stri
         [EPropertyConfigId.MulBuff]:         'StaggerDuration-Mul-Buff',
         [EPropertyConfigId.MulOther]:        'StaggerDuration-Mul-Other',
     },
+    [EPropertyId.PickupRange]: {
+        [EPropertyConfigId.BaseValueConfig]: 'PickupRange-Value-Config',
+        [EPropertyConfigId.BaseValueBuff]:   'PickupRange-Value-Buff',
+        [EPropertyConfigId.BaseValueOther]:  'PickupRange-Value-Other',
+        [EPropertyConfigId.MulBuff]:         'PickupRange-Mul-Buff',
+        [EPropertyConfigId.MulOther]:        'PickupRange-Mul-Other',
+    },
 };
