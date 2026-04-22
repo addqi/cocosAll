@@ -1,9 +1,9 @@
 import {
-    _decorator, Canvas, Component, EventTouch, Input, UITransform, Vec3,
+    _decorator, Component, EventTouch, Input, UITransform, Vec3,
     Widget,
 } from 'cc';
 import { findArrowIndex } from '../core/Coord';
-import { LevelData } from '../core/LevelData';
+import { ArrowRuntime } from '../core/ArrowState';
 const { ccclass } = _decorator;
 
 export type ArrowClickHandler = (arrowIndex: number) => void;
@@ -14,12 +14,24 @@ export type ArrowClickHandler = (arrowIndex: number) => void;
  */
 @ccclass('InputController')
 export class InputController extends Component {
-    private _data: LevelData | null = null;
+    private _runtimes: readonly ArrowRuntime[] | null = null;
+    private _rows = 0;
+    private _cols = 0;
     private _onArrowClick: ArrowClickHandler | null = null;
 
-    /** 由 GameController 调用一次，注入关卡数据和点击回调 */
-    public setup(data: LevelData, handler: ArrowClickHandler) {
-        this._data = data;
+    /**
+     * 由 GameController 调用一次，注入 runtimes 引用和点击回调。
+     * runtimes 必须是 GameController 持有的同一个数组引用，
+     * 这样箭头位置更新时 InputController 自动看到最新的 coords，不用再同步。
+     */
+    public setup(
+        runtimes: readonly ArrowRuntime[],
+        rows: number, cols: number,
+        handler: ArrowClickHandler,
+    ) {
+        this._runtimes = runtimes;
+        this._rows = rows;
+        this._cols = cols;
         this._onArrowClick = handler;
 
         this._ensureTouchableSize();
@@ -30,23 +42,22 @@ export class InputController extends Component {
     }
 
     private _ensureTouchableSize() {
-        if(!this.node.getComponent(UITransform)){
+        if (!this.node.getComponent(UITransform)) {
             this.node.addComponent(UITransform);
         }
         let widget = this.node.getComponent(Widget);
         if (!widget) widget = this.node.addComponent(Widget);
         widget.enabled = true;
-        widget.top=0;
-        widget.left=0;
-        widget.right=0;
-        widget.bottom=0;
+        widget.top = 0;
+        widget.left = 0;
+        widget.right = 0;
+        widget.bottom = 0;
         widget.isAlignTop = true;
         widget.isAlignLeft = true;
         widget.isAlignRight = true;
         widget.isAlignBottom = true;
         widget.updateAlignment();
     }
-
 
     onDestroy() {
         this.node.off(Input.EventType.TOUCH_START, this._onTouchStart, this);
@@ -56,7 +67,7 @@ export class InputController extends Component {
     }
 
     private _onTouchEnd(event: EventTouch) {
-        if (!this._data || !this._onArrowClick) return;
+        if (!this._runtimes || !this._onArrowClick) return;
 
         const uiLoc = event.getUILocation();
         const world = new Vec3(uiLoc.x, uiLoc.y, 0);
@@ -65,8 +76,8 @@ export class InputController extends Component {
 
         const idx = findArrowIndex(
             local.x, local.y,
-            this._data.arrows,
-            this._data.rows, this._data.cols,
+            this._runtimes,
+            this._rows, this._cols,
         );
         if (idx < 0) return;
         this._onArrowClick(idx);
@@ -76,5 +87,4 @@ export class InputController extends Component {
     }
     private _onTouchMove(event: EventTouch) {
     }
-
 }

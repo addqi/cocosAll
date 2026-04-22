@@ -272,7 +272,7 @@ export function tickBack(
 
 - **`history` 和 `coords` 长度守恒**：前进一步 push 1、shift 1、history.push 1；反走一步 history.pop 1、unshift 1、pop 1。三个原子永远同步。
 - **`stepOneCell` 在第 09 章已写过**。这里升级了一行"记 history"。
-- **Back 不再需要 direction 参数**。方向信息已经在 history 里，和 coords 一起构成完整的"来时路"。
+- **Back 不用传 direction**。反走时的每一步方向 = history.pop 出来那一格和当前尾的相对关系，也就是说"来时路"全部编码在 history + coords 里了，函数签名只需要 rt 自己。
 - **fire 和 markBack 都清 history**。fire 是起点（新一轮记录），markBack 是终点（理论上此时已空，保险清一次）。
 
 ### 文件 2：`ArrowView.ts` 的 progress sign 处理

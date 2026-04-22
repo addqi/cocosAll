@@ -1,4 +1,5 @@
 import { Config } from '../common/Config';
+import { ArrowMoveMode, ArrowRuntime } from './ArrowState';
 import { ArrowData } from './LevelData';
 
 /** 像素坐标 */
@@ -48,18 +49,21 @@ export function isInsideBoard(row: number, col: number, rows: number, cols: numb
  * 根据本地像素坐标查找被点中的箭头索引。
  * 找不到返回 -1。
  *
- * 注：这里吃 ArrowData[]（静态配置）而不是 ArrowRuntime[]。
- * 08 章箭头尚未移动，配置和运行时的占位格子完全一致。
- * 若 09 章后需要按动态 runtime.coords 判定，再调整签名。
+ * 吃动态 runtime.coords 而不是 JSON 配置，
+ * 原因：箭头飞起来后真实位置在变，点击判定必须跟随真实位置，
+ * 否则玩家会点到"空地上 JSON 里的起始位置"。
+ * 已 End 的箭头不接受点击（coords 可能还残留最后几格）。
  */
 export function findArrowIndex(
     localX: number, localY: number,
-    arrows: readonly ArrowData[],
+    runtimes: readonly ArrowRuntime[],
     rows: number, cols: number,
 ): number {
     const { row, col } = pixelToGrid(localX, localY, rows, cols);
-    for (let i = 0; i < arrows.length; i++) {
-        if (arrows[i].coords.some(c => c[0] === row && c[1] === col)) {
+    for (let i = 0; i < runtimes.length; i++) {
+        const rt = runtimes[i];
+        if (rt.mode === ArrowMoveMode.End) continue;
+        if (rt.coords.some(c => c[0] === row && c[1] === col)) {
             return i;
         }
     }

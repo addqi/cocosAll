@@ -1,3 +1,4 @@
+import { isInsideBoard } from './Coord';
 import { ArrowData, Cell, Direction } from './LevelData';
 
 /** 箭头移动状态枚举。数字值有语义（例如第 15 章会用 mode < Start 判断"还没发射"），不可随意改顺序 */
@@ -94,14 +95,20 @@ export function deriveDirection(coords: Cell[]): Direction {
 }
 
 /** Start 模式下每帧推进。方向由 coords 自动派生。 */
-export function tickStart(rt: ArrowRuntime, dt: number, speed: number): void {
+export function tickStart(rt: ArrowRuntime, dt: number, speed: number,  rows: number, cols: number): void {
     if (rt.mode !== ArrowMoveMode.Start) return;
     rt.progress += speed * dt;
     while (rt.progress >= 1) {
         rt.progress -= 1;
         stepOneCell(rt);
+        const tail = rt.coords[0];
+        if (!isInsideBoard(tail[0], tail[1], rows, cols)) {
+            markEnd(rt);
+            break;
+        }
     }
 }
+
 
 /** 头进一格、尾出一格。支持任意折线。 */
 function stepOneCell(rt: ArrowRuntime): void {

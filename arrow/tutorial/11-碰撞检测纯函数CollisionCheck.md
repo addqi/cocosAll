@@ -26,7 +26,7 @@
 
 ### 什么叫"碰撞"
 
-箭头 A 点击后沿方向射出 → 飞过一格又一格 → 如果某一格被另一根**未离场**的箭头 B 占据，就算碰撞，碰在 B 身上。
+箭头 A 点击后沿方向射出 → 飞过一格又一格 → 如果某一格被另一根**还没起飞**的箭头 B 占据，就算碰撞，碰在 B 身上。（已起飞 / 已逃脱的箭头让路，否则连射就崩了。）
 
 需要判定的数据：
 
@@ -35,7 +35,7 @@
 | 射手 A 的方向 | `deriveDirection(runtimes[i].coords)` —— **从 coords 末端两点派生** |
 | 射手 A 当前 coords | `runtimes[i].coords` |
 | 其他箭头 B 的 coords | `runtimes[j].coords` for j ≠ i |
-| 只考虑 "未离场" 的 B | `rt.mode !== End` |
+| 只考虑 "还挡路" 的 B | `rt.mode < Start`（Idle / Collide / Back 挡路，Start / End 不挡） |
 
 > 📖 **方向从哪来**：第 09 章已经统一——**玩法代码不读 `ArrowData.direction`**，永远从 coords 派生。好处：L 形箭头转弯后再被点击时，方向自动更新，不用额外同步。
 
@@ -63,7 +63,7 @@
 4. 循环：
      cursor 前进一格（cursor += direction）
      如果 cursor 出了棋盘 → return -1
-     对每个 j ≠ i，未 End 的 B：
+     对每个 j ≠ i，且 mode < Start 的 B（还没射出去的才挡路）：
          如果 cursor 在 B.coords 里 → return j
 ```
 
@@ -81,7 +81,7 @@ export function findCollision(
 ): number;
 ```
 
-**签名比老版本少了 `direction` 参数**——因为方向从 `runtimes[shooterIdx].coords` 派生，**调用方不需要再关心这个细节**。
+**方向从 `runtimes[shooterIdx].coords` 派生**（贪吃蛇模型的定式：末尾两格之差），所以签名里没有 `direction` 参数——调用方不用关心这个细节。
 
 ---
 
@@ -94,8 +94,12 @@ import { ArrowRuntime, ArrowMoveMode, deriveDirection } from './ArrowState';
 import { isInsideBoard } from './Coord';
 
 /**
- * 判断箭头 shooterIdx 沿 coords 派生方向射出后，前方是否有未离场箭头挡路。
- * 返回挡路的箭头 index，没挡返回 -1。
+ * 判断箭头 shooterIdx 沿 coords 派生方向射出后，前方是否有"还挡路"的其他箭头。
+ * 返回挡路箭头的 index，没挡返回 -1。
+ *
+ * "还挡路" = mode < Start。即 Idle / Collide / Back 状态的箭头挡路；
+ * 已 Start 或 End 的箭头不挡路（和 G3_FBase `mode >= Start 不挡` 语义对齐）。
+ * 依赖 ArrowMoveMode 的数值顺序，改枚举顺序会破坏这个判定。
  */
 export function findCollision(
     shooterIdx: number,
@@ -119,7 +123,7 @@ export function findCollision(
         for (let j = 0; j < runtimes.length; j++) {
             if (j === shooterIdx) continue;
             const rt = runtimes[j];
-            if (rt.mode === ArrowMoveMode.End) continue;  // 已离场不挡路
+            if (rt.mode >= ArrowMoveMode.Start) continue;  // 已起飞 / 已逃脱 → 不挡路
             if (rt.coords.some(p => p[0] === r && p[1] === c)) {
                 return j;
             }
@@ -131,7 +135,11 @@ export function findCollision(
 **关键点**：
 
 - **`while (true)` 靠出棋盘跳出**。格子坐标是整数，`isInsideBoard` 必然在有限步内为 false。不会死循环。
-- **已 End 的箭头不挡路**：它们已经飞出去了，即使 coords 还记录最后位置也不应该挡。对应 G3_FBase 的 `moveMode < End` 语义。
+- **`rt.mode >= ArrowMoveMode.Start` 才跳过**：这一条是和参考项目 G3_FBase 对齐的核心语义。
+  - **Start**（正在飞）：已经起飞的箭头让路给后续点击，否则连射完全不可能——A 先飞、B 再点，B 算 A 挡？那 B 永远射不出去。
+  - **End**（已逃脱）：飞出棋盘的箭头，coords 可能还留着最后几格但不应该挡。
+  - **Idle / Collide / Back**（还没出去）：依然占格、依然挡路。
+- **依赖枚举的数值顺序**：`Idle=0, Collide=1, Back=2, Start=3, End=4`。如果有人重排枚举，这里的 `>= Start` 就错了。`ArrowState.ts` 枚举处已有注释固定这个契约。
 - **`rt.coords.some(...)` 复杂度 O(格子数)**：实际每根箭头也就 3~5 格，循环很快。不需要优化。
 
 > **Linus 的品味**：朴素的 O(k×n×m) 循环（k = 射线长度，n = 箭头数，m = 每根箭头格子数）在真实数据量下就是最优解。**不要为了"看起来高级"引入 Map 索引和 Set 查找**。代码简单就是快。
@@ -187,7 +195,7 @@ private onArrowClick(idx: number) {
 }
 ```
 
-**关键**：`blocked` 参数原先硬编 `false`，现在**真的去算**。如果前方有挡，fire 会把状态直接设为 `Collide`（第 07 章的 fire 函数里已经实现）。
+**关键**：08 章 `onArrowClick` 里的 `fire(rt, false)` 有一句注释"blocked 预检下一章再加"——这一章把它兑现。调用 `findCollision` 真的去算 `blocked`，传给 `fire`。如果前方有挡，`fire` 会把状态直接设为 `Collide`（07 章的 fire 函数里已经实现）。
 
 **但第 12 章之前 Collide 状态还没有"动起来"的逻辑**，所以被挡的箭头会卡在 Collide 状态变红但不动。**这是预期行为**，下一章补齐。
 

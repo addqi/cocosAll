@@ -8,6 +8,7 @@ import {
 } from '../core/ArrowState';
 import { InputController } from './InputController';
 import { Config } from '../common/Config';
+import { findCollision } from '../core/CollisionCheck';
 const { ccclass } = _decorator;
 
 @ccclass('GameController')
@@ -28,7 +29,7 @@ export class GameController extends Component {
         for (let i = 0; i < this.runtimes.length; i++) {
             const rt = this.runtimes[i];
             if (rt.mode !== ArrowMoveMode.Start) continue;
-            tickStart(rt, dt, Config.arrowSpeed);
+            tickStart(rt, dt, Config.arrowSpeed, this.levelData?.rows ?? 0, this.levelData?.cols ?? 0);
             this.refreshArrow(i);
         }
     }
@@ -80,14 +81,18 @@ export class GameController extends Component {
         this.runtimes = data.arrows.map(a => createRuntime(a));
         this.boardView?.render(data);
         this.refreshAllArrows();
-        this.input?.setup(data, (idx) => this.onArrowClick(idx));
+        this.input?.setup(this.runtimes, data.rows, data.cols, (idx) => this.onArrowClick(idx));
     }
 
     private onArrowClick(idx: number) {
         const rt = this.runtimes[idx];
         if (!canFire(rt)) return;
-        fire(rt, false);  // blocked 预检下一章再加
-        console.log(`[Arrow] Arrow ${idx} fired. mode = ${ArrowMoveMode[rt.mode]}`);
+        const blocked = findCollision(
+            idx, this.runtimes,
+            this.levelData!.rows, this.levelData!.cols,
+        ) >= 0;
+        fire(rt, blocked);
+        console.log(`[Arrow] Arrow ${idx} fired. mode = ${ArrowMoveMode[rt.mode]}, blocked=${blocked}`);
         this.refreshArrow(idx);
     }
 

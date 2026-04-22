@@ -51,7 +51,10 @@ if (data.runtime.touchTime > 0 &&
 
 ### 输入升级：TOUCH_START + TOUCH_END
 
-之前 `InputController` 只听 TOUCH_END。现在要加 TOUCH_START 记录按下时间和被按的箭头。
+08 章的 `InputController` 只监听 TOUCH_END。本章要加 TOUCH_START 和 TOUCH_MOVE：
+- TOUCH_START 记录按下时刻和被按中的箭头索引。
+- TOUCH_MOVE 判断按住时长、超过 0.3s 就进入"长按预览"模式，让 GameController 画射线。
+- TOUCH_END 分流：短按走 08 章那套 fire 流程，长按就根据"按住时有没有超过 0.3s"做不同处理。
 
 **TOUCH_END 时的分支**：
 
@@ -100,7 +103,7 @@ export function computeRayEnd(
         for (let j = 0; j < runtimes.length; j++) {
             if (j === shooterIdx) continue;
             const rt = runtimes[j];
-            if (rt.mode === ArrowMoveMode.End) continue;
+            if (rt.mode >= ArrowMoveMode.Start) continue;  // 已起飞 / 已逃脱 → 不挡路，和 findCollision 保持一致
             if (rt.coords.some(p => p[0] === r && p[1] === c)) return [r, c];
         }
         lastInside = [r, c];
@@ -255,7 +258,7 @@ export class InputController extends Component {
 
 **关键点**：
 
-- **接口 `InputHandlers`** 合并了多个回调。比之前的"单回调 number"更扩展。
+- **用 `InputHandlers` 接口而不是单函数**：本章 `InputController` 要回报的事件变多了（长按开始、长按中、放手 fire），一个函数塞不下。接口把相关回调聚成一组，将来再加"双击"等也只加字段、调用方逐步补。
 - **`touchedArrowIdx = -1` 表示未按住**。防御性设计。
 - **`isLongPressing()` 提供给外部每帧查询**（GameController 用来画 Ray）。
 

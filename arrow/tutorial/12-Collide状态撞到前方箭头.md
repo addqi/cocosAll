@@ -158,7 +158,7 @@ export function findCollision(
         for (let j = 0; j < runtimes.length; j++) {
             if (j === shooterIdx) continue;
             const rt = runtimes[j];
-            if (rt.mode === ArrowMoveMode.End) continue;
+            if (rt.mode >= ArrowMoveMode.Start) continue;  // 已起飞 / 已逃脱 → 不挡路
             if (rt.coords.some(p => p[0] === r && p[1] === c)) {
                 return { targetIdx: j, point: [r, c] };
             }
@@ -167,10 +167,14 @@ export function findCollision(
 }
 ```
 
-**变化**：
+**和 11 章 `findCollision` 的区别**：
 
-- **返回对象替代原先 number**，新增 `point` 字段记录撞点坐标。
-- **`direction` 不再是参数**，沿用第 11 章的签名调整。调用方如果之前已经按第 11 章改过，只需把赋值左边从 `number` 改成 `CollisionResult`。
+- 11 章返回 `number`（撞到谁的索引，-1 表示没撞）。
+- 12 章要做撞击动画，**需要知道撞在哪一格**，所以返回值升级成对象 `{ targetIdx, point }`。`targetIdx === -1` 时 `point === null`。
+- 参数列表不变（仍然是 `shooterIdx / runtimes / rows / cols`）。方向由 coords 派生，不当参数。
+- **过滤条件沿用 11 章**：`rt.mode >= ArrowMoveMode.Start` 的箭头不挡路（Start 正在飞、End 已逃脱）。只有 Idle / Collide / Back 才算挡。这是和 G3_FBase 对齐的语义——如果飞行中的箭头互相挡，连射就彻底崩了。
+
+调用方（`GameController.onArrowClick`）那一行要跟着改：赋值左边的类型从 `number` 换成 `CollisionResult`，`blocked` 的判定从 `>= 0` 换成 `result.targetIdx >= 0`。下面"文件 3"会完整给出 `GameController` 的更新代码。
 
 ### 文件 2：`core/ArrowState.ts` 加 `collideAim` 和 `tickCollide`
 
@@ -321,7 +325,13 @@ update(dt: number) {
     }
 }
 
-/** 查找 coords 包含指定格子的箭头 index */
+/**
+ * 查找 coords 包含指定格子的箭头 index。
+ * 注意：这里和 findCollision 的过滤条件故意不同 —— findTargetAt 问的是
+ * "当前这格被谁占"（动画打 hitFlash 用），不是"谁挡我路"。
+ * 正在 Start 起飞的箭头如果 coords 还覆盖这一格，照样得被打到，否则动画会穿模。
+ * 所以这里只排除已 End 的，不排除 Start 的。
+ */
 private findTargetAt(cell: Cell): number {
     for (let i = 0; i < this.runtimes.length; i++) {
         const rt = this.runtimes[i];
@@ -332,11 +342,13 @@ private findTargetAt(cell: Cell): number {
 }
 ```
 
-**变化要点**：
+**要点**：
 
-- **`update` 里不再读 `this.levelData.arrows[i].direction`**。`tickStart` / `tickCollide` 都自己从 coords 派生方向。
-- **`tickStart` 返回 escaped**（第 10 章新签名）。边界检查和推进绑在一起，`GameController` 不再手动判边界。
-- **需要补的 import**：`Cell` 从 `../core/LevelData`。`isInsideBoard` 这一章**不再用**，如果没有其他地方引用可以删掉。
+- **`update` 循环在 Start 和 Collide 之间分流**。两种状态都要每帧推进：Start 用 `tickStart`（向前走），Collide 用 `tickCollide`（向前撞），各自处理自己的 `progress`。其他状态直接 `continue`。
+- **方向不当参数**：两个 tick 函数都从 `rt.coords` 末尾派生方向，`GameController` 不用参与。
+- **边界检查封装在 `tickStart` 内部**：`tickStart` 在越界时返回 `escaped = true`，`GameController` 只负责把这个事件打日志。
+- **`findCollision` 和 `findTargetAt` 过滤条件不同，不是 bug**：前者是点击瞬间问"会不会被挡"，所以已 Start 的放行；后者是动画进行中问"现在这格归谁"，只要 coords 还在就得算。两个问题，两个答案。
+- **import 提示**：需要 `Cell`（从 `../core/LevelData`）。本章 `GameController` 不再直接用 `isInsideBoard`——如果 import 里只剩它一个用途，删掉就好。
 
 ---
 
