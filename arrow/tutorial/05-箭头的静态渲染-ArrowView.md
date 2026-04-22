@@ -45,26 +45,30 @@
 
 ### 怎么画一根箭头
 
-箭头 = 一条线 + 一个三角形。
+箭头 = 一条**折线** + 一个三角形。
 
 ```
    tail                       head
-    ●━━━━━━━━━━━━━━━━━━━━━━━━▶
-    |           body           |
+    ●━━━━━●━━━━━●━━━━━━━━━━━━▶
+          ↑           ↑
+          中间拐点    箭头头（在 coords 最后一格）
     
     tail = coords[0]（第一个格子，箭头的尾）
     head = coords[coords.length - 1]（最后一个格子，箭头的头）
+    中间每个 coords[i] 都是折线的一个节点
 ```
 
 参考 G3_FBase 的 `ArrowComponent.defineComponent()`：
 
-- `coords: []` —— 坐标数组，**从尾到头**排列
+- `coords: []` —— 坐标数组，**从尾到头**排列；**可能是直线，也可能是 L / Z 等任意折线**
 - `moveMode`、`color`、`highlight` 等 —— 暂时用不到，本章只画静态
 
-画法：
+画法（对任意形状都成立的一套公式）：
 
-1. 从 `coords[0]` 到 `coords[last]` 画一条 10px 粗的灰线（参考 `Config.arrowLineWidth`）。
-2. 在 `coords[last]` 画一个朝 `direction` 方向的三角形（边长 `Config.arrowHeadSize`）。
+1. 遍历 `coords`，从 `coords[0]` 按顺序 `moveTo → lineTo → lineTo → ...` 到 `coords[last]`，画一条 10px 粗的线。这样直线就是一段、L 形就是两段，不用任何特判。
+2. 在 `coords[last]` 画三角箭头头，边长 `Config.arrowHeadSize`。**方向不从 `ArrowData.direction` 读**，而是从 `coords[last] - coords[last-1]` 派生——这样哪怕关卡 JSON 的 `direction` 字段写错了，折线末端指哪画面就朝哪。
+
+> **Linus 的铁律**：**派生值不存**。方向永远可以从 coords 最后两格算出来，存在 JSON 里只作文档、不作真源。
 
 ---
 
@@ -127,74 +131,90 @@ const rightX= hx - nx  * s / 2, rightY= hy - ny  * s / 2;
 
 ```typescript
 import {
-    _decorator, Component, UITransform, Graphics, Color, Vec3,
+    _decorator, Component, UITransform, Graphics, Color,
 } from 'cc';
-import { ArrowData } from '../core/LevelData';
-import { gridToPixel } from '../core/Coord';
+import { ArrowData, Cell } from '../core/LevelData';
+import { gridToPixel, Pixel } from '../core/Coord';
 import { Config } from '../common/Config';
 const { ccclass } = _decorator;
 
-/** 箭头 Idle 状态的默认灰色，取自 G3_FBase arrowIdleColor = 0x111633 */
-const IDLE_COLOR = new Color(0x11, 0x16, 0x33, 0xff);
+/** 箭头 Idle 状态的默认颜色：纯白 */
+const IDLE_COLOR = new Color(0xff, 0xff, 0xff, 0xff);
 
 /**
  * 一根箭头的视图。
- * 本章只画静态：一条线 + 一个三角形箭头头。
+ * 按 coords 画折线（支持直线 / L / Z 等任意形状），方向从 coords 末尾两点派生。
  * 后续章节会加上 moveMode 状态驱动的颜色变化和位置更新。
  */
 @ccclass('ArrowView')
 export class ArrowView extends Component {
-    private graphics: Graphics | null = null;
-    private data: ArrowData | null = null;
-    private rows = 0;
-    private cols = 0;
+    private _graphics: Graphics | null = null;
+    private _data: ArrowData | null = null;
+    private _rows = 0;
+    private _cols = 0;
 
     /** 由 GameController / BoardView 注入数据，注入后立即画一次 */
-    setData(data: ArrowData, rows: number, cols: number) {
-        this.data = data;
-        this.rows = rows;
-        this.cols = cols;
-        this.ensureGraphics();
-        this.redraw();
-    }
-
-    private ensureGraphics() {
-        if (this.graphics) return;
-        // ArrowView 节点本身需要 UITransform 才能被 Graphics 正确渲染
+    public initData(data: ArrowData, rows: number, cols: number) {
+        if (!this._graphics) {
+            this._graphics = this.getComponent(Graphics) ?? this.addComponent(Graphics);
+        }
         if (!this.node.getComponent(UITransform)) {
             this.node.addComponent(UITransform);
         }
-        this.graphics = this.node.addComponent(Graphics);
+        this._data = data;
+        this._rows = rows;
+        this._cols = cols;
+        this._redraw();
     }
 
-    private redraw() {
-        if (!this.data || !this.graphics) return;
-        const g = this.graphics;
+    private _redraw() {
+        if (!this._data || !this._graphics) {
+            console.error('ArrowView: _data or _graphics is null');
+            return;
+        }
+        const g = this._graphics;
+        const { coords } = this._data;
+        if (coords.length < 2) return;
+
         g.clear();
 
-        const { direction, coords } = this.data;
-        const tail = coords[0];
-        const head = coords[coords.length - 1];
+        // 1) 把所有 coords 转成像素点
+        const pixels: Pixel[] = coords.map(
+            ([r, c]) => gridToPixel(r, c, this._rows, this._cols),
+        );
 
-        const tailPx = gridToPixel(tail[0], tail[1], this.rows, this.cols);
-        const headPx = gridToPixel(head[0], head[1], this.rows, this.cols);
-
-        // 像素方向向量：格子 [dr, dc] → 像素 (dc, -dr)
-        const pdx = direction[1];
-        const pdy = -direction[0];
-
-        // 1) 画线条身体
+        // 2) 画折线：从 pixels[0] 一路 lineTo 到 pixels[last]
         g.strokeColor = IDLE_COLOR;
         g.lineWidth = Config.arrowLineWidth;
-        g.moveTo(tailPx.x, tailPx.y);
-        g.lineTo(headPx.x, headPx.y);
+        g.moveTo(pixels[0].x, pixels[0].y);
+        for (let i = 1; i < pixels.length; i++) {
+            g.lineTo(pixels[i].x, pixels[i].y);
+        }
         g.stroke();
 
-        // 2) 画三角形箭头头
+        // 3) 在头端画三角箭头，方向从 coords 末尾两格派生
+        this._drawHead(g, coords, pixels);
+    }
+
+    /** 在折线头端画三角箭头。方向从 coords 末尾两格派生。 */
+    private _drawHead(g: Graphics, coords: Cell[], pixels: Pixel[]) {
+        const n = coords.length;
+        const [hr, hc] = coords[n - 1];
+        const [pr, pc] = coords[n - 2];
+        const dr = hr - pr;
+        const dc = hc - pc;
+
+        // 格子方向 [dr, dc] → 像素方向 (dc, -dr)（y 轴翻转）
+        const pdx = dc;
+        const pdy = -dr;
+        // 垂直于方向的向量（逆时针 90°）
+        const nx = -pdy;
+        const ny = pdx;
+
+        const headPx = pixels[n - 1];
         const s = Config.arrowHeadSize;
-        const nx = -pdy, ny = pdx;  // 垂直方向（逆时针 90°）
-        const tipX  = headPx.x + pdx * s;
-        const tipY  = headPx.y + pdy * s;
+        const tipX = headPx.x + pdx * s;
+        const tipY = headPx.y + pdy * s;
         const leftX = headPx.x + nx * s / 2;
         const leftY = headPx.y + ny * s / 2;
         const rightX = headPx.x - nx * s / 2;
@@ -212,14 +232,16 @@ export class ArrowView extends Component {
 
 **关键点**：
 
-- **`setData` 是唯一入口**：外部调用它传入数据，内部负责画。避免 public 字段被外部乱改。
-- **`redraw` 私有**：画面怎么刷新是 ArrowView 自己的事。将来状态变化也是 setData 触发 redraw，外部不直接碰。
-- **`g.clear()`**：每次重画先清空，否则叠画（第 12 章箭头变色时就要用）。
-- **方向向量用 `(direction[1], -direction[0])`**：
-  - `direction = [0, 1]`（向右） → `(1, 0)` 像素向量，箭头向右 ✅
-  - `direction = [1, 0]`（向下） → `(0, -1)` 像素向量，箭头向下 ✅（Cocos y 向下为负）
-  - `direction = [-1, 0]`（向上） → `(0, 1)` 箭头向上 ✅
-  - `direction = [0, -1]`（向左） → `(-1, 0)` 箭头向左 ✅
+- **`initData` 是唯一入口**：外部调用它传入数据，内部负责画。避免 public 字段被外部乱改。
+- **`_redraw` 私有**：画面怎么刷新是 ArrowView 自己的事。
+- **`g.clear()`**：每次重画先清空，否则叠画。
+- **折线用循环 `lineTo`**：直线也是这套代码，L 形也是这套代码，Z 形也是这套代码。**没有特殊情况**。如果下一关需要螺旋箭头，JSON 改 coords 就够了，`_redraw` 不用动。
+- **方向从 `coords[last] - coords[last-1]` 派生**（不是读 `ArrowData.direction`）：
+  - `coords = [[2,2],[2,3],[2,4]]` → 末段 `[0, 1]` → 像素 `(1, 0)` → 箭头朝右 ✅
+  - `coords = [[4,2],[3,2],[3,3],[3,4]]` → 末段 `[0, 1]` → 箭头朝右（L 形尾在下、转角在 `[3,2]`） ✅
+  - 格子方向 `[1, 0]`（向下） → 像素 `(0, -1)` 向下 ✅（Cocos y 向下为负）
+  
+  > **为什么不读 `ArrowData.direction`**？coords 末段才是真源——你改了形状，方向自动跟着变。JSON 里的 `direction` 字段只是给关卡设计者看的注释，代码里不依赖它。**派生值不存**。
 
 ### 文件 2：改造 `BoardView.ts`（加 `spawnArrows`）
 

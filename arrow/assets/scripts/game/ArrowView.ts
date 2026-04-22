@@ -1,31 +1,30 @@
 import {
-    _decorator, Component, UITransform, Graphics, Color, Vec3,
+    _decorator, Component, UITransform, Graphics, Color,
 } from 'cc';
-import { ArrowData } from '../core/LevelData';
-import { gridToPixel } from '../core/Coord';
+import { ArrowData, Cell } from '../core/LevelData';
+import { ArrowRuntime, ArrowMoveMode } from '../core/ArrowState';
+import { gridToPixel, Pixel } from '../core/Coord';
 import { Config } from '../common/Config';
 const { ccclass } = _decorator;
 
-/** 箭头 Idle 状态的默认颜色：纯白 */
-const IDLE_COLOR = new Color(0xff, 0xff, 0xff, 0xff);
+/** 三种箭头颜色。数值取自 G3_FBase */
+const COLOR_IDLE = new Color(0xff, 0xff, 0xff, 0xff); // 空闲：白
+const COLOR_MOVE = new Color(0x5b, 0x72, 0xfe, 0xff); // 飞行 / 逃脱：蓝
+const COLOR_STOP = new Color(0xfe, 0x4b, 0x5e, 0xff); // 撞击 / 回弹 / 曾失败：红
 
-/**
- * 一根箭头的视图。
- * 本章只画静态：一条线 + 一个三角形箭头头。
- * 后续章节会加上 moveMode 状态驱动的颜色变化和位置更新。
- */
 @ccclass('ArrowView')
 export class ArrowView extends Component {
     private _graphics: Graphics | null = null;
     private _data: ArrowData | null = null;
     private _rows = 0;
     private _cols = 0;
+    /** 当前用于绘制的 runtime 引用。null 时按 Idle 画（首次 initData 用）*/
+    private _rt: ArrowRuntime | null = null;
 
-    /** 由 GameController / BoardView 注入数据，注入后立即画一次 */
+    /** 由 BoardView 注入数据，注入后按 Idle 颜色画一次 */
     public initData(data: ArrowData, rows: number, cols: number) {
         if (!this._graphics) {
-            this._graphics = this.getComponent(Graphics) ?
-                this.getComponent(Graphics) : this.addComponent(Graphics);
+            this._graphics = this.getComponent(Graphics) ?? this.addComponent(Graphics);
         }
         if (!this.node.getComponent(UITransform)) {
             this.node.addComponent(UITransform);
@@ -35,33 +34,71 @@ export class ArrowView extends Component {
         this._cols = cols;
         this._redraw();
     }
+
+    /** 由 GameController 在每次状态变化时调用，按 runtime 重绘 */
+    public refresh(rt: ArrowRuntime) {
+        this._rt = rt;
+        this._redraw();
+    }
+
     private _redraw() {
         if (!this._data || !this._graphics) {
-            console.error("ArrowView: _data or _graphics is null");
+            console.error('ArrowView: _data or _graphics is null');
+            return;
         }
         const g = this._graphics;
+        const { coords } = this._data;
+        if (coords.length < 2) return;
+
         g.clear();
-        const { direction, coords } = this._data;
-        const tail = coords[0];
-        const head = coords[coords.length - 1];
 
-        const tailPx = gridToPixel(tail[0], tail[1], this._rows, this._cols);
-        const headPx = gridToPixel(head[0], head[1], this._rows, this._cols);
+        const color = this._pickColor();
+        const pixels: Pixel[] = coords.map(
+            ([r, c]) => gridToPixel(r, c, this._rows, this._cols),
+        );
 
-        // 像素方向向量：格子 [dr, dc] → 像素 (dc, -dr)
-        const pdx = direction[1];
-        const pdy = -direction[0];
-
-        // 1) 画线条身体
-        g.strokeColor = IDLE_COLOR;
+        g.strokeColor = color;
         g.lineWidth = Config.arrowLineWidth;
-        g.moveTo(tailPx.x, tailPx.y);
-        g.lineTo(headPx.x, headPx.y);
+        g.lineJoin = Graphics.LineJoin.ROUND;
+        g.lineCap = Graphics.LineCap.ROUND;
+        g.moveTo(pixels[0].x, pixels[0].y);
+        for (let i = 1; i < pixels.length; i++) {
+            g.lineTo(pixels[i].x, pixels[i].y);
+        }
         g.stroke();
 
-        // 2) 画三角形箭头头
+        this._drawHead(g, coords, pixels, color);
+    }
+
+    /** 按当前 runtime 派生颜色。无 runtime 时按 Idle。*/
+    private _pickColor(): Color {
+        const rt = this._rt;
+        if (!rt) return COLOR_IDLE;
+        if (rt.mode === ArrowMoveMode.Start || rt.mode === ArrowMoveMode.End) {
+            return COLOR_MOVE;
+        }
+        if (rt.mode === ArrowMoveMode.Collide || rt.mode === ArrowMoveMode.Back) {
+            return COLOR_STOP;
+        }
+        if (rt.hasFailed) return COLOR_STOP;
+        return COLOR_IDLE;
+    }
+
+    /** 在折线头端画三角箭头。方向从 coords 末尾两格派生。*/
+    private _drawHead(g: Graphics, coords: Cell[], pixels: Pixel[], color: Color) {
+        const n = coords.length;
+        const [hr, hc] = coords[n - 1];
+        const [pr, pc] = coords[n - 2];
+        const dr = hr - pr;
+        const dc = hc - pc;
+
+        const pdx = dc;
+        const pdy = -dr;
+        const nx = -pdy;
+        const ny = pdx;
+
+        const headPx = pixels[n - 1];
         const s = Config.arrowHeadSize;
-        const nx = -pdy, ny = pdx;  // 垂直方向（逆时针 90°）
         const tipX = headPx.x + pdx * s;
         const tipY = headPx.y + pdy * s;
         const leftX = headPx.x + nx * s / 2;
@@ -69,7 +106,7 @@ export class ArrowView extends Component {
         const rightX = headPx.x - nx * s / 2;
         const rightY = headPx.y - ny * s / 2;
 
-        g.fillColor = IDLE_COLOR;
+        g.fillColor = color;
         g.moveTo(tipX, tipY);
         g.lineTo(leftX, leftY);
         g.lineTo(rightX, rightY);

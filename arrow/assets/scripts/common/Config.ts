@@ -11,4 +11,6 @@ export const Config = {
     arrowLineWidth: 10,
     /** 箭头头部大小（像素） */
     arrowHeadSize: 24,
+    /** Start 状态下箭头的速度（格/秒） */
+    arrowSpeed: 1,
 } as const;

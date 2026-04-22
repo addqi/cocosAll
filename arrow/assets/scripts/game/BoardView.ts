@@ -44,9 +44,14 @@ export class BoardView extends Component {
             this.arrowViews.push(view);
         }
     }
+
+    /** 只读访问：所有箭头视图，供 GameController 在状态变化时 refresh。 */
+    public getArrowViews(): readonly ArrowView[] {
+        return this.arrowViews;
+    }
     private createDot(row: number, col: number, rows: number, cols: number): Node {
         const p = gridToPixel(row, col, rows, cols);
-        
+
         const dot = new Node(`Dot_${row}_${col}`)
         dot.setPosition(new Vec3(p.x, p.y, 0));
         dot.addComponent(UITransform).setContentSize(Config.pointSize, Config.pointSize);
