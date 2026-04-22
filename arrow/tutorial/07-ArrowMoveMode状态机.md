@@ -264,10 +264,8 @@ export function resetToIdle(rt: ArrowRuntime, data: ArrowData): void {
 ```typescript
 import {
     _decorator, Component, resources, JsonAsset, Node,
-    view, screen,
 } from 'cc';
 import { LevelData, validateLevelData, ArrowData } from '../core/LevelData';
-import { computeBoardLayout } from '../core/Coord';
 import { BoardView } from './BoardView';
 import {
     createRuntime, fire, markEnd, resetToIdle,
@@ -284,12 +282,11 @@ export class GameController extends Component {
         console.log('[Arrow] Game scene loaded. I am alive.');
         this.boardView = this.createBoardView();
         this.loadLevel(1);
-        view.on('canvas-resize', this.onCanvasResize, this);
 
         this.stateMachineSelfTest();
     }
 
-    // ... (loadLevel / onLevelLoaded / applyLayout / 等方法保持第 06 章的样子)
+    // ... (loadLevel / onLevelLoaded 等方法保持第 05 章的样子)
 
     private stateMachineSelfTest() {
         const fakeArrow: ArrowData = {

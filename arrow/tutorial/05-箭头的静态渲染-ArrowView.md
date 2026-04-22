@@ -257,7 +257,10 @@ export class BoardView extends Component {
     }
 
     private renderDots(data: LevelData) {
-        const allCells = data.arrows.flatMap(a => a.coords);
+        const allCells: [number, number][] = [];
+        for (const a of data.arrows) {
+            for (const c of a.coords) allCells.push(c);
+        }
         for (const [row, col] of allCells) {
             const dot = this.createDot(row, col, data.rows, data.cols);
             this.node.addChild(dot);

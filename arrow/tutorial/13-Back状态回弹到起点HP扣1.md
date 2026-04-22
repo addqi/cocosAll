@@ -1,12 +1,12 @@
-# 13 · Back 状态：回弹到起点 + HP 扣 1
+# 13 · Back 状态：贪吃蛇反走回原位 + HP 扣 1
 
 ## 本节目标
 
-**被挡箭头撞到目标后自动回弹到原位，HP 扣 1，箭头保持红色（失败标记）**。
+**被挡箭头撞到目标后自动沿"来时路"反向爬回原位，HP 扣 1，箭头保持红色（失败标记）**。
 
 预期：
 
-- 承接第 12 章，被挡箭头 Collide → 撞到目标 → Back 状态 → **缓慢往回退到原点** → 回到 Idle。
+- 承接第 12 章，被挡箭头 Collide → 撞到目标 → Back 状态 → **沿前进时走过的路径倒放回来** → 回到 Idle。
 - GameController 内部 `hp` 从 3 降到 2。
 - 回弹完成后箭头**仍然是红色**（hasFailed = true），可以再次被点击。
 - Console：
@@ -22,104 +22,244 @@
 
 ### Back 要干什么
 
-- 从"当前位置（撞击点）"**反向移动**回到"原始起点"。
-- 到位后切 Idle，同时标记 hasFailed（这是 markCollide 已经做的事）。
+- 从"当前位置（撞击点）"**沿来时路倒放**回"原始起点 coords"。
+- 到位后切 Idle（同时保持 hasFailed）。
 - 通知 GameController 扣 HP。
 
-### 原始起点 = ?
+### 为什么不能"直接往反方向走"
 
-`ArrowData.coords` 是关卡配置里的**原始起点 coords**。箭头回到这里就是回原位。
+直觉上好像"反向走"就是每格做 `coords.map(c - dir)`。但这在贪吃蛇模型下**错**，直接看例子：
 
-### 怎么反向移动
-
-和 tickStart 对称——每个 coord 往 `-direction` 方向挪一格。
-
-```typescript
-rt.coords = rt.coords.map(([r, c]) => [r - direction[0], c - direction[1]] as Cell);
+```
+原始 coords（L 形）:   [4,2], [3,2], [3,3], [3,4]
+前进 2 格后:           [3,2], [3,3], [3,4], [3,5], [3,6]? 不，长度守恒
+前进 2 格后（正确）:   [3,3], [3,4], [3,5], [3,6]
 ```
 
-停止条件：**head 回到原始 head 格子**（即 `originalCoords[last]`）。
+现在要回原位。如果"反向走"按当前末端派生的方向 `[0,1]` 取反 = `[0,-1]`，每次 `coords.map(c - [0,-1])`：
+
+```
+step back 1: [3,4], [3,5], [3,6], [3,7]   ❌ 越走越远，还走右边
+```
+
+显然错。即使写对符号，得到的也是"整根往左平移"——**转角丢了**，永远回不到 L 形。
+
+### 真正的"贪吃蛇反走"是什么
+
+把前进看成队列：
+
+```
+前进一步:  coords.push(newHead);   const dropped = coords.shift();
+                                   // 记下 dropped 到 history
+```
+
+反走一步就是**前进的完美倒放**：
+
+```
+反走一步:  const revivedTail = history.pop();  coords.unshift(revivedTail);
+          coords.pop();            // 头回一格
+```
+
+这样：
+
+- 每次反走，**尾复活回一格**（从 history 里拿回最早被 shift 掉的那个）。
+- 头退一格（pop 当前头）。
+- **N 次前进 + N 次反走 = coords 精确回到初始**。
+- **转角信息全在 history 里，自然被还原**。
+
+### 终止条件
+
+`history` 为空时说明已经倒放完所有前进记录——coords 此时等于初始 coords。**停在这里切 Idle 即可**，不需要再比较"head 是否等于 origin"。
+
+> **Linus 的品味**：**用精确的条件代替近似的比较**。"history 空"是精确事实，"head == originHead" 只是一个**间接的副作用**。前者更稳健。
 
 ---
 
 ## 实现思路
 
-### 数据结构
+### 数据结构扩展
 
-需要知道"每根箭头的原始 coords"。有两个来源：
+`ArrowRuntime` 加 `history` 字段：
 
-1. `LevelData.arrows[i].coords`：配置里有。
-2. 给 runtime 加 `originCoords` 字段缓存。
+```typescript
+interface ArrowRuntime {
+    mode: ArrowMoveMode;
+    coords: Cell[];
+    hasFailed: boolean;
+    progress: number;
+    collideAim: Cell | null;
+    hitFlashUntil: number;
+    /** 前进过程中被 shift 走的尾格队列（最早 shift 的在 [0]） */
+    history: Cell[];
+}
+```
 
-**选 1**。理由：
+**谁维护 history**？
 
-- `levelData` 全局可得，数据已经在那里。
-- 不增加 runtime 复杂度。
+- **只有 `stepOneCell` push，只有 `stepBackOneCell` pop**。其他函数一概不碰。
+- `fire` 时**不用**清空 history——新一轮前进会自然 push 新记录；但为安全起见，在 `resetToIdle` / `markBack` 时清空。
 
-**`ArrowRuntime` 不加新字段**。
+### stepOneCell 升级
+
+```typescript
+function stepOneCell(rt: ArrowRuntime): void {
+    const dir = deriveDirection(rt.coords);
+    const [hr, hc] = rt.coords[rt.coords.length - 1];
+    rt.coords.push([hr + dir[0], hc + dir[1]]);
+    const dropped = rt.coords.shift()!;
+    rt.history.push(dropped);
+}
+```
+
+**一行新增**：被 shift 的尾 push 到 history。
+
+### stepBackOneCell
+
+```typescript
+function stepBackOneCell(rt: ArrowRuntime): boolean {
+    const revived = rt.history.pop();
+    if (!revived) return false;      // 已经回到原点，没得再退
+    rt.coords.unshift(revived);
+    rt.coords.pop();
+    return true;
+}
+```
+
+**返回 false 意味着 history 空**，调用方据此 markBack 切 Idle。
 
 ### tickBack
 
+对称 tickStart / tickCollide：
+
 ```typescript
 export function tickBack(
-    rt: ArrowRuntime, direction: Direction, originHead: Cell,
-    dt: number, speed: number,
-): boolean {  // 返回是否已回到原位
+    rt: ArrowRuntime, dt: number, speed: number,
+): boolean {
     if (rt.mode !== ArrowMoveMode.Back) return false;
-
     rt.progress += speed * dt;
     while (rt.progress >= 1) {
         rt.progress -= 1;
-        rt.coords = rt.coords.map(
-            ([r, c]) => [r - direction[0], c - direction[1]] as Cell
-        );
-        const head = rt.coords[rt.coords.length - 1];
-        if (head[0] === originHead[0] && head[1] === originHead[1]) {
+        const stepped = stepBackOneCell(rt);
+        if (!stepped) {
             rt.progress = 0;
-            return true;
+            return true;        // history 空 → 到家
         }
     }
     return false;
 }
 ```
 
-**对称于 tickStart/tickCollide**。这是代码"好品味"的体现——**几乎相同的形状，用相同的结构写**。
+**和 tickStart/tickCollide 三件套一致**：
+- `while (progress >= 1)` 消耗整格。
+- 每格调一次 step。
+- 终止时 progress 清零、返回 true。
 
-### HP 存哪里
+### ArrowView 的 progress 偏移
 
-GameController 新增字段：
+Back 状态的视觉前进方向和 coords 的派生方向**相反**——因为 history.pop() 已经把 coords 从"前进过的状态"拉回一步。具体来说：
+
+- Start/Collide：progress 表示"头继续往 dir 走的百分比"。
+- Back：progress 表示"头往 `-dir`（即 coords[N-1] → coords[N-2] 反向）走的百分比"。
+
+最干净的做法：**都以 coords 末端的 deriveDirection 为基准，然后在 Back 下乘个 -1**。
 
 ```typescript
-private hp = 0;
+const sign = rt.mode === ArrowMoveMode.Back ? -1 : 1;
+const dir = deriveDirection(rt.coords);
+const tipPx = {
+    x: headPx.x + dir[1] * Config.gap * rt.progress * sign,
+    y: headPx.y - dir[0] * Config.gap * rt.progress * sign,
+};
 ```
 
-关卡加载时初始化（从 Config 或 LevelData），Back 到位时 `hp -= 1`。第 14 章把 hp 显示到 HUD。
+一个 `sign` 就搞定，**不增加 if**。
 
 ---
 
 ## 代码实现
 
-### 文件 1：`core/ArrowState.ts` 加 `tickBack`
+### 文件 1：`core/ArrowState.ts`
 
 ```typescript
+export interface ArrowRuntime {
+    mode: ArrowMoveMode;
+    coords: Cell[];
+    hasFailed: boolean;
+    progress: number;
+    collideAim: Cell | null;
+    hitFlashUntil: number;
+    /** 前进时被 shift 出的尾格，用于 Back 倒放。Fire 时清空 */
+    history: Cell[];
+}
+
+export function createRuntime(data: ArrowData): ArrowRuntime {
+    return {
+        mode: ArrowMoveMode.Idle,
+        coords: cloneCoords(data.coords),
+        hasFailed: false,
+        progress: 0,
+        collideAim: null,
+        hitFlashUntil: 0,
+        history: [],
+    };
+}
+
+export function fire(rt: ArrowRuntime, blocked: boolean, collideAim: Cell | null = null): void {
+    if (rt.mode !== ArrowMoveMode.Idle) return;
+    rt.mode = blocked ? ArrowMoveMode.Collide : ArrowMoveMode.Start;
+    rt.progress = 0;
+    rt.collideAim = blocked ? collideAim : null;
+    rt.history = [];
+}
+
+export function markBack(rt: ArrowRuntime): void {
+    if (rt.mode !== ArrowMoveMode.Back) return;
+    rt.mode = ArrowMoveMode.Idle;
+    rt.progress = 0;
+    rt.history = [];
+}
+
+export function resetToIdle(rt: ArrowRuntime, data: ArrowData): void {
+    rt.mode = ArrowMoveMode.Idle;
+    rt.coords = cloneCoords(data.coords);
+    rt.hasFailed = false;
+    rt.progress = 0;
+    rt.collideAim = null;
+    rt.hitFlashUntil = 0;
+    rt.history = [];
+}
+
+/** 贪吃蛇前进一格：push 新头、shift 老尾并记录进 history */
+function stepOneCell(rt: ArrowRuntime): void {
+    const dir = deriveDirection(rt.coords);
+    const [hr, hc] = rt.coords[rt.coords.length - 1];
+    rt.coords.push([hr + dir[0], hc + dir[1]]);
+    const dropped = rt.coords.shift()!;
+    rt.history.push(dropped);
+}
+
+/** 贪吃蛇反走一格：从 history 取回尾，pop 掉当前头。返回是否成功 */
+function stepBackOneCell(rt: ArrowRuntime): boolean {
+    const revived = rt.history.pop();
+    if (!revived) return false;
+    rt.coords.unshift(revived);
+    rt.coords.pop();
+    return true;
+}
+
 /**
- * 每帧推进 Back 状态。返回 true 表示已回到 originHead。
- * 调用方应当在 true 时调用 markBack(rt) 切回 Idle。
+ * 每帧推进 Back 状态。返回 true 表示 history 已空、回到原位。
+ * 调用方应在 true 时调用 markBack(rt) 切回 Idle 并扣 HP。
  */
 export function tickBack(
-    rt: ArrowRuntime, direction: Direction, originHead: Cell,
-    dt: number, speed: number,
+    rt: ArrowRuntime, dt: number, speed: number,
 ): boolean {
     if (rt.mode !== ArrowMoveMode.Back) return false;
-
     rt.progress += speed * dt;
     while (rt.progress >= 1) {
         rt.progress -= 1;
-        rt.coords = rt.coords.map(
-            ([r, c]) => [r - direction[0], c - direction[1]] as Cell
-        );
-        const head = rt.coords[rt.coords.length - 1];
-        if (head[0] === originHead[0] && head[1] === originHead[1]) {
+        const stepped = stepBackOneCell(rt);
+        if (!stepped) {
             rt.progress = 0;
             return true;
         }
@@ -128,33 +268,57 @@ export function tickBack(
 }
 ```
 
-注意：**Back 状态的 progress 偏移是反方向的**，ArrowView 原先算 `offR = direction[0] * progress` 会朝错方向偏。下一步改 ArrowView。
+**关键点解析**：
 
-### 文件 2：`ArrowView.ts` 的 progress 偏移处理 Back
+- **`history` 和 `coords` 长度守恒**：前进一步 push 1、shift 1、history.push 1；反走一步 history.pop 1、unshift 1、pop 1。三个原子永远同步。
+- **`stepOneCell` 在第 09 章已写过**。这里升级了一行"记 history"。
+- **Back 不再需要 direction 参数**。方向信息已经在 history 里，和 coords 一起构成完整的"来时路"。
+- **fire 和 markBack 都清 history**。fire 是起点（新一轮记录），markBack 是终点（理论上此时已空，保险清一次）。
+
+### 文件 2：`ArrowView.ts` 的 progress sign 处理
 
 ```typescript
 private drawArrow(rt: ArrowRuntime) {
     const g = this.graphics!;
     g.clear();
 
-    const { direction } = this.data!;
     const coords = rt.coords;
     if (coords.length === 0) return;
 
-    // Back 状态下往反方向偏（与 Start/Collide 相反）
-    const sign = rt.mode === ArrowMoveMode.Back ? -1 : 1;
-    const offR = direction[0] * rt.progress * sign;
-    const offC = direction[1] * rt.progress * sign;
+    const color = this.pickColor(rt);
+    g.strokeColor = color;
+    g.lineWidth = Config.arrowLineWidth;
 
-    // ... 其他不变
+    const points = coords.map(([r, c]) => gridToPixel(r, c, this.rows, this.cols));
+
+    const sign = rt.mode === ArrowMoveMode.Back ? -1 : 1;
+    const dir = deriveDirection(coords);
+    const headPx = points[points.length - 1];
+    const tipPx = {
+        x: headPx.x + dir[1] * Config.gap * rt.progress * sign,
+        y: headPx.y - dir[0] * Config.gap * rt.progress * sign,
+    };
+
+    g.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) {
+        g.lineTo(points[i].x, points[i].y);
+    }
+    if (rt.progress > 0) {
+        g.lineTo(tipPx.x, tipPx.y);
+    }
+    g.stroke();
+
+    // Back 状态下箭头头的朝向保持"当前 dir"（正向）——否则玩家看到"反向箭头"太违和
+    this.drawArrowHead(tipPx.x, tipPx.y, dir, color);
 }
 ```
 
-**只加了一个 `sign`**。用 `1/-1` 而不是 if-else，是 Linus 的那种"消除特殊情况"。
+**和第 09 章 drawArrow 的差别**：
 
-### 文件 3：`game/GameController.ts` 处理 Back
+- 加了 `sign`。就一行。
+- **三角形箭头头永远指向 `dir`**（正向），不因为 Back 而翻转。参考项目 G3_FBase 也是这样——**失败的箭头仍然带着朝向**，玩家看它"红着倒回来"就知道失败。
 
-在 update 的 switch 里加一个分支，同时维护 HP：
+### 文件 3：`GameController.ts` 加 Back 分支 + HP
 
 ```typescript
 import { tickBack, markBack } from '../core/ArrowState';
@@ -168,7 +332,6 @@ private readonly HP_MAX = 3;
 this.hp = this.HP_MAX;
 console.log(`[Arrow] HP = ${this.hp}`);
 
-// update 里加一个 else if 分支：
 update(dt: number) {
     if (!this.levelData) return;
     const { rows, cols } = this.levelData;
@@ -176,19 +339,16 @@ update(dt: number) {
 
     for (let i = 0; i < this.runtimes.length; i++) {
         const rt = this.runtimes[i];
-        const dir = this.levelData.arrows[i].direction;
 
         if (rt.mode === ArrowMoveMode.Start) {
-            tickStart(rt, dir, dt, Config.arrowSpeed);
-            const tail = rt.coords[0];
-            if (!isInsideBoard(tail[0], tail[1], rows, cols)) {
-                markEnd(rt);
+            const escaped = tickStart(rt, dt, Config.arrowSpeed, rows, cols);
+            if (escaped) {
                 console.log(`[Arrow] Arrow ${i} escaped (End)`);
             }
             this.refreshArrow(i);
 
         } else if (rt.mode === ArrowMoveMode.Collide) {
-            const arrived = tickCollide(rt, dir, dt, Config.arrowSpeed);
+            const arrived = tickCollide(rt, dt, Config.arrowSpeed);
             if (arrived) {
                 const target = this.findTargetAt(rt.collideAim!);
                 if (target >= 0) {
@@ -201,11 +361,9 @@ update(dt: number) {
             this.refreshArrow(i);
 
         } else if (rt.mode === ArrowMoveMode.Back) {
-            const originCoords = this.levelData.arrows[i].coords;
-            const originHead = originCoords[originCoords.length - 1];
-            const arrived = tickBack(rt, dir, originHead, dt, Config.arrowSpeed);
+            const arrived = tickBack(rt, dt, Config.arrowSpeed);
             if (arrived) {
-                markBack(rt);  // Back → Idle
+                markBack(rt);
                 this.hp -= 1;
                 console.log(`[Arrow] Arrow ${i} bounced back. HP = ${this.hp}`);
             }
@@ -221,23 +379,8 @@ update(dt: number) {
 
 **关键**：
 
-- Back 的 `originHead` 直接从 `levelData.arrows[i].coords` 取最后一个。
-- `markBack` 只负责切状态到 Idle，不扣 HP。**扣 HP 是 GameController 的职责**（core 不懂 HP 是什么）。这是**关注点分离**。
-
-### 文件 4：调 `resetToIdle` 时也要清 `collideAim` 和 `hitFlashUntil`
-
-回到第 07 章的 `resetToIdle` 补一下：
-
-```typescript
-export function resetToIdle(rt: ArrowRuntime, data: ArrowData): void {
-    rt.mode = ArrowMoveMode.Idle;
-    rt.coords = cloneCoords(data.coords);
-    rt.hasFailed = false;
-    rt.progress = 0;
-    rt.collideAim = null;
-    rt.hitFlashUntil = 0;
-}
-```
+- **Back 分支不读 levelData.arrows[i]**。路径信息已经在 rt.history 里——完全自给自足。
+- **markBack 只切状态，不扣 HP**。扣 HP 是 GameController 的职责（core 不懂 HP 是什么）。这就是**关注点分离**。
 
 ---
 
@@ -247,83 +390,125 @@ export function resetToIdle(rt: ArrowRuntime, data: ArrowData): void {
 
 点击箭头 0：
 
-1. 变红向右飞（Collide）。
-2. 撞到箭头 1 头部停下（状态切 Back）。
-3. **开始慢慢向左退**（progress 反向偏移）。
-4. 退到原点 `[3,1]~[3,2]` 停下，切 Idle。
-5. 仍然显示红色（hasFailed=true）。
-6. Console：
+1. 变红、沿当前方向向右飞（Collide）。前进过程中每一格都把被 shift 的尾存进 history。
+2. 撞到箭头 1 头部停下（状态切 Back）。此时 `rt.history` 里记录了前进走过的所有尾格。
+3. **开始慢慢反走**：history.pop() 复活老尾，当前头 pop 掉。
+4. history 空 → markBack → Idle。
+5. coords 此时和 `levelData.arrows[0].coords` **逐格相等**。
+6. 仍然显示红色（hasFailed=true）。
+7. Console：
    ```
    [Arrow] Arrow 0 fired. blocked=true
    [Arrow] Arrow 0 collided into arrow 1
    [Arrow] Arrow 0 bounced back. HP = 2
    ```
 
-**再次点击箭头 0**：它仍可 fire（Idle 状态），继续撞 → 回弹 → HP=1。第三次撞 → HP=0。再撞 → HP=-1（没有停止保护，第 16 章会加）。
+### L 形箭头的失败路径验证
 
-**验证完改回 `level_01.json`**。
+构造一个更挑战的临时关卡：一根 L 形箭头 + 前方一根直箭头挡住：
+
+```json
+{
+  "rows": 5, "cols": 5,
+  "arrows": [
+    { "direction": [0, 1], "origin": [3, 3], "coords": [[4, 2], [3, 2], [3, 3]] },
+    { "direction": [0, 1], "origin": [3, 5], "coords": [[3, 5]] }
+  ]
+}
+```
+
+（箭头 1 是单格，仅作为障碍。当然单格意味着 deriveDirection=[0,0]，无法 fire，这里只当挡路用。）
+
+点箭头 0：
+1. L 形向右前进一格 → `coords = [[3,2], [3,3], [3,4]]`，history = `[[4,2]]`。转角消失。
+2. 再前进一格 → coords = `[[3,3], [3,4], [3,5]]` ？不对，[3,5] 被箭头 1 占——**所以 findCollision 会在 fire 时直接返回 blocked**，Collide 模式触发，collideAim = [3,5]。
+3. tickCollide 每格 step 直到 head 到 [3,5]：
+   - step 1: coords = [[3,2],[3,3],[3,4]], history = [[4,2]]
+   - step 2: coords = [[3,3],[3,4],[3,5]], history = [[4,2],[3,2]]。head = [3,5] = collideAim → 到达。
+4. 切 Back → tickBack 开始倒放：
+   - step back 1: history.pop → [3,2]。coords = [[3,2],[3,3],[3,4]]。history = [[4,2]]。
+   - step back 2: history.pop → [4,2]。coords = [[4,2],[3,2],[3,3]]。history = []。→ 到家。
+5. **最终 coords 精确等于 `[[4,2], [3,2], [3,3]]`**——**L 形完整复原**。
+
+转角是怎么复原的？**history 里存着 [4,2]**。倒放时它被 unshift 回 coords 的尾端，L 形的那"拐"自然重新出现。
+
+**测试完改回 `level_01.json`**。
 
 ---
 
 ## 易错点
 
-### 易错 1：Back 的 progress 偏移方向搞反
+### 易错 1：用 `coords.map(c - dir)` 实现反走
 
 ```typescript
-// ArrowView.drawArrow
-const offR = direction[0] * rt.progress;  // ❌ 没 sign，Back 也朝前偏
+rt.coords = rt.coords.map(([r, c]) => [r - dir[0], c - dir[1]]);  // ❌
 ```
 
-视觉上 Back 时箭头一边整体反向移动一边"头向前冒一截"，非常鬼畜。
+这是**刚体反向平移**，直箭头看起来能用，但 L 形会变形成直线、永远回不到 L。**贪吃蛇模型下只能用 history 倒放**。
 
-**规则**：记住 Back 是 "反向" 的 tick。任何 progress 偏移都要 `* sign`。
-
-### 易错 2：`originHead` 拿成了 runtime 当前 head
+### 易错 2：history 没在 fire 时清
 
 ```typescript
-const originHead = rt.coords[rt.coords.length - 1];  // ❌ 当前位置
+export function fire(rt, blocked, aim) {
+    rt.mode = blocked ? Collide : Start;
+    rt.progress = 0;
+    rt.collideAim = blocked ? aim : null;
+    // rt.history = [];  ❌
+}
 ```
 
-结果：Back tick 第一帧立刻"到达"，箭头瞬移回去。
+表现：第一次 Back 正常，第二次 fire 后 Back 会把"上一次的 history"也倒放回去——**箭头"穿墙回老位置"**，非常诡异。
 
-**规则**：Back 要回的是**配置原点**，不是 runtime 当前位置。**`levelData.arrows[i].coords[last]`**。
+**规则**：**fire 是新一轮的起点，所有属于"这一轮的记录"都要清**。
 
-### 易错 3：HP 扣在了错误的地方
+### 易错 3：`stepBackOneCell` 返回值没检查
 
-常见错位置：
+```typescript
+while (rt.progress >= 1) {
+    rt.progress -= 1;
+    stepBackOneCell(rt);   // ❌ 忽略返回值
+}
+```
+
+history 早就空了还在循环 → 空 pop → pop 越界虽然 JS 会返回 undefined 不崩，但 unshift(undefined) 会让 coords 末尾多个 undefined，下一帧渲染 `[r,c]` 解构 undefined 立刻崩。
+
+**规则**：**stepBack 返回 false 时立刻 break，同帧内不要再循环**。
+
+### 易错 4：Back 的 progress 偏移方向搞反
+
+```typescript
+const offR = direction[0] * rt.progress;   // ❌ Back 下也朝 +dir 偏
+```
+
+视觉：Back 时整根箭头在反向爬，但头还朝前冒一截，**像头断了在前面跳**。
+
+**规则**：**sign = Back ? -1 : 1**。一行代码搞定，别用 if-else 把结构搞大。
+
+### 易错 5：HP 扣在了错误的地方
 
 - `markCollide` 里扣 HP ❌（撞到就扣，还没回弹完）
 - `fire(rt, true)` 里扣 HP ❌（点一下就扣，即使后来取消）
 - `update` Back 分支**到达原点时**扣 HP ✅
 
-**规则**：HP 是"失败代价"，**失败流程完整结束时**（回到原点）才结算。参考 G3_FBase 的逻辑也是这样——在 `MovingBackLogic` 里 distance <= velocity 时切 Idle，然后（虽然代码里没直接写扣 hp，它应该在别处）完成失败循环。
+**规则**：HP 是"失败代价"，**失败流程完整结束时**（history 空、回到原点）才结算。
 
-### 易错 4：Back 状态下玩家点击同一根箭头
+### 易错 6：reset 没清 history
 
-```typescript
-private onArrowClick(idx) {
-    if (!canFire(rt)) return;  // ✅ canFire 只允许 Idle
-    ...
-}
-```
+`resetToIdle` 漏了 `rt.history = []` → 重试关卡时原来失败过的那根箭头第一次 fire 成功后，走到一半开始 Back 会倒放上一把的老历史 → 乱飞。
 
-第 07 章的 `canFire(rt)` 已经限定 `rt.mode === Idle`，Back 时点击无效。**自动挡住了**。这是状态机设计的红利——不需要"专门为 Back 加个判断"。
-
-### 易错 5：reset 没清干净字段
-
-上面补完 `resetToIdle` 清所有字段。如果漏了 `hitFlashUntil`，重试关卡时某些箭头会突然闪红（上次残留）。
-
-**规则**：**有新字段就立刻同步 resetToIdle**。可以通过 TypeScript 的 satisfies 约束，但最简单就是每次改 runtime 接口都过一遍 resetToIdle。
+**规则**：**新增字段必同步 `resetToIdle`**。
 
 ---
 
 ## 扩展练习
 
-1. **回弹加速**：让 Back 速度比 Start 快 2 倍（回弹比射出更快，玩家感受"失败代价过得快一点"）。改 `tickBack` 调用时的 speed 参数。
+1. **回弹加速**：让 Back 速度比 Start 快 2 倍。改 `tickBack` 调用时 speed 参数即可。
 
-2. **箭头先停顿再回弹**：在 Collide → Back 切换时插入 200ms 停顿（视觉上"撞了一下再弹回"）。提示：给 rt 加一个 `backDelayUntil` 字段，tickBack 里判断 `now < backDelayUntil` 就不动 progress。
+2. **撞击停顿再回弹**：在 Collide → Back 切换时插入 200ms 停顿。提示：给 rt 加一个 `backDelayUntil`，tickBack 开头判断 `now < backDelayUntil` 直接 return false。
 
-3. **思考题**：现在 Back 到原点后 `markBack` 把 mode 设成 Idle，玩家可以立刻再点击这根箭头。好不好？如果要加"冷却时间"（Back 后 1 秒才能再点），从数据结构层面怎么设计？
+3. **思考题**：为什么 `history` 存的是"尾格"而不是"整个 coords 快照"？存快照需要多少内存、存尾格需要多少？（提示：每 step 数据量差 N 倍，N 是 coords 长度。）
+
+4. **思考题 2**：如果关卡有"箭头能穿过特定格子"的机制，只改 `stepOneCell` 判定"能否落新头"就够了，**tickBack 一个字都不用动**——因为 history 记录的是"实际走过的路径"。能解释为什么吗？
 
 ---
 
@@ -331,7 +516,7 @@ private onArrowClick(idx) {
 
 ```
 core/
-├── ArrowState.ts             ← 加 tickBack + resetToIdle 清字段
+├── ArrowState.ts             ← 加 history + stepBackOneCell + tickBack + resetToIdle 清字段
 ├── CollisionCheck.ts
 ├── Coord.ts
 └── LevelData.ts

@@ -4,18 +4,18 @@
 
 **把 `level_01.json` 里所有箭头占据的格子都画成一个蓝色小圆点**。
 
-启动后屏幕应该看到：
+启动后屏幕应该看到（`+` 是屏幕中心 = 挂载节点原点）：
 
 ```
-                (屏幕中心)
-                    +
    col=1  col=2  col=3  col=4  col=5
- •       •      •              ← row=1  (三个点：箭头 1 的 coords)
- •       •      •              ← row=2  (三个点：箭头 2 的 coords)
- •       •      •              ← row=3  (三个点：箭头 3 的 coords)
+                                      ← row=1  (空)
+         •       •      •             ← row=2  (三个点：箭头 1 的 coords)
+         •       +      •             ← row=3  (三个点：箭头 2 的 coords，中间那个正好是屏幕中心)
+         •       •      •             ← row=4  (三个点：箭头 3 的 coords)
+                                      ← row=5  (空)
 ```
 
-一共 9 个蓝点（3 根箭头 × 每根 3 个格子），排成 3×3 的阵列。
+一共 9 个蓝点（3 根箭头 × 每根 3 个格子），排成 3×3 的阵列，**整体以屏幕中心对称**。
 
 一句话：**第一次在屏幕上"看到"这一关长什么样**。
 
@@ -53,7 +53,7 @@
 ```
 level_01.json
      ↓ resources.load
-LevelData { arrows: [{coords: [[1,1],[1,2],[1,3]]}, ...] }
+LevelData { arrows: [{coords: [[2,2],[2,3],[2,4]]}, ...] }
      ↓ 交给 BoardView.render(data)
  遍历所有 arrows[].coords
      ↓ gridToPixel(row, col, rows, cols)
@@ -70,6 +70,22 @@ LevelData { arrows: [{coords: [[1,1],[1,2],[1,3]]}, ...] }
 - 但只有 **9 格**（3 根箭头 × 3 个 coords）被画成点
 
 **棋盘空白的格子不画点**。这是 G3_FBase 的设计（见 `CombatPointsInitLogic` 的 `arrows.flatMap(arrow => arrow.coords)`）——只画"有意义"的格子，其他是空白。好处是关卡的**形状可以任意**，不限于方形矩阵。
+
+### 为什么 9 个点会"居中"——关卡数据的职责
+
+你可能会问："棋盘 5×5、箭头只占 9 格，为什么这 9 个点正好绕屏幕中心对称？"
+
+答案在 `level_01.json`：3 根箭头的 coords 是 `(2..4, 2..4)`，**中心恰好是 `(3,3) = 棋盘中心 = 屏幕中心`**。
+
+换个角度讲：
+
+- `Coord.ts` 的职责：**"格子中心 `(3,3)` 映射到像素 `(0,0)`"** —— 这是纯数学
+- `level_01.json` 的职责：**"哪些格子有意义，让它们在棋盘里怎么分布"** —— 这是关卡设计
+- `BoardView.ts` 的职责：**"按数据忠实画点"** —— 这是渲染
+
+如果关卡数据把 9 格放在 `(1..3, 1..3)`（左上），屏幕上就是"偏左上"——**不是 bug，是关卡设计选择**。原项目 G3_FBase 的关卡数据也是让有效内容自然落在棋盘中心，而不是靠渲染层去补偿。
+
+> **Linus 的分层**：一层做一件事。"让内容看起来居中"是关卡设计的事，不塞进渲染代码里。否则你会开始写 `if (要不要居中) ... else ...` 这种特殊情况，数据结构错了，一层层往上堆补丁。
 
 ### 为什么独立一个 BoardView 组件
 
@@ -113,7 +129,12 @@ export class BoardView extends Component {
         this.clear();
 
         // 收集所有箭头占据的格子（可能重复，关卡设计时应保证不重复）
-        const allCells = data.arrows.flatMap(a => a.coords);
+        // 不用 Array.prototype.flatMap：它是 ES2019 引入的，Cocos 3.x 默认 lib 目标比它低，编译会报错。
+        // 双层 for 更笨、也更清晰，零 API 依赖。
+        const allCells: [number, number][] = [];
+        for (const a of data.arrows) {
+            for (const c of a.coords) allCells.push(c);
+        }
 
         for (const [row, col] of allCells) {
             const dot = this.createDot(row, col, data.rows, data.cols);
@@ -185,7 +206,8 @@ export class GameController extends Component {
     }
 
     private loadLevel(levelNo: number) {
-        const path = `levels/level_${levelNo.toString().padStart(2, '0')}`;
+        const no = levelNo < 10 ? `0${levelNo}` : `${levelNo}`;
+        const path = `levels/level_${no}`;
         resources.load(path, JsonAsset, (err, asset) => {
             if (err) {
                 console.error(`[Arrow] Load level failed: ${path}`, err);
@@ -229,25 +251,25 @@ export class GameController extends Component {
 [Arrow] BoardView rendered 9 dots
 ```
 
-画面：
+画面（`+` 是屏幕中心）：
 
 ```
 ┌─────────────────────────────────┐
 │                                 │
-│   •     •     •                 │  ← 箭头 1 的 [1,1] [1,2] [1,3]
 │                                 │
-│   •     •     •                 │  ← 箭头 2 的 [2,1] [2,2] [2,3]
+│         •     •     •           │  ← 箭头 1 的 [2,2] [2,3] [2,4]
 │                                 │
-│   •     •     •     +           │  ← 箭头 3 的 [3,1] [3,2] [3,3] (+ 是中心)
+│         •     +     •           │  ← 箭头 2 的 [3,2] [3,3] [3,4]（中间那个点正好在屏幕中心）
 │                                 │
+│         •     •     •           │  ← 箭头 3 的 [4,2] [4,3] [4,4]
 │                                 │
 │                                 │
 └─────────────────────────────────┘
 ```
 
-3 行 × 3 列 = 9 个半透明蓝点，整齐排列在屏幕**中央偏左上**。
+3 行 × 3 列 = 9 个半透明蓝点，**以屏幕中心对称**排列成九宫格。
 
-如果你的 9 个点不是这个排布，**立刻停下来排查**，不要进下一章。
+如果你的 9 个点不是这个排布（整体偏左上/右下/某个角落），**立刻停下来排查**，不要进下一章。最常见的原因是 `level_01.json` 改错了——应该是 `(2..4, 2..4)` 这 9 格，不是 `(1..3, 1..3)`。
 
 ---
 

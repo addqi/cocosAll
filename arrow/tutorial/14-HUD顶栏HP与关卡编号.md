@@ -148,7 +148,6 @@ onLoad() {
     this.input = this.boardView.node.addComponent(InputController);
     this.hud = this.createHUD();
     this.loadLevel(1);
-    view.on('canvas-resize', this.onCanvasResize, this);
 }
 
 private createHUD(): HUD {
@@ -178,7 +177,7 @@ if (arrived) {
 
 **关键修改**：
 
-- HUD 作为 Canvas 的直接子节点，**避免挂在 BoardView 下（会被 scale 缩放）**。
+- HUD 挂在 `GameController` 同级节点下，**不挂在 BoardView 下**。这样之后做屏幕适配时（未来章节），BoardView 的 scale 不会影响 HUD。
 - 扣 HP 后立刻 refreshHUD。
 
 ---

@@ -1,0 +1,9 @@
+{
+    "rows": 5,
+    "cols": 5,
+    "arrows": [
+      { "direction": [0, 1], "origin": [2, 4], "coords": [[2, 2], [2, 3], [2, 4]] },
+      { "direction": [0, 1], "origin": [3, 4], "coords": [[3, 2], [3, 3], [3, 4]] },
+      { "direction": [0, 1], "origin": [4, 4], "coords": [[4, 2], [4, 3], [4, 4]] }
+    ]
+  }

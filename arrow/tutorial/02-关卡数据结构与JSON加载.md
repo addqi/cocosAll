@@ -9,7 +9,7 @@
 ```
 [Arrow] Game scene loaded. I am alive.
 [Arrow] Level 1 loaded: 5 x 5, arrows = 3
-[Arrow] First arrow: direction=[0,1] coords=[[1,1],[1,2],[1,3]]
+[Arrow] First arrow: direction=[0,1] coords=[[2,2],[2,3],[2,4]]
 ```
 
 一句话：**把数据从磁盘读进内存，让代码"看得见"关卡**。
@@ -187,12 +187,16 @@ export function validateLevelData(data: unknown): LevelData {
   "rows": 5,
   "cols": 5,
   "arrows": [
-    { "direction": [0, 1], "origin": [1, 3], "coords": [[1, 1], [1, 2], [1, 3]] },
-    { "direction": [0, 1], "origin": [2, 3], "coords": [[2, 1], [2, 2], [2, 3]] },
-    { "direction": [0, 1], "origin": [3, 3], "coords": [[3, 1], [3, 2], [3, 3]] }
+    { "direction": [0, 1], "origin": [2, 4], "coords": [[2, 2], [2, 3], [2, 4]] },
+    { "direction": [0, 1], "origin": [3, 4], "coords": [[3, 2], [3, 3], [3, 4]] },
+    { "direction": [0, 1], "origin": [4, 4], "coords": [[4, 2], [4, 3], [4, 4]] }
   ]
 }
 ```
+
+**为什么关卡里 3 根箭头放在 `row=2..4, col=2..4` 这 9 格、而不是 `row=1..3, col=1..3`？**
+
+因为棋盘中心是 `(3, 3)`（`rows=5, cols=5` 的几何中心）。把有效格子放在 `(2..4, 2..4)`，9 个格子正好**以 `(3,3)` 为中心对称**——第 04 章渲染出来时，3×3 的点阵就会围绕屏幕中心均匀分布，而不是"偏左上"。这是**关卡数据的职责**：决定"哪些格子有意义"+"这些格子在棋盘里的位置"，渲染代码只做忠实翻译。参考项目 G3_FBase 的关卡数据也是这么设计的：**让有效内容自然落在棋盘中心**，而不是靠渲染层去补偿。
 
 保存后**回到 Cocos 编辑器会自动重新导入**。Assets 面板里 `level_01` 前面的图标会变成"JSON 文件"图标。
 
@@ -215,7 +219,8 @@ export class GameController extends Component {
     }
 
     private loadLevel(levelNo: number) {
-        const path = `levels/level_${levelNo.toString().padStart(2, '0')}`;
+        const no = levelNo < 10 ? `0${levelNo}` : `${levelNo}`;
+        const path = `levels/level_${no}`;
         resources.load(path, JsonAsset, (err, asset) => {
             if (err) {
                 console.error(`[Arrow] Load level failed: ${path}`, err);
@@ -250,7 +255,7 @@ export class GameController extends Component {
   - 对：`levels/level_01` ✅
   - 错：`levels/level_01.json` ❌（Cocos 会找不到）
   - 错：`resources/levels/level_01` ❌（`resources/` 是根，不写）
-- `levelNo.toString().padStart(2, '0')`：把 `1` 变成 `'01'`。这样文件名 `level_01.json` 比 `level_1.json` 排序更友好（`level_10` 不会排在 `level_1` 和 `level_2` 之间）。
+- `levelNo < 10 ? '0${levelNo}' : '${levelNo}'`：把 `1` 变成 `'01'`。这样文件名 `level_01.json` 比 `level_1.json` 排序更友好（`level_10` 不会排在 `level_1` 和 `level_2` 之间）。为什么不用 `String.prototype.padStart`？它是 ES2017 引入的，Cocos 3.x 默认的 `tsconfig` `lib` 目标比它低，直接用会报 `属性"padStart"在类型"string"上不存在`。与其为一句话改全局编译选项，不如用三元表达式——零 API 依赖，解决问题。
 - `asset.json`：Cocos 加载完 JsonAsset 之后，原始 JS 对象就挂在 `.json` 属性上。
 - **先 `validate` 再用**：不 validate 直接用 `asset.json as LevelData` 也能跑，但运行时万一字段缺失会在很远的地方炸。**数据边界必须校验**，这是老生常谈。
 
@@ -263,7 +268,7 @@ export class GameController extends Component {
 ```
 [Arrow] Game scene loaded. I am alive.
 [Arrow] Level 1 loaded: 5 x 5, arrows = 3
-[Arrow] First arrow: direction=[0,1] coords=[[1,1],[1,2],[1,3]]
+[Arrow] First arrow: direction=[0,1] coords=[[2,2],[2,3],[2,4]]
 ```
 
 三条日志缺一不可。

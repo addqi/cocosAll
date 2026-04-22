@@ -32,10 +32,12 @@
 
 | 数据 | 来源 |
 |------|------|
-| 射手 A 的方向 | `levelData.arrows[i].direction` |
+| 射手 A 的方向 | `deriveDirection(runtimes[i].coords)` —— **从 coords 末端两点派生** |
 | 射手 A 当前 coords | `runtimes[i].coords` |
 | 其他箭头 B 的 coords | `runtimes[j].coords` for j ≠ i |
-| 只考虑 "未离场" 的 B | `rt.mode < End` |
+| 只考虑 "未离场" 的 B | `rt.mode !== End` |
+
+> 📖 **方向从哪来**：第 09 章已经统一——**玩法代码不读 `ArrowData.direction`**，永远从 coords 派生。好处：L 形箭头转弯后再被点击时，方向自动更新，不用额外同步。
 
 ### 对照 G3_FBase
 
@@ -52,12 +54,13 @@
 ### 算法
 
 ```text
-输入：shooterIdx i，所有 runtimes，方向 direction，棋盘尺寸 rows/cols
+输入：shooterIdx i，所有 runtimes，棋盘尺寸 rows/cols
 输出：挡它的 arrowIdx（没挡就 -1）
 
-1. 取 A 的 head 格子（coords 最后一个）
-2. cursor = head
-3. 循环：
+1. 取 A.coords 派生出 direction（末端两点之差）
+2. 取 A 的 head 格子（coords 最后一个）
+3. cursor = head
+4. 循环：
      cursor 前进一格（cursor += direction）
      如果 cursor 出了棋盘 → return -1
      对每个 j ≠ i，未 End 的 B：
@@ -74,10 +77,11 @@
 export function findCollision(
     shooterIdx: number,
     runtimes: readonly ArrowRuntime[],
-    direction: Direction,
     rows: number, cols: number,
 ): number;
 ```
+
+**签名比老版本少了 `direction` 参数**——因为方向从 `runtimes[shooterIdx].coords` 派生，**调用方不需要再关心这个细节**。
 
 ---
 
@@ -86,22 +90,23 @@ export function findCollision(
 ### 文件 1：`core/CollisionCheck.ts`（新增）
 
 ```typescript
-import { Direction } from './LevelData';
-import { ArrowRuntime, ArrowMoveMode } from './ArrowState';
+import { ArrowRuntime, ArrowMoveMode, deriveDirection } from './ArrowState';
 import { isInsideBoard } from './Coord';
 
 /**
- * 判断箭头 shooterIdx 沿 direction 射出后，前方是否有未离场箭头挡路。
+ * 判断箭头 shooterIdx 沿 coords 派生方向射出后，前方是否有未离场箭头挡路。
  * 返回挡路的箭头 index，没挡返回 -1。
  */
 export function findCollision(
     shooterIdx: number,
     runtimes: readonly ArrowRuntime[],
-    direction: Direction,
     rows: number, cols: number,
 ): number {
     const shooter = runtimes[shooterIdx];
     if (!shooter || shooter.coords.length === 0) return -1;
+
+    const direction = deriveDirection(shooter.coords);
+    if (direction[0] === 0 && direction[1] === 0) return -1;
 
     const head = shooter.coords[shooter.coords.length - 1];
     let r = head[0], c = head[1];
@@ -141,11 +146,9 @@ import { findCollision } from '../core/CollisionCheck';
 private collisionSelfTest() {
     if (!this.levelData) return;
     const lines: string[] = [];
+    const { rows, cols } = this.levelData;
     for (let i = 0; i < this.runtimes.length; i++) {
-        const dir = this.levelData.arrows[i].direction;
-        const target = findCollision(
-            i, this.runtimes, dir, this.levelData.rows, this.levelData.cols
-        );
+        const target = findCollision(i, this.runtimes, rows, cols);
         if (target < 0) {
             lines.push(`arrow ${i} → no collision (fire will Start)`);
         } else {
@@ -174,9 +177,7 @@ private onArrowClick(idx: number) {
     if (!canFire(rt)) return;
 
     const data = this.levelData!;
-    const blocked = findCollision(
-        idx, this.runtimes, data.arrows[idx].direction, data.rows, data.cols
-    ) >= 0;
+    const blocked = findCollision(idx, this.runtimes, data.rows, data.cols) >= 0;
 
     fire(rt, blocked);
     console.log(
@@ -205,7 +206,7 @@ private onArrowClick(idx: number) {
 
 **人工构造碰撞场景**（验证测试）：
 
-临时改 `level_01.json`，让箭头 1 的前方有箭头 2 挡：
+临时改 `level_01.json`，让箭头 0 的前方有箭头 1 挡：
 
 ```json
 {
@@ -217,7 +218,8 @@ private onArrowClick(idx: number) {
 }
 ```
 
-箭头 0 尾在 `[3,1]` 头在 `[3,2]`，方向向右。沿 direction 探查：`[3,3]` 被箭头 1 占 → 返回 1。
+箭头 0：coords `[[3,1],[3,2]]` → `deriveDirection = [3,2]-[3,1] = [0,1]`（向右）。
+箭头 0 head 是 `[3,2]`，沿 `[0,1]` 前进一格到 `[3,3]` —— **被箭头 1 的 coords 占** → 返回 1。
 
 预期 Console：
 
@@ -271,17 +273,18 @@ isInsideBoard(r, c, cols, rows);  // ❌ 参数顺序错
 
 **规则**：**API 参数按字典序记**。isInsideBoard(row, col, rows, cols) 一套到底。
 
-### 易错 4：处理 direction=[0,0] 这种退化情况
+### 易错 4：处理 `direction === [0,0]` 这种退化情况
 
-如果有人配了 `direction = [0, 0]`，while 循环永远 `cursor` 不动——**死循环**。
+贪吃蛇模型下，方向是 `deriveDirection(coords)` 派生的。如果某根箭头 coords 只剩 1 格（被 Back 回弹到只剩头的瞬间，或者极端关卡配了单格箭头），派生结果是 `[0, 0]`，while 循环永远 `cursor` 不动——**死循环**。
 
-**防御式写法**：
+**防御式写法**（已在 findCollision 开头加好）：
 
 ```typescript
-if (direction[0] === 0 && direction[1] === 0) return -1;  // 无效方向
+const direction = deriveDirection(shooter.coords);
+if (direction[0] === 0 && direction[1] === 0) return -1;
 ```
 
-放在 findCollision 开头。虽然 validateLevelData 应该拦住这种数据，但函数层再加一道保险不多余。
+这一道保险不多余：**派生值不存** ≠ **派生结果总合理**，层与层之间要有兜底。
 
 ### 易错 5：测试验证没改回 level_01.json
 
