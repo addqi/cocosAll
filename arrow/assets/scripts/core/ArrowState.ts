@@ -1,12 +1,12 @@
-import { ArrowData } from './LevelData';
+import { ArrowData, Cell, Direction } from './LevelData';
 
 /** 箭头移动状态枚举。数字值有语义（例如第 15 章会用 mode < Start 判断"还没发射"），不可随意改顺序 */
 export enum ArrowMoveMode {
-    Idle    = 0,
+    Idle = 0,
     Collide = 1,
-    Back    = 2,
-    Start   = 3,
-    End     = 4,
+    Back = 2,
+    Start = 3,
+    End = 4,
 }
 
 /**
@@ -14,15 +14,26 @@ export enum ArrowMoveMode {
  * 09 章实现贪吃蛇移动时会扩展 coords / progress 字段。
  */
 export interface ArrowRuntime {
+    /** */
     mode: ArrowMoveMode;
     hasFailed: boolean;
+    /** 当前占据的格子（随前进动态变化，和 ArrowData.coords 解耦）*/
+    coords: Cell[];
+    /** Start 状态下的推进累计量（单位：格）。每累加满 1 格就真的移动一次 */
+    progress: number;
 }
 
 /** 从配置创建初始 runtime */
-export function createRuntime(_data: ArrowData): ArrowRuntime {
+export function createRuntime(data: ArrowData): ArrowRuntime {
     return {
+        /** 当前状态 */
         mode: ArrowMoveMode.Idle,
+        /** 是否失败 */
         hasFailed: false,
+        /** 当前占据的格子（随前进动态变化，和 ArrowData.coords 解耦）*/
+        coords: data.coords.map(c => [c[0], c[1]] as Cell),  // 深拷贝一次
+        /** Start 状态下的推进累计量（单位：格）。每累加满 1 格就真的移动一次 */
+        progress: 0,
     };
 }
 
@@ -72,4 +83,30 @@ export function markBack(rt: ArrowRuntime): void {
 export function resetToIdle(rt: ArrowRuntime, _data: ArrowData): void {
     rt.mode = ArrowMoveMode.Idle;
     rt.hasFailed = false;
+}
+
+/** 从 coords 最后两点派生方向。单格时返回 [0,0]（不动） */
+export function deriveDirection(coords: Cell[]): Direction {
+    if (coords.length < 2) return [0, 0];
+    const [hr, hc] = coords[coords.length - 1];
+    const [pr, pc] = coords[coords.length - 2];
+    return [hr - pr, hc - pc];
+}
+
+/** Start 模式下每帧推进。方向由 coords 自动派生。 */
+export function tickStart(rt: ArrowRuntime, dt: number, speed: number): void {
+    if (rt.mode !== ArrowMoveMode.Start) return;
+    rt.progress += speed * dt;
+    while (rt.progress >= 1) {
+        rt.progress -= 1;
+        stepOneCell(rt);
+    }
+}
+
+/** 头进一格、尾出一格。支持任意折线。 */
+function stepOneCell(rt: ArrowRuntime): void {
+    const dir = deriveDirection(rt.coords);
+    const [hr, hc] = rt.coords[rt.coords.length - 1];
+    rt.coords.push([hr + dir[0], hc + dir[1]]);
+    rt.coords.shift();
 }

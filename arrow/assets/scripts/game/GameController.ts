@@ -4,8 +4,10 @@ import { BoardView } from './BoardView';
 import {
     ArrowMoveMode, ArrowRuntime, createRuntime, canFire, fire,
     markEnd, markCollide, markBack, resetToIdle,
+    tickStart,
 } from '../core/ArrowState';
 import { InputController } from './InputController';
+import { Config } from '../common/Config';
 const { ccclass } = _decorator;
 
 @ccclass('GameController')
@@ -22,7 +24,14 @@ export class GameController extends Component {
         this.loadLevel(2);
         this.stateMachineSelfTest();
     }
-
+    update(dt: number) {
+        for (let i = 0; i < this.runtimes.length; i++) {
+            const rt = this.runtimes[i];
+            if (rt.mode !== ArrowMoveMode.Start) continue;
+            tickStart(rt, dt, Config.arrowSpeed);
+            this.refreshArrow(i);
+        }
+    }
     private createBoardView(): BoardView {
         const node = new Node('BoardView');
         this.node.addChild(node);

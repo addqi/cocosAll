@@ -47,27 +47,44 @@ export class ArrowView extends Component {
             return;
         }
         const g = this._graphics;
-        const { coords } = this._data;
+        // 1) 决定 coords 从哪来：有 runtime 优先用 runtime（动态），否则用 data（静态初始态）
+        const coords: Cell[] = this._rt ? this._rt.coords : this._data.coords;
         if (coords.length < 2) return;
-
+    
         g.clear();
-
+    
         const color = this._pickColor();
         const pixels: Pixel[] = coords.map(
             ([r, c]) => gridToPixel(r, c, this._rows, this._cols),
         );
-
+    
+        // 2) 计算"头的视觉位置"：head 像素 + progress 方向延伸
+        const progress = this._rt?.progress ?? 0;
+        const dr = coords[coords.length - 1][0] - coords[coords.length - 2][0];
+        const dc = coords[coords.length - 1][1] - coords[coords.length - 2][1];
+        const tipPx: Pixel = {
+            x: pixels[pixels.length - 1].x + dc * Config.gap * progress,
+            y: pixels[pixels.length - 1].y - dr * Config.gap * progress,
+        };
+    
+        // 3) 画折线：pixels[0] → ... → pixels[last]（→ tipPx 如果有延伸）
         g.strokeColor = color;
         g.lineWidth = Config.arrowLineWidth;
-        g.lineJoin = Graphics.LineJoin.ROUND;
-        g.lineCap = Graphics.LineCap.ROUND;
-        g.moveTo(pixels[0].x, pixels[0].y);
+        const tailPx: Pixel = {
+            x: pixels[0].x + progress * (pixels[1].x - pixels[0].x),
+            y: pixels[0].y + progress * (pixels[1].y - pixels[0].y),
+        };
+        g.moveTo(tailPx.x, tailPx.y);
         for (let i = 1; i < pixels.length; i++) {
             g.lineTo(pixels[i].x, pixels[i].y);
         }
+        if (progress > 0) {
+            g.lineTo(tipPx.x, tipPx.y);
+        }
         g.stroke();
-
-        this._drawHead(g, coords, pixels, color);
+    
+        // 4) 三角头画在 tipPx 上
+        this._drawHeadAt(g, tipPx, dr, dc, color);
     }
 
     /** 按当前 runtime 派生颜色。无 runtime 时按 Idle。*/
@@ -82,6 +99,26 @@ export class ArrowView extends Component {
         }
         if (rt.hasFailed) return COLOR_STOP;
         return COLOR_IDLE;
+    }
+    private _drawHeadAt(g: Graphics, at: Pixel, dr: number, dc: number, color: Color) {
+        const pdx = dc;
+        const pdy = -dr;
+        const nx = -pdy;
+        const ny = pdx;
+        const s = Config.arrowHeadSize;
+        const tipX = at.x + pdx * s;
+        const tipY = at.y + pdy * s;
+        const leftX = at.x + nx * s / 2;
+        const leftY = at.y + ny * s / 2;
+        const rightX = at.x - nx * s / 2;
+        const rightY = at.y - ny * s / 2;
+    
+        g.fillColor = color;
+        g.moveTo(tipX, tipY);
+        g.lineTo(leftX, leftY);
+        g.lineTo(rightX, rightY);
+        g.close();
+        g.fill();
     }
 
     /** 在折线头端画三角箭头。方向从 coords 末尾两格派生。*/
