@@ -1,6 +1,12 @@
 import { ArrowMoveMode, ArrowRuntime, deriveDirection } from "./ArrowState";
 import { isInsideBoard } from "./Coord";
-
+import { Cell } from "./LevelData";
+export interface CollisionResult {
+    /** 被撞的箭头 index，-1 表示没碰撞 */
+    targetIdx: number;
+    /** 碰撞点（头部抵达的格子），无碰撞时为 null */
+    point: Cell | null;
+}
 /**
  * 判断箭头 shooterIdx 沿 coords 派生方向射出后，前方是否有"还挡路"的其他箭头。
  * 返回挡路箭头的 index，没挡返回 -1。

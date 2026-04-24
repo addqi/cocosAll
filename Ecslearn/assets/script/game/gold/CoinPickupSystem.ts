@@ -3,7 +3,7 @@ import { emit } from '../../baseSystem/util';
 import { GameEvt, type GoldPickupEndEvent } from '../events/GameEvents';
 import { PlayerControl } from '../player/PlayerControl';
 import { EPropertyId } from '../config/enum/propertyEnum';
-import { CoinPool } from './CoinPool';
+import { CoinFactory } from './CoinFactory';
 import { GoldSystem } from './GoldSystem';
 
 const ATTRACT_ACCEL = 2400;
@@ -28,9 +28,9 @@ export class CoinPickupSystem implements ISystem {
 
         const player = PlayerControl.instance;
         if (!player || player.isDead) return;
-        if (!CoinPool.isReady()) return;
+        if (!CoinFactory.isReady()) return;
 
-        const coins = CoinPool.active;
+        const coins = CoinFactory.active;
         if (coins.length === 0) return;
 
         const playerNode = player.node;
@@ -42,7 +42,7 @@ export class CoinPickupSystem implements ISystem {
         for (let i = coins.length - 1; i >= 0; i--) {
             const coin = coins[i];
             if (!coin.node || !coin.node.isValid) {
-                CoinPool.release(coin);
+                CoinFactory.release(coin);
                 continue;
             }
 
@@ -67,7 +67,7 @@ export class CoinPickupSystem implements ISystem {
                         worldPos: endPos,
                     };
                     emit(GameEvt.GoldPickupEnd, endPayload);
-                    CoinPool.release(coin);
+                    CoinFactory.release(coin);
                 }
                 continue;
             }

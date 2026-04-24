@@ -40,12 +40,24 @@ export class EnemyAnimation extends Component {
 
     private _initAnims() {
         const { frameSize, anims } = this._config;
+        let registered = 0;
         for (const key of Object.keys(anims)) {
             const entry = anims[key];
             const frames = entry.frameDir
                 ? SpriteSheetUtil.getFrameDir(entry.frameDir)
                 : SpriteSheetUtil.getFrames(entry.path!, frameSize, frameSize);
+            if (frames.length === 0) {
+                console.error(
+                    `[EnemyAnimation] 动画 "${key}" 加载帧失败 — 源: ${entry.frameDir ?? entry.path}. 跳过注册。`,
+                );
+                continue;
+            }
             this._animator.addAnim(key, frames, entry.fps, entry.loop);
+            registered++;
+        }
+        if (registered === 0) {
+            console.error('[EnemyAnimation] 没有任何动画注册成功，敌人将看不见。请检查 resources 目录与 enemyConfig.anims 是否匹配。');
+            return;
         }
         this._ready = true;
         this._animator.play(EEnemyAnim.Idle);

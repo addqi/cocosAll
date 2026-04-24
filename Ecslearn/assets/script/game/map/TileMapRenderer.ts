@@ -31,8 +31,8 @@ export class TileMapRenderer extends Component {
     get worldWidth(): number  { return this.mapCols * TILE_SIZE; }
     get worldHeight(): number { return (this.mapRows + CLIFF_DEPTH) * TILE_SIZE; }
 
-    async start() {
-        await this._loadTileFrames();
+    start() {
+        this._buildTileFrames();
 
         this._grid = MapGenerator.generateArena(this.mapCols, this.mapRows);
 
@@ -70,26 +70,27 @@ export class TileMapRenderer extends Component {
 
     /* ── tile loading ── */
 
-    private async _loadTileFrames(): Promise<void> {
-        const tasks: Promise<void>[] = [];
-
+    /**
+     * 从已预加载的 Texture 缓存同步建 SpriteFrame。
+     * 纹理由 ResourcePreloader 统一加载（collectTerrainTiles），本处只做转换。
+     */
+    private _buildTileFrames(): void {
+        let missing = 0;
         for (let r = 0; r < TILESET_ROWS; r++) {
             for (let c = 0; c < TILESET_COLS; c++) {
                 const name = tileName(r, c);
-                const path = `${TILE_DIR}/${name}/texture`;
-                tasks.push(
-                    ResourceMgr.inst.load<Texture2D>(path)
-                        .then(tex => {
-                            const sf = new SpriteFrame();
-                            sf.texture = tex;
-                            this._frames.set(name, sf);
-                        })
-                        .catch(() => {})
-                );
+                const tex = ResourceMgr.inst.get<Texture2D>(`${TILE_DIR}/${name}/texture`);
+                if (!tex) { missing++; continue; }
+                const sf = new SpriteFrame();
+                sf.texture = tex;
+                this._frames.set(name, sf);
             }
         }
-
-        await Promise.all(tasks);
+        if (missing > 0) {
+            console.error(
+                `[TileMapRenderer] ${missing} 张瓦片纹理未预加载。请确认 ResourcePreloader.collectTerrainTiles 登记了 ${TILE_DIR}/`,
+            );
+        }
     }
 
     /* ── rendering ── */

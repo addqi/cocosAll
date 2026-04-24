@@ -10,7 +10,7 @@ import { StateMachine } from '../../baseSystem/fsm';
 import { RawInputComp, ActionComp, EAction, VelocityComp, NodeRefComp } from '../component';
 import { EPropertyId } from '../config/enum/propertyEnum';
 import { World } from '../core/World';
-import { GameLoop } from '../core/GameLoop';
+import { ResourceState } from '../core/ResourceState';
 import { getMainCamera } from '../core/CameraRef';
 import { CameraController } from '../core/CameraController';
 import { GameSession } from '../core/GameSession';
@@ -129,10 +129,16 @@ export class PlayerControl extends Component {
     }
 
     start() {
+        // 资源预加载完成（GameLoop 在 preload 完后调 markReady）才真正建 runtime。
+        // 此前整套依赖 World 的初始化都推迟——这样 Player 节点和 GameLoop 节点的
+        // onLoad 执行顺序就不再重要，单脚本启动的场景也能工作。
+        ResourceState.onReady(() => this._initAfterReady());
+    }
+
+    private _initAfterReady(): void {
         if (!World.inst) {
             console.error(
-                '[PlayerControl] World 尚未初始化，请确保场景中有一个节点挂了 GameLoop，' +
-                '且该节点在 Player 节点之前（父节点或靠前的兄弟节点）。',
+                '[PlayerControl] ResourceState.ready 后 World 仍为空 —— 请检查场景中是否挂了 GameLoop（或等效的启动器）。',
             );
             return;
         }
@@ -162,12 +168,10 @@ export class PlayerControl extends Component {
 
         CameraController.inst.setFollowTarget(this.node);
 
-        GameLoop.onReady(() => {
-            this._createRangeCircle();
-            ResourceMgr.inst.preload(['shader/flash-white'], EffectAsset);
-            this._installAttackRuntime();
-            this._equipDefaultSkills();
-        });
+        this._createRangeCircle();
+        ResourceMgr.inst.preload(['shader/flash-white'], EffectAsset);
+        this._installAttackRuntime();
+        this._equipDefaultSkills();
     }
 
     private _installAttackRuntime(): void {

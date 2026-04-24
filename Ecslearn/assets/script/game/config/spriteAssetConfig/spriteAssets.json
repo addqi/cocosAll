@@ -1,0 +1,10 @@
+{
+    "coin": {
+        "name": "金币",
+        "texturePath": "coin/texture",
+        "displayWidth": 32,
+        "displayHeight": 32,
+        "maxActive": 200,
+        "onOverflow": "compact"
+    }
+}

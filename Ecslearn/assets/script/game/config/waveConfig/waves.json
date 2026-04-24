@@ -1,0 +1,124 @@
+[
+  {
+    "index": 1,
+    "duration": 30,
+    "spawners": [
+      {
+        "enemyId": "warrior",
+        "count": 1,
+        "timing": "burst",
+        "pattern": "ring",
+        "ringRadius": 350
+      },
+      {
+        "enemyId": "bomber",
+        "count": 1,
+        "timing": "burst",
+        "pattern": "ring",
+        "ringRadius": 350
+      },
+      {
+        "enemyId": "ranger",
+        "count": 3,
+        "timing": "burst",
+        "pattern": "ring",
+        "ringRadius": 350
+      }
+    ],
+    "enemyBuffs": []
+  },
+  {
+    "index": 2,
+    "duration": 40,
+    "spawners": [
+      {
+        "enemyId": "warrior",
+        "count": 6,
+        "timing": "over-time",
+        "pattern": "ring",
+        "ringRadius": 400
+      },
+      {
+        "enemyId": "ranger",
+        "count": 2,
+        "timing": "burst",
+        "pattern": "random"
+      }
+    ],
+    "enemyBuffs": []
+  },
+  {
+    "index": 3,
+    "duration": 50,
+    "spawners": [
+      {
+        "enemyId": "warrior",
+        "count": 8,
+        "timing": "over-time",
+        "pattern": "ring",
+        "ringRadius": 400
+      },
+      {
+        "enemyId": "bomber",
+        "count": 3,
+        "timing": "burst",
+        "pattern": "ring",
+        "ringRadius": 500
+      }
+    ],
+    "enemyBuffs": []
+  },
+  {
+    "index": 4,
+    "duration": 55,
+    "spawners": [
+      {
+        "enemyId": "ranger",
+        "count": 5,
+        "timing": "burst",
+        "pattern": "random"
+      },
+      {
+        "enemyId": "bomber",
+        "count": 4,
+        "timing": "over-time",
+        "pattern": "ring",
+        "ringRadius": 450
+      },
+      {
+        "enemyId": "warrior",
+        "count": 6,
+        "timing": "over-time",
+        "pattern": "random"
+      }
+    ],
+    "enemyBuffs": []
+  },
+  {
+    "index": 5,
+    "duration": 60,
+    "spawners": [
+      {
+        "enemyId": "warrior",
+        "count": 12,
+        "timing": "over-time",
+        "pattern": "ring",
+        "ringRadius": 400
+      },
+      {
+        "enemyId": "ranger",
+        "count": 4,
+        "timing": "burst",
+        "pattern": "random"
+      },
+      {
+        "enemyId": "bomber",
+        "count": 4,
+        "timing": "burst",
+        "pattern": "ring",
+        "ringRadius": 520
+      }
+    ],
+    "enemyBuffs": []
+  }
+]

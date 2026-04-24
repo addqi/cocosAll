@@ -13,7 +13,7 @@ import {
 } from '../events/GameEvents';
 import { GoldSystem } from '../gold/GoldSystem';
 import { GoldSource } from '../gold/GoldTypes';
-import { CoinPool } from '../gold/CoinPool';
+import { CoinFactory } from '../gold/CoinFactory';
 import { PlayerControl } from '../player/PlayerControl';
 
 const { ccclass, property } = _decorator;
@@ -29,8 +29,8 @@ const { ccclass, property } = _decorator;
  *
  * 热键：
  *   G  — 手动 +10 金（不触发 Kill，走直接入账）
- *   K  — 在玩家脚下模拟一次 EnemyDeath（触发完整链路：CoinPool 弹金币 → 走近被吸）
- *   C  — 清空场上所有金币（CoinPool.clearAll）
+ *   K  — 在玩家脚下模拟一次 EnemyDeath（触发完整链路：CoinFactory 弹金币 → 走近被吸）
+ *   C  — 清空场上所有金币（CoinFactory.clearAll）
  *   X  — 扩大 PickupRange 到 300（方便不动就吸）
  *   Z  — 恢复 PickupRange 为 80
  *
@@ -86,7 +86,7 @@ export class GoldDebugLogger extends Component {
         const pc = PlayerControl.instance;
         const range = pc ? pc.playerProp.getValue(EPropertyId.PickupRange) : '-';
         console.log(
-            `[GoldDebug] gold=${sys.gold}  combo=${sys.combo}  onField=${CoinPool.active.length}  pickupRange=${range}`,
+            `[GoldDebug] gold=${sys.gold}  combo=${sys.combo}  onField=${CoinFactory.active.length}  pickupRange=${range}`,
         );
     }
 
@@ -108,7 +108,10 @@ export class GoldDebugLogger extends Component {
         console.log(`%c[GoldDebug][PickupEnd] amount=${e.amount}`, 'color:#80CBC4');
     };
     private _onGoldGained = (e: GoldGainedEvent) => {
-        console.log(`%c[GoldDebug][GoldGained] +${e.final}  source=${e.source}`, 'color:#A5D6A7;font-weight:bold');
+        console.log(
+            `%c[Gold] +${e.final}  total=${GoldSystem.inst.gold}  source=${e.source}`,
+            'color:#A5D6A7;font-weight:bold',
+        );
     };
     private _onGoldSpent = (e: GoldSpentEvent) => {
         console.log(`%c[GoldDebug][GoldSpent] -${e.amount}  reason=${e.reason}`, 'color:#F48FB1');
@@ -120,7 +123,7 @@ export class GoldDebugLogger extends Component {
         switch (e.keyCode) {
             case KeyCode.KEY_G: this._cheatAdd10();        break;
             case KeyCode.KEY_K: this._fakeEnemyDeath();    break;
-            case KeyCode.KEY_C: CoinPool.clearAll();       break;
+            case KeyCode.KEY_C: CoinFactory.clearAll();    break;
             case KeyCode.KEY_X: this._setPickupRange(300); break;
             case KeyCode.KEY_Z: this._setPickupRange(80);  break;
             default: break;

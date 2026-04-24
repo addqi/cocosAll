@@ -22,6 +22,8 @@ export interface ArrowRuntime {
     coords: Cell[];
     /** Start 状态下的推进累计量（单位：格）。每累加满 1 格就真的移动一次 */
     progress: number;
+    /** Collide 状态下，头部要抵达的目标格子；其他状态下为 null */
+    collideAim: Cell | null;
 }
 
 /** 从配置创建初始 runtime */
@@ -35,6 +37,8 @@ export function createRuntime(data: ArrowData): ArrowRuntime {
         coords: data.coords.map(c => [c[0], c[1]] as Cell),  // 深拷贝一次
         /** Start 状态下的推进累计量（单位：格）。每累加满 1 格就真的移动一次 */
         progress: 0,
+        /** Collide 状态下，头部要抵达的目标格子；其他状态下为 null */
+        collideAim: null,
     };
 }
 
@@ -95,7 +99,7 @@ export function deriveDirection(coords: Cell[]): Direction {
 }
 
 /** Start 模式下每帧推进。方向由 coords 自动派生。 */
-export function tickStart(rt: ArrowRuntime, dt: number, speed: number,  rows: number, cols: number): void {
+export function tickStart(rt: ArrowRuntime, dt: number, speed: number, rows: number, cols: number): void {
     if (rt.mode !== ArrowMoveMode.Start) return;
     rt.progress += speed * dt;
     while (rt.progress >= 1) {

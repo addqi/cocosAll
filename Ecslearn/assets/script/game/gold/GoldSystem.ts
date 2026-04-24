@@ -7,7 +7,7 @@ import {
     type GoldGainedEvent,
     type GoldSpentEvent,
 } from '../events/GameEvents';
-import { CoinPool } from './CoinPool';
+import { CoinFactory } from './CoinFactory';
 import { GoldSource, type GoldGainContext } from './GoldTypes';
 import type { GoldModifier } from './GoldModifier';
 import { ComboKillModifier } from './modifiers/ComboKillModifier';
@@ -85,7 +85,7 @@ export class GoldSystem {
 
         if (ctx.source === GoldSource.Kill && ctx.worldPos) {
             const pos = this._cloneVec(ctx.worldPos);
-            CoinPool.spawn(pos, final);
+            CoinFactory.spawn(pos, final);
             const drop: GoldDropEvent = { worldPos: pos, amount: final };
             emit(GameEvt.GoldDrop, drop);
         } else {

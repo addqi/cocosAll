@@ -14,6 +14,9 @@ export const GameEvt = {
     GoldPickupEnd:   'gold:pickup_end',
     GoldGained:      'gold:gained',
     GoldSpent:       'gold:spent',
+
+    // ─── 关卡 / 波次 ────────────────────
+    WaveClear:       'wave:clear',
 } as const;
 
 /** 敌人死亡事件 — 唯一广播源：`MinionDeadState.enter` */
@@ -61,4 +64,15 @@ export interface GoldGainedEvent {
 export interface GoldSpentEvent {
     amount: number;
     reason: string;
+}
+
+/** 波次清场触发原因 */
+export type WaveClearReason = 'killall' | 'timeout';
+
+/** 本波"进入 Clearing"时广播（killall 全灭 / timeout 超时）*/
+export interface WaveClearEvent {
+    /** 本波序号（LevelRun.waveIndex，从 0 开始）*/
+    waveIndex: number;
+    /** 触发原因 */
+    reason: WaveClearReason;
 }

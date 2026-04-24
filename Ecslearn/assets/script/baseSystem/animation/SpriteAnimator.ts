@@ -82,7 +82,16 @@ export class SpriteAnimator {
      */
     play(key: string, onComplete?: () => void) {
         const clip = this._clips.get(key);
-        if (!clip || clip.frames.length === 0) { onComplete?.(); return; }
+        if (!clip) {
+            console.error(`[SpriteAnimator] play("${key}") — 动画未注册。可用: [${[...this._clips.keys()].join(',')}]`);
+            onComplete?.();
+            return;
+        }
+        if (clip.frames.length === 0) {
+            console.error(`[SpriteAnimator] play("${key}") — 动画帧为空，通常是资源加载失败或 addAnim 传入了空数组。`);
+            onComplete?.();
+            return;
+        }
 
         if (this._current === key && this._playing && !this._paused && clip.loop) return;
 

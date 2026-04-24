@@ -8,9 +8,11 @@ import {
     PlayerControlSystem,
     MoveSyncSystem,
 } from '../system';
-import { CoinPool } from '../gold/CoinPool';
 import { GoldSystem } from '../gold/GoldSystem';
 import { CoinPickupSystem } from '../gold/CoinPickupSystem';
+import { SpriteNodeFactory } from '../fx/SpriteNodeFactory';
+import { on } from '../../baseSystem/util';
+import { GameEvt, type GoldGainedEvent } from '../events/GameEvents';
 import '../skill/effects';
 
 export interface GameSystems {
@@ -21,7 +23,10 @@ export interface GameSystems {
     coinPickup: CoinPickupSystem;
 }
 
-export function bootstrap(rootNode: Node, arrowPrefab: Prefab): { world: World; systems: GameSystems } {
+export function bootstrap(
+    rootNode: Node,
+    arrowPrefab: Prefab,
+): { world: World; systems: GameSystems } {
     PhysicsSystem2D.instance.enable = true;
 
     const world = new World();
@@ -34,9 +39,14 @@ export function bootstrap(rootNode: Node, arrowPrefab: Prefab): { world: World; 
     };
     ProjectilePool.init(rootNode, arrowPrefab);
 
-    // 占位期：金币物件复用 arrowPrefab 视觉
-    CoinPool.init(rootNode, arrowPrefab);
+    // 通用图片节点工厂 —— 为 spriteAssets.json 里所有条目建池
+    // 业务工厂（CoinFactory 等）acquire 时按 id 从这里拿节点
+    SpriteNodeFactory.init(rootNode);
     GoldSystem.inst.init();
+
+    on(GameEvt.GoldGained, (e: GoldGainedEvent) => {
+        console.log(`[Gold] +${e.final}  total=${GoldSystem.inst.gold}  source=${e.source}`);
+    });
 
     return { world, systems };
 }
