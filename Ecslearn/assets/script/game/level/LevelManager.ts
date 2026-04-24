@@ -2,43 +2,50 @@ import { _decorator, Component, Node } from 'cc';
 import { on, off, emit } from '../../baseSystem/util';
 import {
     GameEvt,
-    type EnemyDeathEvent,
     type WaveClearEvent,
     type WaveClearReason,
+    type UpgradeOfferShowEvent,
+    type UpgradeChosenEvent,
 } from '../events/GameEvents';
 import { EnemyBase } from '../enemy/base/EnemyBase';
 import { CoinFactory } from '../gold/CoinFactory';
 import { loadAllWaves } from '../config/waveConfig';
 import type { WaveConfig } from '../config/waveConfig';
+import { PlayerControl } from '../player/PlayerControl';
+import { GameSession } from '../core/GameSession';
 import { LevelRun } from './LevelRun';
 import { LevelPhase } from './LevelPhase';
 import { WaveDirector } from './WaveDirector';
 import { nextPhase } from './LevelPhaseTransition';
+import { UpgradeOfferSystem } from './upgrade/UpgradeOfferSystem';
+import type { VictoryPanel } from '../ui/VictoryPanel';
+import type { GameOverPanel } from '../ui/GameOverPanel';
 
 const { ccclass } = _decorator;
+
+/** 每波开始时的刷新次数初值（Step 2.2 约定）*/
+const REROLL_QUOTA_PER_WAVE = 1;
 
 /**
  * LevelManager —— 关卡状态机与胶水层
  *
  * 职责：
- *   - 持有 LevelRun / WaveDirector，按 WaveConfig 驱动一局流程
- *   - 订阅 EnemyDeath 维护 _aliveCount（但 _aliveCount 以 EnemyBase.allEnemies 为准更鲁棒）
+ *   - 持有 LevelRun / WaveDirector / UpgradeOfferSystem
  *   - 每帧调 LevelPhaseTransition.nextPhase 判定是否切阶段
- *   - phase 切换时执行副作用：emit WaveClear、静默清场、启动下一波、进 Upgrading...
+ *   - Upgrading 阶段触发 UI：rollOffer → emit UpgradeOfferShow → UI 监听自动弹
+ *   - 监听 UpgradeChosen / UpgradeReroll 处理玩家选择 / 刷新
+ *   - 监听 Player 死亡（TODO）→ GameOver
+ *   - 波次全清 → Victory
  *
- * 非职责：
- *   - 节点生成（WaveDirector 管）
- *   - 金币 / 经验计算（GoldSystem / PlayerExperience 管）
- *   - 状态判定逻辑（LevelPhaseTransition 纯函数管）
- *
- * Upgrading 阶段的退出机制（Step 2.7/2.8 接入）：
- *   现在 Upgrading 进了就"卡住"—— 后续 UpgradeOfferSystem 在玩家选完升级后
- *   调 advanceToNextWave() 回到 Spawning 并进入下一波
+ * 外部节点引用（GameManager 注入）：
+ *   gameRoot / enemiesParent / playerNode / victoryPanel / gameOverPanel
  */
 export interface ILevelBindings {
     readonly gameRoot: Node;
     readonly enemiesParent: Node;
     readonly playerNode: Node;
+    readonly victoryPanel: VictoryPanel | null;
+    readonly gameOverPanel: GameOverPanel | null;
 }
 
 @ccclass('LevelManager')
@@ -47,9 +54,9 @@ export class LevelManager extends Component {
     private _bindings: ILevelBindings | null = null;
     private _run: LevelRun | null = null;
     private _director: WaveDirector | null = null;
+    private _offer: UpgradeOfferSystem | null = null;
     private _waves: readonly WaveConfig[] = [];
 
-    /** 由 GameManager 注入一次依赖 */
     bind(bindings: ILevelBindings): void {
         this._bindings = bindings;
     }
@@ -62,16 +69,28 @@ export class LevelManager extends Component {
 
         this._waves = loadAllWaves();
         this._director = new WaveDirector(this._bindings.enemiesParent);
-        this._run = LevelRun.startNew();
+        this._run = LevelRun.startNew(REROLL_QUOTA_PER_WAVE);
 
-        on(GameEvt.EnemyDeath, this._onEnemyDeath);
+        const upgradeMgr = PlayerControl.instance?.upgradeMgr;
+        if (!upgradeMgr) {
+            console.error('[LevelManager] PlayerControl.upgradeMgr 未就绪，升级系统不可用');
+            return;
+        }
+        this._offer = new UpgradeOfferSystem(upgradeMgr);
 
-        // 开第 1 波
+        on(GameEvt.UpgradeChosen, this._onUpgradeChosen);
+        on(GameEvt.UpgradeReroll, this._onUpgradeReroll);
+
+        // 玩家死亡走 GameSession 的 GameOver 回调（PlayerControl 内部 _onDeath 已调 GameSession.onPlayerDeath）
+        GameSession.inst.onGameOver = (_survived) => this._enterGameOver();
+
         this._enterWave(0);
     }
 
     onDestroy(): void {
-        off(GameEvt.EnemyDeath, this._onEnemyDeath);
+        off(GameEvt.UpgradeChosen, this._onUpgradeChosen);
+        off(GameEvt.UpgradeReroll, this._onUpgradeReroll);
+        GameSession.inst.onGameOver = null;
     }
 
     update(dt: number): void {
@@ -83,14 +102,12 @@ export class LevelManager extends Component {
         this._tickPhaseTransition();
     }
 
-    /** Step 2.7/2.8 之后由 UpgradeOfferSystem 调 —— 玩家选完升级进下一波 */
+    /** 升级完成后调（或最后一波直接 Victory 场景）*/
     advanceToNextWave(): void {
         if (!this._run) return;
         const next = this._run.waveIndex + 1;
         if (next >= this._waves.length) {
-            // MVP 阶段暂不实现 Victory UI，先打 log 证明走到了
-            this._run.setPhase(LevelPhase.Victory);
-            console.log('[LevelManager] 🏆 所有波次清完，Victory');
+            this._enterVictory();
             return;
         }
         this._enterWave(next);
@@ -104,10 +121,7 @@ export class LevelManager extends Component {
         const cfg = this._waves[run.waveIndex];
         if (!cfg) return;
 
-        // 场上存活敌人数：直接读 EnemyBase.allEnemies 比维护 _aliveCount 更鲁棒
-        // （静默清场 destroy 时 EnemyBase.onDestroy 会自动从 _all 移除）
         const aliveCount = EnemyBase.allEnemies.length;
-
         const { next, action } = nextPhase(run.phase, {
             waveElapsed:   run.waveElapsed,
             waveDuration:  cfg.duration,
@@ -116,18 +130,10 @@ export class LevelManager extends Component {
             coinOnField:   CoinFactory.active.length,
         });
 
-        if (action.emitWaveClear) {
-            this._emitWaveClear(run.waveIndex, action.emitWaveClear);
-        }
-        if (action.despawnStragglers) {
-            this._despawnStragglers();
-        }
-        if (next !== null) {
-            run.setPhase(next);
-        }
-        if (action.enterUpgrading) {
-            this._enterUpgrading();
-        }
+        if (action.emitWaveClear) this._emitWaveClear(run.waveIndex, action.emitWaveClear);
+        if (action.despawnStragglers) this._despawnStragglers();
+        if (next !== null) run.setPhase(next);
+        if (action.enterUpgrading) this._enterUpgrading();
     }
 
     private _enterWave(index: number): void {
@@ -139,7 +145,7 @@ export class LevelManager extends Component {
         }
 
         run.setWaveIndex(index);
-        run.resetRerollQuota(1);       // TODO: Step 2.7 从配置读
+        run.resetRerollQuota(REROLL_QUOTA_PER_WAVE);
         run.setPhase(LevelPhase.Spawning);
 
         const playerPos = this._bindings!.playerNode.worldPosition;
@@ -148,22 +154,56 @@ export class LevelManager extends Component {
         console.log(`[LevelManager] ▶ wave ${index + 1}/${this._waves.length} start (duration=${cfg.duration}s)`);
     }
 
+    /** 波次清完 → 抽卡 → 弹 UI 等玩家选 */
     private _enterUpgrading(): void {
-        console.log('[LevelManager] ⏸ wave clear → Upgrading (Step 2.7/2.8 UI 待接入；目前自动进下一波)');
-        // TODO: Step 2.7/2.8 改为弹升级 UI，玩家选完调 advanceToNextWave
-        // 当前 MVP：直接进下一波，便于手动测试循环
-        this.scheduleOnce(() => this.advanceToNextWave(), 1.0);
+        console.log(`[LevelManager] _enterUpgrading 触发，_offer=${this._offer ? 'OK' : 'NULL'}, _run=${this._run ? 'OK' : 'NULL'}`);
+        if (!this._offer || !this._run) {
+            console.warn('[LevelManager] _offer 或 _run 缺失，0.5s 后强制进下一波');
+            this.scheduleOnce(() => this.advanceToNextWave(), 0.5);
+            return;
+        }
+        this._showOffers();
+    }
+
+    /** 滚一次牌 + 广播（UpgradeOfferPanel 监听） */
+    private _showOffers(): void {
+        const run = this._run!;
+        const offer = this._offer!;
+        try {
+            const cards = offer.rollOffer(3);
+            console.log(`[LevelManager] 💳 升级候选 ${cards.length} 张: ${cards.map(c => c.id).join(', ')} (reroll=${run.upgradeRerollQuota})`);
+
+            const payload: UpgradeOfferShowEvent = {
+                offers: cards,
+                rerollQuota: run.upgradeRerollQuota,
+            };
+            emit(GameEvt.UpgradeOfferShow, payload);
+        } catch (err) {
+            console.error('[LevelManager] _showOffers 抛异常：', err);
+            this.scheduleOnce(() => this.advanceToNextWave(), 0.5);
+        }
+    }
+
+    private _enterVictory(): void {
+        this._run?.setPhase(LevelPhase.Victory);
+        console.log('[LevelManager] 🏆 Victory - 全部 5 波清完');
+        this._bindings?.victoryPanel?.show();
+    }
+
+    private _enterGameOver(): void {
+        this._run?.setPhase(LevelPhase.GameOver);
+        console.log('[LevelManager] 💀 GameOver - 玩家死亡');
+        this._bindings?.gameOverPanel?.show();
     }
 
     private _emitWaveClear(waveIndex: number, reason: WaveClearReason): void {
         const payload: WaveClearEvent = { waveIndex, reason };
         emit(GameEvt.WaveClear, payload);
-        console.log(`[LevelManager] wave ${waveIndex + 1} clear (${reason})`);
+        console.log(`[LevelManager] ⚔ wave ${waveIndex + 1} clear (${reason})`);
     }
 
-    /** 超时路径：直接销毁残怪，不 emit EnemyDeath，不掉金不给经验 */
+    /** 超时路径：直接销毁残怪，不 emit EnemyDeath */
     private _despawnStragglers(): void {
-        // 用切片避免 onDestroy 里改 allEnemies 数组时的迭代破坏
         const all = EnemyBase.allEnemies.slice();
         for (const e of all) {
             if (e.node?.isValid) e.node.destroy();
@@ -172,9 +212,24 @@ export class LevelManager extends Component {
 
     // ─── 事件监听 ────────────────────────────────────────
 
-    private _onEnemyDeath = (_e: EnemyDeathEvent): void => {
-        // aliveCount 改为直接读 EnemyBase.allEnemies，此处暂无需维护
-        // 保留订阅 —— 未来如果需要"本波击杀数"统计会用
+    private _onUpgradeChosen = (e: UpgradeChosenEvent): void => {
+        if (!this._offer || !this._run) return;
+        if (this._run.phase !== LevelPhase.Upgrading) {
+            console.warn(`[LevelManager] 收到 UpgradeChosen 但 phase=${LevelPhase[this._run.phase]}，忽略`);
+            return;
+        }
+        const ok = this._offer.applyChoice(e.id);
+        if (!ok) return;
+        console.log(`[LevelManager] ✅ 选中升级 "${e.id}" → 进下一波`);
+        this.advanceToNextWave();
+    };
+
+    private _onUpgradeReroll = (): void => {
+        if (!this._offer || !this._run) return;
+        if (this._run.phase !== LevelPhase.Upgrading) return;
+        if (!this._run.consumeReroll()) return;
+        console.log(`[LevelManager] 🔄 刷新升级候选 (剩余 ${this._run.upgradeRerollQuota})`);
+        this._showOffers();
     };
 
     get bindings(): Readonly<ILevelBindings> {

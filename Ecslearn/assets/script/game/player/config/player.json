@@ -12,7 +12,7 @@
     "BounceCount":      { "base": 0,    "min": 0,   "max": 20 },
     "SpreadAngle":      { "base": 15,   "min": 0,   "max": 360 },
     "HomingStrength":   { "base": 0,    "min": 0,   "max": 10 },
-    "ArrowSpeed":       { "base": 300,  "min": 50,  "max": 2000 },
+    "ArrowSpeed":       { "base": 200,  "min": 50,  "max": 2000 },
     "AttackRange":      { "base": 400,  "min": 50,  "max": 2000 },
     "PickupRange":      { "base": 80,   "min": 0,   "max": 2000 }
 }

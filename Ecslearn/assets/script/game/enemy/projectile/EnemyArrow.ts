@@ -1,5 +1,5 @@
 import {
-    _decorator, Component, Vec2, view,
+    _decorator, Component, Vec2, Vec3, view,
     RigidBody2D, CircleCollider2D, BoxCollider2D,
     Contact2DType, Collider2D,
 } from 'cc';
@@ -12,6 +12,7 @@ const { ccclass } = _decorator;
 
 const RAD2DEG = 180 / Math.PI;
 const _v2 = new Vec2();
+const _tmpPos = new Vec3();
 
 @ccclass('EnemyArrow')
 export class EnemyArrow extends Component {
@@ -20,6 +21,10 @@ export class EnemyArrow extends Component {
     private _damage = 0;
     private _inited = false;
     private _done = false;
+
+    // 速度分量（像素/秒），由 init 写入，update 每帧积分
+    private _vx = 0;
+    private _vy = 0;
 
     onLoad() {
         this._setupPhysics();
@@ -33,18 +38,25 @@ export class EnemyArrow extends Component {
         this.node.setWorldPosition(worldX, worldY, 0);
         this.node.setRotationFromEuler(0, 0, angle * RAD2DEG);
         const dirX = Math.cos(angle);
+        const dirY = Math.sin(angle);
         this.node.setScale(1, dirX < 0 ? -1 : 1, 1);
 
         this._rb.group = PHY_GROUP.EBullet;
         this._col.group = PHY_GROUP.EBullet;
 
-        _v2.set(dirX * speed, Math.sin(angle) * speed);
+        // 与 ArrowProjectile（玩家箭）一致：代码每帧驱动位置，不用物理 linearVelocity
+        // 保留 _rb 只为碰撞检测（BEGIN_CONTACT）
+        this._vx = dirX * speed;
+        this._vy = dirY * speed;
+        _v2.set(0, 0);
         this._rb.linearVelocity = _v2;
     }
 
     onDisable() {
         this._inited = false;
         this._done = true;
+        this._vx = 0;
+        this._vy = 0;
         if (this._rb) {
             _v2.set(0, 0);
             this._rb.linearVelocity = _v2;
@@ -76,9 +88,15 @@ export class EnemyArrow extends Component {
         this._done = true;
     }
 
-    update(_dt: number) {
+    update(dt: number) {
         if (!this._inited) return;
         if (this._done) { this._release(); return; }
+
+        // 每帧代码驱动位置（和玩家箭 ArrowProjectile 同一模型）
+        const pos = this.node.worldPosition;
+        _tmpPos.set(pos.x + this._vx * dt, pos.y + this._vy * dt, pos.z);
+        this.node.setWorldPosition(_tmpPos);
+
         if (this._isOutOfScreen()) { this._done = true; this._release(); }
     }
 

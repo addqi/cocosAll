@@ -55,6 +55,13 @@ export class CoinEntity extends Component {
     /**
      * 吸附步进。返回 true 表示已抵达玩家。
      * accel/maxSpeed 由 CoinPickupSystem 传入。
+     *
+     * 速度模型：
+     *   1. 老速度按 VELOCITY_DAMPING 衰减 —— 消除惯性导致的"绕玩家飞"轨道现象
+     *   2. 朝当前目标方向加速
+     *   3. 限 maxSpeed
+     * damping 每秒 8：一帧 dt=0.016 保留 ~87%，50ms 内老方向衰减 ~33%
+     * 玩家移动时金币能快速重新瞄准，不会错过入账。
      */
     tickAttracting(dt: number, accel: number, maxSpeed: number, arriveRadius: number): boolean {
         if (!this._target || !this._target.isValid) return true;
@@ -70,6 +77,12 @@ export class CoinEntity extends Component {
         const inv = 1 / dist;
         _dir.set(dx * inv, dy * inv);
 
+        // 衰减旧速度（消除绕圈惯性）
+        const damping = Math.max(0, 1 - 8 * dt);
+        this._vel.x *= damping;
+        this._vel.y *= damping;
+
+        // 朝目标方向加速
         this._vel.x += _dir.x * accel * dt;
         this._vel.y += _dir.y * accel * dt;
 

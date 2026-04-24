@@ -184,8 +184,13 @@ export class ArrowProjectile extends Component {
 
     private _onCurveEnd() {
         if (this._done) return;
-        if (this._hasTarget && this._target && this._hitEnemies.size === 0
-            && this._target.node.isValid && !this._target.combat.isDead) {
+        // target.node 在敌人 destroy 后会被 Cocos 置 null，因此要先判 node 存在
+        if (this._hasTarget
+            && this._target
+            && this._target.node
+            && this._target.node.isValid
+            && this._hitEnemies.size === 0
+            && !this._target.combat.isDead) {
             this._hitEnemies.add(this._target);
             this._onHit?.(this._target, this._damageRatio);
         }

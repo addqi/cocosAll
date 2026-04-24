@@ -7,6 +7,8 @@ import type { PropertyBaseConfig } from '../../entity/EntityPropertyMgr';
 import { EnemyBehaviorFactory } from '../../../baseSystem/enemy';
 import { StateMachine } from '../../../baseSystem/fsm';
 import { PlayerControl } from '../../player/PlayerControl';
+import { LevelRun } from '../../level/LevelRun';
+import { isCombatActive } from '../../level/LevelPhaseTransition';
 import type { MinionBehavior } from './MinionBehavior';
 import type { IMinionCtx } from './MinionContext';
 import {
@@ -42,6 +44,13 @@ export class MinionControl extends EnemyBase {
     }
 
     update(dt: number) {
+        // 暂停门禁：非战斗阶段（Upgrading / Victory / GameOver ...）敌人 FSM 不跑
+        // 死亡状态是例外：已进 Dead 的敌人仍要播溶解动画直到 destroy，不能冻
+        const run = LevelRun.current;
+        if (run && !isCombatActive(run.phase) && this._state !== EMobState.Dead) {
+            return;
+        }
+
         this._flashWhite?.tick(dt);
 
         const player = PlayerControl.instance;

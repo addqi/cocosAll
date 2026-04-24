@@ -1,4 +1,5 @@
 import type { Vec3 } from 'cc';
+import type { UpgradeConfig } from '../upgrade/types';
 
 /**
  * 全局事件名集中定义。所有 EventBus.emit / on 一律引用本常量，消灭魔法字符串。
@@ -17,6 +18,11 @@ export const GameEvt = {
 
     // ─── 关卡 / 波次 ────────────────────
     WaveClear:       'wave:clear',
+
+    // ─── 升级抽卡 / UI ──────────────────
+    UpgradeOfferShow: 'upgrade:offer_show',
+    UpgradeChosen:    'upgrade:chosen',
+    UpgradeReroll:    'upgrade:reroll',
 } as const;
 
 /** 敌人死亡事件 — 唯一广播源：`MinionDeadState.enter` */
@@ -75,4 +81,24 @@ export interface WaveClearEvent {
     waveIndex: number;
     /** 触发原因 */
     reason: WaveClearReason;
+}
+
+/** 升级抽卡出牌 —— LevelManager 喂给 UI，UI 按此渲染卡片 */
+export interface UpgradeOfferShowEvent {
+    /** 本次抽中的候选牌（count 0~3），UI 按数量渲染对应卡片 */
+    offers: readonly UpgradeConfig[];
+    /** 剩余刷新次数（UI 按此控制刷新按钮灰/亮）*/
+    rerollQuota: number;
+}
+
+/** 玩家选中一张升级卡 */
+export interface UpgradeChosenEvent {
+    /** 对应 UpgradeConfig.id */
+    id: string;
+}
+
+/** 玩家点刷新按钮（UpgradeOfferSystem 监听后重 rollOffer + 再 emit OfferShow）*/
+export interface UpgradeRerollEvent {
+    /** 刷新后的剩余次数（已 -1 后）*/
+    remainingQuota: number;
 }

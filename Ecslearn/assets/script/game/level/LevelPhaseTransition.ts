@@ -2,6 +2,22 @@ import { LevelPhase } from './LevelPhase';
 import type { WaveClearReason } from '../events/GameEvents';
 
 /**
+ * 战斗阶段判定 —— 纯函数
+ *
+ * "战斗中" = Spawning（刷怪期）或 Clearing（等敌人清完期）
+ * 这两个阶段：敌人 AI 跑、玩家输入响应、时间累计
+ * 其他阶段（Idle / Collecting / Upgrading / Victory / GameOver）：
+ *   - 金币吸附 / UI 动画继续跑（升级 UI 期间金币还在飞向玩家）
+ *   - 敌人 AI / 玩家攻击输入冻结
+ *
+ * Linus 式"单点决策"：GameLoop 和 MinionControl.update 都读这个函数，
+ * 将来改规则（比如 Collecting 也算战斗）只动这一个地方
+ */
+export function isCombatActive(phase: LevelPhase | null | undefined): boolean {
+    return phase === LevelPhase.Spawning || phase === LevelPhase.Clearing;
+}
+
+/**
  * 关卡阶段转换 —— 纯函数
  *
  * 输入：当前 phase + 本帧观察到的信号

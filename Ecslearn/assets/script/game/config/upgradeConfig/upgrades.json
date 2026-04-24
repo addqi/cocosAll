@@ -357,6 +357,7 @@
     "tier": 2,
     "rarity": "rare",
     "category": "attr",
+    "evolvesFrom": ["rapid-fire"],
     "effects": [
       {
         "type": "buff",
@@ -379,6 +380,7 @@
     "tier": 2,
     "rarity": "rare",
     "category": "attr",
+    "evolvesFrom": ["sharp-arrow"],
     "effects": [
       {
         "type": "buff",
@@ -445,6 +447,7 @@
     "tier": 3,
     "rarity": "epic",
     "category": "proj",
+    "evolvesFrom": ["barrage-shot"],
     "effects": [
       {
         "type": "buff",
@@ -467,6 +470,7 @@
     "tier": 3,
     "rarity": "epic",
     "category": "proj",
+    "evolvesFrom": ["chain-bounce"],
     "effects": [
       {
         "type": "buff",
@@ -545,6 +549,7 @@
     "tier": 3,
     "rarity": "epic",
     "category": "attr",
+    "evolvesFrom": ["rapid-fire-2"],
     "effects": [
       {
         "type": "buff",
@@ -567,6 +572,7 @@
     "tier": 3,
     "rarity": "epic",
     "category": "attr",
+    "evolvesFrom": ["sharp-arrow-2"],
     "effects": [
       {
         "type": "buff",
@@ -589,6 +595,7 @@
     "tier": 3,
     "rarity": "rare",
     "category": "attr",
+    "evolvesFrom": ["lifesteal"],
     "effects": [
       {
         "type": "buff",

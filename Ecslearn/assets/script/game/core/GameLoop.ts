@@ -5,6 +5,8 @@ import { preloadAllResources, PREFAB_PATHS } from './ResourcePreloader';
 import { ResourceState } from './ResourceState';
 import { ResourceMgr } from '../../baseSystem/resource';
 import { GoldSystem } from '../gold/GoldSystem';
+import { LevelRun } from '../level/LevelRun';
+import { isCombatActive } from '../level/LevelPhaseTransition';
 
 const { ccclass } = _decorator;
 
@@ -70,11 +72,26 @@ export class GameLoop extends Component {
     update(dt: number) {
         if (!this._ready) return;
         const entities = this._world.all();
+
+        // 暂停门禁：LevelRun.phase 决定"战斗系统"是否跑
+        //   - 非战斗期（Upgrading / Collecting / Victory / GameOver / Idle）：
+        //     只跑输入采样 + 金币吸附 + UI（都在 ResourceState.onReady 之后跑）
+        //   - 战斗期（Spawning / Clearing）：全部跑
+        // LevelRun.current 为 null 时（LevelManager 还没起），默认全部跑（启动兼容）
+        const run = LevelRun.current;
+        const combat = !run || isCombatActive(run.phase);
+
+        // 永远跑 —— 输入采样（UI 点击 / 鼠标位置追踪需要）
         this._systems.rawInput.update(entities);
-        this._systems.actionMap.update(entities);
-        this._systems.playerControl.update(entities);
-        this._systems.moveSync.update(entities, dt);
+
+        // 永远跑 —— 金币吸附不受暂停影响，Upgrading 期间还在飞向玩家
         this._systems.coinPickup.update(entities, dt);
         GoldSystem.inst.tick(dt);
+
+        if (combat) {
+            this._systems.actionMap.update(entities);   // 攻击键派发
+            this._systems.playerControl.update(entities);
+            this._systems.moveSync.update(entities, dt);
+        }
     }
 }

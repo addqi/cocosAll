@@ -1,33 +1,35 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component, Node, Canvas, UITransform, Widget, view, director } from 'cc';
 import { GameLoop } from './game/core/GameLoop';
 import { ResourceState } from './game/core/ResourceState';
 import { PlayerControl } from './game/player/PlayerControl';
 import { LevelManager } from './game/level/LevelManager';
 import { TileMapRenderer } from './game/map/TileMapRenderer';
 import { TestManager } from './game/test/TestManager';
+import { UpgradeOfferPanel } from './game/ui/UpgradeOfferPanel';
+import { VictoryPanel } from './game/ui/VictoryPanel';
+import { GameOverPanel } from './game/ui/GameOverPanel';
 
 const { ccclass, property } = _decorator;
 
 /**
  * GameManager — 场景唯一挂载脚本。
  *
- * 职责（全局启动器）：
- *   1. onLoad 一次性建好所有父节点骨架（顺序即层级：后 addChild = 上层）：
- *        Map → GameLoop → Enemies → Player → LevelManager
- *      Map 最底（地形背景），GameLoop 之上（ProjectileLayer / SpriteNodeFactoryRoot
- *      都挂在 GameLoop 节点下，必须不被 Map 遮挡），然后是战斗对象，UI 最顶。
- *   2. GameLoop 组件在 onLoad 阶段就挂，启动 preloadAllResources。
- *   3. 资源就绪后（ResourceState.onReady）再给 Map/Player/LevelManager 挂业务 Component，
- *      因为这些 Component 的 start() 依赖 ResourceMgr 缓存就绪。
+ * 节点层级（后 addChild = 上层）：
+ *   GameRoot
+ *   ├── Map                ← 1 最底（地形）
+ *   ├── GameLoop           ← 2 持有 Projectile/SpriteNodeFactory 层
+ *   ├── Enemies            ← 3
+ *   ├── Player             ← 4
+ *   ├── LevelManager       ← 5
+ *   └── UiCanvas           ← 6 最顶（关卡 UI：升级面板/Victory/GameOver）
+ *        ├── UpgradeOfferPanel (active=false)
+ *        ├── VictoryPanel      (active=false)
+ *        └── GameOverPanel     (active=false)
  *
- * 使用方式：
- *   新建空场景 → 右键创建节点 `GameRoot` → 添加 `GameManager` 组件 → 保存运行。
- *   不需要拖任何 prefab / UI 引用，全部代码生成。
- *
- * 为什么用 GameManager + LevelManager 两个层：
- *   - GameManager 关心"引擎就绪"：资源、World、Pool、单例
- *   - LevelManager 关心"一局游戏"：波次、清场、暂停、升级、胜利
- *   分层后更换关卡类型（如 Boss 战/挑战/肉鸽）只替换 LevelManager，GameManager 不动。
+ * 时序：
+ *   1. onLoad 建节点骨架 + 挂 GameLoop（异步 preload 开始）
+ *   2. 单测立即跑（纯数据，无依赖）
+ *   3. ResourceState.onReady → 挂 Map/Player/LevelManager + UI Panels
  */
 @ccclass('GameManager')
 export class GameManager extends Component {
@@ -40,31 +42,26 @@ export class GameManager extends Component {
     private _enemiesParent!: Node;
     private _playerNode!: Node;
     private _levelNode!: Node;
-    private _testNode: Node | null = null;
+    private _uiCanvasNode!: Node;
+    private _upgradePanelNode!: Node;
+    private _victoryPanelNode!: Node;
+    private _gameOverPanelNode!: Node;
 
     onLoad(): void {
-        // 一次性建好节点骨架，严格按"底层 → 上层"顺序 addChild
-        this._mapNode        = this._addChild('Map');          // 1. 最底（渲染背景）
-        this._gameLoopNode   = this._addChild('GameLoop');     // 2. 投射物/金币层挂这里
-        this._enemiesParent  = this._addChild('Enemies');      // 3. 敌人
-        this._playerNode     = this._addChild('Player');       // 4. 玩家
-        this._levelNode      = this._addChild('LevelManager'); // 5. 最顶（UI）
+        this._mapNode        = this._addChild('Map');
+        this._gameLoopNode   = this._addChild('GameLoop');
+        this._enemiesParent  = this._addChild('Enemies');
+        this._playerNode     = this._addChild('Player');
+        this._levelNode      = this._addChild('LevelManager');
+        this._uiCanvasNode   = this._buildUiCanvas();
 
-        // GameLoop 必须立刻挂 —— preloadAllResources 要尽早启动
-        // 此时 _gameLoopNode 已是 _mapNode 的后兄弟，ProjectileLayer 自然在 Map 之上
         this._gameLoopNode.addComponent(GameLoop);
 
-        // 单测可立即跑 —— 不依赖资源预加载（都是纯数据层用例）
-        if (this.runTests) this._mountTests();
+        if (this.runTests) {
+            this._addChild('TestManager').addComponent(TestManager);
+        }
 
-        // Map/Player/LevelManager 的 Component 依赖资源预加载完成才能正常 start()，
-        // 推迟到 ResourceState.onReady 回调
         ResourceState.onReady(() => this._initAfterReady());
-    }
-
-    private _mountTests(): void {
-        this._testNode = this._addChild('TestManager');
-        this._testNode.addComponent(TestManager);
     }
 
     private _addChild(name: string): Node {
@@ -73,16 +70,61 @@ export class GameManager extends Component {
         return n;
     }
 
+    /** UI 层必须有 Canvas + UITransform 才能正常渲染 UI */
+    private _buildUiCanvas(): Node {
+        const n = new Node('UiCanvas');
+        this.node.addChild(n);
+
+        const size = view.getVisibleSize();
+        const ut = n.addComponent(UITransform);
+        ut.setContentSize(size);
+
+        const canvas = n.addComponent(Canvas);
+        // 用场景里现有的 cc.Camera —— 运行时才有，UI 一般会自动挂主相机
+        const mainCam = director.getScene()?.getComponentInChildren('cc.Camera' as any);
+        if (mainCam) canvas.cameraComponent = mainCam as any;
+
+        const widget = n.addComponent(Widget);
+        widget.isAlignTop = widget.isAlignBottom = true;
+        widget.isAlignLeft = widget.isAlignRight = true;
+        widget.top = widget.bottom = widget.left = widget.right = 0;
+
+        // 三个 Panel（初始 inactive，自己 onLoad 里 active=false）
+        this._upgradePanelNode  = this._addUiChild(n, 'UpgradeOfferPanel');
+        this._victoryPanelNode  = this._addUiChild(n, 'VictoryPanel');
+        this._gameOverPanelNode = this._addUiChild(n, 'GameOverPanel');
+
+        return n;
+    }
+
+    private _addUiChild(parent: Node, name: string): Node {
+        const n = new Node(name);
+        parent.addChild(n);
+        const ut = n.addComponent(UITransform);
+        ut.setContentSize(view.getVisibleSize());
+        return n;
+    }
+
     private _initAfterReady(): void {
         this._mapNode.addComponent(TileMapRenderer);
         this._playerNode.addComponent(PlayerControl);
+
+        // UI Panel 组件在资源就绪后挂（白色 SpriteFrame 来自 Canvas Texture2D，
+        // 虽然纯代码生成但延后挂更干净，和其他 UI 同时可见）
+        const upgradePanel  = this._upgradePanelNode.addComponent(UpgradeOfferPanel);
+        const victoryPanel  = this._victoryPanelNode.addComponent(VictoryPanel);
+        const gameOverPanel = this._gameOverPanelNode.addComponent(GameOverPanel);
 
         const lm = this._levelNode.addComponent(LevelManager);
         lm.bind({
             gameRoot:      this.node,
             enemiesParent: this._enemiesParent,
             playerNode:    this._playerNode,
+            victoryPanel,
+            gameOverPanel,
         });
-        // 波次刷怪已由 LevelManager / WaveDirector 接管，不再需要调试占位怪
+
+        // upgradePanel 以事件总线为唯一通信入口，这里仅保留节点引用避免未使用告警
+        void upgradePanel;
     }
 }
