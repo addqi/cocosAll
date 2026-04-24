@@ -56,6 +56,9 @@ export async function preloadAllResources(): Promise<void> {
 
     texturePaths.push('shader/noise/texture');
 
+    // UI 共享 texture（虚拟摇杆 / 攻击按钮的白底圆图）
+    texturePaths.push('gameplay_pic_colordi/texture');
+
     // 业务 Texture 统一从 spriteAssets.json 读，单一事实来源
     for (const def of allSpriteAssetDefs()) texturePaths.push(def.texturePath);
 

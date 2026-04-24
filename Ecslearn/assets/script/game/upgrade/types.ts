@@ -30,6 +30,12 @@ export interface UpgradeConfig {
     effects: UpgradeEffect[];
     /** 进化前置：全部已 apply 时可触发进化 */
     evolvesFrom?: string[];
+    /**
+     * 流派限定：仅当当前玩家流派 id ∈ classIds 时可入候选池
+     * - 缺省或空数组 = 通用升级（所有流派都能抽到）
+     * - 长度 > 0 = 流派独有升级（仅对匹配流派可见）
+     */
+    classIds?: readonly string[];
 }
 
 export interface UpgradeTarget {

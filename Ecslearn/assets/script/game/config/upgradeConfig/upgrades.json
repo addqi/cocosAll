@@ -6,6 +6,7 @@
     "tier": 1,
     "rarity": "common",
     "category": "attr",
+    "classIds": ["rapid"],
     "effects": [
       {
         "type": "buff",
@@ -357,6 +358,7 @@
     "tier": 2,
     "rarity": "rare",
     "category": "attr",
+    "classIds": ["rapid"],
     "evolvesFrom": ["rapid-fire"],
     "effects": [
       {
@@ -549,6 +551,7 @@
     "tier": 3,
     "rarity": "epic",
     "category": "attr",
+    "classIds": ["rapid"],
     "evolvesFrom": ["rapid-fire-2"],
     "effects": [
       {
@@ -607,6 +610,188 @@
           "effectClass": "SimpleAttrBuffEffect",
           "targetAttr": "LifestealRate-Value-Buff",
           "valuePerStack": 0.15
+        }
+      }
+    ]
+  },
+  {
+    "id": "auto-aim",
+    "name": "自动瞄准",
+    "desc": "站立时自动射击最近敌人",
+    "tier": 1,
+    "rarity": "rare",
+    "category": "policy",
+    "classIds": ["rapid"],
+    "effects": [
+      {
+        "type": "shoot_policy",
+        "data": {
+          "policyClass": "AutoShoot",
+          "level": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "charge-focus",
+    "name": "凝神拉弓",
+    "desc": "攻击+60%，移速-10%",
+    "tier": 1,
+    "rarity": "rare",
+    "category": "attr",
+    "classIds": ["charge"],
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2701,
+          "name": "凝神拉弓·攻击",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "AttrModifierEffect",
+          "targetAttr": "Attack-Mul-Buff",
+          "valuePerStack": 0.6
+        }
+      },
+      {
+        "type": "buff",
+        "data": {
+          "id": 2702,
+          "name": "凝神拉弓·移速",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "AttrModifierEffect",
+          "targetAttr": "MoveSpeed-Mul-Buff",
+          "valuePerStack": -0.1
+        }
+      }
+    ]
+  },
+  {
+    "id": "piercer-draw",
+    "name": "贯弦",
+    "desc": "穿透+3，箭速+30%",
+    "tier": 2,
+    "rarity": "rare",
+    "category": "proj",
+    "classIds": ["charge"],
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2703,
+          "name": "贯弦·穿透",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "AttrModifierEffect",
+          "targetAttr": "PierceCount-Value-Buff",
+          "valuePerStack": 3
+        }
+      },
+      {
+        "type": "buff",
+        "data": {
+          "id": 2704,
+          "name": "贯弦·箭速",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "AttrModifierEffect",
+          "targetAttr": "ArrowSpeed-Mul-Buff",
+          "valuePerStack": 0.3
+        }
+      }
+    ]
+  },
+  {
+    "id": "crit-aim",
+    "name": "致命瞄准",
+    "desc": "暴击率+20%，暴击伤害+40%",
+    "tier": 2,
+    "rarity": "epic",
+    "category": "attr",
+    "classIds": ["charge"],
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2705,
+          "name": "致命瞄准·概率",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "AttrModifierEffect",
+          "targetAttr": "CritRate-Value-Buff",
+          "valuePerStack": 0.2
+        }
+      },
+      {
+        "type": "buff",
+        "data": {
+          "id": 2706,
+          "name": "致命瞄准·伤害",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "AttrModifierEffect",
+          "targetAttr": "CritDmg-Value-Buff",
+          "valuePerStack": 0.4
+        }
+      }
+    ]
+  },
+  {
+    "id": "sniper-mode",
+    "name": "狙击姿态",
+    "desc": "攻击+100%，攻速-30%",
+    "tier": 3,
+    "rarity": "legendary",
+    "category": "attr",
+    "classIds": ["charge"],
+    "effects": [
+      {
+        "type": "buff",
+        "data": {
+          "id": 2707,
+          "name": "狙击姿态·攻击",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "AttrModifierEffect",
+          "targetAttr": "Attack-Mul-Buff",
+          "valuePerStack": 1.0
+        }
+      },
+      {
+        "type": "buff",
+        "data": {
+          "id": 2708,
+          "name": "狙击姿态·攻速",
+          "duration": 0,
+          "maxStack": 1,
+          "effectClass": "AttrModifierEffect",
+          "targetAttr": "AttackSpeed-Mul-Buff",
+          "valuePerStack": -0.3
+        }
+      }
+    ]
+  },
+  {
+    "id": "trigger-happy",
+    "name": "扳机狂热",
+    "desc": "每次发射有 30% 概率错位追发第二箭",
+    "tier": 1,
+    "rarity": "rare",
+    "category": "proj",
+    "classIds": ["rapid"],
+    "effects": [
+      {
+        "type": "hit_effect",
+        "data": {
+          "id": "upg-trigger-happy",
+          "effectClass": "TriggerHappyEffect",
+          "priority": 70,
+          "chance": 0.3,
+          "cooldownSec": 0,
+          "delaySec": 0.08,
+          "offsetFactor": -40,
+          "damageRatio": 1.0
         }
       }
     ]

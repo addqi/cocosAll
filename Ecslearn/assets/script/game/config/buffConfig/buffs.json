@@ -48,5 +48,11 @@
     "tickInterval": 1, "stackDecayOnTick": true,
     "effectClass": "PeriodicHealEffect",
     "healPercent": 0.05
+  },
+  "buff.charge_attack": {
+    "id": 9030, "name": "蓄力者",
+    "duration": 0, "maxStack": 1,
+    "effectClass": "AttrModifierEffect",
+    "targetAttr": "Attack-Mul-Buff", "valuePerStack": 0.3
   }
 }

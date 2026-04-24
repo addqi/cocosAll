@@ -9,8 +9,13 @@
  *   3. 过期测试请"删源码"，Cocos 的副作用扫描会让注释 import 挡不住
  */
 
-// ── 阶段 2 / 05 Step 2.7: UpgradeOfferSystem 抽卡器 ──
-import './testStep2_7_UpgradeOffer';
+// ── 阶段 2 / 06 Step 2.10：流派选择 + 蓄力 + classIds 过滤 ──
+import './testStep2_10_Input';
+import './testStep2_10_ChargeCurve';
+import './testStep2_10_ClassAndUpgrades';
 
-// ── 阶段 2 / 05 Step 2.8 + 2.9: 升级 UI 事件流 + LevelManager 粘合 ──
-import './testStep2_8_9_UpgradeFlow';
+// ── 阶段 2 / Step 2.11：升级钩子基础设施（onShoot / onTakenDamage / ProbCD / ComboCounter）──
+import './testStep2_11_Hooks';
+
+// ── 阶段 2 / Step 2.12：虚拟输入系统（手机摇杆 + 攻击按钮）──
+import './testStep2_12_VirtualInput';

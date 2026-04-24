@@ -1,5 +1,9 @@
 import { HitEffectBase, HitEffectFactory, type HitEffectData } from '../../baseSystem/hitEffect';
-import type { GameHitContext } from '../hitEffects/types';
+import type {
+    GameHitContext,
+    ShootEventContext,
+    TakenDamageContext,
+} from '../hitEffects/types';
 
 export class HitEffectMgr {
     private _effects = new Map<string, HitEffectBase>();
@@ -29,15 +33,35 @@ export class HitEffectMgr {
         return this._effects.size;
     }
 
+    /** 执行所有 effect 的 onHit —— 箭命中敌人时 */
     execute(ctx: GameHitContext): void {
-        if (this._dirty) {
-            this._sorted = [...this._effects.values()].sort(
-                (a, b) => (a.data.priority ?? 0) - (b.data.priority ?? 0),
-            );
-            this._dirty = false;
-        }
+        this._ensureSorted();
         for (const eff of this._sorted) {
             eff.onHit(ctx);
         }
+    }
+
+    /** 执行所有 effect 的 onShoot —— 玩家每次发射时 */
+    executeOnShoot(ctx: ShootEventContext): void {
+        this._ensureSorted();
+        for (const eff of this._sorted) {
+            eff.onShoot?.(ctx);
+        }
+    }
+
+    /** 执行所有 effect 的 onTakenDamage —— 玩家被伤害前（可改 ctx.rawDamage）*/
+    executeOnTakenDamage(ctx: TakenDamageContext): void {
+        this._ensureSorted();
+        for (const eff of this._sorted) {
+            eff.onTakenDamage?.(ctx);
+        }
+    }
+
+    private _ensureSorted(): void {
+        if (!this._dirty) return;
+        this._sorted = [...this._effects.values()].sort(
+            (a, b) => (a.data.priority ?? 0) - (b.data.priority ?? 0),
+        );
+        this._dirty = false;
     }
 }

@@ -76,7 +76,8 @@ export class LevelManager extends Component {
             console.error('[LevelManager] PlayerControl.upgradeMgr 未就绪，升级系统不可用');
             return;
         }
-        this._offer = new UpgradeOfferSystem(upgradeMgr);
+        const classId = PlayerControl.instance?.currentClassId ?? null;
+        this._offer = new UpgradeOfferSystem(upgradeMgr, undefined, classId);
 
         on(GameEvt.UpgradeChosen, this._onUpgradeChosen);
         on(GameEvt.UpgradeReroll, this._onUpgradeReroll);

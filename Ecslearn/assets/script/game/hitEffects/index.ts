@@ -9,6 +9,9 @@ import './LifeOnHitEffect';
 import './ChainLightningEffect';
 import './KnockbackEffect';
 
+// ── onShoot 钩子系列（Step 2.11 基础设施样板）──
+import './TriggerHappyEffect';
+
 // ── 旧脚本（保留兼容，可逐步迁到 ApplyBuffOnHitEffect）──
 import './BurnOnHitEffect';
 import './FrostOnHitEffect';

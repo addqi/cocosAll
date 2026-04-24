@@ -117,5 +117,20 @@
       "summonAtk": 15
     },
     "tags": ["summon", "summoner"]
+  },
+  "rapid-burst": {
+    "id": "rapid-burst",
+    "name": "疾风射术",
+    "skillClass": "ApplySelfBuffSkill",
+    "cooldown": 12,
+    "params": {
+      "duration": 5,
+      "buffId": 9020,
+      "buffName": "疾风",
+      "effectClass": "AttrModifierEffect",
+      "targetAttr": "AttackSpeed-Mul-Buff",
+      "valuePerStack": 1.0
+    },
+    "tags": ["self-buff", "archer", "starter"]
   }
 }

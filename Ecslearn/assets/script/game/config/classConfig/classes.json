@@ -1,0 +1,27 @@
+{
+  "rapid": {
+    "id": "rapid",
+    "name": "速射流",
+    "desc": "长按持续射击\n主动「疾风射术」按 1 触发，5 秒射速翻倍",
+    "shoot": { "type": "hold" },
+    "startSkills": [
+      { "skillId": "rapid-burst", "slot": 0 }
+    ],
+    "passiveBuffs": []
+  },
+  "charge": {
+    "id": "charge",
+    "name": "蓄力流",
+    "desc": "按下蓄力，抬起发射\n满蓄力伤害翻倍；蓄力中移速减半",
+    "shoot": {
+      "type": "charge",
+      "maxChargeSec": 1.0,
+      "maxDamageRatio": 2.0,
+      "moveSpeedRatio": 0.5
+    },
+    "startSkills": [],
+    "passiveBuffs": [
+      { "buffKey": "buff.charge_attack" }
+    ]
+  }
+}

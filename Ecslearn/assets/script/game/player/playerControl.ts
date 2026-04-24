@@ -30,7 +30,12 @@ import '../skill';
 import { installAttackHandlers } from '../combat/attack';
 import { SkillFactory } from '../skill/SkillFactory';
 import { getSkillDef } from '../config/skillConfig/SkillConfigLoader';
+import { getBuffDef } from '../config/buffConfig/BuffConfigLoader';
+import { getPlayerClassDef } from '../config/classConfig/ClassConfigLoader';
+import { createTakenDamageContext } from '../hitEffects/types';
 import type { IActiveSkill, SkillContext } from '../skill/SkillTypes';
+import { getWhiteSF } from '../ui/UiAtlas';
+import type { ArcherBehavior } from './archer/ArcherBehavior';
 import {
     EPlayerState,
     type PlayerCtx,
@@ -70,11 +75,18 @@ export class PlayerControl extends Component {
     private _playerCombat!: PlayerCombat;
     private _playerExp!: PlayerExperience;
     private _hpLabel!: Label;
+    // 蓄力条 —— 仅蓄力流启用，其他流派 _chargeBarRoot 保持 null
+    private _chargeBarRoot: Node | null = null;
+    private _chargeBarFill: Node | null = null;
+    private _chargeBarFillSprite: Sprite | null = null;
+    private _chargeBarWidth = 60;
+    private _chargeBarBlinkT = 0;
     private _behaviorId = 'archer';
     private _behavior!: PlayerBehavior;
     private _runtime!: PlayerRuntime;
     private _mouseScreenPos = new Vec3();
     private _mouseWorldPos = new Vec3();
+    private _currentClassId: string | null = null;
 
     get combat(): PlayerCombat { return this._playerCombat; }
     get playerProp(): PlayerProperty { return this._playerProp; }
@@ -89,6 +101,11 @@ export class PlayerControl extends Component {
     get isDead(): boolean { return this._playerCombat?.isDead ?? false; }
     get behavior(): PlayerBehavior { return this._behavior; }
     get runtime(): PlayerRuntime { return this._runtime; }
+    get currentClassId(): string | null { return this._currentClassId; }
+    /** 暴露 RawInputComp 给虚拟输入（VirtualInputPanel）写入；只读 reference */
+    get rawInput(): RawInputComp | null {
+        return this._entity?.getComponent(RawInputComp) ?? null;
+    }
 
     onLoad() {
         PlayerControl._inst = this;
@@ -171,7 +188,7 @@ export class PlayerControl extends Component {
         this._createRangeCircle();
         ResourceMgr.inst.preload(['shader/flash-white'], EffectAsset);
         this._installAttackRuntime();
-        this._equipDefaultSkills();
+        // 默认技能不在这里装；由 GameManager 在玩家选流派后调 setPlayerClass(id)
     }
 
     private _installAttackRuntime(): void {
@@ -183,31 +200,79 @@ export class PlayerControl extends Component {
         installAttackHandlers(parent);
     }
 
-    private _equipDefaultSkills(): void {
-        const slots: Array<[string, number]> = [
-            ['berserk',   0],
-            ['fireball',  1],
-            ['ice-ring',  2],
-        ];
+    /**
+     * 应用玩家流派：切换射击模式 + 装备起手技能 + 施加被动 Buff。
+     * 由 GameManager 在玩家选流派后调用一次；在此之前 LevelManager 不应启动。
+     */
+    setPlayerClass(classId: string): boolean {
+        if (!this._runtime) {
+            console.error(`[PlayerControl] setPlayerClass 调用过早，_runtime 尚未创建 (id=${classId})`);
+            return false;
+        }
+        const def = getPlayerClassDef(classId);
+        if (!def) {
+            console.error(`[PlayerControl] 未知流派 id: ${classId}`);
+            return false;
+        }
+
+        this._currentClassId = classId;
+
+        this._behavior.onBehaviorCommand('set_shoot_mode', def.shoot);
+
         const sys = this._runtime.skillSystem;
-        for (const [id, slot] of slots) {
-            const def = getSkillDef(id);
-            if (!def) {
-                console.warn(`[PlayerControl] 未找到 skill def: ${id}`);
+        let slotAuto = 0;
+        for (const s of def.startSkills) {
+            const skillDef = getSkillDef(s.skillId);
+            if (!skillDef) {
+                console.warn(`[PlayerControl] 未找到 skill def: ${s.skillId}`);
                 continue;
             }
-            const skill = SkillFactory.create(def) as IActiveSkill;
+            const skill = SkillFactory.create(skillDef) as IActiveSkill;
+            const slot = typeof s.slot === 'number' ? s.slot : slotAuto++;
             sys.equip(skill, slot);
         }
+
+        for (const p of def.passiveBuffs) {
+            const buffDef = getBuffDef(p.buffKey);
+            if (!buffDef) {
+                console.warn(`[PlayerControl] 未找到 buff def: ${p.buffKey}`);
+                continue;
+            }
+            this._runtime.buffMgr.addBuff(buffDef, this._runtime.buffOwner);
+        }
+
+        this._syncChargeBarForMode();
+
+        console.log(`[PlayerControl] 流派 "${def.name}" 就绪`);
+        return true;
     }
 
     // ─── Damage interface (called by enemies) ──────
 
-    applyDamage(rawDmg: number): number {
+    /**
+     * 敌人调用入口。
+     * @param rawDmg       原始伤害
+     * @param attackerNode 可选，攻击来源节点（用于反弹 / 位置相关 effect；不传 = 无法定位源头）
+     */
+    applyDamage(rawDmg: number, attackerNode: Node | null = null): number {
         if (this._playerCombat.isDead) return 0;
         if (this._ctx && this._ctx.invincibleTimer > 0) return 0;
 
-        const actual = this._playerCombat.takeDamage(rawDmg);
+        // ── onTakenDamage 钩子 ──
+        // effect 可修改 ctx.rawDamage（减伤/免死/反弹）
+        let effectiveDmg = rawDmg;
+        if (this._runtime?.hitEffectMgr) {
+            const tCtx = createTakenDamageContext(
+                this._playerProp, this._playerCombat, rawDmg,
+                attackerNode, attackerNode?.worldPosition?.clone() ?? null,
+            );
+            this._runtime.hitEffectMgr.executeOnTakenDamage(tCtx);
+            effectiveDmg = Math.max(0, tCtx.rawDamage);
+        }
+
+        if (effectiveDmg <= 0) return 0;
+
+        const actual = this._playerCombat.takeDamage(effectiveDmg);
         if (actual > 0) {
             this._runtime.flashWhite.flash();
             CameraController.inst.shake(3, 0.1);
@@ -272,7 +337,10 @@ export class PlayerControl extends Component {
     private _syncMoveSpeed(): void {
         if (!this._entity) return;
         const vel = this._entity.getComponent(VelocityComp);
-        if (vel) vel.speed = this._playerProp.getValue(EPropertyId.MoveSpeed);
+        if (!vel) return;
+        const base = this._playerProp.getValue(EPropertyId.MoveSpeed);
+        const ratio = this._behavior?.getMoveSpeedRatio(this._ctx) ?? 1;
+        vel.speed = base * ratio;
     }
 
     private _tickSkillKeys(act: ActionComp): void {
@@ -302,6 +370,110 @@ export class PlayerControl extends Component {
         this._hpLabel.enableOutline = true;
         this._hpLabel.outlineColor = new Color(0, 0, 0, 200);
         this._hpLabel.outlineWidth = 2;
+    }
+
+    // ─── 蓄力条（仅蓄力流启用）─────────────────────────
+
+    /** 根据当前流派 shootMode 创建 / 销毁蓄力条节点 */
+    private _syncChargeBarForMode(): void {
+        const mode = (this._behavior as ArcherBehavior).shootMode;
+        const needBar = mode?.type === 'charge';
+        if (needBar && !this._chargeBarRoot) {
+            this._createChargeBar();
+        } else if (!needBar && this._chargeBarRoot) {
+            this._chargeBarRoot.destroy();
+            this._chargeBarRoot = null;
+            this._chargeBarFill = null;
+            this._chargeBarFillSprite = null;
+        }
+    }
+
+    private _createChargeBar(): void {
+        const root = new Node('ChargeBar');
+        this._uiAnchor.addChild(root);
+        // HP 标签在 +15，蓄力条放到 -10（玩家头顶与 HP 之间留点距离）
+        root.setPosition(0, playerConfig.displayHeight / 2 - 10, 0);
+        const rootUt = root.addComponent(UITransform);
+        rootUt.setContentSize(this._chargeBarWidth, 8);
+
+        const bg = new Node('Bg');
+        root.addChild(bg);
+        const bgUt = bg.addComponent(UITransform);
+        bgUt.setContentSize(this._chargeBarWidth, 8);
+        const bgSp = bg.addComponent(Sprite);
+        bgSp.sizeMode = Sprite.SizeMode.CUSTOM;
+        bgSp.spriteFrame = getWhiteSF();
+        bgSp.color = new Color(20, 20, 28, 220);
+
+        const fill = new Node('Fill');
+        root.addChild(fill);
+        // Fill 从左边缘向右生长 —— 锚点左侧对齐
+        const fillUt = fill.addComponent(UITransform);
+        fillUt.anchorX = 0;
+        fillUt.anchorY = 0.5;
+        fillUt.setContentSize(0, 6);
+        fill.setPosition(-this._chargeBarWidth / 2, 0, 0);
+        const fillSp = fill.addComponent(Sprite);
+        fillSp.sizeMode = Sprite.SizeMode.CUSTOM;
+        fillSp.spriteFrame = getWhiteSF();
+        fillSp.color = new Color(120, 200, 255, 255);
+
+        this._chargeBarRoot = root;
+        this._chargeBarFill = fill;
+        this._chargeBarFillSprite = fillSp;
+        root.active = false;
+    }
+
+    /**
+     * 每帧刷新蓄力条 —— 显示规则：
+     *   - 未蓄力（chargeSec <= 0）：隐藏
+     *   - 蓄力进行中（0 < t < 1）：填充宽度随 t 增长，颜色 蓝→白 渐变
+     *   - 蓄满（t >= 1）：填充宽度 = 最大，颜色 橙红 + 闪烁（sin 亮度调制）
+     */
+    private _tickChargeBar(dt: number): void {
+        if (!this._chargeBarRoot || !this._chargeBarFill || !this._chargeBarFillSprite) return;
+
+        const mode = (this._behavior as ArcherBehavior).shootMode;
+        if (mode?.type !== 'charge') {
+            this._chargeBarRoot.active = false;
+            return;
+        }
+
+        const chargeSec = this._ctx?.chargeSec ?? 0;
+        if (chargeSec <= 0) {
+            this._chargeBarRoot.active = false;
+            this._chargeBarBlinkT = 0;
+            return;
+        }
+
+        this._chargeBarRoot.active = true;
+        const t = Math.min(chargeSec / mode.maxChargeSec, 1);
+        const w = this._chargeBarWidth * t;
+        const fillUt = this._chargeBarFill.getComponent(UITransform)!;
+        fillUt.setContentSize(w, 6);
+
+        if (t >= 1) {
+            // 蓄满：橙红 + sin 闪烁
+            this._chargeBarBlinkT += dt;
+            const s = 0.6 + 0.4 * Math.abs(Math.sin(this._chargeBarBlinkT * 10));
+            this._chargeBarFillSprite.color = new Color(
+                Math.round(255 * s),
+                Math.round(120 * s),
+                Math.round(60 * s),
+                255,
+            );
+        } else {
+            // 蓄力中：蓝 → 白 线性插值
+            this._chargeBarBlinkT = 0;
+            const b = 120 + (255 - 120) * t;
+            const g = 200 + (255 - 200) * t;
+            this._chargeBarFillSprite.color = new Color(
+                Math.round(b),
+                Math.round(g),
+                255,
+                255,
+            );
+        }
     }
 
     private _createRangeCircle() {
@@ -352,6 +524,8 @@ export class PlayerControl extends Component {
             attackCooldown: 0,
             hitEffectMgr: this._runtime.hitEffectMgr,
             invincibleTimer: 0,
+            chargeSec: 0,
+            pendingChargeSec: 0,
         };
         this._fsm = new StateMachine<EPlayerState, PlayerCtx>(this._ctx);
         this._ctx.fsm = this._fsm;
@@ -389,6 +563,9 @@ export class PlayerControl extends Component {
 
         this._tickSkillKeys(act);
 
+        // 职业自定义每帧输入 tick（蓄力流在此累加 chargeSec；其他职业空实现）
+        this._behavior.tickInput(this._ctx, act, dt);
+
         const isMoving = vel.vx !== 0 || vel.vy !== 0;
         const hasTarget = findNearestEnemy(
             this.node.worldPosition,
@@ -408,6 +585,7 @@ export class PlayerControl extends Component {
         }
 
         this._fsm.tick(dt);
+        this._tickChargeBar(dt);
     }
 
     onDestroy() {

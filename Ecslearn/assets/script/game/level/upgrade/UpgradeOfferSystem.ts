@@ -28,7 +28,17 @@ export class UpgradeOfferSystem {
     constructor(
         private readonly _manager: UpgradeManager,
         private readonly _pool: readonly UpgradeConfig[] = ALL_UPGRADES,
-    ) {}
+        private readonly _currentClassId: string | null = null,
+    ) {
+        if (_currentClassId === null) {
+            console.warn(
+                '[UpgradeOfferSystem] currentClassId=null — 流派独有升级将被过滤掉；' +
+                '通用升级（classIds 缺省）仍可抽取。LevelManager 应在流派选择后再构造本系统。',
+            );
+        }
+    }
+
+    get currentClassId(): string | null { return this._currentClassId; }
 
     // ─── 候选池过滤 ─────────────────────────────────────
 
@@ -36,11 +46,16 @@ export class UpgradeOfferSystem {
      * 判定一条升级当前是否可被抽到：
      *   1. UpgradeManager 没 apply 过
      *   2. 如果是进化版（evolvesFrom 非空）：所有前置必须都已 apply
+     *   3. 如果声明了 classIds：当前 classId 必须在列表中；classId=null 时视为不匹配
      */
     isEligible(cfg: UpgradeConfig): boolean {
         if (this._manager.has(cfg.id)) return false;
         if (cfg.evolvesFrom?.length) {
-            return cfg.evolvesFrom.every(id => this._manager.has(id));
+            if (!cfg.evolvesFrom.every(id => this._manager.has(id))) return false;
+        }
+        if (cfg.classIds && cfg.classIds.length > 0) {
+            if (!this._currentClassId) return false;
+            if (!cfg.classIds.includes(this._currentClassId)) return false;
         }
         return true;
     }

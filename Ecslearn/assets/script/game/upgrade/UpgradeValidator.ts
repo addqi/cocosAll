@@ -53,6 +53,13 @@ export function validateUpgrade(raw: any): UpgradeConfig {
             if (typeof dep !== 'string') fail(id, `evolvesFrom 中包含非字符串值`);
         }
     }
+    if (raw.classIds !== undefined) {
+        if (!Array.isArray(raw.classIds) || raw.classIds.length === 0)
+            fail(id, `classIds 若提供则必须是非空字符串数组（省略即视为通用升级）`);
+        for (const c of raw.classIds) {
+            if (typeof c !== 'string') fail(id, `classIds 中包含非字符串值`);
+        }
+    }
     return raw as UpgradeConfig;
 }
 

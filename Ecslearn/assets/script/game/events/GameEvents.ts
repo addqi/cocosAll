@@ -23,6 +23,9 @@ export const GameEvt = {
     UpgradeOfferShow: 'upgrade:offer_show',
     UpgradeChosen:    'upgrade:chosen',
     UpgradeReroll:    'upgrade:reroll',
+
+    // ─── 流派选择 ────────────────────────
+    ClassChosen:      'class:chosen',
 } as const;
 
 /** 敌人死亡事件 — 唯一广播源：`MinionDeadState.enter` */
@@ -101,4 +104,10 @@ export interface UpgradeChosenEvent {
 export interface UpgradeRerollEvent {
     /** 刷新后的剩余次数（已 -1 后）*/
     remainingQuota: number;
+}
+
+/** 玩家开局选中流派 —— GameManager 监听后调 PlayerControl.setPlayerClass，再挂 LevelManager */
+export interface ClassChosenEvent {
+    /** 对应 classes.json 里的 id（'rapid' / 'charge' / ...）*/
+    id: string;
 }
