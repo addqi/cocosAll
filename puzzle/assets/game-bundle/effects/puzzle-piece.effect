@@ -1,0 +1,250 @@
+// 教学拼图自绘 effect（08 节）
+//   作用：替换默认 sprite 材质，每块 piece 通过 v_color (rgb) 解出
+//        pieceIdx + borderMask，自己负责采样和画边框。
+//   合批前提：所有 piece 共享同一个 .mtl + 同一个 SpriteFrame（整张大图）。
+//   每块的差异通过 sprite.color 传，不破坏合批。
+//
+// 项目 y 朝向约定（最容易踩坑，先看这里）：
+//   Cocos 3.8 sprite 顶点 a_texCoord（= 下面的 v_uv0）：
+//     v_uv0.y = 0 在 piece **顶部**（屏幕上方，对应 PNG 第一行）
+//     v_uv0.y = 1 在 piece **底部**（屏幕下方，对应 PNG 最后一行）
+//   与 PuzzlePiece.row（0=源图顶行）和 sr（0=屏幕顶部槽）三者同向。
+//   所以 globalUV.y 用最朴素公式：(pieceRow + v_uv0.y) / gridY，**不翻转**。
+//   SDF 里同理：p.y < 0 是顶半区。
+//
+//   如果换引擎 / SpriteFrame.flipUV 让视觉颠倒，整段 y 翻一下即可
+//   （globalUV.y、dTop/dBottom、topQ 三处一起翻）——
+//   不要去改 PuzzlePiece.row 语义，那会牵动 _mergeScan + _slotToPosition 全套。
+
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: vs
+      frag: fs
+      blendState:
+        targets:
+        - blend: true
+      rasterizerState:
+        cullMode: none
+      properties:
+        # gridDim 默认值仅占位，运行时由 PuzzleBoard 按 pieceGrid 覆盖。
+        gridDim:        { value: [3.0, 3.0] }
+        cornerRadius:   { value: 0.06 }            # 圆角半径（占 piece 边长比例，0~0.5）
+        whiteWidth:     { value: 0.012 }           # 白边相对宽
+        blackWidth:     { value: 0.018 }           # 黑边相对宽
+        whiteColor:     { value: [1.0, 1.0, 1.0, 1.0] }
+        blackColor:     { value: [0.05, 0.05, 0.05, 1.0] }
+}%
+
+CCProgram vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+
+  // Cocos 2D sprite 顶点 buffer 实际属性名是 a_texCoord，不是 3D mesh 那套 a_uv0。
+  // 写错的话 v_uv0 拿到的是未初始化值（实测全 0），shader 看起来"在跑但全黑"。
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 v_color;
+  out vec2 v_uv0;
+
+  void main () {
+    vec4 pos = vec4(a_position, 1);
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+    pos = cc_matViewProj * pos;
+    v_color = a_color;
+    v_uv0 = a_texCoord;
+    gl_Position = pos;
+  }
+}%
+
+CCProgram fs %{
+  // ── GLSL ES 1.0 / 3.0 双版本兼容层 ──
+  // Cocos 3.x 跑 WebGL2 时把 effect emit 为 ES 3.0；跑 WebGL1 时为 ES 1.0。
+  // 转译器**只自动改 in/out varying 关键字**，不动 texture2D / gl_FragColor。
+  // 我们写一段薄 shim，让源码保持 ES1 风格（更熟悉、更接近教程），靠 macro 上滚 ES3。
+
+  // 1) derivatives extension 只在 ES1 必要；ES3 已是核心，再声明会触发 "extension not supported" 警告。
+  #if __VERSION__ < 300
+    #extension GL_OES_standard_derivatives : enable
+  #endif
+
+  #ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+  #else
+    precision mediump float;
+  #endif
+
+  // 2) ES3 改名了：texture2D → texture，gl_FragColor → 用户声明的 out。
+  //    ES1 这俩内置；用 macro 桥过去——下面 main() 里继续写 ES1 风格代码。
+  //    layout(location=0) 是 Cocos 3.8 effect 编译器的硬要求（EFX2302）——
+  //    Vulkan/Metal 后端必须明确 render target 槽位，不能让编译器猜。
+  #if __VERSION__ >= 300
+    #define texture2D texture
+    layout(location = 0) out vec4 cc_FragColor;
+    #define gl_FragColor cc_FragColor
+  #endif
+
+  in vec4 v_color;
+  in vec2 v_uv0;
+
+  // ── sprite 纹理绑定 ──
+  // Cocos 3.8 builtin-sprite.effect 的写法：sampler 必须叫 cc_spriteTexture，
+  // 还必须加 `#pragma builtin(local)` —— 这是给 effect 编译器看的标记，告诉它
+  // 这个 sampler 由 sprite 组件运行时自动绑定（不需要 mtl 里手动指定）。
+  // 漏写 `#pragma builtin(local)` 编译能过、运行时 texture2D 全采到 0 → 漆黑一片。
+  // layout(set=2, binding=12) 是 cocos 约定的 sprite texture 绑定槽，固定写死。
+  // 同时 `texture` 名字在 GLSL ES 1.0 是保留字（EFX2402），cc_spriteTexture 同时绕开。
+  #pragma builtin(local)
+  layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
+
+  // std140 UBO 布局：vec4 16 对齐，vec2 8 对齐，float 4 对齐。
+  // 大头（vec4）放前面，小头（vec2/float）殿后，避免编译器塞隐式 padding。
+  uniform UBO_FS {
+    vec4 whiteColor;
+    vec4 blackColor;
+    vec2 gridDim;
+    float cornerRadius;
+    float whiteWidth;
+    float blackWidth;
+  };
+
+  // ── 调试模式开关 ──
+  // 让 frag 输出可识别的诊断颜色，验证 shader 是否被执行 + sprite.color 是否正确传递。
+  // 0 = 关（正式渲染）；1 = 块身份色；2 = UV 可视化；3 = 纹理采样验证。
+  // 调好后改回 0 即正式视觉效果。
+  // 0 = 正式渲染（默认）；1 = 块身份色；2 = UV 可视化；3 = 直接采纹理。
+  #define DEBUG_MODE 0
+
+  void main () {
+    // ============ 1. 解 v_color ============
+    // a_color 在 GPU 已被归一化为 [0,1]。乘 255 还原成 [0,255] 浮点字节。
+    // 注意：用 floor + mod 模拟位运算——`&` `|` 在 GLSL ES 1.0 不支持。
+    float rByte    = floor(v_color.r * 255.0 + 0.5);
+    float pieceIdx = floor(v_color.g * 255.0 + 0.5);
+
+    // ── DEBUG 1：块身份色 ──
+    // 期望：3×3 时屏幕看到 9 块从绿到红的色块梯度。
+    //   - 看到色块梯度 → shader 在跑、v_color 编码正确
+    //   - 9 块全同色（比如全黑）→ v_color.g 没传过来，可能 sprite.color 写法有问题
+    //   - 漆黑/不可见 → shader 没生效（customMaterial 没绑），或被 alpha 干掉
+    #if DEBUG_MODE == 1
+      float dbgR = pieceIdx / 9.0;
+      float dbgG = 1.0 - dbgR;
+      gl_FragColor = vec4(dbgR, dbgG, 0.2, 1.0);
+      return;
+    #endif
+
+    // ── DEBUG 2：UV 可视化（v_uv0 → RG，应该看到每块从黑到黄的渐变）──
+    //   - 黑→黄渐变 → v_uv0 ∈ [0,1] 是预期的
+    //   - 整块同色 → v_uv0 没插值（顶点格式问题）
+    #if DEBUG_MODE == 2
+      gl_FragColor = vec4(v_uv0.x, v_uv0.y, 0.0, 1.0);
+      return;
+    #endif
+
+    // ── DEBUG 3：纹理采样验证（不偏移，直接采 v_uv0）──
+    //   - 看到完整大图被压缩到每块 → 纹理绑定 OK，UV 偏移逻辑可以测了
+    //   - 漆黑/全白 → cc_spriteTexture 没绑成功
+    #if DEBUG_MODE == 3
+      gl_FragColor = texture2D(cc_spriteTexture, v_uv0);
+      return;
+    #endif
+
+    // borderMask = rByte 低 4 位 = rByte mod 16
+    float borderMask = mod(rByte, 16.0);
+
+    // 4 个方向位拆解：bit i = mod(floor(borderMask / 2^i), 2)
+    // 编码与 PuzzleBoard.recalcBorderMasks 一致：bit0=上, bit1=右, bit2=下, bit3=左
+    bool topB    = mod(floor(borderMask / 1.0), 2.0) >= 0.5;
+    bool rightB  = mod(floor(borderMask / 2.0), 2.0) >= 0.5;
+    bool bottomB = mod(floor(borderMask / 4.0), 2.0) >= 0.5;
+    bool leftB   = mod(floor(borderMask / 8.0), 2.0) >= 0.5;
+
+    // ============ 2. 算 UV 偏移采样大图 ============
+    // 变量名不要叫 col / row——后面"最终颜色"还要用 col，撞名会触发
+    // 'col' redefinition + 整片连锁报错。
+    float gridX = gridDim.x;
+    float gridY = gridDim.y;
+    float pieceRow = floor(pieceIdx / gridX);
+    float pieceCol = mod(pieceIdx, gridX);
+
+    // y 不翻转：v_uv0.y=0 是 piece 顶（屏幕上方）= PNG 顶（GL 标准），
+    // pieceRow=0 也是 PNG 顶——同向，朴素公式直接对。
+    vec2 globalUV = vec2(
+      (pieceCol + v_uv0.x) / gridX,
+      (pieceRow + v_uv0.y) / gridY
+    );
+    vec4 baseColor = texture2D(cc_spriteTexture, globalUV);
+
+    // ============ 3. 方向感知 SDF —— 让"消失的边"既不衰减 alpha 也不画边框 ============
+    vec2 p = v_uv0 - vec2(0.5);
+
+    // —— 4 条边的有符号距离 ——
+    // 约定：v_uv0.y=0 在 piece 顶 → p.y=-0.5 在顶、p.y=0.5 在底。
+    // 顶边：p.y=-0.5 边界 → dTop = -p.y - 0.5（< 0 内部，0 边界，> 0 外）。
+    // 底边：p.y= 0.5 边界 → dBottom = p.y - 0.5。
+    //
+    // mask=0 时（已与同组邻块合并）把该边距离压成 NO_EDGE = -2.0，
+    // 后续 max(...) 不会取它 → 该侧由其它 3 边决定 → α 不衰减、不画边框。
+    const float NO_EDGE = -2.0;
+    float dTop    = topB    ? (-p.y - 0.5) : NO_EDGE;
+    float dRight  = rightB  ? ( p.x - 0.5) : NO_EDGE;
+    float dBottom = bottomB ? ( p.y - 0.5) : NO_EDGE;
+    float dLeft   = leftB   ? (-p.x - 0.5) : NO_EDGE;
+
+    // 矩形 SDF（无圆角版）= 4 条有符号距离的最大值
+    float dRect = max(max(dTop, dRight), max(dBottom, dLeft));
+
+    // —— 4 个角的圆角处理 ——
+    // 每个角是否走"圆角"取决于"该角对应的两条相邻边是否都可见"。
+    // 合并方向上的角不能再圆角，否则会和邻块的方角对接出空隙。
+    float r = cornerRadius;
+    vec2 cornerInner = abs(p) - vec2(0.5 - r);
+    float dRoundCorner = length(max(cornerInner, 0.0)) - r;
+
+    // 顶半区：p.y < 0（v_uv0.y=0 在顶）。
+    bool topQ   = p.y < 0.0;
+    bool rightQ = p.x > 0.0;
+    bool roundHere =
+        ( topQ &&  rightQ && topB    && rightB ) ||
+        ( topQ && !rightQ && topB    && leftB  ) ||
+        (!topQ &&  rightQ && bottomB && rightB ) ||
+        (!topQ && !rightQ && bottomB && leftB  );
+
+    bool inCornerArea = cornerInner.x > 0.0 && cornerInner.y > 0.0;
+    float dOuter = (inCornerArea && roundHere) ? dRoundCorner : dRect;
+
+    // —— 抗锯齿宽度 ——
+    float aa = fwidth(dOuter);
+
+    // —— inside α —— 圆角外 fade，方向被遮蔽侧 dOuter ≪ 0 → insideMask=1（满显）
+    float insideMask = 1.0 - smoothstep(-aa, aa, dOuter);
+    if (insideMask < 0.001) {
+      discard;
+    }
+
+    // ============ 4. 边框双层带 ============
+    //   带 = "距外缘 < blackWidth" 的细环。SDF 的 dOuter 已经隐含"哪些边参与"，
+    //   所以这里不再需要 visMask：被遮蔽边的 dOuter ≈ NO_EDGE 远小于阈值，
+    //   两个 smoothstep 都吐 0 → 那一侧自然不画边框。
+    float blackBand = smoothstep(-blackWidth - aa, -blackWidth + aa, dOuter)
+                    * (1.0 - smoothstep(-aa, aa, dOuter));
+    float whiteBand = smoothstep(-blackWidth - whiteWidth - aa, -blackWidth - whiteWidth + aa, dOuter)
+                    * (1.0 - smoothstep(-blackWidth - aa, -blackWidth + aa, dOuter));
+
+    // ============ 5. 合成：图片 ← 白边 ← 黑边 ← α ============
+    vec4 col = baseColor;
+    col = mix(col, whiteColor, whiteBand);
+    col = mix(col, blackColor, blackBand);
+    col.a *= insideMask;
+
+    gl_FragColor = col;
+  }
+}%
