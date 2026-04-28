@@ -5,6 +5,8 @@ import { PlayerControl } from '../player/PlayerControl';
 import { EPropertyId } from '../config/enum/propertyEnum';
 import { CoinFactory } from './CoinFactory';
 import { GoldSystem } from './GoldSystem';
+import { LevelRun } from '../level/LevelRun';
+import { LevelPhase } from '../level/LevelPhase';
 
 const ATTRACT_ACCEL = 2400;
 const ATTRACT_MAX_SPEED = 1200;
@@ -38,6 +40,11 @@ export class CoinPickupSystem implements ISystem {
         const pickupRange = player.playerProp.getValue(EPropertyId.PickupRange);
         const pickupRangeSq = pickupRange * pickupRange;
 
+        // Collecting 阶段：所有 idle 金币强制吸附（无视距离）
+        // 防止 phase 卡死在 Collecting：玩家走得远 → 金币留在原地 → coinOnField > 0 → 永不进 Upgrading。
+        // Linus 实用主义：与其加 timeout 强行推进，不如让金币一定会被收（玩家不用赶路）。
+        const inCollecting = LevelRun.current?.phase === LevelPhase.Collecting;
+
         // 倒序：释放时直接 splice 不影响当前迭代
         for (let i = coins.length - 1; i >= 0; i--) {
             const coin = coins[i];
@@ -47,6 +54,10 @@ export class CoinPickupSystem implements ISystem {
             }
 
             if (coin.state === 'idle') {
+                if (inCollecting) {
+                    coin.startAttracting(playerNode);
+                    continue;
+                }
                 const cp = coin.node.worldPosition;
                 const dx = cp.x - playerPos.x;
                 const dy = cp.y - playerPos.y;

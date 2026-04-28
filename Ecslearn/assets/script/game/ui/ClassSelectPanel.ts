@@ -12,7 +12,8 @@ import { getWhiteSF } from './UiAtlas';
 const { ccclass } = _decorator;
 
 // 布局常数
-const DIM_COLOR = new Color(0, 0, 0, 200);
+// 白色半透明遮罩 —— 透出后面世界，仪式感更轻
+const DIM_COLOR = new Color(255, 255, 255, 180);
 const CARD_W = 360;
 const CARD_H = 480;
 const CARD_GAP = 60;

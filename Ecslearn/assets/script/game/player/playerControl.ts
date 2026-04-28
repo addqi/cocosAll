@@ -293,15 +293,26 @@ export class PlayerControl extends Component {
         this._playerExp.addXp(amount);
     }
 
-    revive(hpRatio = 0.5): void {
+    /**
+     * 复活：重置 HP + 清掉 dissolve material + 切回 Idle。
+     * 默认满血。
+     */
+    revive(hpRatio = 1.0): void {
         this._playerCombat.setHpRatio(hpRatio);
+        // 清 dissolve 材质，恢复原始外观
+        const sprite = this._body?.getComponent(Sprite);
+        if (sprite) sprite.customMaterial = null;
         GameSession.inst.confirmRevive();
         this._fsm.changeState(EPlayerState.Idle);
     }
 
+    /**
+     * HP→0 触发：进入 PlayerDeadState 播 dissolve 动画。
+     * GameSession.onPlayerDeath 不在这里调，而是由 PlayerDeadState 在 dissolve 完成后调，
+     * 这样"死亡动画 → 失败弹窗"有自然时序。
+     */
     private _onDeath(): void {
         this._fsm.changeState(EPlayerState.Dead);
-        GameSession.inst.onPlayerDeath();
     }
 
     update(dt: number) {

@@ -14,6 +14,8 @@ import { VictoryPanel } from './game/ui/VictoryPanel';
 import { GameOverPanel } from './game/ui/GameOverPanel';
 import { ClassSelectPanel } from './game/ui/ClassSelectPanel';
 import { VirtualInputPanel } from './game/ui/VirtualInputPanel';
+import { SkillBarPanel } from './game/ui/SkillBarPanel';
+import { RawInputSystem } from './game/system/RawInputSystem';
 import { GameEvt, type ClassChosenEvent } from './game/events/GameEvents';
 
 const { ccclass, property } = _decorator;
@@ -58,6 +60,9 @@ export class GameManager extends Component {
     @property({ tooltip: '是否自动运行 TestRegistry 里登记的全部单测；发布前关掉' })
     runTests = true;
 
+    @property({ tooltip: '禁用鼠标点击攻击（让虚拟攻击按钮独占；PC 调试虚拟按钮时勾上）' })
+    disableMouseClick = true;
+
     @property({ tooltip: 'UI 专用 Canvas（含 UI Camera 子节点）—— 编辑器手动建好后拖入', type: Canvas })
     uiCanvas!: Canvas;
 
@@ -72,8 +77,12 @@ export class GameManager extends Component {
     private _gameOverPanelNode!: Node;
     private _classPanelNode!: Node;
     private _virtualInputNode!: Node;
+    private _skillBarNode!: Node;
 
     onLoad(): void {
+        // 输入系统全局开关：调试期让虚拟攻击按钮独占，避免鼠标点击双重触发
+        RawInputSystem.disableMouseClick = this.disableMouseClick;
+
         this._mapNode        = this._addWorldChild('Map');
         this._gameLoopNode   = this._addWorldChild('GameLoop');
         this._enemiesParent  = this._addWorldChild('Enemies');
@@ -120,13 +129,15 @@ export class GameManager extends Component {
 
         const n = this.uiCanvas.node;
 
-        // 3. 在 uiCanvas 下建 5 个 Panel 容器（active 状态由各自 Panel.onLoad 管）
+        // 3. 在 uiCanvas 下建 6 个 Panel 容器（active 状态由各自 Panel.onLoad 管）
         this._upgradePanelNode  = this._addUiChild(n, 'UpgradeOfferPanel');
         this._victoryPanelNode  = this._addUiChild(n, 'VictoryPanel');
         this._gameOverPanelNode = this._addUiChild(n, 'GameOverPanel');
         this._classPanelNode    = this._addUiChild(n, 'ClassSelectPanel');
         // 虚拟输入面板（始终可见的常驻 UI）
         this._virtualInputNode  = this._addUiChild(n, 'VirtualInputPanel');
+        // 技能栏（屏幕右下，始终常驻，每帧轮询）
+        this._skillBarNode      = this._addUiChild(n, 'SkillBarPanel');
 
         return n;
     }
@@ -202,6 +213,8 @@ export class GameManager extends Component {
         const classPanel    = this._classPanelNode.addComponent(ClassSelectPanel);
         // 虚拟输入面板（手机摇杆 + 攻击按钮）—— 始终常驻
         this._virtualInputNode.addComponent(VirtualInputPanel);
+        // 技能栏（右下角；每帧轮询 PlayerControl.skillSystem）
+        this._skillBarNode.addComponent(SkillBarPanel);
 
         // Panel.onLoad 在 addComponent 时已同步执行；它们建出的子节点 layer 默认 DEFAULT，
         // 兜底递归改成 UI_2D，保证 UI Camera 能渲染整棵 UI 子树（layer 隔离的 UI 一侧兜底）。

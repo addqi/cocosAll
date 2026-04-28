@@ -6,6 +6,8 @@ import {
     type WaveClearReason,
     type UpgradeOfferShowEvent,
     type UpgradeChosenEvent,
+    type RevivePlayerEvent,
+    type RestartGameEvent,
 } from '../events/GameEvents';
 import { EnemyBase } from '../enemy/base/EnemyBase';
 import { CoinFactory } from '../gold/CoinFactory';
@@ -81,8 +83,15 @@ export class LevelManager extends Component {
 
         on(GameEvt.UpgradeChosen, this._onUpgradeChosen);
         on(GameEvt.UpgradeReroll, this._onUpgradeReroll);
+        on(GameEvt.RevivePlayer,  this._onRevive);
+        on(GameEvt.RestartGame,   this._onRestart);
 
-        // 玩家死亡走 GameSession 的 GameOver 回调（PlayerControl 内部 _onDeath 已调 GameSession.onPlayerDeath）
+        // GameSession 死亡流转：
+        //   - canRevive=true → onReviveRequest（仍可救一次，本面板支持复活按钮）
+        //   - canRevive=false → onGameOver（终局，本面板复活按钮禁用）
+        // 两条路径都进入 _enterGameOver（弹同一个 GameOverPanel）；
+        // GameOverPanel 内部根据 GameSession.canRevive 决定按钮可用性。
+        GameSession.inst.onReviveRequest = () => this._enterGameOver();
         GameSession.inst.onGameOver = (_survived) => this._enterGameOver();
 
         this._enterWave(0);
@@ -91,7 +100,10 @@ export class LevelManager extends Component {
     onDestroy(): void {
         off(GameEvt.UpgradeChosen, this._onUpgradeChosen);
         off(GameEvt.UpgradeReroll, this._onUpgradeReroll);
+        off(GameEvt.RevivePlayer,  this._onRevive);
+        off(GameEvt.RestartGame,   this._onRestart);
         GameSession.inst.onGameOver = null;
+        GameSession.inst.onReviveRequest = null;
     }
 
     update(dt: number): void {
@@ -231,6 +243,33 @@ export class LevelManager extends Component {
         if (!this._run.consumeReroll()) return;
         console.log(`[LevelManager] 🔄 刷新升级候选 (剩余 ${this._run.upgradeRerollQuota})`);
         this._showOffers();
+    };
+
+    /**
+     * 玩家点 GameOverPanel "复活" → 满血复活 + 切回 Spawning 让敌人解冻。
+     */
+    private _onRevive = (e: RevivePlayerEvent): void => {
+        const player = PlayerControl.instance;
+        if (!player) {
+            console.error('[LevelManager] _onRevive: PlayerControl.instance 缺失');
+            return;
+        }
+        const ratio = e.hpRatio ?? 1.0;
+        // 1. 玩家恢复（内部会调 GameSession.confirmRevive + 切 FSM 回 Idle + 清 dissolve material）
+        player.revive(ratio);
+        // 2. 关弹窗
+        this._bindings?.gameOverPanel?.hide();
+        // 3. phase 切回 Spawning，敌人解冻、AI 恢复
+        this._run?.setPhase(LevelPhase.Spawning);
+        console.log('[LevelManager] ❤ Revive: phase → Spawning, hpRatio=' + ratio);
+    };
+
+    /**
+     * 玩家点 GameOverPanel "再来一局" → 刷新页面（最简最稳的状态重置）。
+     */
+    private _onRestart = (_e: RestartGameEvent): void => {
+        console.log('[LevelManager] 🔄 Restart game: location.reload()');
+        window.location.reload();
     };
 
     get bindings(): Readonly<ILevelBindings> {

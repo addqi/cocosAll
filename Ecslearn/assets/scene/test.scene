@@ -437,6 +437,7 @@
     "_enabled": true,
     "__prefab": null,
     "runTests": true,
+    "disableMouseClick": true,
     "uiCanvas": {
       "__id__": 12
     },

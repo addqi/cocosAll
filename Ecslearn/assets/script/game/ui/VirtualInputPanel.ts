@@ -1,10 +1,13 @@
 import {
     _decorator, Component, Node, Color, Label, Sprite, SpriteFrame, Texture2D,
-    UITransform, UIOpacity, Widget, Size, Vec2, view,
-    input, Input, EventTouch,
+    UITransform, UIOpacity, Widget, Vec2, Vec3, Canvas, view,
+    input, Input, EventTouch, EventMouse,
 } from 'cc';
 import { ResourceMgr } from '../../baseSystem/resource';
 import { PlayerControl } from '../player/PlayerControl';
+
+// 鼠标作为"虚拟触摸"的 ID（不会与 Cocos 真实 touch.getID 冲突，触摸 ID >= 0）
+const MOUSE_POINTER_ID = -1;
 
 const { ccclass } = _decorator;
 
@@ -17,23 +20,17 @@ const ELEMENT_ALPHA      = 76;          // 0.3 × 255 ≈ 76
 const ATTACK_LABEL_ALPHA = 230;         // 文字基本不透明，便于看清
 
 // 位置策略：摇杆中心在屏幕 (W/4, H/4)，攻击按钮中心在 (3W/4, H/4)
-// 即左右下角各离屏中心 1/4 屏宽，高度为屏幕 1/4 高 —— 比贴边 80px 更人体工程
-const POS_X_FACTOR_LEFT  = 0.25;        // 摇杆中心 X = W * 0.25
-const POS_X_FACTOR_RIGHT = 0.75;        // 攻击按钮中心 X = W * 0.75
-const POS_Y_FACTOR       = 0.25;        // 两者中心 Y = H * 0.25
+const POS_X_FACTOR_LEFT  = 0.25;
+const POS_Y_FACTOR       = 0.25;
 
 // ─── 行为参数 ─────────────────────────────────────────
-const JOYSTICK_DEAD_ZONE   = 20;        // px
+const JOYSTICK_DEAD_ZONE   = 20;        // px (节点本地坐标，节点中心为原点)
 const JOYSTICK_MAX_RADIUS  = 100;       // px = 底盘半径
-const JOYSTICK_TOUCH_SCOPE = 160;       // px，触摸落点距摇杆中心多远算"摇杆"（比图大一圈）
-const ATTACK_TOUCH_SCOPE   = 160;       // 攻击按钮触发响应半径
 
 // ─── 资源 ────────────────────────────────────────────
 const COLOR_DI_TEX_PATH = 'gameplay_pic_colordi/texture';
 
-/**
- * 摇杆输入结果
- */
+/** 摇杆输入结果 */
 export interface JoystickOutput {
     /** 归一化 X，[-1, 1] */
     x: number;
@@ -45,12 +42,6 @@ export interface JoystickOutput {
 
 /**
  * 纯函数 —— 给定触摸点和摇杆中心，输出归一化方向。
- *
- * 规则：
- *   1. 距离 < deadZone：返 (0, 0, false)
- *   2. 距离 ≥ deadZone：归一化为 (dx/maxRadius, dy/maxRadius)
- *   3. 超出 maxRadius：按方向 clamp 到 1.0（绝对值）
- *
  * 单测覆盖：testStep2_12_VirtualInput.ts A 组
  */
 export function computeJoystickOutput(
@@ -66,16 +57,10 @@ export function computeJoystickOutput(
     if (dist <= maxRadius) {
         return { x: dx / maxRadius, y: dy / maxRadius, active: true };
     }
-    // 超出最大半径：方向不变，幅值 clamp 到 1
     return { x: dx / dist, y: dy / dist, active: true };
 }
 
-/**
- * 计算摇杆头节点的本地坐标偏移（基于触摸点 + 摇杆中心）。
- * 与 computeJoystickOutput 共用一套数学，但返回的是"要把 knob 放在哪"。
- *
- * 节点本地坐标 = 触摸偏移 clamp 在 maxRadius 内（视觉上 knob 不出底盘）
- */
+/** 摇杆头节点本地坐标偏移 */
 export function computeKnobLocalPos(
     touchX: number, touchY: number,
     centerX: number, centerY: number,
@@ -91,108 +76,188 @@ export function computeKnobLocalPos(
 /**
  * 手机虚拟输入面板（摇杆 + 攻击按钮）。
  *
- * 设计：
- *   - 摇杆固定左下，攻击按钮固定右下；始终显示
- *   - 全局 input 事件 + touchId 路由：天然支持多点（边走边打）
- *   - 数据出口：写到 PlayerControl.rawInput 的 virtualMoveX/Y/Active 和
- *     mouseDown/Held/Up（与现有键鼠走同一管线，上层零感知）
+ * 监听架构（方案 C：混合）：
+ *   攻击按钮：
+ *     - 节点级 TOUCH_START / TOUCH_END
+ *     - Cocos 自动按节点矩形做命中检测，不需要手写 hitTest
+ *     - PC 鼠标点击：Cocos 节点级 TOUCH 在 PC 端会被鼠标自动触发，零额外代码
+ *
+ *   摇杆：
+ *     - 节点级 TOUCH_START（命中由节点矩形决定）
+ *     - 全局 TOUCH_MOVE / TOUCH_END / TOUCH_CANCEL（解决"手指拖出底盘"问题）
+ *     - 全局 MOUSE_MOVE / MOUSE_UP（PC 鼠标按住后拖出底盘也能跟随）
+ *
+ * 数据出口（写到 PlayerControl.rawInput）：
+ *   - 摇杆：virtualMoveX / virtualMoveY / virtualMoveActive
+ *   - 攻击：mouseDown / mouseHeld / mouseUp（前提 RawInputSystem.disableMouseClick=true，
+ *           否则会被每帧覆盖）
  *
  * Linus 式好品味：
- *   - 不新建 ECS 系统，复用现有 RawInputComp/ActionMapSystem
- *   - 摇杆数学抽为纯函数 computeJoystickOutput / computeKnobLocalPos，可单测
- *   - 多点用 touchId Map，不维护"谁先按"的状态机
+ *   - "需要拖出范围"用全局监听，"不需要拖出"用节点监听 —— 按需选择，不一刀切
+ *   - 摇杆数学抽为纯函数（computeJoystickOutput / computeKnobLocalPos），可单测
+ *   - 没有自己的 hitTest —— Cocos 节点系统已经做完
  */
 @ccclass('VirtualInputPanel')
 export class VirtualInputPanel extends Component {
 
-    private _joystickAreaNode!: Node;     // 容器节点（Widget 锚定左下）
-    private _joystickBg!: Node;
+    private _joystickAreaNode!: Node;
     private _joystickKnob!: Node;
+    private _attackAreaNode!: Node;
 
-    private _attackAreaNode!: Node;       // 容器节点（Widget 锚定右下）
-    private _attackBtn!: Node;
-
+    /** 摇杆当前 pointer id（触摸 id 或 MOUSE_POINTER_ID）；null = 未按下 */
     private _joystickTouchId: number | null = null;
-    private _attackTouchId: number | null = null;
 
     onLoad(): void {
         this._build();
-        input.on(Input.EventType.TOUCH_START,  this._onTouchStart, this);
-        input.on(Input.EventType.TOUCH_MOVE,   this._onTouchMove,  this);
-        input.on(Input.EventType.TOUCH_END,    this._onTouchEnd,   this);
-        input.on(Input.EventType.TOUCH_CANCEL, this._onTouchEnd,   this);
+
+        // 攻击按钮：节点级 TOUCH + 节点级 MOUSE 双重保险
+        // (Cocos 3.x 节点级 TOUCH 在 PC 上"通常"会被鼠标自动触发，但版本不确定 → 显式加 MOUSE)
+        this._attackAreaNode.on(Node.EventType.TOUCH_START,  this._onAttackStart, this);
+        this._attackAreaNode.on(Node.EventType.TOUCH_END,    this._onAttackEnd,   this);
+        this._attackAreaNode.on(Node.EventType.TOUCH_CANCEL, this._onAttackEnd,   this);
+        this._attackAreaNode.on(Node.EventType.MOUSE_DOWN,   this._onAttackMouseDown, this);
+        this._attackAreaNode.on(Node.EventType.MOUSE_UP,     this._onAttackMouseUp,   this);
+
+        // 摇杆 START：节点级 TOUCH + 节点级 MOUSE_DOWN
+        this._joystickAreaNode.on(Node.EventType.TOUCH_START, this._onJoystickStart, this);
+        this._joystickAreaNode.on(Node.EventType.MOUSE_DOWN,  this._onJoystickMouseDown, this);
+
+        // 摇杆 END：节点级 + 全局 双保险
+        // - 节点矩形内松手：触发节点级 TOUCH_END（全局 TOUCH_END 不一定触发）
+        // - 节点矩形外松手（拖出后）：触发全局 TOUCH_END
+        // 两条路径都调同一个 handler，幂等（_releaseJoystick 内部置 null 后重复调无害）
+        this._joystickAreaNode.on(Node.EventType.TOUCH_END,    this._onGlobalTouchEnd, this);
+        this._joystickAreaNode.on(Node.EventType.TOUCH_CANCEL, this._onGlobalTouchEnd, this);
+        this._joystickAreaNode.on(Node.EventType.MOUSE_UP,     this._onGlobalMouseUp,  this);
+
+        // 摇杆 MOVE：全局（拖出底盘后跟随）
+        input.on(Input.EventType.TOUCH_MOVE,   this._onGlobalTouchMove, this);
+        input.on(Input.EventType.TOUCH_END,    this._onGlobalTouchEnd,  this);
+        input.on(Input.EventType.TOUCH_CANCEL, this._onGlobalTouchEnd,  this);
+        input.on(Input.EventType.MOUSE_MOVE,   this._onGlobalMouseMove, this);
+        input.on(Input.EventType.MOUSE_UP,     this._onGlobalMouseUp,   this);
     }
 
     onDestroy(): void {
-        input.off(Input.EventType.TOUCH_START,  this._onTouchStart, this);
-        input.off(Input.EventType.TOUCH_MOVE,   this._onTouchMove,  this);
-        input.off(Input.EventType.TOUCH_END,    this._onTouchEnd,   this);
-        input.off(Input.EventType.TOUCH_CANCEL, this._onTouchEnd,   this);
+        this._attackAreaNode?.off(Node.EventType.TOUCH_START,  this._onAttackStart, this);
+        this._attackAreaNode?.off(Node.EventType.TOUCH_END,    this._onAttackEnd,   this);
+        this._attackAreaNode?.off(Node.EventType.TOUCH_CANCEL, this._onAttackEnd,   this);
+        this._attackAreaNode?.off(Node.EventType.MOUSE_DOWN,   this._onAttackMouseDown, this);
+        this._attackAreaNode?.off(Node.EventType.MOUSE_UP,     this._onAttackMouseUp,   this);
+        this._joystickAreaNode?.off(Node.EventType.TOUCH_START, this._onJoystickStart, this);
+        this._joystickAreaNode?.off(Node.EventType.TOUCH_END,    this._onGlobalTouchEnd, this);
+        this._joystickAreaNode?.off(Node.EventType.TOUCH_CANCEL, this._onGlobalTouchEnd, this);
+        this._joystickAreaNode?.off(Node.EventType.MOUSE_DOWN,   this._onJoystickMouseDown, this);
+        this._joystickAreaNode?.off(Node.EventType.MOUSE_UP,     this._onGlobalMouseUp, this);
+        input.off(Input.EventType.TOUCH_MOVE,   this._onGlobalTouchMove, this);
+        input.off(Input.EventType.TOUCH_END,    this._onGlobalTouchEnd,  this);
+        input.off(Input.EventType.TOUCH_CANCEL, this._onGlobalTouchEnd,  this);
+        input.off(Input.EventType.MOUSE_MOVE,   this._onGlobalMouseMove, this);
+        input.off(Input.EventType.MOUSE_UP,     this._onGlobalMouseUp,   this);
         this._releaseJoystick();
         this._releaseAttack();
     }
 
-    // ─── 触摸事件路由 ─────────────────────────────────
+    /**
+     * Cocos 每帧 Component.update 自动调用 —— 单帧脉冲清理。
+     *
+     * 因为虚拟攻击按钮直接写 RawInputComp.mouseDown/mouseUp（在 RawInputSystem.disableMouseClick=true 时
+     * 这些字段不再被 RawInputSystem 覆盖），需要我们自己负责"单帧脉冲下一帧自动清"。
+     *
+     * mouseHeld 持久状态由 _pressAttack/_releaseAttack 显式 true/false，不在这里清。
+     */
+    update(_dt: number): void {
+        const raw = PlayerControl.instance?.rawInput;
+        if (!raw) return;
+        if (raw.mouseDown) raw.mouseDown = false;
+        if (raw.mouseUp)   raw.mouseUp   = false;
+    }
 
-    private _onTouchStart = (e: EventTouch): void => {
-        const t = e.touch;
-        if (!t) return;
-        const tid = t.getID();
-        const loc = t.getLocation();   // 屏幕坐标，左下原点
+    // ─── 攻击按钮事件（节点级 TOUCH + MOUSE 双重保险）──
 
-        // 摇杆区
-        if (this._joystickTouchId === null) {
-            const c = this._getJoystickCenterScreen();
-            if (this._inRange(loc, c, JOYSTICK_TOUCH_SCOPE)) {
-                this._joystickTouchId = tid;
-                this._updateJoystickByTouch(loc);
-                return;
-            }
-        }
-        // 攻击按钮
-        if (this._attackTouchId === null) {
-            const c = this._getAttackCenterScreen();
-            if (this._inRange(loc, c, ATTACK_TOUCH_SCOPE)) {
-                this._attackTouchId = tid;
-                this._pressAttack();
-            }
-        }
+    private _onAttackStart = (_e: EventTouch): void => {
+        this._pressAttack();
+    };
+    private _onAttackEnd = (_e: EventTouch): void => {
+        this._releaseAttack();
+    };
+    private _onAttackMouseDown = (e: EventMouse): void => {
+        if (e.getButton() !== EventMouse.BUTTON_LEFT) return;
+        this._pressAttack();   // 调多次幂等：写 true 即可，下一帧 update 自动清
+    };
+    private _onAttackMouseUp = (e: EventMouse): void => {
+        if (e.getButton() !== EventMouse.BUTTON_LEFT) return;
+        this._releaseAttack();
     };
 
-    private _onTouchMove = (e: EventTouch): void => {
+    // ─── 摇杆事件（节点级 START + 全局 MOVE/END）─────
+
+    private _onJoystickStart = (e: EventTouch): void => {
+        if (this._joystickTouchId !== null) return;   // 防 TOUCH_START 与 MOUSE_DOWN 双触发
         const t = e.touch;
         if (!t) return;
-        const tid = t.getID();
-        if (tid === this._joystickTouchId) {
-            this._updateJoystickByTouch(t.getLocation());
-        }
-        // 攻击按钮 MOVE 不需处理（mouseHeld 一直 true 直到 END）
+        this._joystickTouchId = t.getID();
+        this._updateJoystickByTouch(t.getLocation());
     };
 
-    private _onTouchEnd = (e: EventTouch): void => {
+    private _onJoystickMouseDown = (e: EventMouse): void => {
+        if (this._joystickTouchId !== null) return;   // 已被 TOUCH_START 锁，忽略
+        if (e.getButton() !== EventMouse.BUTTON_LEFT) return;
+        this._joystickTouchId = MOUSE_POINTER_ID;
+        const loc = new Vec2(e.getLocationX(), e.getLocationY());
+        this._updateJoystickByTouch(loc);
+    };
+
+    private _onGlobalTouchMove = (e: EventTouch): void => {
+        if (this._joystickTouchId === null) return;
         const t = e.touch;
         if (!t) return;
-        const tid = t.getID();
-        if (tid === this._joystickTouchId) {
-            this._joystickTouchId = null;
-            this._releaseJoystick();
-        }
-        if (tid === this._attackTouchId) {
-            this._attackTouchId = null;
-            this._releaseAttack();
-        }
+        // PC 上 Cocos 把鼠标转 touch（id=0），可能与摇杆 START 锁的 id 一致；
+        // 手机上多点触摸要严格匹配 id
+        if (t.getID() !== this._joystickTouchId) return;
+        this._updateJoystickByTouch(t.getLocation());
+    };
+
+    private _onGlobalTouchEnd = (e: EventTouch): void => {
+        if (this._joystickTouchId === null) return;
+        const t = e.touch;
+        if (!t) return;
+        if (t.getID() !== this._joystickTouchId) return;
+        this._joystickTouchId = null;
+        this._releaseJoystick();
+    };
+
+    private _onGlobalMouseMove = (e: EventMouse): void => {
+        // 鼠标 MOVE 仅在摇杆已被鼠标"按下"过且仍在跟踪时处理
+        // PC 上 Cocos 节点级 TOUCH_START 通常自动转 touch.id=0；但如果 Cocos 不转，
+        // 这里也覆盖 MOUSE_POINTER_ID 路径。运行时只要 _joystickTouchId 非 null 就处理
+        if (this._joystickTouchId === null) return;
+        const loc = new Vec2(e.getLocationX(), e.getLocationY());
+        this._updateJoystickByTouch(loc);
+    };
+
+    private _onGlobalMouseUp = (e: EventMouse): void => {
+        if (e.getButton() !== EventMouse.BUTTON_LEFT) return;
+        if (this._joystickTouchId === null) return;
+        this._joystickTouchId = null;
+        this._releaseJoystick();
     };
 
     // ─── 摇杆状态写入 ────────────────────────────────
 
-    private _updateJoystickByTouch(touchLoc: Vec2): void {
-        const center = this._getJoystickCenterScreen();
+    /**
+     * 触摸点（屏幕坐标）→ 摇杆容器节点本地坐标（中心为原点）→ 归一化输出。
+     */
+    private _updateJoystickByTouch(screenLoc: Vec2): void {
+        const local = this._screenToLocal(screenLoc, this._joystickAreaNode);
+        if (!local) return;
+
         const out = computeJoystickOutput(
-            touchLoc.x, touchLoc.y, center.x, center.y,
+            local.x, local.y, 0, 0,
             JOYSTICK_DEAD_ZONE, JOYSTICK_MAX_RADIUS,
         );
         const knobLocal = computeKnobLocalPos(
-            touchLoc.x, touchLoc.y, center.x, center.y, JOYSTICK_MAX_RADIUS,
+            local.x, local.y, 0, 0, JOYSTICK_MAX_RADIUS,
         );
         this._joystickKnob.setPosition(knobLocal.x, knobLocal.y, 0);
 
@@ -212,19 +277,18 @@ export class VirtualInputPanel extends Component {
         raw.virtualMoveActive = false;
     }
 
+    /**
+     * 攻击按钮按下：写 RawInputComp.mouseDown=true（单帧脉冲）+ mouseHeld=true（持久）。
+     * 前提：RawInputSystem.disableMouseClick=true，否则会被覆盖。
+     */
     private _pressAttack(): void {
         const raw = PlayerControl.instance?.rawInput;
         if (!raw) return;
-        // 与鼠标语义对齐：mouseDown 是单帧脉冲，下一帧由 RawInputSystem.update 自动清；
-        // 我们这里直接置 true，由 RawInputSystem 把它传到 mouseDown/Held。
-        // 但 RawInputSystem 是从其内部 frameMouseDown 写入的——所以最简方案是手动 set
-        // 三个字段，虚拟输入路径完全覆盖（RawInputSystem 的鼠标也会在 update 时写，二者 OR）。
-        // 这里直接置 true，下一帧若仍按住，AttackButton 不会再触发 _pressAttack，
-        // 但 mouseDown 会被 RawInputSystem.update 重置 —— 所以我们靠 mouseHeld 保持按住状态。
         raw.mouseDown = true;
         raw.mouseHeld = true;
     }
 
+    /** 攻击按钮抬起：mouseHeld → false（持久）+ mouseUp=true（单帧脉冲）*/
     private _releaseAttack(): void {
         const raw = PlayerControl.instance?.rawInput;
         if (!raw) return;
@@ -232,24 +296,34 @@ export class VirtualInputPanel extends Component {
         raw.mouseUp = true;
     }
 
-    // ─── 工具 ──────────────────────────────────────────
+    // ─── 工具：屏幕坐标 → 节点本地坐标 ──────────────
 
-    private _inRange(p: Vec2, c: Vec2, radius: number): boolean {
-        const dx = p.x - c.x;
-        const dy = p.y - c.y;
-        return dx * dx + dy * dy <= radius * radius;
+    /**
+     * 屏幕坐标 → 节点本地坐标（节点中心为原点）。
+     * 用 Camera.screenToWorld + UITransform.convertToNodeSpaceAR 处理 Canvas + Camera 适配。
+     */
+    private _screenToLocal(screen: Vec2, node: Node): Vec2 | null {
+        const ut = node.getComponent(UITransform);
+        if (!ut) return null;
+        const cam = this._uiCanvasOf(node)?.cameraComponent;
+        if (!cam) return null;
+        const screen3 = new Vec3(screen.x, screen.y, 0);
+        const world = new Vec3();
+        cam.screenToWorld(screen3, world);
+        const local = new Vec3();
+        ut.convertToNodeSpaceAR(world, local);
+        return new Vec2(local.x, local.y);
     }
 
-    /** 摇杆中心的屏幕坐标（左下角原点）—— 屏幕宽 1/4、高 1/4 处 */
-    private _getJoystickCenterScreen(): Vec2 {
-        const v = view.getVisibleSize();
-        return new Vec2(v.width * POS_X_FACTOR_LEFT, v.height * POS_Y_FACTOR);
-    }
-
-    /** 攻击按钮中心屏幕坐标（左下原点）—— 屏幕宽 3/4、高 1/4 处 */
-    private _getAttackCenterScreen(): Vec2 {
-        const v = view.getVisibleSize();
-        return new Vec2(v.width * POS_X_FACTOR_RIGHT, v.height * POS_Y_FACTOR);
+    /** 从节点向上找最近的 Canvas 组件 —— 触摸坐标转换需要 Canvas 绑定的 Camera */
+    private _uiCanvasOf(node: Node): Canvas | null {
+        let cur: Node | null = node;
+        while (cur) {
+            const c = cur.getComponent(Canvas);
+            if (c) return c;
+            cur = cur.parent;
+        }
+        return null;
     }
 
     // ─── 节点构建 ─────────────────────────────────────
@@ -262,7 +336,6 @@ export class VirtualInputPanel extends Component {
         widget.top = widget.bottom = widget.left = widget.right = 0;
 
         const sf = this._getColorDiSpriteFrame();
-
         this._buildJoystick(sf);
         this._buildAttackButton(sf);
     }
@@ -272,7 +345,6 @@ export class VirtualInputPanel extends Component {
         this.node.addChild(area);
         const ut = area.addComponent(UITransform);
         ut.setContentSize(JOYSTICK_BG_SIZE, JOYSTICK_BG_SIZE);
-        // Widget 距左/下：让节点中心落在 (W/4, H/4)；中心点 = left + size/2，所以 left = W/4 - size/2
         const v = view.getVisibleSize();
         const w = area.addComponent(Widget);
         w.isAlignLeft   = true;
@@ -290,7 +362,6 @@ export class VirtualInputPanel extends Component {
         if (sf) bgSp.spriteFrame = sf;
         const bgOpa = bg.addComponent(UIOpacity);
         bgOpa.opacity = ELEMENT_ALPHA;
-        this._joystickBg = bg;
 
         const knob = new Node('Knob');
         area.addChild(knob);
@@ -309,12 +380,12 @@ export class VirtualInputPanel extends Component {
         this.node.addChild(area);
         const ut = area.addComponent(UITransform);
         ut.setContentSize(ATTACK_BTN_SIZE, ATTACK_BTN_SIZE);
-        // Widget 距右/下：让节点中心落在 (3W/4, H/4)；右距 = W - 3W/4 - size/2 = W/4 - size/2
         const v = view.getVisibleSize();
         const w = area.addComponent(Widget);
         w.isAlignRight  = true;
         w.isAlignBottom = true;
-        w.right  = v.width  * POS_X_FACTOR_LEFT - ATTACK_BTN_SIZE / 2;  // = W * 0.25 - sz/2
+        // 中心在 (3W/4, H/4) → 距右 = W * 0.25 - sz/2
+        w.right  = v.width  * POS_X_FACTOR_LEFT - ATTACK_BTN_SIZE / 2;
         w.bottom = v.height * POS_Y_FACTOR      - ATTACK_BTN_SIZE / 2;
         this._attackAreaNode = area;
 
@@ -327,7 +398,6 @@ export class VirtualInputPanel extends Component {
         if (sf) bgSp.spriteFrame = sf;
         const bgOpa = bg.addComponent(UIOpacity);
         bgOpa.opacity = ELEMENT_ALPHA;
-        this._attackBtn = bg;
 
         const labelNode = new Node('Label');
         area.addChild(labelNode);
@@ -344,9 +414,7 @@ export class VirtualInputPanel extends Component {
 
     /**
      * 加载 gameplay_pic_colordi 这张白色圆图。
-     *
-     * 资源在 assets/resources/gameplay_pic_colordi.png；ResourceMgr 已预加载（如未预加载，
-     * 这里会返回 null，构建时跳过 spriteFrame 设置 —— 不至于崩溃）。
+     * 资源在 assets/resources/gameplay_pic_colordi.png；ResourcePreloader 已预加载。
      */
     private _getColorDiSpriteFrame(): SpriteFrame | null {
         const tex = ResourceMgr.inst.get<Texture2D>(COLOR_DI_TEX_PATH);

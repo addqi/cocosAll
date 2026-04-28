@@ -26,6 +26,10 @@ export const GameEvt = {
 
     // ─── 流派选择 ────────────────────────
     ClassChosen:      'class:chosen',
+
+    // ─── 死亡 / 复活 / 重开 ───────────────
+    RevivePlayer:     'player:revive',
+    RestartGame:      'game:restart',
 } as const;
 
 /** 敌人死亡事件 — 唯一广播源：`MinionDeadState.enter` */
@@ -110,4 +114,16 @@ export interface UpgradeRerollEvent {
 export interface ClassChosenEvent {
     /** 对应 classes.json 里的 id（'rapid' / 'charge' / ...）*/
     id: string;
+}
+
+/** GameOverPanel 上"复活"按钮 —— LevelManager 监听后还原 phase + 玩家满血 + 关弹窗 */
+export interface RevivePlayerEvent {
+    /** 复活后 HP 比例（默认 1.0 满血）*/
+    hpRatio?: number;
+}
+
+/** GameOverPanel 上"再来一局"按钮 —— GameManager 监听后刷页面 */
+export interface RestartGameEvent {
+    /** 预留（未来可扩展为软重启等）*/
+    reload?: boolean;
 }
