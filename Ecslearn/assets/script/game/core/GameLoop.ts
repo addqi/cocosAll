@@ -21,14 +21,12 @@ const { ccclass } = _decorator;
  *
  * 所有资源走 ResourceMgr，节点上不再挂 @property(Prefab)。
  * 新场景只需挂一个挂载脚本（如 LevelBootstrap）即可启动，无需拖任何 prefab。
+ *
+ * 注意：资源就绪通知统一走 `ResourceState.onReady` / `ResourceState.ready`，
+ * 不要从 GameLoop 转发 —— 那会让叶子组件反向 import GameLoop 制造循环依赖。
  */
 @ccclass('GameLoop')
 export class GameLoop extends Component {
-
-    /** @deprecated 使用 ResourceState.onReady */
-    static onReady(fn: () => void) { ResourceState.onReady(fn); }
-    /** @deprecated 使用 ResourceState.ready */
-    static get resourcesReady(): boolean { return ResourceState.ready; }
 
     private _world!: World;
     private _systems!: GameSystems;

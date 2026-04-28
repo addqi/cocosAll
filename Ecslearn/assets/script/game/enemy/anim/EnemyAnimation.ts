@@ -2,7 +2,7 @@ import { _decorator, Component, Sprite, UITransform, Size } from 'cc';
 import { SpriteSheetUtil, SpriteAnimator } from '../../../baseSystem/animation';
 import { enemyConfig } from '../config/enemyConfig';
 import type { EnemyConfigData } from '../config/enemyConfig';
-import { GameLoop } from '../../core/GameLoop';
+import { ResourceState } from '../../core/ResourceState';
 
 const { ccclass } = _decorator;
 
@@ -35,7 +35,7 @@ export class EnemyAnimation extends Component {
         const ut = this.getComponent(UITransform) || this.node.addComponent(UITransform);
         ut.setContentSize(new Size(this._config.displayWidth, this._config.displayHeight));
 
-        GameLoop.onReady(() => this._initAnims());
+        ResourceState.onReady(() => this._initAnims());
     }
 
     private _initAnims() {

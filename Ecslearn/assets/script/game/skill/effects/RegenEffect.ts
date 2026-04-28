@@ -9,7 +9,7 @@ import { EPropertyId } from '../../config/enum/propertyEnum';
  * 不修改属性，靠 onTick 每秒治疗 maxHp × healPercent。
  * 配置 stackDecayOnTick=true → 每次 tick 消耗 1 层，层数归零自动移除。
  */
-@buffEffect
+@buffEffect('RegenEffect')
 export class RegenEffect extends BuffEffectBase {
     getChanges(): AttributeChange[] {
         return [];

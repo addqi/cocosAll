@@ -3,7 +3,7 @@ import { hitEffect } from '../../baseSystem/hitEffect';
 import type { GameHitContext } from './types';
 
 /** 暴击时附加固定额外伤害 */
-@hitEffect
+@hitEffect('CritBonusDamageEffect')
 export class CritBonusDamageEffect extends HitEffectBase {
     onHit(ctx: GameHitContext): void {
         if (!ctx.isCrit) return;

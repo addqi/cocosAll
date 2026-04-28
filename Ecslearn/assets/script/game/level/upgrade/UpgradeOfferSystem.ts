@@ -1,5 +1,3 @@
-import { emit } from '../../../baseSystem/util';
-import { GameEvt, type UpgradeChosenEvent } from '../../events/GameEvents';
 import type { UpgradeConfig } from '../../upgrade/types';
 import type { UpgradeManager } from '../../upgrade/UpgradeManager';
 import { ALL_UPGRADES } from '../../upgrade/upgradeConfigs';
@@ -75,8 +73,12 @@ export class UpgradeOfferSystem {
      * 玩家选中一张升级：
      *   1. UpgradeManager.apply(cfg) 真正生效属性/hit effect
      *   2. LevelRun.current?.markUpgradeApplied(id) 登记（防抽卡再抽到它）
-     *   3. emit GameEvt.UpgradeChosen
      * 返回 true = 成功；false = 找不到 id 或 UpgradeManager 已 apply 过
+     *
+     * 故意不 emit UpgradeChosen —— UI（UpgradeOfferPanel）才是事件源头。
+     * 这里再 emit 等于事件回路：
+     *   UI emit → LevelManager._onUpgradeChosen → applyChoice → emit → _onUpgradeChosen 又来一次
+     * 服务被调用方不应主动广播触发它的事件。
      */
     applyChoice(id: string): boolean {
         const cfg = this._pool.find(c => c.id === id);
@@ -90,9 +92,6 @@ export class UpgradeOfferSystem {
             return false;
         }
         LevelRun.current?.markUpgradeApplied(id);
-
-        const payload: UpgradeChosenEvent = { id };
-        emit(GameEvt.UpgradeChosen, payload);
         return true;
     }
 

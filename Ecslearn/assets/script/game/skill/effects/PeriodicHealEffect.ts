@@ -12,7 +12,7 @@ import { EPropertyId } from '../../config/enum/propertyEnum';
  *   百分比: { "effectClass": "PeriodicHealEffect", "healPercent": 0.05 }
  *   固定值: { "effectClass": "PeriodicHealEffect", "healPerStack": 10 }
  */
-@buffEffect
+@buffEffect('PeriodicHealEffect')
 export class PeriodicHealEffect extends BuffEffectBase {
 
     getChanges(): AttributeChange[] { return []; }

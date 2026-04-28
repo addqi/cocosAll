@@ -32,6 +32,7 @@ export class ArrowProjectile extends Component {
 
     private _piercing = false;
     private _pierceDir = new Vec3();
+    private _pierceSpeed = 0;
     private _hitEnemies = new Set<EnemyControl>();
 
     private _onHit: ArrowHitFn | null = null;
@@ -156,7 +157,7 @@ export class ArrowProjectile extends Component {
         }
 
         if (this._piercing) {
-            this._updatePierce();
+            this._updatePierce(dt);
             return;
         }
 
@@ -218,6 +219,14 @@ export class ArrowProjectile extends Component {
 
     // ── 穿透 ──────────────────────────────────────
 
+    /**
+     * 穿透模式开启：记录方向 + 速度，由 _updatePierce 每帧 setWorldPosition 推进。
+     *
+     * 设计：与曲线段统一 —— 都用代码 setWorldPosition 修改坐标，**不修改刚体速度**。
+     *   - 曲线段：QuadBezier 抛物线
+     *   - 穿透段：方向不变的直线，速度同 archerConfig.arrowSpeed
+     * 物理刚体 linearVelocity 始终为 0，碰撞依旧由刚体触发器（sensor）感知。
+     */
     private _enterPierce() {
         if (this._curve) {
             const t = Math.min(this._elapsed / this._duration, 1);
@@ -227,14 +236,27 @@ export class ArrowProjectile extends Component {
         }
         this._pierceDir.normalize();
         this._piercing = true;
+        this._pierceSpeed = archerConfig.arrowSpeed;
 
-        const speed = archerConfig.arrowSpeed;
-        _tmpVel.set(this._pierceDir.x * speed, this._pierceDir.y * speed);
+        // 显式清掉刚体速度（避免上一发遗留 + 视觉一致性）
+        _tmpVel.set(0, 0);
         this._rb.linearVelocity = _tmpVel;
+
+        // 旋转跟随穿透方向（曲线模式用切线已旋转过，这里再校准一次）
+        this._applyRotation(this._pierceDir);
     }
 
-    private _updatePierce() {
+    private _updatePierce(dt: number) {
         if (this._done) return;
+        // 直线推进：position += dir * speed * dt
+        const pos = this.node.worldPosition;
+        _tmpPos.set(
+            pos.x + this._pierceDir.x * this._pierceSpeed * dt,
+            pos.y + this._pierceDir.y * this._pierceSpeed * dt,
+            pos.z,
+        );
+        this.node.setWorldPosition(_tmpPos);
+
         if (this._isOutOfScreen()) {
             this._release();
         }

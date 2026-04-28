@@ -4,7 +4,7 @@ import { EPropertyId } from '../config/enum/propertyEnum';
 import { EnemyControl } from '../enemy/EnemyControl';
 import type { GameHitContext } from './types';
 
-@hitEffect
+@hitEffect('DamageHitEffect')
 export class DamageHitEffect extends HitEffectBase {
     onHit(ctx: GameHitContext): void {
         const atk = Math.round(ctx.attackerProp.getValue(EPropertyId.Attack));

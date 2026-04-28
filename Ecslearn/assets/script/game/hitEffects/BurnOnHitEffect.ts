@@ -10,7 +10,7 @@ import type { GameHitContext } from './types';
  * 配置项：burnRatio(伤害比例)、burnBuffId(buff唯一ID)、
  *         burnDuration(持续秒)、burnTickInterval(tick间隔秒)、burnMaxStack(最大层数)。
  */
-@hitEffect
+@hitEffect('BurnOnHitEffect')
 export class BurnOnHitEffect extends HitEffectBase {
     onHit(ctx: GameHitContext): void {
         const ratio = this.data.burnRatio ?? 0.2;

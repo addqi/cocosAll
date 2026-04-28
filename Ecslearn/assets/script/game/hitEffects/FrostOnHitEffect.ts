@@ -9,7 +9,7 @@ import type { GameHitContext } from './types';
  * 配置项：frostBuffId、frostDuration、frostMaxStack、frostSlowPerStack（每层减速值）。
  * FrostSlowEffect 会对目标 MoveSpeed-Mul-Buff 做负数乘法修饰（减速）。
  */
-@hitEffect
+@hitEffect('FrostOnHitEffect')
 export class FrostOnHitEffect extends HitEffectBase {
     onHit(ctx: GameHitContext): void {
         const slowPerStack = this.data.frostSlowPerStack ?? 0.15;

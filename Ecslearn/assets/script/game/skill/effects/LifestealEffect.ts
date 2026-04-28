@@ -1,5 +1,5 @@
 import { buffEffect } from '../../../baseSystem/buff/buffEffect';
 import { SimpleAttrBuffEffect } from './SimpleAttrBuffEffect';
 
-@buffEffect
+@buffEffect('LifestealEffect')
 export class LifestealEffect extends SimpleAttrBuffEffect {}

@@ -8,7 +8,7 @@ import type { AttributeChange } from '../../../baseSystem/buff/types';
  * 每 tick 对 owner 造成 damagePerStack × stack 纯伤害。
  * 配合 tickInterval=0.1, duration=5, stackDecayOnTick=false 使用。
  */
-@buffEffect
+@buffEffect('BurnDotEffect')
 export class BurnDotEffect extends BuffEffectBase {
     getChanges(): AttributeChange[] {
         return [];

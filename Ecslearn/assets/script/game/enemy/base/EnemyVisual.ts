@@ -3,7 +3,7 @@ import { Node, Color, Sprite, SpriteFrame, UITransform, UIOpacity,
 import type { EnemyCombat } from '../EnemyCombat';
 import { enemyResConfig } from '../config/enemyResConfig';
 import { ResourceMgr } from '../../../baseSystem/resource';
-import { GameLoop } from '../../core/GameLoop';
+import { ResourceState } from '../../core/ResourceState';
 
 let _whiteFrame: SpriteFrame | null = null;
 function getWhiteSF(): SpriteFrame {
@@ -100,7 +100,7 @@ export class EnemyVisual {
         groundFX: Node, detectionRange: number,
         scheduleRetry: (cb: () => void, delay: number) => void,
     ): void {
-        if (!GameLoop.resourcesReady) {
+        if (!ResourceState.ready) {
             scheduleRetry(() => this.tryCreateDetectionCircle(groundFX, detectionRange, scheduleRetry), 0.1);
             return;
         }

@@ -11,7 +11,7 @@ const _dir = new Vec3();
  * 将目标沿 hitOriginPos → targetNode 方向瞬间推开 knockDist 像素。
  * 配置项：knockDist(击退距离，默认 60)。
  */
-@hitEffect
+@hitEffect('KnockbackEffect')
 export class KnockbackEffect extends HitEffectBase {
     onHit(ctx: GameHitContext): void {
         const node   = ctx.targetNode;

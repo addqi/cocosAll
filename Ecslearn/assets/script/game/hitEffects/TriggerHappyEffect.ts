@@ -19,7 +19,7 @@ import type { ShootEventContext, GameHitContext } from './types';
  * 这是"onShoot 钩子 + ProbabilityCooldown 工具"组合使用的**样板**。
  * 其他"每次发射类效果"（如 split-arrow）都按这个模式写。
  */
-@hitEffect
+@hitEffect('TriggerHappyEffect')
 export class TriggerHappyEffect extends HitEffectBase {
     private readonly _prob: ProbabilityCooldown;
     private readonly _delaySec: number;

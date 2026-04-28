@@ -617,7 +617,7 @@
   {
     "id": "auto-aim",
     "name": "自动瞄准",
-    "desc": "站立时自动射击最近敌人",
+    "desc": "自动射击最近敌人（移动时也生效）",
     "tier": 1,
     "rarity": "rare",
     "category": "policy",
@@ -627,7 +627,7 @@
         "type": "shoot_policy",
         "data": {
           "policyClass": "AutoShoot",
-          "level": 1
+          "level": 2
         }
       }
     ]

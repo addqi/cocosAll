@@ -4,7 +4,7 @@ import type { BuffRuntimeInfo } from '../../../baseSystem/buff/BuffRuntimeInfo';
 import type { AttributeChange } from '../../../baseSystem/buff/types';
 import { EChangeType } from '../../../baseSystem/buff/buffEnum';
 
-@buffEffect
+@buffEffect('AddHpBuffEffect')
 export class AddHpBuffEffect extends BuffEffectBase {
     constructor(runtime: BuffRuntimeInfo) {
         super(runtime);

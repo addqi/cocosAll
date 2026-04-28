@@ -1,7 +1,7 @@
 import { _decorator, Component, Sprite, UITransform, Size } from 'cc';
 import { SpriteSheetUtil, SpriteAnimator } from '../../../baseSystem/animation';
 import { playerConfig } from '../config/playerConfig';
-import { GameLoop } from '../../core/GameLoop';
+import { ResourceState } from '../../core/ResourceState';
 const { ccclass } = _decorator;
 
 /** 玩家动画状态 */
@@ -27,7 +27,7 @@ export class PlayerAnimation extends Component {
         const ut = this.getComponent(UITransform) || this.node.addComponent(UITransform);
         ut.setContentSize(new Size(playerConfig.displayWidth, playerConfig.displayHeight));
 
-        GameLoop.onReady(() => this._initAnims());
+        ResourceState.onReady(() => this._initAnims());
     }
 
     private _initAnims() {

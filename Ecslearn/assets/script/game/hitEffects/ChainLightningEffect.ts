@@ -19,7 +19,7 @@ const FLASH_DURATION_MS = 120;
  * 配置项：chance(触发概率)、jumps(跳数)、chainRatio(首跳伤害比例)、
  *         chainDecay(每跳衰减)、chainRange(跳跃搜索半径)。
  */
-@hitEffect
+@hitEffect('ChainLightningEffect')
 export class ChainLightningEffect extends HitEffectBase {
     onHit(ctx: GameHitContext): void {
         if (ctx.finalDamage <= 0) return;

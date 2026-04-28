@@ -20,7 +20,7 @@ import type { GameHitContext } from './types';
  *     }
  *   }
  */
-@hitEffect
+@hitEffect('ApplyBuffOnHitEffect')
 export class ApplyBuffOnHitEffect extends HitEffectBase {
 
     onHit(ctx: GameHitContext): void {

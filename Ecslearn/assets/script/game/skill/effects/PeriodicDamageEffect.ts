@@ -10,7 +10,7 @@ import { buffEffect } from '../../../baseSystem/buff/buffEffect';
  * JSON 配置:
  *   { "effectClass": "PeriodicDamageEffect", "damagePerStack": 5, "tickInterval": 1 }
  */
-@buffEffect
+@buffEffect('PeriodicDamageEffect')
 export class PeriodicDamageEffect extends BuffEffectBase {
 
     getChanges(): AttributeChange[] { return []; }

@@ -10,7 +10,7 @@ import { buffEffect } from '../../../baseSystem/buff/buffEffect';
  * JSON 配置需提供 targetAttr 和 valuePerStack 字段。
  * 子类只需继承 + @buffEffect 装饰器，无需重复任何逻辑。
  */
-@buffEffect
+@buffEffect('SimpleAttrBuffEffect')
 export class SimpleAttrBuffEffect extends BuffEffectBase {
     getChanges(): AttributeChange[] {
         return [{

@@ -19,7 +19,7 @@ import { buffEffect } from '../../../baseSystem/buff/buffEffect';
  *       { "attrId": "CritRate-Value-Buff", "type": "ADD", "valuePerStack": 0.1 }
  *   ]}
  */
-@buffEffect
+@buffEffect('AttrModifierEffect')
 export class AttrModifierEffect extends BuffEffectBase {
 
     getChanges(): AttributeChange[] {
