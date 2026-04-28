@@ -330,18 +330,11 @@ export class GamePage extends Component {
         this._boardRoot.addChild(node);
         node.addComponent(UITransform).setContentSize(boardSize, boardSize);
 
+        // 单层节点结构——所有 piece 直接挂 PieceLayer，
+        // 拖动期间不修改层级顺序（试验3：让 cocos batcher 按初始顺序自然画）。
         const pieceLayer = new Node('PieceLayer');
         node.addChild(pieceLayer);
         pieceLayer.addComponent(UITransform).setContentSize(boardSize, boardSize);
-
-        // 拖动专用层——永远在 PieceLayer 之上（sibling 更大）。
-        // 拖一组时整组 reparent 进来，commit 后 reparent 回去。
-        // 不靠 setSiblingIndex 在同层挪——cocos 3.8 sprite batcher 在合批模式下
-        // 内部 vertex buffer 的实际绘制顺序对 setSiblingIndex 不严格响应，
-        // 视觉上"被拖块仍被其他块挡"的诡异现象就出在这里。两层物理隔离最干净。
-        const dragLayer = new Node('DragLayer');
-        node.addChild(dragLayer);
-        dragLayer.addComponent(UITransform).setContentSize(boardSize, boardSize);
 
         this._board = node.addComponent(PuzzleBoard);
         this._board.sourceImage = this._sf;

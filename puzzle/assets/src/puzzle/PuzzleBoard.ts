@@ -1,5 +1,5 @@
 import {
-    _decorator, Color, Component, EventTouch, Material, Node, Rect, Sprite,
+    _decorator, Color, Component, EventTouch, Material, Node, Rect, Sorting2D, Sprite,
     SpriteFrame, tween, UITransform, Vec2, Vec3,
 } from 'cc';
 import { PuzzlePiece } from './PuzzlePiece';
@@ -41,13 +41,43 @@ const { ccclass } = _decorator;
  *   两者 OR 合到一个早退入口——不需要 enum。
  *
  * 事务模型（06/07 节合体）：
- *   BEGIN：onPieceTouchStart 提整组 z-order
+ *   BEGIN：onPieceTouchStart 整组 Sorting2D.sortingOrder bump 到极值（提层）
  *   WORK： onPieceTouchMove 整组按 UIDelta 同步移动（不动 slots）
- *   COMMIT：onPieceTouchEnd 写 slots → 启动缓动 → 缓动结束跑 mergeScan + 胜利判定
+ *   COMMIT：onPieceTouchEnd 写 slots → 启动缓动 → 缓动结束跑 _resetAllPriorities
+ *           + mergeScan + 胜利判定
  *
  * 节点结构（GamePage 准备）：
  *   PuzzleBoard 节点
- *     └── PieceLayer
+ *     └── PieceLayer  （所有 piece 都挂这里）
+ *
+ * 拖动层级策略（**反直觉，重点看**）：
+ *   每块 piece 挂 cc.Sorting2D 组件，sortingOrder 初始 = pid。
+ *   拖动时把整组的 sortingOrder bump 到 **-1000-pid（极小值）**，提交后 reset 回 pid。
+ *
+ *   关键反常识：在本项目（08 路径，共享 puzzle-piece.effect 自定义 shader）下，
+ *   **数值越小的 priority 反而画在最上层**——与 cocos 文档约定相反。
+ *
+ *   推测原因（高置信度但未拍板）：
+ *     1. puzzle-piece.effect 用 `blend: true` + `cullMode: none`，sprite 被归入
+ *        3D 渲染管线的"transparent queue"，该 queue 的排序方向与 cocos 默认 sprite
+ *        material 不一样——transparent 通常按"远→近"画（painter's algorithm），
+ *        实现里可能反映为"低 priority 后画 → 在最上"。
+ *     2. 也可能是 cocos 3.8 在本项目实际构建里 USE_SORTING_2D 宏没生效——
+ *        sort 路径死代码，priority 完全被忽略，但 chunk allocator 的 VBO 物理位置
+ *        恰好让"sortingOrder 越小（= 越早设置 = 越早分配 chunk = 越靠 buffer 末尾？）"
+ *        的块画在最后，从而在最上。
+ *     3. 实证后：诊断 log 证明 priority **真的被算出来**（sorting2DCount > 0 + onEnable
+ *        生效），但视觉验证 1000+pid 在底、-1000-pid 在顶——所以 (1) 概率最大。
+ *
+ *   失败的多次尝试（删除前留证据，给未来踩同样坑的人）：
+ *     - 试验1: 强制走 01 路径（pieceMaterial=null）→ 视觉正常 → 锁定问题在 shader 路径
+ *     - 试验2: 单 layer + setSiblingIndex → 改了 children 数组没改 chunk vid → 无效
+ *     - 试验3: 双 layer + reparent 到 DragLayer → chunk 物理位置不变 → 无效
+ *     - 试验4: Sorting2D + 1000+pid（高 priority）→ 结果 dragged 在底（!）
+ *     - 试验5: Sorting2D + -1000-pid（极低 priority）→ 视觉正确 → ✓ 当前方案
+ *
+ *   未来如果换 effect / 升 cocos 版本，**先把 -1000 改回 +1000 验证一次**——
+ *   如果新版本/新 shader 让 sort 方向回归正向，应该改回去保持代码符合直觉。
  *
  * 用 start() 不用 onLoad()——后者在 addComponent() 同步触发，
  * GamePage 流程是 "addComponent → 赋值 sourceImage"，onLoad 时字段还是 null。
@@ -138,9 +168,6 @@ export class PuzzleBoard extends Component {
             return;
         }
         layer.removeAllChildren();
-        // 拖动中被 restart 的极端情况：DragLayer 还可能残留旧 piece。一并清。
-        const dragLayer = this._getDragLayer();
-        if (dragLayer) dragLayer.removeAllChildren();
         // 重启时所有状态归零——胜利状态绝不能跨次复用。
         this._victorious = false;
         this._inputLocked = false;
@@ -257,6 +284,13 @@ export class PuzzleBoard extends Component {
             piece.groupId = pid;
             piece.borderMask = 0xf;
 
+            // Sorting2D：拖动期间靠它把当前组的 priority 调到极值，进而控制层级。
+            // **为什么需要 + 反向逻辑**——见类顶部"拖动层级策略"。
+            // 初始 sortingOrder=pid 没特别含义（块不重叠），只是给一个稳定 baseline，
+            // 方便 _resetAllPriorities 复位。
+            const sorting = node.addComponent(Sorting2D);
+            sorting.sortingOrder = pid;
+
             this._registerPieceTouch(node);
             this._pieceNodes.push(node);
             this._pieceSprites.push(sp);
@@ -315,6 +349,11 @@ export class PuzzleBoard extends Component {
             piece.row = r;
             piece.col = c;
             piece.groupId = pid;
+
+            // 同 _createPiecesShared 同段注释——01 路径下虽然单块独立 SpriteFrame
+            // 不会触发 shader 路径的反向 sort，但保持两条路径行为一致更省心。
+            const sorting = node.addComponent(Sorting2D);
+            sorting.sortingOrder = pid;
 
             this._registerPieceTouch(node);
             this._pieceNodes.push(node);
@@ -646,39 +685,42 @@ export class PuzzleBoard extends Component {
     /* ───────────────────── 06+07: 触摸事件 ───────────────────── */
 
     /**
-     * BEGIN：把整组提到 sibling 末尾，拖动期间不被别块遮挡。
+     * BEGIN：把拖动整组的 Sorting2D.sortingOrder bump 到 **-1000-pid**（极小值）。
      *
-     * 早退两个状态：胜利或缓动中。
-     * N=1（单块组）和 N=k（多块组）走同一段循环——"消除特殊情况"，没有"判一下是否单块"的分支。
+     * **为什么是负数 / 越小越在上**——见类顶部"拖动层级策略"详细解释。
+     * 简版：本项目 08 路径用了自定义 shader（blend+cullNone），sprite 走 3D transparent
+     * queue，该 queue 的排序方向相反——priority 越小反而画在最上层。
+     * 不是直觉错，是 cocos transparent queue 与 sprite 默认 queue 的排序约定不一样。
+     *
+     * -1000 这个魔数：< 0 - max_pid（即使 31×31=961 块也安全），保证拖动组的 priority
+     * 永远小于其他静态块。组内成员各 -1000-pid 保持相对顺序（多块组也成立）。
+     *
+     * commit / snapBack 末尾会调 _resetAllPriorities() 把所有块复位回 sortingOrder=pid。
      */
     private _onPieceTouchStart(event: EventTouch): void {
         if (this._victorious || this._inputLocked) return;
         const node = event.target as Node;
-        const piece = node.getComponent(PuzzlePiece)!;
-        const groupId = piece.groupId;
-
-        // 整组 reparent 到 DragLayer。两层 (PieceLayer / DragLayer) 共享同一坐标系
-        // （父节点同 + 位置同 (0,0) + 同尺寸），本地坐标不变即视觉位置不变。
-        const dragLayer = this._getDragLayer();
-        if (!dragLayer) return;
+        const groupId = node.getComponent(PuzzlePiece)!.groupId;
         for (let pid = 0; pid < this.pieceCount; pid++) {
             const pNode = this._pieceNodes[pid];
             if (pNode.getComponent(PuzzlePiece)!.groupId === groupId) {
-                pNode.parent = dragLayer;
+                pNode.getComponent(Sorting2D)!.sortingOrder = -1000 - pid;
             }
         }
     }
 
-    /** 拿 DragLayer——GamePage._mountBoard 给 PuzzleBoard 节点挂的兄弟层。 */
-    private _getDragLayer(): Node | null {
-        return this.node.getChildByName('DragLayer');
+    /**
+     * 把所有 piece 的 sortingOrder 复位到 pid（baseline）。
+     * commit 缓动结束时 + snapBack 缓动结束时调——保证下一次拖动前层级是干净的。
+     *
+     * 复位值 pid 没特别含义（pieces 不重叠），只是给个稳定值——不复位的话下一次
+     * touchStart 会在已 bump 的状态上再 bump，逻辑没错但 priority 数值会越拖越极端。
+     */
+    private _resetAllPriorities(): void {
+        for (let pid = 0; pid < this.pieceCount; pid++) {
+            this._pieceNodes[pid].getComponent(Sorting2D)!.sortingOrder = pid;
+        }
     }
-
-    /** 拿 PieceLayer——piece 节点的"家"。 */
-    private _getPieceLayer(): Node | null {
-        return this.node.getChildByName('PieceLayer');
-    }
-
 
     /**
      * WORK：所有同组块按 UIDelta 一起挪。slots 不动——拖动期间是"虚位移"，COMMIT 才提交。
@@ -809,9 +851,7 @@ export class PuzzleBoard extends Component {
      */
     private _commitAfterTween(): void {
         try {
-            // 先把 DragLayer 里所有 piece 送回 PieceLayer——任何状态下都该归位，
-            // 不变量：仅在拖动 + tween 期间 piece 才允许在 DragLayer。
-            this._returnAllDragPieces();
+            this._resetAllPriorities();
             const { mergedAny, allInOneGroup } = this._mergeScan();
             if (mergedAny) {
                 console.log('[PuzzleBoard] merge happened\n' + this._dumpBoard());
@@ -826,22 +866,6 @@ export class PuzzleBoard extends Component {
             }
         } finally {
             this._inputLocked = false;
-        }
-    }
-
-    /**
-     * 把当前在 DragLayer 里的所有 piece 一次性送回 PieceLayer。
-     *
-     * 用 slice() 复制 children 引用——直接遍历 children 同时 reparent 会跳节点
-     * （cocos children 数组在 setParent 时被修改，索引错位）。
-     */
-    private _returnAllDragPieces(): void {
-        const dragLayer = this._getDragLayer();
-        const pieceLayer = this._getPieceLayer();
-        if (!dragLayer || !pieceLayer) return;
-        const dragKids = dragLayer.children.slice();
-        for (const child of dragKids) {
-            child.parent = pieceLayer;
         }
     }
 
@@ -862,8 +886,7 @@ export class PuzzleBoard extends Component {
         tween(this.node)
             .delay(this.tweenDuration)
             .call(() => {
-                // 弹回完成同样要把 DragLayer 清空——这里只有被弹回的组在里头。
-                this._returnAllDragPieces();
+                this._resetAllPriorities();
                 this._inputLocked = false;
             })
             .start();

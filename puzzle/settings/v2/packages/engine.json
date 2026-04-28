@@ -45,7 +45,7 @@
             "_value": true
           },
           "ui-skew": {
-            "_value": false
+            "_value": true
           },
           "affine-transform": {
             "_value": true
@@ -208,6 +208,7 @@
           "sorting-2d",
           "tween",
           "ui",
+          "ui-skew",
           "webview"
         ],
         "noDeprecatedFeatures": {
